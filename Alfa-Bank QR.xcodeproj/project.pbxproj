@@ -14,6 +14,11 @@
 		E714B25D24705D5000BB3F05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E714B25B24705D5000BB3F05 /* Main.storyboard */; };
 		E714B25F24705D5200BB3F05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E714B25E24705D5200BB3F05 /* Assets.xcassets */; };
 		E714B26224705D5200BB3F05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E714B26024705D5200BB3F05 /* LaunchScreen.storyboard */; };
+		E74A48432471560C0004B5B5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A48422471560C0004B5B5 /* User.swift */; };
+		E74A4845247158E50004B5B5 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4844247158E50004B5B5 /* Card.swift */; };
+		E74A4848247159B50004B5B5 /* DataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4847247159B50004B5B5 /* DataItem.swift */; };
+		E74A484A247159EA0004B5B5 /* SavedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4849247159EA0004B5B5 /* SavedCard.swift */; };
+		E74A484E24715A920004B5B5 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A484D24715A920004B5B5 /* Json.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +31,11 @@
 		E714B25E24705D5200BB3F05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E714B26124705D5200BB3F05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E714B26324705D5200BB3F05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E74A48422471560C0004B5B5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		E74A4844247158E50004B5B5 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
+		E74A4847247159B50004B5B5 /* DataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataItem.swift; sourceTree = "<group>"; };
+		E74A4849247159EA0004B5B5 /* SavedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCard.swift; sourceTree = "<group>"; };
+		E74A484D24715A920004B5B5 /* Json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,16 +68,45 @@
 		E714B25224705D5000BB3F05 /* Alfa-Bank QR */ = {
 			isa = PBXGroup;
 			children = (
+				E74A484C24715A830004B5B5 /* Utils */,
+				E74A484B24715A500004B5B5 /* Controllers */,
+				E74A4846247159A10004B5B5 /* Entities */,
 				E714B25324705D5000BB3F05 /* AppDelegate.swift */,
 				E714B25524705D5000BB3F05 /* SceneDelegate.swift */,
-				E714B25724705D5000BB3F05 /* FirstViewController.swift */,
-				E714B25924705D5000BB3F05 /* SecondViewController.swift */,
 				E714B25B24705D5000BB3F05 /* Main.storyboard */,
 				E714B25E24705D5200BB3F05 /* Assets.xcassets */,
 				E714B26024705D5200BB3F05 /* LaunchScreen.storyboard */,
 				E714B26324705D5200BB3F05 /* Info.plist */,
 			);
 			path = "Alfa-Bank QR";
+			sourceTree = "<group>";
+		};
+		E74A4846247159A10004B5B5 /* Entities */ = {
+			isa = PBXGroup;
+			children = (
+				E74A48422471560C0004B5B5 /* User.swift */,
+				E74A4844247158E50004B5B5 /* Card.swift */,
+				E74A4847247159B50004B5B5 /* DataItem.swift */,
+				E74A4849247159EA0004B5B5 /* SavedCard.swift */,
+			);
+			path = Entities;
+			sourceTree = "<group>";
+		};
+		E74A484B24715A500004B5B5 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E714B25724705D5000BB3F05 /* FirstViewController.swift */,
+				E714B25924705D5000BB3F05 /* SecondViewController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
+		E74A484C24715A830004B5B5 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				E74A484D24715A920004B5B5 /* Json.swift */,
+			);
+			path = Utils;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -141,10 +180,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E74A484E24715A920004B5B5 /* Json.swift in Sources */,
 				E714B25A24705D5000BB3F05 /* SecondViewController.swift in Sources */,
+				E74A4848247159B50004B5B5 /* DataItem.swift in Sources */,
+				E74A4845247158E50004B5B5 /* Card.swift in Sources */,
 				E714B25824705D5000BB3F05 /* FirstViewController.swift in Sources */,
 				E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */,
+				E74A48432471560C0004B5B5 /* User.swift in Sources */,
 				E714B25624705D5000BB3F05 /* SceneDelegate.swift in Sources */,
+				E74A484A247159EA0004B5B5 /* SavedCard.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -291,6 +335,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQUYF75S8L;
 				INFOPLIST_FILE = "Alfa-Bank QR/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -298,7 +343,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "urfusoftware.Alfa-Bank-QR";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -309,6 +354,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQUYF75S8L;
 				INFOPLIST_FILE = "Alfa-Bank QR/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -316,7 +362,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "urfusoftware.Alfa-Bank-QR";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
