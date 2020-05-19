@@ -10,7 +10,7 @@ import Foundation
 
 class Json {
     static func toJson(user : User) -> String {
-        return user.description
+        return "\(user.name),\(user.surname),\(user.patronymic),\(user.company),\(user.jobTitle),\(user.mobile),\(user.mobileSecond),\(user.email),\(user.emailSecond),\(user.address),\(user.addressSecond),\(user.sberbank),\(user.vtb),\(user.alfabank),\(user.vk),\(user.facebook),\(user.instagram),\(user.twitter),\(user.notes)"
     }
     
     static func fromJson(json : String) -> User {

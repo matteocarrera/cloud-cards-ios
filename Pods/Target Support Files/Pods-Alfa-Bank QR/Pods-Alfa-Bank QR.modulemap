@@ -1,0 +1,6 @@
+framework module Pods_Alfa_Bank_QR {
+  umbrella header "Pods-Alfa-Bank QR-umbrella.h"
+
+  export *
+  module * { export * }
+}

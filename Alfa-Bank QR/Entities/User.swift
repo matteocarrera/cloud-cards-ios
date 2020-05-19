@@ -7,32 +7,31 @@
 //
 
 import Foundation
+import RealmSwift
 
-class User {
-    var id : Int = 0
-    var photo : [UInt8]? = []
-    var qr : [UInt8]? = []
-    var isOwner : Int = 0
-    var isScanned : Int = 0
-    var name : String = ""
-    var surname : String = ""
-    var patronymic : String = ""
-    var company : String = ""
-    var jobTitle : String = ""
-    var mobile : String = ""
-    var mobileSecond : String = ""
-    var email : String = ""
-    var emailSecond : String = ""
-    var address : String = ""
-    var addressSecond : String = ""
-    var sberbank : String = ""
-    var vtb : String = ""
-    var alfabank : String = ""
-    var vk : String = ""
-    var facebook : String = ""
-    var instagram : String = ""
-    var twitter : String = ""
-    var notes : String = ""
-    
-    public var description : String {return "\(name),\(surname),\(patronymic),\(company),\(jobTitle),\(mobile),\(mobileSecond),\(email),\(emailSecond),\(address),\(addressSecond),\(sberbank),\(vtb),\(alfabank),\(vk),\(facebook),\(instagram),\(twitter),\(notes)"}
+class User : Object {
+    @objc dynamic var id : Int = 0
+    @objc dynamic var photo : NSData?
+    @objc dynamic var qr : NSData?
+    @objc dynamic var isOwner : Int = 0
+    @objc dynamic var isScanned : Int = 0
+    @objc dynamic var name : String = ""
+    @objc dynamic var surname : String = ""
+    @objc dynamic var patronymic : String = ""
+    @objc dynamic var company : String = ""
+    @objc dynamic var jobTitle : String = ""
+    @objc dynamic var mobile : String = ""
+    @objc dynamic var mobileSecond : String = ""
+    @objc dynamic var email : String = ""
+    @objc dynamic var emailSecond : String = ""
+    @objc dynamic var address : String = ""
+    @objc dynamic var addressSecond : String = ""
+    @objc dynamic var sberbank : String = ""
+    @objc dynamic var vtb : String = ""
+    @objc dynamic var alfabank : String = ""
+    @objc dynamic var vk : String = ""
+    @objc dynamic var facebook : String = ""
+    @objc dynamic var instagram : String = ""
+    @objc dynamic var twitter : String = ""
+    @objc dynamic var notes : String = ""
 }
