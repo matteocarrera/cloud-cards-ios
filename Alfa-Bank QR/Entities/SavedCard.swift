@@ -10,7 +10,7 @@ import Foundation
 
 class SavedCard {
     var id : Int = 0
-    var photo : [UInt8] = []
+    var photo : NSData?
     var name : String = ""
     var surname : String = ""
     var jobTitle : String = ""

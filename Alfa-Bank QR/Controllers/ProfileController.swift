@@ -9,11 +9,15 @@
 import UIKit
 import RealmSwift
 
-class ProfileController: UIViewController {
+class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+
+    @IBOutlet var tableView: UITableView!
+    var data = [DataItem]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        configureTableView()
+        
         let realm = try! Realm()
         
         print(Realm.Configuration.defaultConfiguration.fileURL)
@@ -29,17 +33,52 @@ class ProfileController: UIViewController {
         try! realm.write {
             //realm.add(user)
         }
+        
+        let owner = realm.objects(User.self).filter("isOwner = 1")
+        data = DataUtils.setDataToList(user: owner[0])
+        
     }
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    func configureTableView() {
+        self.view.addSubview(tableView)
+        tableView.delegate = self
+        tableView.dataSource = self
+        //tableView.register(DataTableViewCell.self, forCellReuseIdentifier: "DataCell")
     }
-    */
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 50
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "DataCell", for: indexPath) as! DataTableViewCell
+        
+        let dataCell = data[indexPath.row]
+        cell.descriptionText?.text = dataCell.description
+        cell.titleText?.text = dataCell.title
+        
+        return cell
+    }
+}
 
+class DataTableViewCell : UITableViewCell {
+    
+    @IBOutlet weak var titleText: UILabel!
+    @IBOutlet weak var descriptionText: UILabel!
+    
+    override func awakeFromNib() {
+        super.awakeFromNib()
+    }
+    
+    override func setSelected(_ selected: Bool, animated: Bool) {
+        super.setSelected(selected, animated: animated)
+    }
 }

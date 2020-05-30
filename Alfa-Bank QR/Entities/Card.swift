@@ -7,10 +7,11 @@
 //
 
 import Foundation
+import RealmSwift
 
-class Card {
-    var id : Int = 0
-    var color : Int = 0
-    var title : String = ""
-    var userId : Int = 0
+class Card : Object {
+    @objc dynamic var id : Int = 0
+    @objc dynamic var color : Int = 0
+    @objc dynamic var title : String = ""
+    @objc dynamic var userId : Int = 0
 }

@@ -21,6 +21,7 @@
 		E74A484A247159EA0004B5B5 /* SavedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4849247159EA0004B5B5 /* SavedCard.swift */; };
 		E74A484E24715A920004B5B5 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A484D24715A920004B5B5 /* Json.swift */; };
 		E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A484F2471707C0004B5B5 /* ProfileController.swift */; };
+		E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DDDC1424826BDC00E8F462 /* DataUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		E74A4849247159EA0004B5B5 /* SavedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCard.swift; sourceTree = "<group>"; };
 		E74A484D24715A920004B5B5 /* Json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
 		E74A484F2471707C0004B5B5 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		E7DDDC1424826BDC00E8F462 /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -132,6 +134,7 @@
 			isa = PBXGroup;
 			children = (
 				E74A484D24715A920004B5B5 /* Json.swift */,
+				E7DDDC1424826BDC00E8F462 /* DataUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -257,6 +260,7 @@
 				E74A4845247158E50004B5B5 /* Card.swift in Sources */,
 				E714B25824705D5000BB3F05 /* FirstViewController.swift in Sources */,
 				E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */,
+				E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */,
 				E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */,
 				E74A48432471560C0004B5B5 /* User.swift in Sources */,
 				E714B25624705D5000BB3F05 /* SceneDelegate.swift in Sources */,
