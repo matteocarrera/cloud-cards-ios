@@ -1,5 +1,5 @@
 //
-//  FirstViewController.swift
+//  SecondViewController.swift
 //  Alfa-Bank QR
 //
 //  Created by Владимир Макаров on 16.05.2020.
@@ -8,13 +8,16 @@
 
 import UIKit
 
-class FirstViewController: UIViewController {
+class SecondViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .darkContent
+    }
 
 }
 
