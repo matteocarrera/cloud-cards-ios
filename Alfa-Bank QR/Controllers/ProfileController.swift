@@ -17,10 +17,14 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
         
         let realm = try! Realm()
         
-        print(Realm.Configuration.defaultConfiguration.fileURL)
+        //print(Realm.Configuration.defaultConfiguration.fileURL)
         
         let user = User()
         user.id = 0
@@ -29,14 +33,22 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         user.surname = "Макаров"
         user.mobile = "+79121083757"
         user.email = "matteocarrera@mail.ru"
-        
+        user.company = "ПАО \"Газпром\""
+        user.jobTitle = "Java-разработчик"
+        user.vk = "matteocarrera"
+
         try! realm.write {
             //realm.add(user)
         }
         
         let owner = realm.objects(User.self).filter("isOwner = 1")
-        data = DataUtils.setDataToList(user: owner[0])
+        if owner.count != 0 {
+            data = DataUtils.setDataToList(user: owner[0])
+        } else {
+            data = [DataItem]()
+        }
         
+        tableView.reloadData()
     }
     
     func configureTableView() {

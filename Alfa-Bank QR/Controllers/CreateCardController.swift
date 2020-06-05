@@ -13,22 +13,44 @@ class CreateCardController: UIViewController, UITableViewDelegate, UITableViewDa
 
     var data = [DataItem]()
     var selectedItems = [DataItem]()
+    var userJson = ""
     @IBOutlet weak var tableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView()
         
+        let rightBarItem = UIBarButtonItem(title: "QR", style: .plain, target: self, action: #selector(test))
+        
+        self.navigationItem.rightBarButtonItem = rightBarItem
+        
         let realm = try! Realm()
         
         let owner = realm.objects(User.self).filter("isOwner = 1")
-        data = DataUtils.setDataToList(user: owner[0])
+        if owner.count != 0 {
+            data = DataUtils.setDataToList(user: owner[0])
+        } else {
+            data = [DataItem]()
+        }
+        
     }
     
     func configureTableView() {
         self.view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    
+    @objc fileprivate func test() {
+        let user = DataUtils.parseDataToUser(data: selectedItems)
+        userJson = Json.toJson(user: user)
+        performSegue(withIdentifier: "segue", sender: self)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        let qrController = segue.destination as! QRController
+        qrController.userJson = self.userJson
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -70,7 +92,6 @@ class CreateCardController: UIViewController, UITableViewDelegate, UITableViewDa
         } else {
             selectedItems.removeAll(where: { $0.title == dataCell.title })
         }
-        print(selectedItems.count)
         
         tableView.reloadData()
     }

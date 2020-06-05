@@ -11,7 +11,7 @@ import RealmSwift
 
 class User : Object {
     @objc dynamic var id : Int = 0
-    @objc dynamic var photo : NSData?
+    @objc dynamic var photo : String = ""
     @objc dynamic var qr : NSData?
     @objc dynamic var isOwner : Int = 0
     @objc dynamic var isScanned : Int = 0
@@ -34,4 +34,8 @@ class User : Object {
     @objc dynamic var instagram : String = ""
     @objc dynamic var twitter : String = ""
     @objc dynamic var notes : String = ""
+    
+    override class func primaryKey() -> String? {
+        return "id"
+    }
 }
