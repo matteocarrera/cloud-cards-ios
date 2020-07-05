@@ -9,4 +9,7 @@ target 'Alfa-Bank QR' do
 
   pod 'RealmSwift'
 
+  pod 'Firebase/Firestore'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Database'
 end

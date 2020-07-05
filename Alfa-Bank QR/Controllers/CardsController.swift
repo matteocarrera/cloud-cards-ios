@@ -35,9 +35,9 @@ class CardsController: UIViewController, UITableViewDelegate, UITableViewDataSou
         tableView.reloadData()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
+    /*override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-    }
+    }*/
     
     func configureTableView() {
         self.view.addSubview(tableView)

@@ -9,12 +9,11 @@
 import Foundation
 import RealmSwift
 
-class User : Object {
-    @objc dynamic var id : Int = 0
+class User : Object, Codable {
+    @objc dynamic var id : String = ""
     @objc dynamic var photo : String = ""
-    @objc dynamic var qr : NSData?
-    @objc dynamic var isOwner : Int = 0
-    @objc dynamic var isScanned : Int = 0
+    @objc dynamic var isOwner : Bool = false
+    @objc dynamic var isScanned : Bool = false
     @objc dynamic var name : String = ""
     @objc dynamic var surname : String = ""
     @objc dynamic var patronymic : String = ""
@@ -26,10 +25,11 @@ class User : Object {
     @objc dynamic var emailSecond : String = ""
     @objc dynamic var address : String = ""
     @objc dynamic var addressSecond : String = ""
-    @objc dynamic var sberbank : String = ""
-    @objc dynamic var vtb : String = ""
-    @objc dynamic var alfabank : String = ""
+    @objc dynamic var cardNumber : String = ""
+    @objc dynamic var cardNumberSecond : String = ""
+    @objc dynamic var website : String = ""
     @objc dynamic var vk : String = ""
+    @objc dynamic var telegram : String = ""
     @objc dynamic var facebook : String = ""
     @objc dynamic var instagram : String = ""
     @objc dynamic var twitter : String = ""

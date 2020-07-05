@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		D7DDE56D92F410257C6B15AA /* Pods_Alfa_Bank_QR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6DF767A4044C1357ECA4AFC /* Pods_Alfa_Bank_QR.framework */; };
+		E70B748824B0C17000C52072 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E70B748724B0C17000C52072 /* GoogleService-Info.plist */; };
 		E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25324705D5000BB3F05 /* AppDelegate.swift */; };
 		E714B25624705D5000BB3F05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25524705D5000BB3F05 /* SceneDelegate.swift */; };
 		E714B25824705D5000BB3F05 /* CardsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25724705D5000BB3F05 /* CardsController.swift */; };
@@ -16,22 +17,23 @@
 		E714B25F24705D5200BB3F05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E714B25E24705D5200BB3F05 /* Assets.xcassets */; };
 		E714B26224705D5200BB3F05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E714B26024705D5200BB3F05 /* LaunchScreen.storyboard */; };
 		E71D726E24841A3200174B24 /* QRController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D726D24841A3200174B24 /* QRController.swift */; };
+		E746AC55248BE8B000F611B8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E746AC54248BE8B000F611B8 /* SettingsViewController.swift */; };
 		E74A48432471560C0004B5B5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A48422471560C0004B5B5 /* User.swift */; };
 		E74A4845247158E50004B5B5 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4844247158E50004B5B5 /* Card.swift */; };
 		E74A4848247159B50004B5B5 /* DataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4847247159B50004B5B5 /* DataItem.swift */; };
-		E74A484A247159EA0004B5B5 /* SavedCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4849247159EA0004B5B5 /* SavedCard.swift */; };
-		E74A484E24715A920004B5B5 /* Json.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A484D24715A920004B5B5 /* Json.swift */; };
 		E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A484F2471707C0004B5B5 /* ProfileController.swift */; };
 		E760A2702482D3D500009919 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E760A26F2482D3D500009919 /* NavigationController.swift */; };
 		E786836B2488E77000844DD4 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786836A2488E77000844DD4 /* EditProfileController.swift */; };
 		E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DDDC1424826BDC00E8F462 /* DataUtils.swift */; };
-		E7F71E652483E35F0068DE7C /* CreateCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F71E642483E35F0068DE7C /* CreateCardController.swift */; };
+		E7E4E637248BA19C00C6E2A0 /* SelectDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */; };
+		E7F8E5E424A38A1E00738AB5 /* NewCardsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8E5E324A38A1E00738AB5 /* NewCardsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		38E25066AE986F47EF7546EB /* Pods-Alfa-Bank QR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alfa-Bank QR.debug.xcconfig"; path = "Target Support Files/Pods-Alfa-Bank QR/Pods-Alfa-Bank QR.debug.xcconfig"; sourceTree = "<group>"; };
 		5CFE60535D2DA245284A13A2 /* Pods-Alfa-Bank QR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alfa-Bank QR.release.xcconfig"; path = "Target Support Files/Pods-Alfa-Bank QR/Pods-Alfa-Bank QR.release.xcconfig"; sourceTree = "<group>"; };
 		E6DF767A4044C1357ECA4AFC /* Pods_Alfa_Bank_QR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Alfa_Bank_QR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E70B748724B0C17000C52072 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E714B25024705D5000BB3F05 /* Альфа-Банк QR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Альфа-Банк QR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E714B25324705D5000BB3F05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E714B25524705D5000BB3F05 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -42,16 +44,16 @@
 		E714B26124705D5200BB3F05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E714B26324705D5200BB3F05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E71D726D24841A3200174B24 /* QRController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRController.swift; sourceTree = "<group>"; };
+		E746AC54248BE8B000F611B8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E74A48422471560C0004B5B5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E74A4844247158E50004B5B5 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		E74A4847247159B50004B5B5 /* DataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataItem.swift; sourceTree = "<group>"; };
-		E74A4849247159EA0004B5B5 /* SavedCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedCard.swift; sourceTree = "<group>"; };
-		E74A484D24715A920004B5B5 /* Json.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Json.swift; sourceTree = "<group>"; };
 		E74A484F2471707C0004B5B5 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		E760A26F2482D3D500009919 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		E786836A2488E77000844DD4 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		E7DDDC1424826BDC00E8F462 /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
-		E7F71E642483E35F0068DE7C /* CreateCardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCardController.swift; sourceTree = "<group>"; };
+		E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDataController.swift; sourceTree = "<group>"; };
+		E7F8E5E324A38A1E00738AB5 /* NewCardsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCardsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -104,6 +106,7 @@
 		E714B25224705D5000BB3F05 /* Alfa-Bank QR */ = {
 			isa = PBXGroup;
 			children = (
+				E70B748724B0C17000C52072 /* GoogleService-Info.plist */,
 				E74A484C24715A830004B5B5 /* Utils */,
 				E74A484B24715A500004B5B5 /* Controllers */,
 				E74A4846247159A10004B5B5 /* Entities */,
@@ -123,7 +126,6 @@
 				E74A48422471560C0004B5B5 /* User.swift */,
 				E74A4844247158E50004B5B5 /* Card.swift */,
 				E74A4847247159B50004B5B5 /* DataItem.swift */,
-				E74A4849247159EA0004B5B5 /* SavedCard.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -135,9 +137,11 @@
 				E714B25924705D5000BB3F05 /* CameraController.swift */,
 				E74A484F2471707C0004B5B5 /* ProfileController.swift */,
 				E760A26F2482D3D500009919 /* NavigationController.swift */,
-				E7F71E642483E35F0068DE7C /* CreateCardController.swift */,
 				E71D726D24841A3200174B24 /* QRController.swift */,
 				E786836A2488E77000844DD4 /* EditProfileController.swift */,
+				E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */,
+				E746AC54248BE8B000F611B8 /* SettingsViewController.swift */,
+				E7F8E5E324A38A1E00738AB5 /* NewCardsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -145,7 +149,6 @@
 		E74A484C24715A830004B5B5 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
-				E74A484D24715A920004B5B5 /* Json.swift */,
 				E7DDDC1424826BDC00E8F462 /* DataUtils.swift */,
 			);
 			path = Utils;
@@ -216,6 +219,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E714B26224705D5200BB3F05 /* LaunchScreen.storyboard in Resources */,
+				E70B748824B0C17000C52072 /* GoogleService-Info.plist in Resources */,
 				E714B25F24705D5200BB3F05 /* Assets.xcassets in Resources */,
 				E714B25D24705D5000BB3F05 /* Main.storyboard in Resources */,
 			);
@@ -270,9 +274,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E74A484E24715A920004B5B5 /* Json.swift in Sources */,
 				E760A2702482D3D500009919 /* NavigationController.swift in Sources */,
 				E71D726E24841A3200174B24 /* QRController.swift in Sources */,
+				E7E4E637248BA19C00C6E2A0 /* SelectDataController.swift in Sources */,
 				E714B25A24705D5000BB3F05 /* CameraController.swift in Sources */,
 				E74A4848247159B50004B5B5 /* DataItem.swift in Sources */,
 				E74A4845247158E50004B5B5 /* Card.swift in Sources */,
@@ -282,9 +286,9 @@
 				E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */,
 				E74A48432471560C0004B5B5 /* User.swift in Sources */,
 				E786836B2488E77000844DD4 /* EditProfileController.swift in Sources */,
-				E7F71E652483E35F0068DE7C /* CreateCardController.swift in Sources */,
 				E714B25624705D5000BB3F05 /* SceneDelegate.swift in Sources */,
-				E74A484A247159EA0004B5B5 /* SavedCard.swift in Sources */,
+				E7F8E5E424A38A1E00738AB5 /* NewCardsController.swift in Sources */,
+				E746AC55248BE8B000F611B8 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

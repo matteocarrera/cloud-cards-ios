@@ -24,23 +24,8 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         let realm = try! Realm()
         
-        //print(Realm.Configuration.defaultConfiguration.fileURL)
-        
-        let user = User()
-        user.id = 0
-        user.isOwner = 1
-        user.name = "Владимир"
-        user.surname = "Макаров"
-        user.mobile = "+79121083757"
-        user.email = "matteocarrera@mail.ru"
-        user.company = "ПАО \"Газпром\""
-        user.jobTitle = "Java-разработчик"
-        user.vk = "matteocarrera"
+        print(Realm.Configuration.defaultConfiguration.fileURL)
 
-        try! realm.write {
-            //realm.add(user)
-        }
-        
         let owner = realm.objects(User.self).filter("isOwner = 1")
         if owner.count != 0 {
             data = DataUtils.setDataToList(user: owner[0])
@@ -55,7 +40,6 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         self.view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
-        //tableView.register(DataTableViewCell.self, forCellReuseIdentifier: "DataCell")
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {

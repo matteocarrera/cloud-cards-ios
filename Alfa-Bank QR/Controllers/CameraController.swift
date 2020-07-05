@@ -102,20 +102,20 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
 
     func found(code: String) {
-        let user : User = Json.fromJson(json: code)
+        //let user : User = Json.fromJson(json: code)
         
         let realm = try! Realm()
 
         let maxValue = realm.objects(User.self).max(ofProperty: "id") as Int?
         if (maxValue != nil) {
-            user.id = maxValue! + 1
+            //user.id = maxValue! + 1
         } else {
-            user.id = 0
+            //user.id = 0
         }
         
         
         try! realm.write {
-            realm.add(user)
+            //realm.add(user)
         }
         
         realm.refresh()
