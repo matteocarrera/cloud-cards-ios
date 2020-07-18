@@ -9,6 +9,7 @@
 import UIKit
 import AVFoundation
 import RealmSwift
+import FirebaseDatabase
 
 class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
@@ -102,20 +103,27 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
 
     func found(code: String) {
-        //let user : User = Json.fromJson(json: code)
+        
+        let parentId = code.split(separator: "|")[0]
+        let uuid = code.split(separator: "|")[1]
+        
+        let ref = Database.database().reference().child(String(parentId)).child(String(uuid))
+
+        var userJson = ""
+        
+        ref.observeSingleEvent(of: .childAdded, with: { (snapshot) in
+             if let json = snapshot.value as? String {
+                userJson = json
+             }
+        })
+        
+        let jsonData = userJson.data(using: .utf8)!
+        let user: UserBoolean = try! JSONDecoder().decode(UserBoolean.self, from: jsonData)
         
         let realm = try! Realm()
-
-        let maxValue = realm.objects(User.self).max(ofProperty: "id") as Int?
-        if (maxValue != nil) {
-            //user.id = maxValue! + 1
-        } else {
-            //user.id = 0
-        }
-        
         
         try! realm.write {
-            //realm.add(user)
+            realm.add(user)
         }
         
         realm.refresh()

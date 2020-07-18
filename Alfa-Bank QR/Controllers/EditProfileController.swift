@@ -53,7 +53,7 @@ class EditProfileController: UIViewController {
         
         let realm = try! Realm()
         
-        let query = realm.objects(User.self).filter("isOwner = 1")
+        let query = realm.objects(User.self)
         if query.count != 0 {
             ownerUser = query[0]
             setUserDataToFields(user: ownerUser!)
@@ -68,9 +68,8 @@ class EditProfileController: UIViewController {
             let uuid = UUID().uuidString
             ownerUser = User()
             updateUserData(ownerUser: ownerUser!)
-            ownerUser?.id = uuid
-            ownerUser?.isOwner = true
-            ownerUser?.isScanned = false
+            ownerUser?.parentId = uuid
+            ownerUser?.uuid = uuid
             
             try! realm.write {
                 realm.add(ownerUser!)
@@ -86,7 +85,7 @@ class EditProfileController: UIViewController {
         let jsonData = try! jsonEncoder.encode(ownerUser)
         let json = String(data: jsonData, encoding: String.Encoding.utf8)
         
-        ref.child(ownerUser!.id).setValue(json)
+        ref.child(ownerUser!.parentId).child(ownerUser!.uuid).setValue(json)
                 
         self.navigationController?.popViewController(animated: true)
     }

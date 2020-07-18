@@ -26,7 +26,7 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         print(Realm.Configuration.defaultConfiguration.fileURL)
 
-        let owner = realm.objects(User.self).filter("isOwner = 1")
+        let owner = realm.objects(User.self)
         if owner.count != 0 {
             data = DataUtils.setDataToList(user: owner[0])
         } else {

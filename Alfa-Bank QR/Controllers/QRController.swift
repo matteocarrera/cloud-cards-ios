@@ -11,13 +11,13 @@ import UIKit
 class QRController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
-    var userJson = ""
+    var userLink = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         //let myString = "Всем привет!"
-        let data = userJson.data(using: String.Encoding.utf8)
+        let data = userLink.data(using: String.Encoding.utf8)
         guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return }
         qrFilter.setValue(data, forKey: "inputMessage")
         guard let qrImage = qrFilter.outputImage else { return }

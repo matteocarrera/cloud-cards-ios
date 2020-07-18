@@ -24,6 +24,7 @@
 		E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A484F2471707C0004B5B5 /* ProfileController.swift */; };
 		E760A2702482D3D500009919 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E760A26F2482D3D500009919 /* NavigationController.swift */; };
 		E786836B2488E77000844DD4 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786836A2488E77000844DD4 /* EditProfileController.swift */; };
+		E7DA719624C31A19009DD08E /* UserBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DA719524C31A19009DD08E /* UserBoolean.swift */; };
 		E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DDDC1424826BDC00E8F462 /* DataUtils.swift */; };
 		E7E4E637248BA19C00C6E2A0 /* SelectDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */; };
 		E7F8E5E424A38A1E00738AB5 /* NewCardsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8E5E324A38A1E00738AB5 /* NewCardsController.swift */; };
@@ -51,6 +52,7 @@
 		E74A484F2471707C0004B5B5 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		E760A26F2482D3D500009919 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		E786836A2488E77000844DD4 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
+		E7DA719524C31A19009DD08E /* UserBoolean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBoolean.swift; sourceTree = "<group>"; };
 		E7DDDC1424826BDC00E8F462 /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
 		E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDataController.swift; sourceTree = "<group>"; };
 		E7F8E5E324A38A1E00738AB5 /* NewCardsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCardsController.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 				E74A48422471560C0004B5B5 /* User.swift */,
 				E74A4844247158E50004B5B5 /* Card.swift */,
 				E74A4847247159B50004B5B5 /* DataItem.swift */,
+				E7DA719524C31A19009DD08E /* UserBoolean.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */,
 				E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */,
 				E74A48432471560C0004B5B5 /* User.swift in Sources */,
+				E7DA719624C31A19009DD08E /* UserBoolean.swift in Sources */,
 				E786836B2488E77000844DD4 /* EditProfileController.swift in Sources */,
 				E714B25624705D5000BB3F05 /* SceneDelegate.swift in Sources */,
 				E7F8E5E424A38A1E00738AB5 /* NewCardsController.swift in Sources */,

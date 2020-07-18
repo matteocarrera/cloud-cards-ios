@@ -34,37 +34,54 @@ class DataUtils {
         return data
     }
     
-    static func parseDataToUser(data : [DataItem]) -> User {
-        let user = User()
-        user.isScanned = false
-        user.isOwner = false
+    static func parseDataToUser(data : [DataItem]) -> UserBoolean {
+        let user = UserBoolean()
         for elem in data {
-            if elem.title == "фамилия" { user.surname = elem.description }
-            if elem.title == "имя" { user.name = elem.description }
-            if elem.title == "отчество" { user.patronymic = elem.description }
-            if elem.title == "компания" { user.company = elem.description }
-            if elem.title == "должность" { user.jobTitle = elem.description }
-            if elem.title == "мобильный номер" { user.mobile = elem.description }
-            if elem.title == "мобильный номер (другой)" { user.mobileSecond = elem.description }
-            if elem.title == "email" { user.email = elem.description }
-            if elem.title == "email (другой)" { user.emailSecond = elem.description }
-            if elem.title == "адрес" { user.address = elem.description }
-            if elem.title == "адрес (другой)" { user.addressSecond = elem.description }
-            if elem.title == "номер карты 1" { user.cardNumber = elem.description }
-            if elem.title == "номер карты 2" { user.cardNumberSecond = elem.description }
-            if elem.title == "сайт" { user.website = elem.description }
-            if elem.title == "vk" { user.vk = elem.description }
-            if elem.title == "telegram" { user.telegram = elem.description }
-            if elem.title == "facebook" { user.facebook = elem.description }
-            if elem.title == "instagram" { user.instagram = elem.description }
-            if elem.title == "twitter" { user.twitter = elem.description }
-            if elem.title == "заметки" { user.notes = elem.description }
+            if elem.title == "фамилия" { user.surname = true }
+            if elem.title == "имя" { user.name = true }
+            if elem.title == "отчество" { user.patronymic = true }
+            if elem.title == "компания" { user.company = true }
+            if elem.title == "должность" { user.jobTitle = true }
+            if elem.title == "мобильный номер" { user.mobile = true }
+            if elem.title == "мобильный номер (другой)" { user.mobileSecond = true }
+            if elem.title == "email" { user.email = true }
+            if elem.title == "email (другой)" { user.emailSecond = true }
+            if elem.title == "адрес" { user.address = true }
+            if elem.title == "адрес (другой)" { user.addressSecond = true }
+            if elem.title == "номер карты 1" { user.cardNumber = true }
+            if elem.title == "номер карты 2" { user.cardNumberSecond = true }
+            if elem.title == "сайт" { user.website = true }
+            if elem.title == "vk" { user.vk = true }
+            if elem.title == "telegram" { user.telegram = true }
+            if elem.title == "facebook" { user.facebook = true }
+            if elem.title == "instagram" { user.instagram = true }
+            if elem.title == "twitter" { user.twitter = true }
+            if elem.title == "заметки" { user.notes = true }
         }
         return user
     }
     
-    static func userToString(user : User) -> String {
-        return "\(user.surname)|\(user.name)|\(user.patronymic)|\(user.company)|\(user.jobTitle)|\(user.mobile)|\(user.mobileSecond)|\(user.email)|\(user.emailSecond)|\(user.address)|\(user.addressSecond)|\(user.cardNumber)|\(user.cardNumberSecond)|\(user.website)|\(user.vk)|\(user.telegram)|\(user.facebook)|\(user.instagram)|\(user.twitter)|\(user.notes)"
+    static func generatedUsersEqual(firstUser : UserBoolean, secondUser : UserBoolean) -> Bool {
+        return firstUser.name == secondUser.name &&
+            firstUser.surname == secondUser.surname &&
+            firstUser.patronymic == secondUser.patronymic &&
+            firstUser.company == secondUser.company &&
+            firstUser.jobTitle == secondUser.jobTitle &&
+            firstUser.mobile == secondUser.mobile &&
+            firstUser.mobileSecond == secondUser.mobileSecond &&
+            firstUser.email == secondUser.email &&
+            firstUser.emailSecond == secondUser.emailSecond &&
+            firstUser.address == secondUser.address &&
+            firstUser.addressSecond == secondUser.addressSecond &&
+            firstUser.cardNumber == secondUser.cardNumber &&
+            firstUser.cardNumberSecond == secondUser.cardNumberSecond &&
+            firstUser.website == secondUser.website &&
+            firstUser.vk == secondUser.vk &&
+            firstUser.telegram == secondUser.telegram &&
+            firstUser.facebook == secondUser.facebook &&
+            firstUser.instagram == secondUser.instagram &&
+            firstUser.twitter == secondUser.twitter &&
+            firstUser.notes == secondUser.notes
     }
     
     private static func checkForEmpty(field : String) -> Bool {

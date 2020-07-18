@@ -9,11 +9,18 @@
 import Foundation
 import RealmSwift
 
+/*
+    Основной класс Пользователя
+ */
+
 class User : Object, Codable {
-    @objc dynamic var id : String = ""
+    // UUID родительского пользователя
+    @objc dynamic var parentId : String = ""
+    
+    // UUID, присвоенный конкретному пользователю
+    @objc dynamic var uuid : String = ""
+    
     @objc dynamic var photo : String = ""
-    @objc dynamic var isOwner : Bool = false
-    @objc dynamic var isScanned : Bool = false
     @objc dynamic var name : String = ""
     @objc dynamic var surname : String = ""
     @objc dynamic var patronymic : String = ""
@@ -36,6 +43,6 @@ class User : Object, Codable {
     @objc dynamic var notes : String = ""
     
     override class func primaryKey() -> String? {
-        return "id"
+        return "uuid"
     }
 }

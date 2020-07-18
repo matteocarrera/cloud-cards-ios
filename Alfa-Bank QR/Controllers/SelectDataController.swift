@@ -33,9 +33,11 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        selectedItems.removeAll()
+        
         let realm = try! Realm()
         
-        let owner = realm.objects(User.self).filter("isOwner = 1")
+        let owner = realm.objects(User.self)
         if owner.count != 0 {
             data = DataUtils.setDataToList(user: owner[0])
         } else {
@@ -46,39 +48,42 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     @objc fileprivate func generateQR() {
-        performSegue(withIdentifier: "segue", sender: self)
+        if selectedItems.count != 0 {
+            performSegue(withIdentifier: "segue", sender: self)
+        }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let qrController = segue.destination as! QRController
         let newUser = DataUtils.parseDataToUser(data: selectedItems)
         let realm = try! Realm()
-        let owner = realm.objects(User.self).filter("isOwner = 1")
-        newUser.photo = owner[0].photo
-        let users = realm.objects(User.self)
+        let ownerUser = realm.objects(User.self)
+        newUser.parentId = ownerUser[0].parentId
+        let users = realm.objects(UserBoolean.self)
         var userExists = false
         for user in users {
-            if DataUtils.userToString(user: user) == DataUtils.userToString(user: newUser) {
-                newUser.id = user.id
+            if DataUtils.generatedUsersEqual(firstUser: newUser, secondUser: user) {
+                newUser.uuid = user.uuid
                 userExists = true
             }
         }
         if !userExists {
             let uuid = UUID().uuidString
-            newUser.id = uuid
+            newUser.uuid = uuid
             
             let ref = Database.database().reference()
+            
             let jsonEncoder = JSONEncoder()
             let jsonData = try! jsonEncoder.encode(newUser)
             let json = String(data: jsonData, encoding: String.Encoding.utf8)
             
-            ref.child(newUser.id).setValue(json)
+            ref.child(newUser.parentId).child(newUser.uuid).setValue(json)
             
             try! realm.write {
                 realm.add(newUser)
             }
         }
-        qrController.userJson = newUser.id
+        qrController.userLink = newUser.parentId + "|" + newUser.uuid
     }
     
     func configureTableView() {
