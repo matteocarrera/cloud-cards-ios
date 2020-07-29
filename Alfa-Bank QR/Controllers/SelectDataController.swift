@@ -20,14 +20,18 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
         configureTableView()
         
         let rightBarItem : UIBarButtonItem
+        let leftBarItem : UIBarButtonItem
 
         if #available(iOS 13.0, *) {
             rightBarItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(generateQR))
+            leftBarItem = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(saveCardToTemplates))
         } else {
             rightBarItem = UIBarButtonItem(title: "QR", style: .plain, target: self, action: #selector(generateQR))
+            leftBarItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveCardToTemplates))
         }
         
         self.navigationItem.rightBarButtonItem = rightBarItem
+        self.navigationItem.leftBarButtonItem = leftBarItem
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -49,12 +53,27 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @objc fileprivate func generateQR() {
         if selectedItems.count != 0 {
-            performSegue(withIdentifier: "segue", sender: self)
+            performSegue(withIdentifier: "QRView", sender: self)
+        }
+    }
+    
+    @objc fileprivate func saveCardToTemplates() {
+        if selectedItems.count != 0 {
+            saveUser(segue: nil)
+            tabBarController?.selectedIndex = 0
+            //performSegue(withIdentifier: "CardsView", sender: self)
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let qrController = segue.destination as! QRController
+        saveUser(segue: segue)
+    }
+    
+    private func saveUser(segue : UIStoryboardSegue?) {
+        var qrController : QRController? = nil
+        if (segue?.identifier == "QRView") {
+            qrController = segue?.destination as? QRController
+        }
         let newUser = DataUtils.parseDataToUser(data: selectedItems)
         let realm = try! Realm()
         let ownerUser = realm.objects(User.self)
@@ -83,24 +102,40 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
                 realm.add(newUser)
             }
         }
-        qrController.userLink = newUser.parentId + "|" + newUser.uuid
+        if (segue?.identifier == "QRView") {
+            qrController?.userLink = newUser.parentId + "|" + newUser.uuid
+        } else {
+            let card = Card()
+            card.color = "#FF0000"
+            card.title = "TEST"
+            card.userId = newUser.uuid
+            let maxValue = realm.objects(Card.self).max(ofProperty: "id") as Int?
+            if (maxValue != nil) {
+                card.id = maxValue! + 1
+            } else {
+                card.id = 0
+            }
+            try! realm.write {
+                realm.add(card)
+            }
+        }
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         self.view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    internal func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "TestCell", for: indexPath) as! TestCell
         
         let dataCell = data[indexPath.row]
@@ -129,7 +164,7 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataCell = data[indexPath.row]
         dataCell.isSelected = !dataCell.isSelected
         
@@ -146,7 +181,6 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
 
 class TestCell : UITableViewCell {
     
-
     @IBOutlet weak var descriptionText: UILabel!
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var buttonTick: UIButton!

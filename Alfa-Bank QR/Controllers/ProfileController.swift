@@ -8,9 +8,11 @@
 
 import UIKit
 import RealmSwift
+import FirebaseStorage
 
 class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
+    @IBOutlet var userPhoto: UIImageView!
     @IBOutlet var tableView: UITableView!
     var data = [DataItem]()
 
@@ -24,33 +26,42 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         let realm = try! Realm()
         
-        print(Realm.Configuration.defaultConfiguration.fileURL)
-
+        //print(Realm.Configuration.defaultConfiguration.fileURL)
+        
         let owner = realm.objects(User.self)
         if owner.count != 0 {
             data = DataUtils.setDataToList(user: owner[0])
+            
+            let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/alfa-bank-qr.appspot.com/o/\(owner[0].photo)?alt=media")
+            let data = try? Data(contentsOf: url!)
+
+            if let imageData = data {
+                let image = UIImage(data: imageData)
+                userPhoto.image = image
+            }
+            
         } else {
             data = [DataItem]()
         }
-        
+    
         tableView.reloadData()
     }
     
-    func configureTableView() {
+    private func configureTableView() {
         self.view.addSubview(tableView)
         tableView.delegate = self
         tableView.dataSource = self
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    internal func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
     
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "DataCell", for: indexPath) as! DataTableViewCell
         
         let dataCell = data[indexPath.row]

@@ -11,12 +11,14 @@
 		E70B748824B0C17000C52072 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E70B748724B0C17000C52072 /* GoogleService-Info.plist */; };
 		E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25324705D5000BB3F05 /* AppDelegate.swift */; };
 		E714B25624705D5000BB3F05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25524705D5000BB3F05 /* SceneDelegate.swift */; };
-		E714B25824705D5000BB3F05 /* CardsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25724705D5000BB3F05 /* CardsController.swift */; };
 		E714B25A24705D5000BB3F05 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25924705D5000BB3F05 /* CameraController.swift */; };
 		E714B25D24705D5000BB3F05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E714B25B24705D5000BB3F05 /* Main.storyboard */; };
 		E714B25F24705D5200BB3F05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E714B25E24705D5200BB3F05 /* Assets.xcassets */; };
 		E714B26224705D5200BB3F05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E714B26024705D5200BB3F05 /* LaunchScreen.storyboard */; };
 		E71D726E24841A3200174B24 /* QRController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D726D24841A3200174B24 /* QRController.swift */; };
+		E737940224C5C73400440FF4 /* TemplatesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E737940124C5C73400440FF4 /* TemplatesController.swift */; };
+		E737940424CD6DA400440FF4 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E737940324CD6DA400440FF4 /* UIColor.swift */; };
+		E737940624CFF24000440FF4 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E737940524CFF24000440FF4 /* CardViewController.swift */; };
 		E746AC55248BE8B000F611B8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E746AC54248BE8B000F611B8 /* SettingsViewController.swift */; };
 		E74A48432471560C0004B5B5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A48422471560C0004B5B5 /* User.swift */; };
 		E74A4845247158E50004B5B5 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4844247158E50004B5B5 /* Card.swift */; };
@@ -27,7 +29,7 @@
 		E7DA719624C31A19009DD08E /* UserBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DA719524C31A19009DD08E /* UserBoolean.swift */; };
 		E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DDDC1424826BDC00E8F462 /* DataUtils.swift */; };
 		E7E4E637248BA19C00C6E2A0 /* SelectDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */; };
-		E7F8E5E424A38A1E00738AB5 /* NewCardsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8E5E324A38A1E00738AB5 /* NewCardsController.swift */; };
+		E7F8E5E424A38A1E00738AB5 /* CardsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8E5E324A38A1E00738AB5 /* CardsController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,13 +40,15 @@
 		E714B25024705D5000BB3F05 /* Альфа-Банк QR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Альфа-Банк QR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E714B25324705D5000BB3F05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E714B25524705D5000BB3F05 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		E714B25724705D5000BB3F05 /* CardsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsController.swift; sourceTree = "<group>"; };
 		E714B25924705D5000BB3F05 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		E714B25C24705D5000BB3F05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		E714B25E24705D5200BB3F05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E714B26124705D5200BB3F05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E714B26324705D5200BB3F05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E71D726D24841A3200174B24 /* QRController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRController.swift; sourceTree = "<group>"; };
+		E737940124C5C73400440FF4 /* TemplatesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesController.swift; sourceTree = "<group>"; };
+		E737940324CD6DA400440FF4 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
+		E737940524CFF24000440FF4 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		E746AC54248BE8B000F611B8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		E74A48422471560C0004B5B5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E74A4844247158E50004B5B5 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
@@ -55,7 +59,7 @@
 		E7DA719524C31A19009DD08E /* UserBoolean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBoolean.swift; sourceTree = "<group>"; };
 		E7DDDC1424826BDC00E8F462 /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
 		E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDataController.swift; sourceTree = "<group>"; };
-		E7F8E5E324A38A1E00738AB5 /* NewCardsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewCardsController.swift; sourceTree = "<group>"; };
+		E7F8E5E324A38A1E00738AB5 /* CardsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,6 +112,7 @@
 		E714B25224705D5000BB3F05 /* Alfa-Bank QR */ = {
 			isa = PBXGroup;
 			children = (
+				E737940724D0004100440FF4 /* Extensions */,
 				E70B748724B0C17000C52072 /* GoogleService-Info.plist */,
 				E74A484C24715A830004B5B5 /* Utils */,
 				E74A484B24715A500004B5B5 /* Controllers */,
@@ -120,6 +125,14 @@
 				E714B26324705D5200BB3F05 /* Info.plist */,
 			);
 			path = "Alfa-Bank QR";
+			sourceTree = "<group>";
+		};
+		E737940724D0004100440FF4 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				E737940324CD6DA400440FF4 /* UIColor.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		E74A4846247159A10004B5B5 /* Entities */ = {
@@ -136,7 +149,6 @@
 		E74A484B24715A500004B5B5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				E714B25724705D5000BB3F05 /* CardsController.swift */,
 				E714B25924705D5000BB3F05 /* CameraController.swift */,
 				E74A484F2471707C0004B5B5 /* ProfileController.swift */,
 				E760A26F2482D3D500009919 /* NavigationController.swift */,
@@ -144,7 +156,9 @@
 				E786836A2488E77000844DD4 /* EditProfileController.swift */,
 				E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */,
 				E746AC54248BE8B000F611B8 /* SettingsViewController.swift */,
-				E7F8E5E324A38A1E00738AB5 /* NewCardsController.swift */,
+				E7F8E5E324A38A1E00738AB5 /* CardsController.swift */,
+				E737940124C5C73400440FF4 /* TemplatesController.swift */,
+				E737940524CFF24000440FF4 /* CardViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -280,18 +294,20 @@
 				E760A2702482D3D500009919 /* NavigationController.swift in Sources */,
 				E71D726E24841A3200174B24 /* QRController.swift in Sources */,
 				E7E4E637248BA19C00C6E2A0 /* SelectDataController.swift in Sources */,
+				E737940624CFF24000440FF4 /* CardViewController.swift in Sources */,
 				E714B25A24705D5000BB3F05 /* CameraController.swift in Sources */,
 				E74A4848247159B50004B5B5 /* DataItem.swift in Sources */,
 				E74A4845247158E50004B5B5 /* Card.swift in Sources */,
-				E714B25824705D5000BB3F05 /* CardsController.swift in Sources */,
 				E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */,
 				E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */,
 				E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */,
+				E737940224C5C73400440FF4 /* TemplatesController.swift in Sources */,
 				E74A48432471560C0004B5B5 /* User.swift in Sources */,
 				E7DA719624C31A19009DD08E /* UserBoolean.swift in Sources */,
+				E737940424CD6DA400440FF4 /* UIColor.swift in Sources */,
 				E786836B2488E77000844DD4 /* EditProfileController.swift in Sources */,
 				E714B25624705D5000BB3F05 /* SceneDelegate.swift in Sources */,
-				E7F8E5E424A38A1E00738AB5 /* NewCardsController.swift in Sources */,
+				E7F8E5E424A38A1E00738AB5 /* CardsController.swift in Sources */,
 				E746AC55248BE8B000F611B8 /* SettingsViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

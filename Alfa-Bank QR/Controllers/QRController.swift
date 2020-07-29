@@ -16,7 +16,6 @@ class QRController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        //let myString = "Всем привет!"
         let data = userLink.data(using: String.Encoding.utf8)
         guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return }
         qrFilter.setValue(data, forKey: "inputMessage")

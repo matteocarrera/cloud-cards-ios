@@ -9,6 +9,7 @@
 import UIKit
 import RealmSwift
 import FirebaseDatabase
+import FirebaseStorage
 
 class EditProfileController: UIViewController {
     
@@ -34,16 +35,23 @@ class EditProfileController: UIViewController {
     @IBOutlet weak var twitterField: UITextField!
     @IBOutlet weak var notesField: UITextField!
     
+    var imagePickerController : UIImagePickerController?
     var ownerUser : User?
+    var photoWasChanged = false
+    var rightBarButtonItem : UIBarButtonItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let rightBarButtonItem = UIBarButtonItem(
+        rightBarButtonItem = UIBarButtonItem(
             title: "Готово",
             style: .plain,
             target: self,
             action: #selector(saveUser)
         )
+        
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        profileImage.isUserInteractionEnabled = true
+        profileImage.addGestureRecognizer(tapGestureRecognizer)
         
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
     }
@@ -51,16 +59,106 @@ class EditProfileController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        photoWasChanged = false
+        
         let realm = try! Realm()
         
         let query = realm.objects(User.self)
         if query.count != 0 {
             ownerUser = query[0]
             setUserDataToFields(user: ownerUser!)
+            
+            let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/alfa-bank-qr.appspot.com/o/\(ownerUser!.photo)?alt=media")
+            let data = try? Data(contentsOf: url!)
+
+            if let imageData = data {
+                let image = UIImage(data: imageData)
+                profileImage.image = image
+            }
         }
+    }
+    
+    /*
+        Создание меню, появляющегося при нажатии на добавление фотографии
+     */
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        if self.imagePickerController != nil {
+            self.imagePickerController?.delegate = nil
+            self.imagePickerController = nil
+        }
+        
+        self.imagePickerController = UIImagePickerController.init()
+        
+        let alert = UIAlertController.init(title: "Выберите действие", message: nil, preferredStyle: .actionSheet)
+        
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            alert.addAction(UIAlertAction.init(title: "Сделать снимок", style: .default, handler: { (_) in
+                self.presentImagePicker(controller: self.imagePickerController!, source: .camera)
+            }))
+        }
+        
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            alert.addAction(UIAlertAction.init(title: "Выбрать из библиотеки", style: .default, handler: { (_) in
+                self.presentImagePicker(controller: self.imagePickerController!, source: .photoLibrary)
+            }))
+        }
+        
+        alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
+            
+        self.present(alert, animated: true)
     }
 
     @objc func saveUser() {
+        rightBarButtonItem?.isEnabled = false
+        var photoUuid = ownerUser?.photo
+        
+        if photoUuid == nil {
+            photoUuid = ""
+        }
+        
+        /*
+            Удаление старой фотографии пользователя из Firebase Storage
+        */
+        if profileImage.image != nil && photoWasChanged {
+            var storageRef = Storage.storage().reference()
+            if photoUuid != "" {
+                storageRef = Storage.storage().reference().child(photoUuid!)
+
+                storageRef.delete { error in
+                  if let error = error {
+                    print("Error while deleting a file")
+                    print(error)
+                  } else {
+                    print("File successfully deleted")
+                  }
+                }
+            }
+            
+            /*
+                Добавление новой фотографии пользователя в Firebase Storage
+             */
+            guard let im: UIImage = profileImage.image else { return }
+            guard let d: Data = im.jpegData(compressionQuality: 0.5) else { return }
+
+            let md = StorageMetadata()
+            md.contentType = "image/png"
+
+            photoUuid = UUID().uuidString
+            storageRef = Storage.storage().reference().child(photoUuid!)
+
+            storageRef.putData(d, metadata: md) { (metadata, error) in
+                if error == nil {
+                    storageRef.downloadURL(completion: { (url, error) in
+                        print("Done, url is \(String(describing: url))")
+                    })
+                } else {
+                    print("error \(String(describing: error))")
+                }
+                self.navigationController?.popViewController(animated: true)
+            }
+        }
+        
         let realm = try! Realm()
         let ref = Database.database().reference()
         if ownerUser == nil {
@@ -70,6 +168,7 @@ class EditProfileController: UIViewController {
             updateUserData(ownerUser: ownerUser!)
             ownerUser?.parentId = uuid
             ownerUser?.uuid = uuid
+            ownerUser?.photo = photoUuid!
             
             try! realm.write {
                 realm.add(ownerUser!)
@@ -77,17 +176,23 @@ class EditProfileController: UIViewController {
         } else {
             try! realm.write {
                 updateUserData(ownerUser: ownerUser!)
+                ownerUser?.photo = photoUuid!
                 realm.add(ownerUser!, update: .all)
             }
         }
         
+        /*
+            Перевод данных пользователя в JSON
+         */
         let jsonEncoder = JSONEncoder()
         let jsonData = try! jsonEncoder.encode(ownerUser)
         let json = String(data: jsonData, encoding: String.Encoding.utf8)
         
         ref.child(ownerUser!.parentId).child(ownerUser!.uuid).setValue(json)
-                
-        self.navigationController?.popViewController(animated: true)
+        
+        if !photoWasChanged {
+            self.navigationController?.popViewController(animated: true)
+        }
     }
     
     private func setUserDataToFields(user : User) {
@@ -134,5 +239,35 @@ class EditProfileController: UIViewController {
         ownerUser.instagram = instagramField.text!
         ownerUser.twitter = twitterField.text!
         ownerUser.notes = notesField.text!
+    }
+    
+    internal func presentImagePicker(controller : UIImagePickerController, source : UIImagePickerController.SourceType) {
+        controller.delegate = self
+        controller.sourceType = source
+        self.present(controller, animated: true)
+    }
+}
+
+/*
+    Расширение класса для использования библиотеки и камеры
+ */
+extension EditProfileController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            return self.imagePickerControllerDidCancel(picker)
+        }
+        self.profileImage.image = image
+        photoWasChanged = true
+        picker.dismiss(animated: true) {
+            picker.delegate = nil
+            self.imagePickerController!.delegate = nil
+        }
+    }
+    
+    public func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        picker.dismiss(animated: true) {
+            picker.delegate = nil
+            self.imagePickerController!.delegate = nil
+        }
     }
 }

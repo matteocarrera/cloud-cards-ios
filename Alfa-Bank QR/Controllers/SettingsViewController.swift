@@ -26,6 +26,10 @@ class SettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
         
+        let bgColorView = UIView()
+        bgColorView.backgroundColor = UIColor.lightGray
+        cell!.selectedBackgroundView = bgColorView
+        
         cell?.textLabel?.text = items[indexPath.row]
         cell?.textLabel?.textColor = UIColor.black
         

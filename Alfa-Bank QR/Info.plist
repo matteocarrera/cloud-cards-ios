@@ -60,7 +60,11 @@
 	<key>CFBundlePackageType</key>
 	<string>$(PRODUCT_BUNDLE_PACKAGE_TYPE)</string>
 	<key>NSCameraUsageDescription</key>
-	<string>Используется для считывания QR</string>
+	<string>Используется для считывания QR и добавления фото в профиль</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Используется для сохранения QR в галерею</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Используется для сохранения QR в галерею</string>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleDarkContent</string>
 	<key>CFBundleDevelopmentRegion</key>

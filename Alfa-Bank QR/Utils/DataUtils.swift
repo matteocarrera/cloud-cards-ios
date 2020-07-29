@@ -84,6 +84,41 @@ class DataUtils {
             firstUser.notes == secondUser.notes
     }
     
+    static func getUserFromTemplate(user : User, userBoolean : UserBoolean) -> User {
+        let currentUser = User()
+        currentUser.parentId = userBoolean.parentId
+        currentUser.uuid = userBoolean.uuid
+        currentUser.name = checkField(field: user.name, isSelected: userBoolean.name)
+        currentUser.surname = checkField(field: user.surname, isSelected: userBoolean.surname)
+        currentUser.patronymic = checkField(field: user.patronymic, isSelected: userBoolean.patronymic)
+        currentUser.company = checkField(field: user.company, isSelected: userBoolean.company)
+        currentUser.jobTitle = checkField(field: user.jobTitle, isSelected: userBoolean.jobTitle)
+        currentUser.mobile = checkField(field: user.mobile, isSelected: userBoolean.mobile)
+        currentUser.mobileSecond = checkField(field: user.mobileSecond, isSelected: userBoolean.mobileSecond)
+        currentUser.email = checkField(field: user.email, isSelected: userBoolean.email)
+        currentUser.emailSecond = checkField(field: user.emailSecond, isSelected: userBoolean.emailSecond)
+        currentUser.address = checkField(field: user.address, isSelected: userBoolean.address)
+        currentUser.addressSecond = checkField(field: user.addressSecond, isSelected: userBoolean.addressSecond)
+        currentUser.cardNumber = checkField(field: user.cardNumber, isSelected: userBoolean.cardNumber)
+        currentUser.cardNumberSecond = checkField(field: user.cardNumberSecond, isSelected: userBoolean.cardNumberSecond)
+        currentUser.website = checkField(field: user.website, isSelected: userBoolean.website)
+        currentUser.vk = checkField(field: user.vk, isSelected: userBoolean.vk)
+        currentUser.telegram = checkField(field: user.telegram, isSelected: userBoolean.telegram)
+        currentUser.facebook = checkField(field: user.facebook, isSelected: userBoolean.facebook)
+        currentUser.instagram = checkField(field: user.instagram, isSelected: userBoolean.instagram)
+        currentUser.twitter = checkField(field: user.twitter, isSelected: userBoolean.twitter)
+        currentUser.notes = checkField(field: user.notes, isSelected: userBoolean.notes)
+        return currentUser
+    }
+    
+    private static func checkField(field : String, isSelected : Bool) -> String {
+        if isSelected {
+            return field
+        } else {
+            return ""
+        }
+    }
+    
     private static func checkForEmpty(field : String) -> Bool {
         return !field.isEmpty
     }
