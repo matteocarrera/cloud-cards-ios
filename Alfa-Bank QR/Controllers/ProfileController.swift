@@ -18,6 +18,7 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        userPhoto.layer.cornerRadius = userPhoto.frame.height/2
         configureTableView()
     }
     

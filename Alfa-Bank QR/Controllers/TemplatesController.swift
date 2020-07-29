@@ -89,7 +89,6 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
             
             let owner = realm.objects(User.self)[0]
             let userLink = owner.uuid + "|" + card.userId
-            print(userLink)
 
             if let image = self.generateQR(userLink: userLink) {
                 let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])

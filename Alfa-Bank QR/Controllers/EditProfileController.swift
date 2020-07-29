@@ -42,6 +42,13 @@ class EditProfileController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+        
+        profileImage.layer.cornerRadius = profileImage.frame.height/2
+        
         rightBarButtonItem = UIBarButtonItem(
             title: "Готово",
             style: .plain,
@@ -76,6 +83,10 @@ class EditProfileController: UIViewController {
                 profileImage.image = image
             }
         }
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     /*

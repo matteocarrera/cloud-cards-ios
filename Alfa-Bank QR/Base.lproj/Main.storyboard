@@ -185,7 +185,7 @@
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
                                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -197,7 +197,7 @@
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
                                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -289,7 +289,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Номер карты 2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tab-0Y-LMR">
-                                                <rect key="frame" x="8" y="736" width="148.33333333333334" height="34"/>
+                                                <rect key="frame" x="8" y="736" width="398" height="34"/>
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -305,7 +305,7 @@
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" textContentType="cc-number"/>
+                                                <textInputTraits key="textInputTraits" textContentType="url"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
                                                         <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -447,6 +447,7 @@
                                             <constraint firstAttribute="trailing" secondItem="Aym-o6-i4g" secondAttribute="trailing" constant="8" id="tRe-2B-tvq"/>
                                             <constraint firstAttribute="trailing" secondItem="ggV-dq-yoa" secondAttribute="trailing" constant="8" id="uqM-LC-Lkx"/>
                                             <constraint firstItem="Zbq-10-FKo" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="8" id="vRO-j9-qbC"/>
+                                            <constraint firstAttribute="trailing" secondItem="tab-0Y-LMR" secondAttribute="trailing" constant="8" id="xFz-RM-N8V"/>
                                             <constraint firstItem="Yno-Os-r4g" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="8" id="xTm-Uu-vZs"/>
                                             <constraint firstItem="YEA-hm-4ZP" firstAttribute="top" secondItem="fng-UD-M0Q" secondAttribute="bottom" constant="10" id="yHw-pC-aJ4"/>
                                         </constraints>
@@ -503,7 +504,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="QWn-02-WXC" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3845" y="311"/>
+            <point key="canvasLocation" x="3844.9275362318845" y="310.59782608695656"/>
         </scene>
         <!--Controller-->
         <scene sceneID="M67-mL-sF8">
@@ -1396,27 +1397,77 @@
         <!--Contacts-->
         <scene sceneID="vrR-rQ-rLZ">
             <objects>
-                <viewController title="Contacts" id="KNG-E6-V2A" sceneMemberID="viewController">
+                <viewController title="Contacts" id="KNG-E6-V2A" customClass="ContactsController" customModule="Альфа_Банк_QR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="egb-Gz-od7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n8F-GY-4C7">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="548"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" rowHeight="80" id="ThT-7d-i11">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactsCell" rowHeight="80" id="ThT-7d-i11" customClass="ContactsCell" customModule="Альфа_Банк_QR" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ThT-7d-i11" id="v7M-tG-oTL">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
                                             <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Hrx-lW-0tM">
+                                                    <rect key="frame" x="20" y="8" width="65" height="65"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="65" id="W5c-oF-9eh"/>
+                                                        <constraint firstAttribute="height" constant="65" id="WQf-gc-HrE"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="имя фамилия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6S0-kZ-HJS">
+                                                    <rect key="frame" x="105" y="8" width="289" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="должность" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJO-Ik-xfK">
+                                                    <rect key="frame" x="105" y="52" width="289" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="компания" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZC9-39-smG">
+                                                    <rect key="frame" x="105" y="30" width="289" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <constraints>
+                                                <constraint firstItem="vJO-Ik-xfK" firstAttribute="leading" secondItem="Hrx-lW-0tM" secondAttribute="trailing" constant="20" id="7h4-fs-48W"/>
+                                                <constraint firstAttribute="trailing" secondItem="vJO-Ik-xfK" secondAttribute="trailing" constant="20" id="9t0-pY-XR8"/>
+                                                <constraint firstItem="Hrx-lW-0tM" firstAttribute="top" secondItem="v7M-tG-oTL" secondAttribute="top" constant="8" id="AcD-wD-6lr"/>
+                                                <constraint firstItem="6S0-kZ-HJS" firstAttribute="top" secondItem="v7M-tG-oTL" secondAttribute="top" constant="8" id="CyJ-PL-8vy"/>
+                                                <constraint firstAttribute="bottom" secondItem="vJO-Ik-xfK" secondAttribute="bottom" constant="7" id="b9Z-FG-eo1"/>
+                                                <constraint firstItem="ZC9-39-smG" firstAttribute="leading" secondItem="Hrx-lW-0tM" secondAttribute="trailing" constant="20" id="bkj-iA-fkB"/>
+                                                <constraint firstItem="6S0-kZ-HJS" firstAttribute="leading" secondItem="Hrx-lW-0tM" secondAttribute="trailing" constant="20" id="doA-ef-wDU"/>
+                                                <constraint firstAttribute="trailing" secondItem="6S0-kZ-HJS" secondAttribute="trailing" constant="20" id="eqW-VJ-AZm"/>
+                                                <constraint firstItem="Hrx-lW-0tM" firstAttribute="leading" secondItem="v7M-tG-oTL" secondAttribute="leading" constant="20" id="fwH-5t-5at"/>
+                                                <constraint firstAttribute="bottom" secondItem="Hrx-lW-0tM" secondAttribute="bottom" constant="7" id="gMv-2b-xLj"/>
+                                                <constraint firstItem="ZC9-39-smG" firstAttribute="top" secondItem="6S0-kZ-HJS" secondAttribute="bottom" constant="1" id="oMh-ye-OEt"/>
+                                                <constraint firstItem="ZC9-39-smG" firstAttribute="trailing" secondItem="v7M-tG-oTL" secondAttribute="trailingMargin" id="swj-WP-BuU"/>
+                                                <constraint firstItem="vJO-Ik-xfK" firstAttribute="top" secondItem="ZC9-39-smG" secondAttribute="bottom" constant="1" id="tMW-Ca-R5L"/>
+                                            </constraints>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <connections>
+                                            <outlet property="contactCompany" destination="ZC9-39-smG" id="wgW-mi-Sg7"/>
+                                            <outlet property="contactJobTitle" destination="vJO-Ik-xfK" id="q9U-eT-w3Q"/>
+                                            <outlet property="contactName" destination="6S0-kZ-HJS" id="DfV-5V-ldF"/>
+                                            <outlet property="contactPhoto" destination="Hrx-lW-0tM" id="SiS-BJ-Lla"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="n8F-GY-4C7" secondAttribute="trailing" id="IwB-da-PX4"/>
                             <constraint firstItem="n8F-GY-4C7" firstAttribute="top" secondItem="egb-Gz-od7" secondAttribute="top" id="Wok-QG-kaF"/>
@@ -1425,14 +1476,17 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="DGY-RD-oPb"/>
                     </view>
+                    <connections>
+                        <outlet property="contactsTable" destination="n8F-GY-4C7" id="brw-x4-c6B"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xeN-sK-4mX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1066.6666666666667" y="2139.945652173913"/>
+            <point key="canvasLocation" x="1066.6666666666667" y="2139.130434782609"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="daU-NB-fFW"/>
+        <segue reference="5mO-r8-41r"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="bookmark" catalog="system" width="112" height="128"/>

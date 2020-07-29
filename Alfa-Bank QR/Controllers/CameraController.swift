@@ -103,32 +103,31 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
 
     func found(code: String) {
-        
         let parentId = code.split(separator: "|")[0]
         let uuid = code.split(separator: "|")[1]
         
         let ref = Database.database().reference().child(String(parentId)).child(String(uuid))
-
-        var userJson = ""
         
-        ref.observeSingleEvent(of: .childAdded, with: { (snapshot) in
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
              if let json = snapshot.value as? String {
-                userJson = json
+
+                let jsonData = json.data(using: .utf8)!
+                let userBoolean: UserBoolean = try! JSONDecoder().decode(UserBoolean.self, from: jsonData)
+                
+                print(json)
+                
+                let realm = try! Realm()
+                
+                try! realm.write {
+                    realm.add(userBoolean)
+                    print("User successfully added!")
+                }
+                
+                realm.refresh()
              }
         })
         
-        let jsonData = userJson.data(using: .utf8)!
-        let user: UserBoolean = try! JSONDecoder().decode(UserBoolean.self, from: jsonData)
-        
-        let realm = try! Realm()
-        
-        try! realm.write {
-            realm.add(user)
-        }
-        
-        realm.refresh()
-        
-        tabBarController?.selectedIndex = 0
+        self.tabBarController?.selectedIndex = 0
     }
 
     override var prefersStatusBarHidden: Bool {

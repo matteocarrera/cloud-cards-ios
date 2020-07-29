@@ -26,6 +26,8 @@
 		E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A484F2471707C0004B5B5 /* ProfileController.swift */; };
 		E760A2702482D3D500009919 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E760A26F2482D3D500009919 /* NavigationController.swift */; };
 		E786836B2488E77000844DD4 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786836A2488E77000844DD4 /* EditProfileController.swift */; };
+		E7A8275B24D171F00024F414 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A8275A24D171F00024F414 /* ContactsController.swift */; };
+		E7A8275D24D188920024F414 /* BankCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A8275C24D188920024F414 /* BankCard.swift */; };
 		E7DA719624C31A19009DD08E /* UserBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DA719524C31A19009DD08E /* UserBoolean.swift */; };
 		E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DDDC1424826BDC00E8F462 /* DataUtils.swift */; };
 		E7E4E637248BA19C00C6E2A0 /* SelectDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */; };
@@ -56,6 +58,8 @@
 		E74A484F2471707C0004B5B5 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		E760A26F2482D3D500009919 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		E786836A2488E77000844DD4 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
+		E7A8275A24D171F00024F414 /* ContactsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
+		E7A8275C24D188920024F414 /* BankCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCard.swift; sourceTree = "<group>"; };
 		E7DA719524C31A19009DD08E /* UserBoolean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBoolean.swift; sourceTree = "<group>"; };
 		E7DDDC1424826BDC00E8F462 /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
 		E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDataController.swift; sourceTree = "<group>"; };
@@ -142,6 +146,7 @@
 				E74A4844247158E50004B5B5 /* Card.swift */,
 				E74A4847247159B50004B5B5 /* DataItem.swift */,
 				E7DA719524C31A19009DD08E /* UserBoolean.swift */,
+				E7A8275C24D188920024F414 /* BankCard.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -159,6 +164,7 @@
 				E7F8E5E324A38A1E00738AB5 /* CardsController.swift */,
 				E737940124C5C73400440FF4 /* TemplatesController.swift */,
 				E737940524CFF24000440FF4 /* CardViewController.swift */,
+				E7A8275A24D171F00024F414 /* ContactsController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -298,7 +304,9 @@
 				E714B25A24705D5000BB3F05 /* CameraController.swift in Sources */,
 				E74A4848247159B50004B5B5 /* DataItem.swift in Sources */,
 				E74A4845247158E50004B5B5 /* Card.swift in Sources */,
+				E7A8275D24D188920024F414 /* BankCard.swift in Sources */,
 				E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */,
+				E7A8275B24D171F00024F414 /* ContactsController.swift in Sources */,
 				E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */,
 				E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */,
 				E737940224C5C73400440FF4 /* TemplatesController.swift in Sources */,

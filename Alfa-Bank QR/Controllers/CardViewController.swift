@@ -19,6 +19,7 @@ class CardViewController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        cardPhoto.layer.cornerRadius = cardPhoto.frame.height/2
         configureTableView()
     }
     
