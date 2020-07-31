@@ -15,9 +15,11 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     var data = [DataItem]()
     var selectedItems = [DataItem]()
+    var colors = ["#FF0000", "#00FF00", "#0000FF", "#7B4987", "#48a89a", "#c5db37", "#cf9211", "#7c888a", "#000000"]
+        
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
+        TableUtils.configureTableView(table: tableView, controller: self)
         
         let rightBarItem : UIBarButtonItem
         let leftBarItem : UIBarButtonItem
@@ -59,17 +61,33 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     
     @objc fileprivate func saveCardToTemplates() {
         if selectedItems.count != 0 {
-            saveUser(segue: nil)
-            tabBarController?.selectedIndex = 0
-            //performSegue(withIdentifier: "CardsView", sender: self)
+            showSaveAlert()
         }
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        saveUser(segue: segue)
+        saveUser(segue: segue, title: nil)
     }
     
-    private func saveUser(segue : UIStoryboardSegue?) {
+    private func showSaveAlert() {
+        let alert = UIAlertController(title: "Сохранение визитки", message: "Введите имя визитки", preferredStyle: .alert)
+
+        alert.addTextField { (textField) in
+            textField.text = ""
+        }
+
+        alert.addAction(UIAlertAction(title: "Сохранить", style: .default, handler: { [weak alert] (_) in
+            let textField = alert?.textFields![0]
+            self.saveUser(segue: nil, title: textField?.text)
+            self.tabBarController?.selectedIndex = 0
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func saveUser(segue : UIStoryboardSegue?, title : String?) {
         var qrController : QRController? = nil
         if (segue?.identifier == "QRView") {
             qrController = segue?.destination as? QRController
@@ -106,8 +124,9 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
             qrController?.userLink = newUser.parentId + "|" + newUser.uuid
         } else {
             let card = Card()
-            card.color = "#FF0000"
-            card.title = "TEST"
+            let randomInt = Int.random(in: 0..<colors.count)
+            card.color = colors[randomInt]
+            card.title = title!
             card.userId = newUser.uuid
             let maxValue = realm.objects(Card.self).max(ofProperty: "id") as Int?
             if (maxValue != nil) {
@@ -119,12 +138,6 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
                 realm.add(card)
             }
         }
-    }
-    
-    private func configureTableView() {
-        self.view.addSubview(tableView)
-        tableView.delegate = self
-        tableView.dataSource = self
     }
     
     internal func numberOfSections(in tableView: UITableView) -> Int {

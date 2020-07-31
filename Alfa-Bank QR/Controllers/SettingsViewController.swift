@@ -10,11 +10,13 @@ import UIKit
 
 class SettingsViewController: UITableViewController {
 
+    @IBOutlet var settingsTable: UITableView!
     var items = [String]()
     var identities = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        settingsTable.tableFooterView = UIView()
         items = ["Конфиденциальность", "Пользовательское соглашение", "Помощь", "О приложении"]
         identities = ["Privacy", "TermsOfUse", "Help", "AboutApp"]
     }
@@ -26,9 +28,7 @@ class SettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
         
-        let bgColorView = UIView()
-        bgColorView.backgroundColor = UIColor.lightGray
-        cell!.selectedBackgroundView = bgColorView
+        TableUtils.setColorToSelectedRow(tableCell: cell!)
         
         cell?.textLabel?.text = items[indexPath.row]
         cell?.textLabel?.textColor = UIColor.black

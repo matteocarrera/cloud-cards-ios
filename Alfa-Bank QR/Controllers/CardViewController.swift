@@ -20,22 +20,22 @@ class CardViewController: UIViewController, UITableViewDelegate, UITableViewData
     override func viewDidLoad() {
         super.viewDidLoad()
         cardPhoto.layer.cornerRadius = cardPhoto.frame.height/2
-        configureTableView()
+        TableUtils.configureTableView(table: cardDataTable, controller: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         let realm = try! Realm()
-        let owner = realm.objects(User.self)[0]
+        let userBoolean = realm.objects(UserBoolean.self).filter("uuid = \"\(userId)\"")[0]
         
-        let ref = Database.database().reference().child(owner.uuid).child(userId)
+        let ref = Database.database().reference().child(userBoolean.parentId).child(userBoolean.parentId)
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             if let json = snapshot.value as? String {
 
                 let jsonData = json.data(using: .utf8)!
-                let userBoolean: UserBoolean = try! JSONDecoder().decode(UserBoolean.self, from: jsonData)
+                let owner: User = try! JSONDecoder().decode(User.self, from: jsonData)
                   
                 let currentUser = DataUtils.getUserFromTemplate(user: owner, userBoolean: userBoolean)
                 
@@ -55,13 +55,7 @@ class CardViewController: UIViewController, UITableViewDelegate, UITableViewData
         
         cardDataTable.reloadData()
     }
-    
-    func configureTableView() {
-        self.view.addSubview(cardDataTable)
-        cardDataTable.delegate = self
-        cardDataTable.dataSource = self
-    }
-    
+        
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -81,6 +75,9 @@ class CardViewController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dataCell = data[indexPath.row]
+        
+        ProgramUtils.performAction(title: dataCell.title, description: dataCell.description, controller: self)
     }
 }
 
@@ -91,6 +88,7 @@ class CardDataCell : UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        TableUtils.setColorToSelectedRow(tableCell: self)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

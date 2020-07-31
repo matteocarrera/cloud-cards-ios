@@ -17,7 +17,7 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
+        TableUtils.configureTableView(table: templatesTable, controller: self)
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress(longPressGestureRecognizer:)))
         self.view.addGestureRecognizer(longPressRecognizer)
@@ -33,12 +33,6 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         templates = Array(realm.objects(Card.self))
         
         templatesTable.reloadData()
-    }
-    
-    func configureTableView() {
-        self.view.addSubview(templatesTable)
-        templatesTable.delegate = self
-        templatesTable.dataSource = self
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -85,12 +79,24 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let realm = try! Realm()
         
+        alert.addAction(UIAlertAction.init(title: "QR код", style: .default, handler: { (_) in
+            
+            let qrController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
+            
+            let owner = realm.objects(User.self)[0]
+            let userLink = owner.uuid + "|" + card.userId
+
+            qrController.userLink = userLink
+            
+            self.navigationController?.pushViewController(qrController, animated: true)
+        }))
+        
         alert.addAction(UIAlertAction.init(title: "Поделиться", style: .default, handler: { (_) in
             
             let owner = realm.objects(User.self)[0]
             let userLink = owner.uuid + "|" + card.userId
 
-            if let image = self.generateQR(userLink: userLink) {
+            if let image = ProgramUtils.generateQR(userLink: userLink) {
                 let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
                 self.present(vc, animated: true)
             }
@@ -108,17 +114,6 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
             
         self.present(alert, animated: true)
     }
-    
-    private func generateQR(userLink : String) -> UIImage? {
-        let data = userLink.data(using: String.Encoding.utf8)
-        guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
-        qrFilter.setValue(data, forKey: "inputMessage")
-        guard let qrImage = qrFilter.outputImage else { return nil }
-        let transform = CGAffineTransform(scaleX: 10, y: 10)
-        let scaledQrImage = qrImage.transformed(by: transform)
-        
-        return UIImage.init(ciImage: scaledQrImage)
-    }
 }
 
 class TemplatesCell : UITableViewCell {
@@ -129,9 +124,7 @@ class TemplatesCell : UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        let bgColorView = UIView()
-        bgColorView.backgroundColor = UIColor.lightGray
-        self.selectedBackgroundView = bgColorView
+        TableUtils.setColorToSelectedRow(tableCell: self)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

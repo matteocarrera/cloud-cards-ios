@@ -19,7 +19,7 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     override func viewDidLoad() {
         super.viewDidLoad()
         userPhoto.layer.cornerRadius = userPhoto.frame.height/2
-        configureTableView()
+        TableUtils.configureTableView(table: tableView, controller: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -46,12 +46,6 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         }
     
         tableView.reloadData()
-    }
-    
-    private func configureTableView() {
-        self.view.addSubview(tableView)
-        tableView.delegate = self
-        tableView.dataSource = self
     }
     
     internal func numberOfSections(in tableView: UITableView) -> Int {

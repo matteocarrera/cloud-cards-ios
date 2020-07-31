@@ -18,7 +18,10 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureTableView()
+        TableUtils.configureTableView(table: contactsTable, controller: self)
+        
+        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress(longPressGestureRecognizer:)))
+        self.view.addGestureRecognizer(longPressRecognizer)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,10 +42,57 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
         contactsTable.reloadData()
     }
     
-    func configureTableView() {
-        self.view.addSubview(contactsTable)
-        contactsTable.delegate = self
-        contactsTable.dataSource = self
+    @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
+        
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
+            
+            let touchPoint = longPressGestureRecognizer.location(in: self.view)
+            if let index = self.contactsTable.indexPathForRow(at: touchPoint)  {
+                let contact = contacts[index.row]
+                showContactMenu(contact: contact)
+            }
+        }
+    }
+    
+    private func showContactMenu(contact : UserBoolean) {
+        let alert = UIAlertController.init(title: "Выберите действие", message: nil, preferredStyle: .actionSheet)
+        
+        let realm = try! Realm()
+        
+        alert.addAction(UIAlertAction.init(title: "QR код", style: .default, handler: { (_) in
+            
+            let qrController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
+            
+            let contact = realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
+            let userLink = contact.parentId + "|" + contact.uuid
+
+            qrController.userLink = userLink
+            
+            self.navigationController?.pushViewController(qrController, animated: true)
+        }))
+        
+        alert.addAction(UIAlertAction.init(title: "Поделиться", style: .default, handler: { (_) in
+            
+            let contact = realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
+            let userLink = contact.parentId + "|" + contact.uuid
+
+            if let image = ProgramUtils.generateQR(userLink: userLink) {
+                let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
+                self.present(vc, animated: true)
+            }
+        }))
+        
+        alert.addAction(UIAlertAction.init(title: "Удалить", style: .default, handler: { (_) in
+            try! realm.write {
+                realm.delete(contact)
+            }
+            
+            self.viewWillAppear(true)
+        }))
+        
+        alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
+            
+        self.present(alert, animated: true)
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
@@ -98,7 +148,13 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
         return cell
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {}
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dataCell = contacts[indexPath.row]
+        
+        let viewController = storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
+        viewController.userId = dataCell.uuid
+        self.navigationController?.pushViewController(viewController, animated: true)
+    }
 }
 
 class ContactsCell : UITableViewCell {
@@ -110,6 +166,7 @@ class ContactsCell : UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        TableUtils.setColorToSelectedRow(tableCell: self)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
