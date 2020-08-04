@@ -70,6 +70,12 @@
                                     <outlet property="delegate" destination="9x4-M2-7nd" id="KNq-LK-XQz"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Создайте профиль, чтобы просматривать его в этом окне" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zUn-PE-w3O">
+                                <rect key="frame" x="10" y="282" width="394" height="79"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -78,7 +84,11 @@
                             <constraint firstItem="G9Y-y7-3Ql" firstAttribute="top" secondItem="zYD-dd-dTd" secondAttribute="bottom" constant="10" id="EAQ-2K-VXt"/>
                             <constraint firstItem="zYD-dd-dTd" firstAttribute="top" secondItem="wNT-mM-3QC" secondAttribute="top" constant="10" id="EO8-SK-aod"/>
                             <constraint firstItem="G9Y-y7-3Ql" firstAttribute="bottom" secondItem="wNT-mM-3QC" secondAttribute="bottom" id="F1N-hK-Lvf"/>
+                            <constraint firstItem="wNT-mM-3QC" firstAttribute="bottom" secondItem="zUn-PE-w3O" secondAttribute="bottom" constant="282" id="HBM-dm-AXK"/>
+                            <constraint firstItem="zUn-PE-w3O" firstAttribute="leading" secondItem="wNT-mM-3QC" secondAttribute="leading" constant="10" id="Nhu-L3-JkJ"/>
+                            <constraint firstItem="wNT-mM-3QC" firstAttribute="trailing" secondItem="zUn-PE-w3O" secondAttribute="trailing" constant="10" id="P2b-UY-P5z"/>
                             <constraint firstItem="G9Y-y7-3Ql" firstAttribute="trailing" secondItem="wNT-mM-3QC" secondAttribute="trailing" id="pRR-5B-JkF"/>
+                            <constraint firstItem="zUn-PE-w3O" firstAttribute="top" secondItem="zYD-dd-dTd" secondAttribute="bottom" constant="122" id="qRW-ST-rii"/>
                             <constraint firstItem="G9Y-y7-3Ql" firstAttribute="leading" secondItem="wNT-mM-3QC" secondAttribute="leading" id="sLk-tI-Q8A"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="wNT-mM-3QC"/>
@@ -93,13 +103,14 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="createProfileNotification" destination="zUn-PE-w3O" id="nYW-Le-bdA"/>
                         <outlet property="tableView" destination="G9Y-y7-3Ql" id="efW-8H-EW8"/>
                         <outlet property="userPhoto" destination="zYD-dd-dTd" id="RdI-Id-AIZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="8mu-Y7-De8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3143" y="0.0"/>
+            <point key="canvasLocation" x="3142.0289855072465" y="0.0"/>
         </scene>
         <!--Profile Nav Controller-->
         <scene sceneID="d2Q-HQ-wsV">
@@ -154,84 +165,105 @@
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
                                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="hfx-fN-an4"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Имя" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YEA-hm-4ZP">
                                                 <rect key="frame" x="8" y="264" width="398" height="34"/>
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
                                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="j8c-VC-Fz7"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Отчество" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hJN-r0-Eb8">
                                                 <rect key="frame" x="8" y="308" width="398" height="34"/>
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="words" returnKeyType="done"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
                                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="pKc-1l-Z7R"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Компания" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pvy-uW-Bxa">
                                                 <rect key="frame" x="8" y="352" width="398" height="34"/>
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
                                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="80A-h3-NC3"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Должность" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zbq-10-FKo">
                                                 <rect key="frame" x="8" y="396" width="398" height="34"/>
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences" returnKeyType="done"/>
+                                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
                                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="yZG-7T-01V"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Мобильный номер" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yno-Os-r4g">
                                                 <rect key="frame" x="8" y="440" width="398" height="34"/>
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="phonePad" returnKeyType="done" textContentType="tel"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
                                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="Adm-69-5TU"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Мобильный номер (другой)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rKB-T8-jLX">
                                                 <rect key="frame" x="8" y="484" width="398" height="34"/>
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" returnKeyType="done" textContentType="email"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
                                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="fT6-du-8jn"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a9q-TN-q2Q">
                                                 <rect key="frame" x="8" y="526" width="398" height="34"/>
@@ -244,6 +276,9 @@
                                                         <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="ahr-qR-3IT"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email (другой)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ggV-dq-yoa">
                                                 <rect key="frame" x="8" y="568" width="398" height="34"/>
@@ -256,6 +291,9 @@
                                                         <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="DJS-LM-QE5"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Адрес" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZTj-lC-RPS">
                                                 <rect key="frame" x="8" y="610" width="398" height="34"/>
@@ -268,6 +306,9 @@
                                                         <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="vVM-KI-U18"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Адрес (другой)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z1Q-GB-qA7">
                                                 <rect key="frame" x="8" y="652" width="398" height="34"/>
@@ -280,6 +321,9 @@
                                                         <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="iN4-mA-UT3"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Номер карты 1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p7q-AB-gOB">
                                                 <rect key="frame" x="8" y="694" width="398" height="34"/>
@@ -292,6 +336,9 @@
                                                         <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="mXs-EC-Rz3"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Номер карты 2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tab-0Y-LMR">
                                                 <rect key="frame" x="8" y="736" width="398" height="34"/>
@@ -304,8 +351,11 @@
                                                         <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="8cQ-v2-09f"/>
+                                                </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Сайт" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Aym-o6-i4g">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Сайт (example.com)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Aym-o6-i4g">
                                                 <rect key="frame" x="8" y="778" width="398" height="34"/>
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -316,8 +366,11 @@
                                                         <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="hAu-La-h5R"/>
+                                                </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="VK" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="67F-au-m79">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="VK (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="67F-au-m79">
                                                 <rect key="frame" x="8" y="820" width="398" height="34"/>
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -328,8 +381,11 @@
                                                         <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="jJW-Z7-QZ2"/>
+                                                </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Telegram" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uzS-0S-qB4">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Telegram (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uzS-0S-qB4">
                                                 <rect key="frame" x="8" y="862" width="398" height="34"/>
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -340,8 +396,11 @@
                                                         <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="zwE-7x-ixR"/>
+                                                </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Facebook" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ps3-mw-6Wd">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Facebook (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ps3-mw-6Wd">
                                                 <rect key="frame" x="8" y="904" width="398" height="34"/>
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -352,8 +411,11 @@
                                                         <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="h2C-WO-jiU"/>
+                                                </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Instagram" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qWF-Pp-QRd">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Instagram (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qWF-Pp-QRd">
                                                 <rect key="frame" x="8" y="946" width="398" height="34"/>
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -364,8 +426,11 @@
                                                         <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="BGk-Ub-ttD"/>
+                                                </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Twitter" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TuK-gG-9ao">
+                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Twitter (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TuK-gG-9ao">
                                                 <rect key="frame" x="8" y="988" width="398" height="34"/>
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -376,6 +441,9 @@
                                                         <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="6Lz-2Q-Ws2"/>
+                                                </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Заметки" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JHS-4b-3t7">
                                                 <rect key="frame" x="8" y="1030" width="398" height="34"/>
@@ -388,6 +456,9 @@
                                                         <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <outlet property="delegate" destination="wht-5e-vHw" id="WEW-pl-GcH"/>
+                                                </connections>
                                             </textField>
                                         </subviews>
                                         <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
@@ -516,11 +587,11 @@
             <objects>
                 <viewController storyboardIdentifier="QRController" autoresizesArchivedViewToFullSize="NO" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="kC7-4x-oJ4" customClass="QRController" customModule="Альфа_Банк_QR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="C5z-lX-2z1">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="692"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="grV-NV-kMS">
-                                <rect key="frame" x="0.0" y="139" width="414" height="414"/>
+                                <rect key="frame" x="0.0" y="139" width="414" height="458"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -665,6 +736,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="1JI-go-loZ"/>
                     </view>
+                    <navigationItem key="navigationItem" id="U2f-K5-SxP"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fyb-Yv-Ps8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -677,63 +749,7 @@
                     <view key="view" contentMode="scaleToFill" id="CwM-FE-a3v">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="m5q-gE-cAV">
-                                <rect key="frame" x="349" y="16" width="51" height="31"/>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Доступ к камере" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="X1k-bB-Ggw">
-                                <rect key="frame" x="16" y="21" width="135" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mNa-I7-kfr">
-                                <rect key="frame" x="349" y="55" width="51" height="31"/>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Доступ к галерее" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IMS-Gu-RCA">
-                                <rect key="frame" x="16" y="60" width="140" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="kOi-Ar-eeC">
-                                <rect key="frame" x="349" y="94" width="51" height="31"/>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Доступ к звонкам" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eUP-ab-hWH">
-                                <rect key="frame" x="16" y="99" width="142.66666666666666" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="D2G-ed-L6v">
-                                <rect key="frame" x="349" y="133" width="51" height="31"/>
-                            </switch>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Доступ к контактам" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7d0-2y-bFC">
-                                <rect key="frame" x="16" y="138" width="159" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                        </subviews>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
-                        <constraints>
-                            <constraint firstItem="m5q-gE-cAV" firstAttribute="top" secondItem="rHD-sW-JiM" secondAttribute="top" constant="16" id="3gl-rO-Xp3"/>
-                            <constraint firstItem="7d0-2y-bFC" firstAttribute="leading" secondItem="rHD-sW-JiM" secondAttribute="leading" constant="16" id="4BP-YC-eDx"/>
-                            <constraint firstItem="rHD-sW-JiM" firstAttribute="trailing" secondItem="kOi-Ar-eeC" secondAttribute="trailing" constant="16" id="CQI-5E-pQI"/>
-                            <constraint firstItem="eUP-ab-hWH" firstAttribute="top" secondItem="IMS-Gu-RCA" secondAttribute="bottom" constant="18" id="CTx-oY-4aw"/>
-                            <constraint firstItem="X1k-bB-Ggw" firstAttribute="leading" secondItem="rHD-sW-JiM" secondAttribute="leading" constant="16" id="FGu-fX-7RL"/>
-                            <constraint firstItem="eUP-ab-hWH" firstAttribute="leading" secondItem="rHD-sW-JiM" secondAttribute="leading" constant="16" id="Kyz-WL-1mi"/>
-                            <constraint firstItem="mNa-I7-kfr" firstAttribute="top" secondItem="m5q-gE-cAV" secondAttribute="bottom" constant="8" id="Nj7-qw-ev1"/>
-                            <constraint firstItem="D2G-ed-L6v" firstAttribute="top" secondItem="kOi-Ar-eeC" secondAttribute="bottom" constant="8" id="SXn-BH-r5h"/>
-                            <constraint firstItem="rHD-sW-JiM" firstAttribute="trailing" secondItem="m5q-gE-cAV" secondAttribute="trailing" constant="16" id="UYe-k3-ULH"/>
-                            <constraint firstItem="IMS-Gu-RCA" firstAttribute="leading" secondItem="rHD-sW-JiM" secondAttribute="leading" constant="16" id="ZHF-QE-rwQ"/>
-                            <constraint firstItem="IMS-Gu-RCA" firstAttribute="top" secondItem="X1k-bB-Ggw" secondAttribute="bottom" constant="18" id="guz-JQ-m3F"/>
-                            <constraint firstItem="7d0-2y-bFC" firstAttribute="top" secondItem="eUP-ab-hWH" secondAttribute="bottom" constant="18" id="jOw-Mi-Swo"/>
-                            <constraint firstItem="rHD-sW-JiM" firstAttribute="trailing" secondItem="D2G-ed-L6v" secondAttribute="trailing" constant="16" id="oMc-jG-vky"/>
-                            <constraint firstItem="rHD-sW-JiM" firstAttribute="trailing" secondItem="mNa-I7-kfr" secondAttribute="trailing" constant="16" id="rYo-Uc-DCg"/>
-                            <constraint firstItem="kOi-Ar-eeC" firstAttribute="top" secondItem="mNa-I7-kfr" secondAttribute="bottom" constant="8" id="uqO-5y-H2q"/>
-                            <constraint firstItem="X1k-bB-Ggw" firstAttribute="top" secondItem="rHD-sW-JiM" secondAttribute="top" constant="21" id="x2E-tf-N1l"/>
-                        </constraints>
                         <viewLayoutGuide key="safeArea" id="rHD-sW-JiM"/>
                     </view>
                 </viewController>
@@ -833,11 +849,22 @@
                                     <outlet property="delegate" destination="9x4-M2-7nd" id="asQ-bz-VdA"/>
                                 </connections>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Создайте профиль, чтобы открыть доступ к данному окну" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXe-1D-cmU">
+                                <rect key="frame" x="0.0" y="282" width="414" height="79"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
+                            <constraint firstItem="pXe-1D-cmU" firstAttribute="top" secondItem="m10-nU-jhS" secondAttribute="top" constant="282" id="MQq-lC-D4o"/>
                             <constraint firstItem="Z8D-Ww-N9l" firstAttribute="leading" secondItem="m10-nU-jhS" secondAttribute="leading" id="MyT-JZ-nUt"/>
+                            <constraint firstItem="pXe-1D-cmU" firstAttribute="trailing" secondItem="m10-nU-jhS" secondAttribute="trailing" id="WK6-Q6-lYJ"/>
+                            <constraint firstItem="pXe-1D-cmU" firstAttribute="leading" secondItem="m10-nU-jhS" secondAttribute="leading" id="Zwt-RN-wxb"/>
                             <constraint firstItem="Z8D-Ww-N9l" firstAttribute="bottom" secondItem="m10-nU-jhS" secondAttribute="bottom" id="dPg-50-IQM"/>
+                            <constraint firstItem="pXe-1D-cmU" firstAttribute="centerX" secondItem="9Tb-l8-0Sn" secondAttribute="centerX" id="eVJ-l9-iJJ"/>
+                            <constraint firstItem="pXe-1D-cmU" firstAttribute="centerY" secondItem="9Tb-l8-0Sn" secondAttribute="centerY" id="f9D-cB-pkw"/>
                             <constraint firstItem="Z8D-Ww-N9l" firstAttribute="top" secondItem="m10-nU-jhS" secondAttribute="top" id="hd7-I2-CuX"/>
                             <constraint firstItem="Z8D-Ww-N9l" firstAttribute="trailing" secondItem="m10-nU-jhS" secondAttribute="trailing" id="yy7-0c-Qjc"/>
                         </constraints>
@@ -848,17 +875,18 @@
                         <barButtonItem key="leftBarButtonItem" title="Сохранить" image="bookmark" catalog="system" id="GQM-zf-Dfm">
                             <color key="tintColor" red="0.95294117649999999" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                             <connections>
-                                <segue destination="BUo-ua-BtS" kind="show" identifier="CardsView" id="5mO-r8-41r"/>
+                                <action selector="saveCardToTemplates:" destination="RtQ-vZ-waR" id="87S-fZ-2cv"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Item" image="square.and.arrow.up" catalog="system" id="Qh2-c0-zX3">
                             <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <connections>
-                                <segue destination="kC7-4x-oJ4" kind="show" identifier="QRView" id="Lyh-aM-Enh"/>
+                                <action selector="generateQR:" destination="RtQ-vZ-waR" id="jyw-5H-mMX"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
+                        <outlet property="createProfileNotification" destination="pXe-1D-cmU" id="qbI-90-Z98"/>
                         <outlet property="tableView" destination="Z8D-Ww-N9l" id="Pah-Sz-5fc"/>
                     </connections>
                 </viewController>
@@ -1008,11 +1036,26 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="x9O-os-X3D"/>
                     </view>
-                    <navigationItem key="navigationItem" title="Визитки" id="3vP-CG-nkz"/>
+                    <navigationItem key="navigationItem" title="Визитки" id="3vP-CG-nkz">
+                        <barButtonItem key="leftBarButtonItem" image="arrowshape.turn.up.left" catalog="system" id="6Cm-Bg-LRo">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="openMenu:" destination="W3Z-Bu-dRl" id="UIk-zF-gwa"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="checkmark.circle" catalog="system" id="noE-rW-dK7">
+                            <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <connections>
+                                <action selector="selectMultiple:" destination="W3Z-Bu-dRl" id="LJS-EA-Cag"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="contactsView" destination="70K-hj-cZ0" id="MUs-Qp-xF3"/>
                         <outlet property="searchBar" destination="5fQ-Bn-mEs" id="7H0-Mw-Dxs"/>
                         <outlet property="segmentedControl" destination="2RH-TB-zv9" id="OVd-JR-XmP"/>
+                        <outlet property="selectButton" destination="noE-rW-dK7" id="EV6-Ht-DqL"/>
+                        <outlet property="shareButton" destination="6Cm-Bg-LRo" id="HBt-Hm-DBM"/>
                         <outlet property="templatesView" destination="cQQ-u7-Cmx" id="Hrg-08-fSp"/>
                     </connections>
                 </viewController>
@@ -1029,6 +1072,9 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="separatorColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="sectionIndexTrackingBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
                             <tableViewSection id="9Cd-02-AzA">
                                 <cells>
@@ -1059,7 +1105,7 @@
                                                 <constraint firstItem="Q0z-Ao-wif" firstAttribute="leading" secondItem="lpR-mT-NxA" secondAttribute="trailing" constant="172.33000000000001" id="fLy-Qd-9hN"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.95294117649999999" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="U6X-K3-VSW">
                                         <rect key="frame" x="0.0" y="71.666667938232422" width="414" height="43.666667938232422"/>
@@ -1093,7 +1139,7 @@
                                                 <constraint firstItem="cmz-KZ-TvF" firstAttribute="top" secondItem="ZY7-xE-4jV" secondAttribute="topMargin" id="qyD-hd-G0E"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.95294117649999999" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="is0-9E-WLo">
                                         <rect key="frame" x="0.0" y="115.33333587646484" width="414" height="43.666667938232422"/>
@@ -1115,7 +1161,7 @@
                                                 <constraint firstItem="qBo-Mi-tg5" firstAttribute="leading" secondItem="BVQ-wt-dfc" secondAttribute="leadingMargin" id="uqr-gA-sTg"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.95294117649999999" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="Ndr-vK-tGX">
                                         <rect key="frame" x="0.0" y="159.00000381469727" width="414" height="43.666667938232422"/>
@@ -1149,7 +1195,7 @@
                                                 <constraint firstItem="SZ5-p7-U6D" firstAttribute="leading" secondItem="3Ie-cx-fRG" secondAttribute="trailing" constant="305" id="wjS-oe-TRy"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" red="0.95294117649999999" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1168,33 +1214,23 @@
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="odg-V1-HhU">
-                                                    <rect key="frame" x="385.66666666666669" y="10.999999999999998" width="12.333333333333314" height="22.333333333333329"/>
-                                                    <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <state key="normal" backgroundImage="chevron.right" catalog="system">
-                                                        <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="alfabankqr@mail.ru" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cW-Ig-JFQ">
-                                                    <rect key="frame" x="229.66666666666663" y="10.999999999999998" width="148" height="21.333333333333329"/>
+                                                    <rect key="frame" x="246" y="12.000000000000002" width="148" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="3cW-Ig-JFQ" secondAttribute="trailing" constant="20" id="2ZY-qk-8sg"/>
                                                 <constraint firstAttribute="bottom" secondItem="cNK-ky-qdV" secondAttribute="bottom" constant="11.33" id="2eC-i9-0WV"/>
-                                                <constraint firstItem="3cW-Ig-JFQ" firstAttribute="top" secondItem="R1n-0I-ELS" secondAttribute="topMargin" id="JMC-xt-fkd"/>
-                                                <constraint firstAttribute="bottom" secondItem="odg-V1-HhU" secondAttribute="bottom" constant="9" id="MT3-M1-5Ee"/>
+                                                <constraint firstItem="3cW-Ig-JFQ" firstAttribute="top" secondItem="R1n-0I-ELS" secondAttribute="top" constant="12" id="A5y-Tw-6Pi"/>
                                                 <constraint firstItem="cNK-ky-qdV" firstAttribute="leading" secondItem="R1n-0I-ELS" secondAttribute="leadingMargin" id="NL1-7j-pEm"/>
-                                                <constraint firstItem="3cW-Ig-JFQ" firstAttribute="leading" secondItem="cNK-ky-qdV" secondAttribute="trailing" constant="68.670000000000002" id="Nic-nL-Zbf"/>
+                                                <constraint firstAttribute="bottom" secondItem="3cW-Ig-JFQ" secondAttribute="bottom" constant="10.33" id="aL1-XK-gd5"/>
+                                                <constraint firstItem="3cW-Ig-JFQ" firstAttribute="leading" secondItem="cNK-ky-qdV" secondAttribute="trailing" constant="85" id="dAE-uo-krT"/>
                                                 <constraint firstItem="cNK-ky-qdV" firstAttribute="top" secondItem="R1n-0I-ELS" secondAttribute="top" constant="11" id="gqm-HM-oNm"/>
                                                 <constraint firstItem="cNK-ky-qdV" firstAttribute="leading" secondItem="R1n-0I-ELS" secondAttribute="leading" constant="20" id="jKS-Im-aGd"/>
-                                                <constraint firstAttribute="trailing" secondItem="odg-V1-HhU" secondAttribute="trailing" constant="16" id="k5S-3I-fFc"/>
-                                                <constraint firstItem="odg-V1-HhU" firstAttribute="leading" secondItem="3cW-Ig-JFQ" secondAttribute="trailing" constant="8" id="n4j-kh-Fdl"/>
-                                                <constraint firstAttribute="bottomMargin" secondItem="3cW-Ig-JFQ" secondAttribute="bottom" constant="0.67000000000000004" id="psT-7L-ikF"/>
                                                 <constraint firstItem="cNK-ky-qdV" firstAttribute="top" secondItem="R1n-0I-ELS" secondAttribute="topMargin" id="tCy-kp-XHk"/>
-                                                <constraint firstItem="odg-V1-HhU" firstAttribute="top" secondItem="R1n-0I-ELS" secondAttribute="top" constant="9" id="zQG-FB-QkW"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.95294117649999999" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -1216,22 +1252,11 @@
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mwS-jG-SMp">
-                                                    <rect key="frame" x="385.66666666666669" y="10.999999999999998" width="12.333333333333314" height="22.333333333333329"/>
-                                                    <color key="tintColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <state key="normal" backgroundImage="chevron.right" catalog="system">
-                                                        <color key="titleColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    </state>
-                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="bottomMargin" secondItem="5cK-3d-Pcu" secondAttribute="bottom" constant="0.67000000000000004" id="5zU-ZY-MKa"/>
                                                 <constraint firstItem="5cK-3d-Pcu" firstAttribute="leading" secondItem="U5e-gn-tpI" secondAttribute="leadingMargin" id="JbS-TG-MS5"/>
-                                                <constraint firstAttribute="bottom" secondItem="mwS-jG-SMp" secondAttribute="bottom" constant="9" id="Kp6-np-vcT"/>
-                                                <constraint firstAttribute="trailing" secondItem="mwS-jG-SMp" secondAttribute="trailing" constant="16" id="ZWU-a9-1AJ"/>
                                                 <constraint firstItem="5cK-3d-Pcu" firstAttribute="top" secondItem="U5e-gn-tpI" secondAttribute="topMargin" id="bzo-NK-O7B"/>
-                                                <constraint firstItem="mwS-jG-SMp" firstAttribute="leading" secondItem="5cK-3d-Pcu" secondAttribute="trailing" constant="191.66999999999999" id="chz-ro-tUu"/>
-                                                <constraint firstItem="mwS-jG-SMp" firstAttribute="top" secondItem="U5e-gn-tpI" secondAttribute="top" constant="9" id="hp2-8B-tvq"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" red="0.95294117649999999" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -1342,7 +1367,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="45M-Gk-pTO">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="45M-Gk-pTO">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="548"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1417,7 +1442,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n8F-GY-4C7">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n8F-GY-4C7">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="548"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="85" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -1505,13 +1530,11 @@
             <point key="canvasLocation" x="1066.6666666666667" y="2139.130434782609"/>
         </scene>
     </scenes>
-    <inferredMetricsTieBreakers>
-        <segue reference="5mO-r8-41r"/>
-    </inferredMetricsTieBreakers>
     <resources>
+        <image name="arrowshape.turn.up.left" catalog="system" width="128" height="106"/>
         <image name="bookmark" catalog="system" width="112" height="128"/>
         <image name="camera.fill" catalog="system" width="128" height="96"/>
-        <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>

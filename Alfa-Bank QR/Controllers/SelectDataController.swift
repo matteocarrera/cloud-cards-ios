@@ -13,6 +13,7 @@ import FirebaseDatabase
 class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet var createProfileNotification: UILabel!
     var data = [DataItem]()
     var selectedItems = [DataItem]()
     var colors = ["#FF0000", "#00FF00", "#0000FF", "#7B4987", "#48a89a", "#c5db37", "#cf9211", "#7c888a", "#000000"]
@@ -20,20 +21,6 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     override func viewDidLoad() {
         super.viewDidLoad()
         TableUtils.configureTableView(table: tableView, controller: self)
-        
-        let rightBarItem : UIBarButtonItem
-        let leftBarItem : UIBarButtonItem
-
-        if #available(iOS 13.0, *) {
-            rightBarItem = UIBarButtonItem(image: UIImage(systemName: "square.and.arrow.up"), style: .plain, target: self, action: #selector(generateQR))
-            leftBarItem = UIBarButtonItem(image: UIImage(systemName: "bookmark"), style: .plain, target: self, action: #selector(saveCardToTemplates))
-        } else {
-            rightBarItem = UIBarButtonItem(title: "QR", style: .plain, target: self, action: #selector(generateQR))
-            leftBarItem = UIBarButtonItem(title: "Сохранить", style: .plain, target: self, action: #selector(saveCardToTemplates))
-        }
-        
-        self.navigationItem.rightBarButtonItem = rightBarItem
-        self.navigationItem.leftBarButtonItem = leftBarItem
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -46,27 +33,29 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
         let owner = realm.objects(User.self)
         if owner.count != 0 {
             data = DataUtils.setDataToList(user: owner[0])
+            createProfileNotification.isHidden = true
         } else {
             data = [DataItem]()
+            createProfileNotification.isHidden = false
         }
         
         tableView.reloadData()
     }
     
-    @objc fileprivate func generateQR() {
+    @IBAction func generateQR(_ sender: Any) {
         if selectedItems.count != 0 {
-            performSegue(withIdentifier: "QRView", sender: self)
+            saveUser(segue: "QRView", title: nil)
+        } else {
+            showAlert()
         }
     }
-    
-    @objc fileprivate func saveCardToTemplates() {
+
+    @IBAction func saveCardToTemplates(_ sender: Any) {
         if selectedItems.count != 0 {
             showSaveAlert()
+        } else {
+            showAlert()
         }
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        saveUser(segue: segue, title: nil)
     }
     
     private func showSaveAlert() {
@@ -78,7 +67,7 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
 
         alert.addAction(UIAlertAction(title: "Сохранить", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
-            self.saveUser(segue: nil, title: textField?.text)
+            self.saveUser(segue: "", title: textField?.text)
             self.tabBarController?.selectedIndex = 0
         }))
         
@@ -87,11 +76,7 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
         self.present(alert, animated: true, completion: nil)
     }
     
-    private func saveUser(segue : UIStoryboardSegue?, title : String?) {
-        var qrController : QRController? = nil
-        if (segue?.identifier == "QRView") {
-            qrController = segue?.destination as? QRController
-        }
+    private func saveUser(segue : String, title : String?) {
         let newUser = DataUtils.parseDataToUser(data: selectedItems)
         let realm = try! Realm()
         let ownerUser = realm.objects(User.self)
@@ -120,8 +105,10 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
                 realm.add(newUser)
             }
         }
-        if (segue?.identifier == "QRView") {
-            qrController?.userLink = newUser.parentId + "|" + newUser.uuid
+        if (segue == "QRView") {
+            let viewController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
+            viewController.userLink = newUser.parentId + "|" + newUser.uuid
+            self.navigationController?.pushViewController(viewController, animated: true)
         } else {
             let card = Card()
             let randomInt = Int.random(in: 0..<colors.count)
@@ -190,6 +177,13 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
         tableView.reloadData()
     }
 
+    private func showAlert() {
+        let alert = UIAlertController(title: "Данные не выбраны", message: "Вы не выбрали ни одного поля!", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+
+        self.present(alert, animated: true)
+    }
 }
 
 class TestCell : UITableViewCell {

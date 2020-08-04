@@ -9,8 +9,9 @@
 import UIKit
 import RealmSwift
 import FirebaseDatabase
+import MessageUI
 
-class CardViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class CardViewController: UIViewController, MFMailComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var cardDataTable: UITableView!
     @IBOutlet var cardPhoto: UIImageView!
@@ -78,6 +79,8 @@ class CardViewController: UIViewController, UITableViewDelegate, UITableViewData
         let dataCell = data[indexPath.row]
         
         ProgramUtils.performAction(title: dataCell.title, description: dataCell.description, controller: self)
+        
+        cardDataTable.reloadData()
     }
 }
 

@@ -56,10 +56,10 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataCell = templates[indexPath.row]
+
+        showQR(userId: dataCell.userId)
         
-        let viewController = storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
-        viewController.userId = dataCell.userId
-        self.navigationController?.pushViewController(viewController, animated: true)
+        templatesTable.reloadData()
     }
     
     @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
@@ -79,16 +79,10 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let realm = try! Realm()
         
-        alert.addAction(UIAlertAction.init(title: "QR код", style: .default, handler: { (_) in
-            
-            let qrController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
-            
-            let owner = realm.objects(User.self)[0]
-            let userLink = owner.uuid + "|" + card.userId
-
-            qrController.userLink = userLink
-            
-            self.navigationController?.pushViewController(qrController, animated: true)
+        alert.addAction(UIAlertAction.init(title: "Открыть", style: .default, handler: { (_) in
+            let viewController = self.storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
+            viewController.userId = card.userId
+            self.navigationController?.pushViewController(viewController, animated: true)
         }))
         
         alert.addAction(UIAlertAction.init(title: "Поделиться", style: .default, handler: { (_) in
@@ -113,6 +107,30 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
             
         self.present(alert, animated: true)
+    }
+    
+    private func showQR(userId : String) {
+        let showAlert = UIAlertController(title: "QR-визитка", message: nil, preferredStyle: .alert)
+        let imageView = UIImageView(frame: CGRect(x: 10, y: 50, width: 250, height: 250))
+        
+        let realm = try! Realm()
+        
+        let owner = realm.objects(User.self)[0]
+        let userLink = owner.uuid + "|" + userId
+        
+        imageView.image = ProgramUtils.generateQR(userLink: userLink)
+        showAlert.view.addSubview(imageView)
+        let height = NSLayoutConstraint(item: showAlert.view as Any, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 360)
+        let width = NSLayoutConstraint(item: showAlert.view as Any, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
+        showAlert.view.addConstraint(height)
+        showAlert.view.addConstraint(width)
+        showAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
+            
+        }))
+        if #available(iOS 13.0, *) {
+            showAlert.overrideUserInterfaceStyle = UIUserInterfaceStyle.light
+        }
+        self.present(showAlert, animated: true, completion: nil)
     }
 }
 

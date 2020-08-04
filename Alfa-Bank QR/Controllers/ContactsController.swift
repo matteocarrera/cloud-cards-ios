@@ -15,6 +15,7 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
 
     @IBOutlet var contactsTable: UITableView!
     var contacts = [UserBoolean]()
+    var selectedContactsUuid = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,8 +27,9 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         contacts.removeAll()
+        selectedContactsUuid.removeAll()
         
         let realm = try! Realm()
 
@@ -151,9 +153,19 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataCell = contacts[indexPath.row]
         
-        let viewController = storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
-        viewController.userId = dataCell.uuid
-        self.navigationController?.pushViewController(viewController, animated: true)
+        let parentViewController = self.parent as! CardsController
+        if parentViewController.selectionIsActivated {
+            if selectedContactsUuid.contains(dataCell.uuid) {
+                selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: dataCell.uuid)!)
+            } else {
+                selectedContactsUuid.append(dataCell.uuid)
+            }
+            print(selectedContactsUuid)
+        } else {
+            let viewController = storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
+            viewController.userId = dataCell.uuid
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
     }
 }
 

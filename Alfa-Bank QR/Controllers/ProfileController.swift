@@ -14,6 +14,7 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
 
     @IBOutlet var userPhoto: UIImageView!
     @IBOutlet var tableView: UITableView!
+    @IBOutlet var createProfileNotification: UILabel!
     var data = [DataItem]()
 
     override func viewDidLoad() {
@@ -31,6 +32,8 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         let owner = realm.objects(User.self)
         if owner.count != 0 {
+            createProfileNotification.isHidden = true
+            userPhoto.isHidden = false
             data = DataUtils.setDataToList(user: owner[0])
             
             let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/alfa-bank-qr.appspot.com/o/\(owner[0].photo)?alt=media")
@@ -42,6 +45,8 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
             }
             
         } else {
+            createProfileNotification.isHidden = false
+            userPhoto.isHidden = true
             data = [DataItem]()
         }
     
@@ -65,6 +70,8 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         return cell
     }
+    
+    
 }
 
 class DataTableViewCell : UITableViewCell {

@@ -11,7 +11,7 @@ import RealmSwift
 import FirebaseDatabase
 import FirebaseStorage
 
-class EditProfileController: UIViewController {
+class EditProfileController: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var surnameField: UITextField!
@@ -83,6 +83,35 @@ class EditProfileController: UIViewController {
                 profileImage.image = image
             }
         }
+    }
+    
+    // Start Editing The Text Field
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        moveTextField(textField, moveDistance: -260, up: true)
+    }
+    
+    // Finish Editing The Text Field
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        moveTextField(textField, moveDistance: -260, up: false)
+    }
+    
+    // Hide the keyboard when the return key pressed
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        self.view.endEditing(true)
+        return true
+    }
+    
+    // Move the text field in a pretty animation!
+    func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
+        let moveDuration = 0.3
+        let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
+        
+        UIView.beginAnimations("animateTextField", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(moveDuration)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
     }
     
     @objc func dismissKeyboard() {
