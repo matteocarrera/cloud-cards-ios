@@ -65,6 +65,8 @@
 	<string>Используется для сохранения QR в галерею</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Используется для сохранения QR в галерею</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Экспорт контакта</string>
 	<key>UIStatusBarStyle</key>
 	<string>UIStatusBarStyleDarkContent</string>
 	<key>CFBundleDevelopmentRegion</key>
@@ -78,11 +80,11 @@
 	</array>
 	<key>CFBundleShortVersionString</key>
 	<string>1.0</string>
-    <key>LSApplicationQueriesSchemes</key>
-    <array>
-        <string>instagram</string>
-        <string>facebook</string>
-        <string>twitter</string>
-    </array>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>instagram</string>
+		<string>facebook</string>
+		<string>twitter</string>
+	</array>
 </dict>
 </plist>

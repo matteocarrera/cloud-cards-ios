@@ -77,7 +77,7 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     private func saveUser(segue : String, title : String?) {
-        let newUser = DataUtils.parseDataToUser(data: selectedItems)
+        let newUser = DataUtils.parseDataToUserBoolean(data: selectedItems)
         let realm = try! Realm()
         let ownerUser = realm.objects(User.self)
         newUser.parentId = ownerUser[0].parentId

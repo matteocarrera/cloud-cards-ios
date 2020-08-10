@@ -118,16 +118,32 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
                 
                 let realm = try! Realm()
                 
-                try! realm.write {
-                    realm.add(userBoolean)
-                    print("User successfully added!")
-                }
+                let existingUserDict = realm.objects(UserBoolean.self).filter("uuid = \"\(userBoolean.uuid)\"")
                 
-                realm.refresh()
+                if existingUserDict.count == 0 {
+                    try! realm.write {
+                        realm.add(userBoolean)
+                        print("User successfully added!")
+                    }
+                    
+                    realm.refresh()
+                    
+                    let alert = UIAlertController(title: "Успешно", message: "Контакт успешно отсканирован!", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
+                        self.tabBarController?.selectedIndex = 1
+                        self.tabBarController?.selectedIndex = 0
+                    }))
+                    self.present(alert, animated: true, completion: nil)
+                    
+                } else {
+                    
+                    let alert = UIAlertController(title: "Ошибка", message: "Такой пользователь уже существует!", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel))
+                    self.present(alert, animated: true, completion: nil)
+                    
+                }
              }
         })
-        
-        self.tabBarController?.selectedIndex = 0
     }
 
     override var prefersStatusBarHidden: Bool {

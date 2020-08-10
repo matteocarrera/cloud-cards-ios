@@ -1437,7 +1437,7 @@
         <!--Contacts-->
         <scene sceneID="vrR-rQ-rLZ">
             <objects>
-                <viewController title="Contacts" id="KNG-E6-V2A" customClass="ContactsController" customModule="Альфа_Банк_QR" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContactsController" title="Contacts" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KNG-E6-V2A" customClass="ContactsController" customModule="Альфа_Банк_QR" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="egb-Gz-od7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="548"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

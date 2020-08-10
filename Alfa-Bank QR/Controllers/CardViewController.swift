@@ -20,6 +20,16 @@ class CardViewController: UIViewController, MFMailComposeViewControllerDelegate,
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 13.0, *) {
+            let exportButton : UIBarButtonItem = UIBarButtonItem(image: UIImage.init(systemName: "square.and.arrow.up"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(exportContact(_:)))
+            exportButton.tintColor = UIColor.white
+
+            self.navigationItem.rightBarButtonItem = exportButton
+        } else {
+            // Fallback on earlier versions
+        }
+        
         cardPhoto.layer.cornerRadius = cardPhoto.frame.height/2
         TableUtils.configureTableView(table: cardDataTable, controller: self)
     }
@@ -55,6 +65,16 @@ class CardViewController: UIViewController, MFMailComposeViewControllerDelegate,
         })
         
         cardDataTable.reloadData()
+    }
+    
+    @objc func exportContact(_ sender: Any) {
+        let alert = UIAlertController(title: "Экспорт контакта", message: "Вы действительно хотите экспортировать контакт?", preferredStyle: .alert)
+        alert.addAction(UIAlertAction.init(title: "Да", style: .default, handler: { (_) in
+            ProgramUtils.exportToContacts(user: DataUtils.parseDataToUser(data: self.data), photo: self.cardPhoto.image, controller: self)
+        }))
+        alert.addAction(UIAlertAction.init(title: "Нет", style: .cancel))
+        self.present(alert, animated: true, completion: nil)
+        
     }
         
     func numberOfSections(in tableView: UITableView) -> Int {
