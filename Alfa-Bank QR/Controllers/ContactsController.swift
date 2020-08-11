@@ -155,10 +155,10 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
         
         let parentViewController = self.parent as! CardsController
         if parentViewController.selectionIsActivated {
-            if selectedContactsUuid.contains(dataCell.uuid) {
-                selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: dataCell.uuid)!)
+            if selectedContactsUuid.contains(dataCell.parentId + "|" + dataCell.uuid) {
+                selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: dataCell.parentId + "|" + dataCell.uuid)!)
             } else {
-                selectedContactsUuid.append(dataCell.uuid)
+                selectedContactsUuid.append(dataCell.parentId + "|" + dataCell.uuid)
             }
             print(selectedContactsUuid)
         } else {

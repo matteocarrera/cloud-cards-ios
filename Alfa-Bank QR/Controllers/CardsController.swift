@@ -77,6 +77,17 @@ class CardsController: UIViewController, UISearchBarDelegate {
         let alert = UIAlertController.init(title: "Выберите действие", message: nil, preferredStyle: .actionSheet)
         
         alert.addAction(UIAlertAction.init(title: "Поделиться", style: .default, handler: { (_) in
+            let child = self.children[1] as! ContactsController
+            
+            var images = [UIImage]()
+            for contactLink in child.selectedContactsUuid {
+                let image = ProgramUtils.generateQR(userLink: contactLink)
+                images.append(image!)
+            }
+            
+            let vc = UIActivityViewController(activityItems: images, applicationActivities: [])
+            self.present(vc, animated: true)
+            
             self.cancelSelection()
         }))
         
@@ -86,7 +97,9 @@ class CardsController: UIViewController, UISearchBarDelegate {
             let realm = try! Realm()
             
             for uuid in child.selectedContactsUuid {
-                let contact = realm.objects(UserBoolean.self).filter("uuid = \"\(uuid)\"")[0]
+                let userUuid = uuid.split(separator: "|")[1]
+                
+                let contact = realm.objects(UserBoolean.self).filter("uuid = \"\(userUuid)\"")[0]
                 
                 try! realm.write {
                     realm.delete(contact)
