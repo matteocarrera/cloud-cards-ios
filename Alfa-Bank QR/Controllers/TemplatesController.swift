@@ -35,10 +35,10 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         templates = Array(realm.objects(Card.self))
         
         let defaults = UserDefaults(suiteName: "group.urfusoftware.Alfa-Bank-QR")
-        let link = defaults?.string(forKey: "link")
+        let link = String((defaults?.string(forKey: "link") ?? ""))
         
-        if link != nil || ((link?.contains("|")) != nil) {
-            DataBaseUtils.saveUser(controller: self, link: link!)
+        if link.contains("|") {
+            DataBaseUtils.saveUser(controller: self, link: link)
         }
 
         defaults?.removeObject(forKey: "link")

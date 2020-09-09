@@ -101,7 +101,9 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
 
     func found(code: String) {
-        DataBaseUtils.saveUser(controller: self, link: code)
+        if code.contains("|") {
+            DataBaseUtils.saveUser(controller: self, link: code)
+        }
     }
 
     override var prefersStatusBarHidden: Bool {
