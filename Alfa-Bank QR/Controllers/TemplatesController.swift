@@ -21,6 +21,8 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress(longPressGestureRecognizer:)))
         self.view.addGestureRecognizer(longPressRecognizer)
+        
+        viewWillAppear(true)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -31,6 +33,15 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         let realm = try! Realm()
 
         templates = Array(realm.objects(Card.self))
+        
+        let defaults = UserDefaults(suiteName: "group.urfusoftware.Alfa-Bank-QR")
+        let link = defaults?.string(forKey: "link")
+        
+        if link != nil || ((link?.contains("|")) != nil) {
+            DataBaseUtils.saveUser(controller: self, link: link!)
+        }
+
+        defaults?.removeObject(forKey: "link")
         
         templatesTable.reloadData()
     }
@@ -124,9 +135,7 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         let width = NSLayoutConstraint(item: showAlert.view as Any, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
         showAlert.view.addConstraint(height)
         showAlert.view.addConstraint(width)
-        showAlert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: { action in
-            
-        }))
+        showAlert.addAction(UIAlertAction(title: "OK", style: .cancel))
         if #available(iOS 13.0, *) {
             showAlert.overrideUserInterfaceStyle = UIUserInterfaceStyle.light
         }

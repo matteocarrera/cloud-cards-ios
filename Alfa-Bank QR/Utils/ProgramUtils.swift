@@ -12,6 +12,12 @@ import CoreLocation
 import Contacts
 
 class ProgramUtils {
+    
+    static func showAlert(controller : UIViewController, title : String, message : String) {
+        let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        ac.addAction(UIAlertAction(title: "OK", style: .default))
+        controller.present(ac, animated: true)
+    }
 
     static func generateQR(userLink : String) -> UIImage? {
         let data = userLink.data(using: String.Encoding.utf8)
@@ -85,9 +91,7 @@ class ProgramUtils {
         }
         
         if contactExists {
-            let alert = UIAlertController(title: "Контакт существует", message: "Такой контакт уже существует!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel))
-            controller.present(alert, animated: true, completion: nil)
+            ProgramUtils.showAlert(controller: controller, title: "Контакт существует!", message: "Такой контакт уже существует!")
             return
         }
         

@@ -149,7 +149,6 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
             } else {
                 cell.accessoryType = .checkmark
             }
-            
         }
         else
         {
@@ -178,11 +177,7 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     private func showAlert() {
-        let alert = UIAlertController(title: "Данные не выбраны", message: "Вы не выбрали ни одного поля!", preferredStyle: .alert)
-
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-
-        self.present(alert, animated: true)
+        ProgramUtils.showAlert(controller: self, title: "Данные не выбраны", message: "Вы не выбрали ни одного поля!")
     }
 }
 

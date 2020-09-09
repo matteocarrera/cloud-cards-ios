@@ -2,47 +2,76 @@
 //  ShareViewController.swift
 //  Share
 //
-//  Created by Владимир Макаров on 07.08.2020.
+//  Created by Владимир Макаров on 06.09.2020.
 //  Copyright © 2020 Vladimir Makarov. All rights reserved.
 //
 
 import UIKit
 import MobileCoreServices
+import Social
 
-@objc(ShareExtensionViewController)
-class ShareViewController: UIViewController {
+class ShareViewController: SLComposeServiceViewController {
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //textView.isHidden = true
+        textView.text = "Рекомендовано делать импорт с полностью закрытым приложением!"
+        textView.tintColor = UIColor.clear
+        self.navigationController?.navigationBar.topItem?.rightBarButtonItem?.title = "Импортировать"
+        self.navigationController?.navigationBar.topItem?.leftBarButtonItem?.title = "Отмена"
+    }
     
-    self.handleSharedFile()
-  }
-  
-  private func handleSharedFile() {
-    let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
-    let contentType = kUTTypeData as String
-    for provider in attachments {
-      // Check if the content type is the same as we expected
-      if provider.hasItemConformingToTypeIdentifier(contentType) {
-        provider.loadItem(forTypeIdentifier: contentType,
-                          options: nil) { [unowned self] (data, error) in
-        // Handle the error here if you want
-        guard error == nil else { return }
-             
-        if let url = data as? URL,
-           let imageData = try? Data(contentsOf: url) {
-             self.save(imageData, key: "imageData", value: imageData)
-        } else {
+    override func isContentValid() -> Bool {
+        return true
+    }
+
+    override func didSelectPost() {
+        
+        let attachments = (self.extensionContext?.inputItems.first as? NSExtensionItem)?.attachments ?? []
+        let contentType = kUTTypeData as String
+        for provider in attachments {
+          if provider.hasItemConformingToTypeIdentifier(contentType) {
+            provider.loadItem(forTypeIdentifier: contentType,
+                              options: nil) { [unowned self] (data, error) in
+            guard error == nil else { return }
+                 
+            if let url = data as? URL,
+               let imageData = try? Data(contentsOf: url) {
+                
+                let qr = self.detectQRCode(UIImage(data: imageData))?.first as! CIQRCodeFeature
+                let link = String(qr.messageString!)
+                
+                let defaults = UserDefaults(suiteName: "group.urfusoftware.Alfa-Bank-QR")
+                defaults?.set(link, forKey: "link")
+                
+            } else {
+              fatalError("Impossible to save image")
+            }
+          }}
+        }
+        
+        self.extensionContext!.completeRequest(returningItems: [], completionHandler: nil)
+    }
+
+    override func configurationItems() -> [Any]! {
+        return []
+    }
+    
+    private func detectQRCode(_ image: UIImage?) -> [CIFeature]? {
+        if let image = image, let ciImage = CIImage.init(image: image){
+            var options: [String: Any]
+            let context = CIContext()
+            options = [CIDetectorAccuracy: CIDetectorAccuracyHigh]
+            let qrDetector = CIDetector(ofType: CIDetectorTypeQRCode, context: context, options: options)
+            if ciImage.properties.keys.contains((kCGImagePropertyOrientation as String)){
+                options = [CIDetectorImageOrientation: ciImage.properties[(kCGImagePropertyOrientation as String)] ?? 1]
+            } else {
+                options = [CIDetectorImageOrientation: 1]
+            }
+            let features = qrDetector?.features(in: ciImage, options: options)
+            return features
 
         }
-      }}
-    }
-  }
-    
-    private func save(_ data: Data, key: String, value: Any) {
-      let userDefaults = UserDefaults()
-      userDefaults.set(data, forKey: key)
+        return nil
     }
 }
-
-

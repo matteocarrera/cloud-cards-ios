@@ -11,4 +11,7 @@ target 'Alfa-Bank QR' do
 
   pod 'Firebase/Storage'
   pod 'Firebase/Database'
+
+  pod 'AppCenter'
+
 end

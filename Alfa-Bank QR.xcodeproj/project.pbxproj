@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		D7DDE56D92F410257C6B15AA /* Pods_Alfa_Bank_QR.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E6DF767A4044C1357ECA4AFC /* Pods_Alfa_Bank_QR.framework */; };
+		E7062D65250505F4006723EB /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7062D64250505F4006723EB /* ShareViewController.swift */; };
+		E7062D68250505F4006723EB /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7062D66250505F4006723EB /* MainInterface.storyboard */; };
+		E7062D6C250505F4006723EB /* Share.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E7062D62250505F4006723EB /* Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		E7062D722508C913006723EB /* DataBaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7062D712508C913006723EB /* DataBaseUtils.swift */; };
 		E70B748824B0C17000C52072 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E70B748724B0C17000C52072 /* GoogleService-Info.plist */; };
 		E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25324705D5000BB3F05 /* AppDelegate.swift */; };
 		E714B25624705D5000BB3F05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25524705D5000BB3F05 /* SceneDelegate.swift */; };
@@ -27,9 +31,6 @@
 		E74A4848247159B50004B5B5 /* DataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4847247159B50004B5B5 /* DataItem.swift */; };
 		E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A484F2471707C0004B5B5 /* ProfileController.swift */; };
 		E760A2702482D3D500009919 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E760A26F2482D3D500009919 /* NavigationController.swift */; };
-		E7643BCF24DD499C00136425 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7643BCE24DD499C00136425 /* ShareViewController.swift */; };
-		E7643BD224DD499C00136425 /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7643BD024DD499C00136425 /* MainInterface.storyboard */; };
-		E7643BD624DD499C00136425 /* Share.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E7643BCC24DD499C00136425 /* Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E786836B2488E77000844DD4 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786836A2488E77000844DD4 /* EditProfileController.swift */; };
 		E7A8275B24D171F00024F414 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A8275A24D171F00024F414 /* ContactsController.swift */; };
 		E7A8275D24D188920024F414 /* BankCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A8275C24D188920024F414 /* BankCard.swift */; };
@@ -40,11 +41,11 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		E7643BD424DD499C00136425 /* PBXContainerItemProxy */ = {
+		E7062D6A250505F4006723EB /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = E714B24824705D5000BB3F05 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = E7643BCB24DD499C00136425;
+			remoteGlobalIDString = E7062D61250505F4006723EB;
 			remoteInfo = Share;
 		};
 /* End PBXContainerItemProxy section */
@@ -56,7 +57,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 13;
 			files = (
-				E7643BD624DD499C00136425 /* Share.appex in Embed App Extensions */,
+				E7062D6C250505F4006723EB /* Share.appex in Embed App Extensions */,
 			);
 			name = "Embed App Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -67,6 +68,13 @@
 		38E25066AE986F47EF7546EB /* Pods-Alfa-Bank QR.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alfa-Bank QR.debug.xcconfig"; path = "Target Support Files/Pods-Alfa-Bank QR/Pods-Alfa-Bank QR.debug.xcconfig"; sourceTree = "<group>"; };
 		5CFE60535D2DA245284A13A2 /* Pods-Alfa-Bank QR.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Alfa-Bank QR.release.xcconfig"; path = "Target Support Files/Pods-Alfa-Bank QR/Pods-Alfa-Bank QR.release.xcconfig"; sourceTree = "<group>"; };
 		E6DF767A4044C1357ECA4AFC /* Pods_Alfa_Bank_QR.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Alfa_Bank_QR.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7062D4A24F687F2006723EB /* Альфа-Банк QR.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Альфа-Банк QR.entitlements"; sourceTree = "<group>"; };
+		E7062D62250505F4006723EB /* Share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Share.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		E7062D64250505F4006723EB /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
+		E7062D67250505F4006723EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
+		E7062D69250505F4006723EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E7062D70250505FA006723EB /* Share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Share.entitlements; sourceTree = "<group>"; };
+		E7062D712508C913006723EB /* DataBaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataBaseUtils.swift; sourceTree = "<group>"; };
 		E70B748724B0C17000C52072 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E714B25024705D5000BB3F05 /* Альфа-Банк QR.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Альфа-Банк QR.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E714B25324705D5000BB3F05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -88,32 +96,33 @@
 		E74A4847247159B50004B5B5 /* DataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataItem.swift; sourceTree = "<group>"; };
 		E74A484F2471707C0004B5B5 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		E760A26F2482D3D500009919 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		E7643BCC24DD499C00136425 /* Share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Share.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		E7643BCE24DD499C00136425 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
-		E7643BD124DD499C00136425 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
-		E7643BD324DD499C00136425 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E786836A2488E77000844DD4 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		E7A8275A24D171F00024F414 /* ContactsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
 		E7A8275C24D188920024F414 /* BankCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCard.swift; sourceTree = "<group>"; };
 		E7DA719524C31A19009DD08E /* UserBoolean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBoolean.swift; sourceTree = "<group>"; };
 		E7DDDC1424826BDC00E8F462 /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
 		E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDataController.swift; sourceTree = "<group>"; };
+		E7F1F47F24E2A6DF00FECF65 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
+		E7F1F48124E2A6E500FECF65 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
+		E7F1F48324E2A6F000FECF65 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		E7F1F48524E2A6F600FECF65 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		E7F1F48724E2A6FF00FECF65 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		E7F8E5E324A38A1E00738AB5 /* CardsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E7062D5F250505F4006723EB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E714B24D24705D5000BB3F05 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 				D7DDE56D92F410257C6B15AA /* Pods_Alfa_Bank_QR.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E7643BC924DD499C00136425 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -132,16 +141,32 @@
 		76AA010EB081052AF3C39483 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				E7F1F48724E2A6FF00FECF65 /* OpenGLES.framework */,
+				E7F1F48524E2A6F600FECF65 /* SystemConfiguration.framework */,
+				E7F1F48324E2A6F000FECF65 /* AVFoundation.framework */,
+				E7F1F48124E2A6E500FECF65 /* CoreMedia.framework */,
+				E7F1F47F24E2A6DF00FECF65 /* CoreMotion.framework */,
 				E6DF767A4044C1357ECA4AFC /* Pods_Alfa_Bank_QR.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		E7062D63250505F4006723EB /* Share */ = {
+			isa = PBXGroup;
+			children = (
+				E7062D70250505FA006723EB /* Share.entitlements */,
+				E7062D64250505F4006723EB /* ShareViewController.swift */,
+				E7062D66250505F4006723EB /* MainInterface.storyboard */,
+				E7062D69250505F4006723EB /* Info.plist */,
+			);
+			path = Share;
 			sourceTree = "<group>";
 		};
 		E714B24724705D5000BB3F05 = {
 			isa = PBXGroup;
 			children = (
 				E714B25224705D5000BB3F05 /* Alfa-Bank QR */,
-				E7643BCD24DD499C00136425 /* Share */,
+				E7062D63250505F4006723EB /* Share */,
 				E714B25124705D5000BB3F05 /* Products */,
 				13458E93FF022E179DC129BF /* Pods */,
 				76AA010EB081052AF3C39483 /* Frameworks */,
@@ -152,7 +177,7 @@
 			isa = PBXGroup;
 			children = (
 				E714B25024705D5000BB3F05 /* Альфа-Банк QR.app */,
-				E7643BCC24DD499C00136425 /* Share.appex */,
+				E7062D62250505F4006723EB /* Share.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -160,6 +185,7 @@
 		E714B25224705D5000BB3F05 /* Alfa-Bank QR */ = {
 			isa = PBXGroup;
 			children = (
+				E7062D4A24F687F2006723EB /* Альфа-Банк QR.entitlements */,
 				E737940724D0004100440FF4 /* Extensions */,
 				E70B748724B0C17000C52072 /* GoogleService-Info.plist */,
 				E74A484C24715A830004B5B5 /* Utils */,
@@ -219,23 +245,31 @@
 				E7DDDC1424826BDC00E8F462 /* DataUtils.swift */,
 				E734F6F124D3F45A008EC9D9 /* ProgramUtils.swift */,
 				E734F6F324D40069008EC9D9 /* TableUtils.swift */,
+				E7062D712508C913006723EB /* DataBaseUtils.swift */,
 			);
 			path = Utils;
-			sourceTree = "<group>";
-		};
-		E7643BCD24DD499C00136425 /* Share */ = {
-			isa = PBXGroup;
-			children = (
-				E7643BCE24DD499C00136425 /* ShareViewController.swift */,
-				E7643BD024DD499C00136425 /* MainInterface.storyboard */,
-				E7643BD324DD499C00136425 /* Info.plist */,
-			);
-			path = Share;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		E7062D61250505F4006723EB /* Share */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7062D6D250505F4006723EB /* Build configuration list for PBXNativeTarget "Share" */;
+			buildPhases = (
+				E7062D5E250505F4006723EB /* Sources */,
+				E7062D5F250505F4006723EB /* Frameworks */,
+				E7062D60250505F4006723EB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Share;
+			productName = Share;
+			productReference = E7062D62250505F4006723EB /* Share.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		E714B24F24705D5000BB3F05 /* Alfa-Bank QR */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E714B26624705D5200BB3F05 /* Build configuration list for PBXNativeTarget "Alfa-Bank QR" */;
@@ -250,7 +284,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				E7643BD524DD499C00136425 /* PBXTargetDependency */,
+				E7062D6B250505F4006723EB /* PBXTargetDependency */,
 			);
 			name = "Alfa-Bank QR";
 			packageProductDependencies = (
@@ -259,38 +293,21 @@
 			productReference = E714B25024705D5000BB3F05 /* Альфа-Банк QR.app */;
 			productType = "com.apple.product-type.application";
 		};
-		E7643BCB24DD499C00136425 /* Share */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = E7643BDA24DD499C00136425 /* Build configuration list for PBXNativeTarget "Share" */;
-			buildPhases = (
-				E7643BC824DD499C00136425 /* Sources */,
-				E7643BC924DD499C00136425 /* Frameworks */,
-				E7643BCA24DD499C00136425 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = Share;
-			productName = Share;
-			productReference = E7643BCC24DD499C00136425 /* Share.appex */;
-			productType = "com.apple.product-type.app-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		E714B24824705D5000BB3F05 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1150;
+				LastSwiftUpdateCheck = 1160;
 				LastUpgradeCheck = 1140;
 				ORGANIZATIONNAME = "Vladimir Makarov";
 				TargetAttributes = {
+					E7062D61250505F4006723EB = {
+						CreatedOnToolsVersion = 11.6;
+					};
 					E714B24F24705D5000BB3F05 = {
 						CreatedOnToolsVersion = 11.4.1;
-					};
-					E7643BCB24DD499C00136425 = {
-						CreatedOnToolsVersion = 11.5;
 					};
 				};
 			};
@@ -310,12 +327,20 @@
 			projectRoot = "";
 			targets = (
 				E714B24F24705D5000BB3F05 /* Alfa-Bank QR */,
-				E7643BCB24DD499C00136425 /* Share */,
+				E7062D61250505F4006723EB /* Share */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		E7062D60250505F4006723EB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7062D68250505F4006723EB /* MainInterface.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E714B24E24705D5000BB3F05 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -324,14 +349,6 @@
 				E70B748824B0C17000C52072 /* GoogleService-Info.plist in Resources */,
 				E714B25F24705D5200BB3F05 /* Assets.xcassets in Resources */,
 				E714B25D24705D5000BB3F05 /* Main.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		E7643BCA24DD499C00136425 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E7643BD224DD499C00136425 /* MainInterface.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +397,14 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E7062D5E250505F4006723EB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E7062D65250505F4006723EB /* ShareViewController.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E714B24C24705D5000BB3F05 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -396,6 +421,7 @@
 				E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */,
 				E7A8275B24D171F00024F414 /* ContactsController.swift in Sources */,
 				E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */,
+				E7062D722508C913006723EB /* DataBaseUtils.swift in Sources */,
 				E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */,
 				E734F6F224D3F45A008EC9D9 /* ProgramUtils.swift in Sources */,
 				E737940224C5C73400440FF4 /* TemplatesController.swift in Sources */,
@@ -409,25 +435,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		E7643BC824DD499C00136425 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				E7643BCF24DD499C00136425 /* ShareViewController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		E7643BD524DD499C00136425 /* PBXTargetDependency */ = {
+		E7062D6B250505F4006723EB /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = E7643BCB24DD499C00136425 /* Share */;
-			targetProxy = E7643BD424DD499C00136425 /* PBXContainerItemProxy */;
+			target = E7062D61250505F4006723EB /* Share */;
+			targetProxy = E7062D6A250505F4006723EB /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		E7062D66250505F4006723EB /* MainInterface.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				E7062D67250505F4006723EB /* Base */,
+			);
+			name = MainInterface.storyboard;
+			sourceTree = "<group>";
+		};
 		E714B25B24705D5000BB3F05 /* Main.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -444,17 +470,51 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		E7643BD024DD499C00136425 /* MainInterface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E7643BD124DD499C00136425 /* Base */,
-			);
-			name = MainInterface.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		E7062D6E250505F4006723EB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Share/Share.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DQUYF75S8L;
+				INFOPLIST_FILE = Share/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "urfusoftware.Alfa-Bank-QR.Share";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		E7062D6F250505F4006723EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Share/Share.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = DQUYF75S8L;
+				INFOPLIST_FILE = Share/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "urfusoftware.Alfa-Bank-QR.Share";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		E714B26424705D5200BB3F05 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -575,6 +635,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Alfa-Bank QR/Альфа-Банк QR.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQUYF75S8L;
 				INFOPLIST_FILE = "Alfa-Bank QR/Info.plist";
@@ -583,8 +644,13 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "urfusoftware.Alfa-Bank-QR";
 				PRODUCT_NAME = "Альфа-Банк QR";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -596,6 +662,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Alfa-Bank QR/Альфа-Банк QR.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQUYF75S8L;
 				INFOPLIST_FILE = "Alfa-Bank QR/Info.plist";
@@ -604,56 +671,30 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "urfusoftware.Alfa-Bank-QR";
 				PRODUCT_NAME = "Альфа-Банк QR";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
-			};
-			name = Release;
-		};
-		E7643BD824DD499C00136425 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DQUYF75S8L;
-				INFOPLIST_FILE = Share/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "urfusoftware.Alfa-Bank-QR.Share";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-			};
-			name = Debug;
-		};
-		E7643BD924DD499C00136425 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = DQUYF75S8L;
-				INFOPLIST_FILE = Share/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.5;
-				LD_RUNPATH_SEARCH_PATHS = (
-					"$(inherited)",
-					"@executable_path/Frameworks",
-					"@executable_path/../../Frameworks",
-				);
-				PRODUCT_BUNDLE_IDENTIFIER = "urfusoftware.Alfa-Bank-QR.Share";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E7062D6D250505F4006723EB /* Build configuration list for PBXNativeTarget "Share" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E7062D6E250505F4006723EB /* Debug */,
+				E7062D6F250505F4006723EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E714B24B24705D5000BB3F05 /* Build configuration list for PBXProject "Alfa-Bank QR" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -668,15 +709,6 @@
 			buildConfigurations = (
 				E714B26724705D5200BB3F05 /* Debug */,
 				E714B26824705D5200BB3F05 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		E7643BDA24DD499C00136425 /* Build configuration list for PBXNativeTarget "Share" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				E7643BD824DD499C00136425 /* Debug */,
-				E7643BD924DD499C00136425 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

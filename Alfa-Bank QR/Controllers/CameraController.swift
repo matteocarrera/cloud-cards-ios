@@ -67,9 +67,7 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
     
     func failed() {
-        let ac = UIAlertController(title: "Сканирование не поддерживается", message: "Ваше устройство не поддерживает функцию сканирования.", preferredStyle: .alert)
-        ac.addAction(UIAlertAction(title: "OK", style: .default))
-        present(ac, animated: true)
+        ProgramUtils.showAlert(controller: self, title: "Сканирование не поддерживается", message: "Ваше устройство не поддерживает функцию сканирования.")
         captureSession = nil
     }
 
@@ -103,47 +101,7 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
 
     func found(code: String) {
-        let parentId = code.split(separator: "|")[0]
-        let uuid = code.split(separator: "|")[1]
-        
-        let ref = Database.database().reference().child(String(parentId)).child(String(uuid))
-        
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-             if let json = snapshot.value as? String {
-
-                let jsonData = json.data(using: .utf8)!
-                let userBoolean: UserBoolean = try! JSONDecoder().decode(UserBoolean.self, from: jsonData)
-                
-                print(json)
-                
-                let realm = try! Realm()
-                
-                let existingUserDict = realm.objects(UserBoolean.self).filter("uuid = \"\(userBoolean.uuid)\"")
-                
-                if existingUserDict.count == 0 {
-                    try! realm.write {
-                        realm.add(userBoolean)
-                        print("User successfully added!")
-                    }
-                    
-                    realm.refresh()
-                    
-                    let alert = UIAlertController(title: "Успешно", message: "Контакт успешно отсканирован!", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
-                        self.tabBarController?.selectedIndex = 1
-                        self.tabBarController?.selectedIndex = 0
-                    }))
-                    self.present(alert, animated: true, completion: nil)
-                    
-                } else {
-                    
-                    let alert = UIAlertController(title: "Ошибка", message: "Такой пользователь уже существует!", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel))
-                    self.present(alert, animated: true, completion: nil)
-                    
-                }
-             }
-        })
+        DataBaseUtils.saveUser(controller: self, link: code)
     }
 
     override var prefersStatusBarHidden: Bool {

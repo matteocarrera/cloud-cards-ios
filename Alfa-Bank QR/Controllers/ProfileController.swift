@@ -70,8 +70,6 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
         
         return cell
     }
-    
-    
 }
 
 class DataTableViewCell : UITableViewCell {
