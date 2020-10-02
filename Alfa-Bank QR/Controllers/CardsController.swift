@@ -21,7 +21,7 @@ class CardsController: UIViewController, UISearchBarDelegate {
     let realm = try! Realm()
     
     // Флаг, показывающий, что пользователь выбрал функцию множественного выбора визиток
-    public var selectionIsActivated = false
+    public var multipleChoiceActivated = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,7 +45,7 @@ class CardsController: UIViewController, UISearchBarDelegate {
         shareButton.tintColor = UIColor(hexString: primaryDark)
         shareButton.isEnabled = false
         
-        selectionIsActivated = false
+        multipleChoiceActivated = false
         
         indexChanged(segmentedControl)
     }
@@ -64,7 +64,7 @@ class CardsController: UIViewController, UISearchBarDelegate {
     }
     
     @IBAction func selectMultiple(_ sender: Any) {
-        if selectionIsActivated {
+        if multipleChoiceActivated {
             cancelSelection()
         } else {
             let cancelButton : UIBarButtonItem = UIBarButtonItem(title: "Отменить", style: UIBarButtonItem.Style.plain, target: self, action: #selector(selectMultiple(_:)))
@@ -72,7 +72,7 @@ class CardsController: UIViewController, UISearchBarDelegate {
 
             self.navigationItem.rightBarButtonItem = cancelButton
             
-            selectionIsActivated = true
+            multipleChoiceActivated = true
             shareButton.tintColor = UIColor(hexString: white)
             shareButton.isEnabled = true
         }
@@ -149,7 +149,7 @@ class CardsController: UIViewController, UISearchBarDelegate {
         self.navigationItem.rightBarButtonItem = select
         
         child.viewWillAppear(true)
-        selectionIsActivated = false
+        multipleChoiceActivated = false
         shareButton.tintColor = UIColor(hexString: primaryDark)
         shareButton.isEnabled = false
     }
