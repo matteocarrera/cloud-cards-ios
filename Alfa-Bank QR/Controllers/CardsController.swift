@@ -17,11 +17,16 @@ class CardsController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var templatesView: UIView!
     @IBOutlet weak var contactsView: UIView!
+    
+    let realm = try! Realm()
+    
+    // Флаг, показывающий, что пользователь выбрал функцию множественного выбора визиток
     public var selectionIsActivated = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // В данном случае Recognizer требуется для того, чтобы скрывать клавиатуру при нажатии на свободное место на экране
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
@@ -37,7 +42,7 @@ class CardsController: UIViewController, UISearchBarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        shareButton.tintColor = UIColor(hexString: "#0B1F35")
+        shareButton.tintColor = UIColor(hexString: primaryDark)
         shareButton.isEnabled = false
         
         selectionIsActivated = false
@@ -68,10 +73,14 @@ class CardsController: UIViewController, UISearchBarDelegate {
             self.navigationItem.rightBarButtonItem = cancelButton
             
             selectionIsActivated = true
-            shareButton.tintColor = UIColor(hexString: "#FFFFFF")
+            shareButton.tintColor = UIColor(hexString: white)
             shareButton.isEnabled = true
         }
     }
+    
+    /*
+        TODO("Сделать отправку ссылок на визитку пользователя, не QR кода")
+     */
     
     @IBAction func openMenu(_ sender: Any) {
         let alert = UIAlertController.init(title: "Выберите действие", message: nil, preferredStyle: .actionSheet)
@@ -94,15 +103,13 @@ class CardsController: UIViewController, UISearchBarDelegate {
         alert.addAction(UIAlertAction.init(title: "Удалить", style: .default, handler: { (_) in
             let child = self.children[1] as! ContactsController
             
-            let realm = try! Realm()
-            
             for uuid in child.selectedContactsUuid {
                 let userUuid = uuid.split(separator: "|")[1]
                 
-                let contact = realm.objects(UserBoolean.self).filter("uuid = \"\(userUuid)\"")[0]
+                let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(userUuid)\"")[0]
                 
-                try! realm.write {
-                    realm.delete(contact)
+                try! self.realm.write {
+                    self.realm.delete(contact)
                 }
             }
             
@@ -143,7 +150,7 @@ class CardsController: UIViewController, UISearchBarDelegate {
         
         child.viewWillAppear(true)
         selectionIsActivated = false
-        shareButton.tintColor = UIColor(hexString: "#0B1F35")
+        shareButton.tintColor = UIColor(hexString: primaryDark)
         shareButton.isEnabled = false
     }
     

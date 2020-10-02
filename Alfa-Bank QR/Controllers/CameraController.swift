@@ -65,11 +65,6 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             return .lightContent
         }
     }
-    
-    func failed() {
-        ProgramUtils.showAlert(controller: self, title: "Сканирование не поддерживается", message: "Ваше устройство не поддерживает функцию сканирования.")
-        captureSession = nil
-    }
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
@@ -94,16 +89,24 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            found(code: stringValue)
+            saveUserIfCodeIsCorrect(code: stringValue)
         }
 
         dismiss(animated: true)
     }
 
-    func found(code: String) {
+    // Проверка данных, полученных с QR. Если есть "|", то сохраняем, иначе данные некорректны
+    func saveUserIfCodeIsCorrect(code: String) {
         if code.contains("|") {
             DataBaseUtils.saveUser(controller: self, link: code)
         }
+    }
+    
+    func failed() {
+        ProgramUtils.showAlert(controller: self,
+                               title: "Сканирование не поддерживается",
+                               message: "Ваше устройство не поддерживает функцию сканирования.")
+        captureSession = nil
     }
 
     override var prefersStatusBarHidden: Bool {
@@ -115,4 +118,3 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     }
 
 }
-

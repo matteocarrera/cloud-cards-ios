@@ -21,11 +21,8 @@ class DataBaseUtils {
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
              if let json = snapshot.value as? String {
 
-                let jsonData = json.data(using: .utf8)!
-                let userBoolean: UserBoolean = try! JSONDecoder().decode(UserBoolean.self, from: jsonData)
-                
-                print(json)
-                
+                let userBoolean = convertFromJson(json: json, type: UserBoolean.self)
+
                 let realm = try! Realm()
                 
                 let existingUserDict = realm.objects(UserBoolean.self).filter("uuid = \"\(userBoolean.uuid)\"")
@@ -55,5 +52,20 @@ class DataBaseUtils {
                 }
              }
         })
+    }
+    
+    private static func getPhotoLink(uuid : String) -> String {
+        return "https://firebasestorage.googleapis.com/v0/b/alfa-bank-qr.appspot.com/o/\(uuid)?alt=media"
+    }
+    
+    public static func getPhotoFromDatabase(photoUuid : String) -> UIImage? {
+        let url = URL(string: getPhotoLink(uuid: photoUuid))
+        let data = try? Data(contentsOf: url!)
+        
+        if let imageData = data {
+            return UIImage(data: imageData)
+        }
+        
+        return nil
     }
 }

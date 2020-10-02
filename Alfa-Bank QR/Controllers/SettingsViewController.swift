@@ -28,7 +28,7 @@ class SettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
         
-        TableUtils.setColorToSelectedRow(tableCell: cell!)
+        setColorToSelectedRow(tableCell: cell!)
         
         cell?.textLabel?.text = items[indexPath.row]
         cell?.textLabel?.textColor = UIColor.black

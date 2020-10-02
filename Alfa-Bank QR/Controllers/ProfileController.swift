@@ -15,35 +15,36 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     @IBOutlet var userPhoto: UIImageView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var createProfileNotification: UILabel!
+    
+    let realm = try! Realm()
+    
+    // Массив данных пользователя
     var data = [DataItem]()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         userPhoto.layer.cornerRadius = userPhoto.frame.height/2
-        TableUtils.configureTableView(table: tableView, controller: self)
+        configureTableView(table: tableView, controller: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let realm = try! Realm()
-        
         //print(Realm.Configuration.defaultConfiguration.fileURL)
+        
+        /*
+            Получение данных основного пользователя приложения
+         */
         
         let owner = realm.objects(User.self)
         if owner.count != 0 {
             createProfileNotification.isHidden = true
+            
             userPhoto.isHidden = false
+            userPhoto.image = DataBaseUtils.getPhotoFromDatabase(photoUuid: owner[0].photo)
+            
             data = DataUtils.setDataToList(user: owner[0])
-            
-            let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/alfa-bank-qr.appspot.com/o/\(owner[0].photo)?alt=media")
-            let data = try? Data(contentsOf: url!)
-
-            if let imageData = data {
-                let image = UIImage(data: imageData)
-                userPhoto.image = image
-            }
-            
         } else {
             createProfileNotification.isHidden = false
             userPhoto.isHidden = true

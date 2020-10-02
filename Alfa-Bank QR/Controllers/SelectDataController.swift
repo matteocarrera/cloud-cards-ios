@@ -14,13 +14,17 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var createProfileNotification: UILabel!
+    
+    let realm = try! Realm()
+    
+    // Массив данных пользователя: 1 элемент - 1 вид данных
     var data = [DataItem]()
+    // Массив выбранных данных пользователя для создания визитки
     var selectedItems = [DataItem]()
-    var colors = ["#FF0000", "#00FF00", "#0000FF", "#7B4987", "#48a89a", "#c5db37", "#cf9211", "#7c888a", "#000000"]
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        TableUtils.configureTableView(table: tableView, controller: self)
+        configureTableView(table: tableView, controller: self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -28,7 +32,9 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
         
         selectedItems.removeAll()
         
-        let realm = try! Realm()
+        /*
+            Получение данных пользователя
+         */
         
         let owner = realm.objects(User.self)
         if owner.count != 0 {
@@ -77,27 +83,34 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     private func saveUser(segue : String, title : String?) {
-        let newUser = DataUtils.parseDataToUserBoolean(data: selectedItems)
-        let realm = try! Realm()
+        
         let ownerUser = realm.objects(User.self)
+        
+        let newUser = DataUtils.parseDataToUserBoolean(data: selectedItems)
         newUser.parentId = ownerUser[0].parentId
+        
         let users = realm.objects(UserBoolean.self)
+        
+        /*
+            Делаем проверку на то, что визитка с выбранными полями уже существует
+         */
+        
         var userExists = false
+        
         for user in users {
             if DataUtils.generatedUsersEqual(firstUser: newUser, secondUser: user) {
                 newUser.uuid = user.uuid
                 userExists = true
             }
         }
+        
         if !userExists {
             let uuid = UUID().uuidString
             newUser.uuid = uuid
             
             let ref = Database.database().reference()
             
-            let jsonEncoder = JSONEncoder()
-            let jsonData = try! jsonEncoder.encode(newUser)
-            let json = String(data: jsonData, encoding: String.Encoding.utf8)
+            let json = convertToJson(someUser: newUser)
             
             ref.child(newUser.parentId).child(newUser.uuid).setValue(json)
             
@@ -105,22 +118,29 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
                 realm.add(newUser)
             }
         }
+        
+        /*
+            Если мы вызываем метод для генерации QR без сохранения в шаблоны, то передаем QRView
+            для последующего перехода в окно, демонстрирующее QR код на экране
+         */
+        
         if (segue == "QRView") {
             let viewController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
             viewController.userLink = newUser.parentId + "|" + newUser.uuid
             self.navigationController?.pushViewController(viewController, animated: true)
         } else {
             let card = Card()
-            let randomInt = Int.random(in: 0..<colors.count)
-            card.color = colors[randomInt]
+            card.color = colors[Int.random(in: 0..<colors.count)]
             card.title = title!
             card.userId = newUser.uuid
+            
             let maxValue = realm.objects(Card.self).max(ofProperty: "id") as Int?
             if (maxValue != nil) {
                 card.id = maxValue! + 1
             } else {
                 card.id = 0
             }
+            
             try! realm.write {
                 realm.add(card)
             }

@@ -19,7 +19,7 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        TableUtils.configureTableView(table: contactsTable, controller: self)
+        configureTableView(table: contactsTable, controller: self)
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress(longPressGestureRecognizer:)))
         self.view.addGestureRecognizer(longPressRecognizer)
@@ -117,19 +117,16 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             if let json = snapshot.value as? String {
 
-                let jsonData = json.data(using: .utf8)!
-                let parentUser: User = try! JSONDecoder().decode(User.self, from: jsonData)
+                let parentUser: User = convertFromJson(json: json, type: User.self)
                   
                 let currentUser = DataUtils.getUserFromTemplate(user: parentUser, userBoolean: user)
 
-                let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/alfa-bank-qr.appspot.com/o/\(parentUser.photo)?alt=media")
-                let data = try? Data(contentsOf: url!)
-
-                if let imageData = data {
-                    let image = UIImage(data: imageData)
-                    cell.contactPhoto.image = image
-                    cell.contactPhoto.layer.cornerRadius = cell.contactPhoto.frame.height/2
-                }
+                /*
+                    TODO("Если пользователь без фотографии, то сделать две буквы вместо фотографии")
+                 */
+                
+                cell.contactPhoto.image = DataBaseUtils.getPhotoFromDatabase(photoUuid: parentUser.photo)
+                cell.contactPhoto.layer.cornerRadius = cell.contactPhoto.frame.height/2
                   
                 cell.contactName.text = currentUser.name + " " + currentUser.surname
                 
@@ -153,12 +150,14 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataCell = contacts[indexPath.row]
         
+        let uuid = dataCell.parentId + "|" + dataCell.uuid
+        
         let parentViewController = self.parent as! CardsController
         if parentViewController.selectionIsActivated {
-            if selectedContactsUuid.contains(dataCell.parentId + "|" + dataCell.uuid) {
-                selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: dataCell.parentId + "|" + dataCell.uuid)!)
+            if selectedContactsUuid.contains(uuid) {
+                selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: uuid)!)
             } else {
-                selectedContactsUuid.append(dataCell.parentId + "|" + dataCell.uuid)
+                selectedContactsUuid.append(uuid)
             }
             print(selectedContactsUuid)
         } else {
@@ -178,7 +177,7 @@ class ContactsCell : UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        TableUtils.setColorToSelectedRow(tableCell: self)
+        setColorToSelectedRow(tableCell: self)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

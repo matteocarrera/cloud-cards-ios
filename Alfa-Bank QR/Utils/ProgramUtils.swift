@@ -45,9 +45,9 @@ class ProgramUtils {
             guard let url = URL(string: "http://\(description)") else { return }
             UIApplication.shared.openURL(url)
         } else if title == "vk" {
-            guard let url = URL(string: "http://vk.com/\(description)") else { return }
-            UIApplication.shared.openURL(url)
-            //openApp(site: title, userLink: description)
+            //guard let url = URL(string: "http://vk.com/\(description)") else { return }
+            //UIApplication.shared.openURL(url)
+            openApp(site: title, userLink: description)
         } else if title == "facebook" {
             openApp(site: title, userLink: description)
         } else if title == "twitter" {
@@ -66,16 +66,13 @@ class ProgramUtils {
         
         let contactStore = CNContactStore()
         var contacts = [CNContact]()
-        let keys = [
-                CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
-                        CNContactPhoneNumbersKey,
-                        CNContactEmailAddressesKey
-                ] as [Any]
+        let keys = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
+                    CNContactPhoneNumbersKey,
+                    CNContactEmailAddressesKey] as [Any]
         let request = CNContactFetchRequest(keysToFetch: keys as! [CNKeyDescriptor])
+        
         do {
-            try contactStore.enumerateContacts(with: request){
-                    (contact, stop) in
-                contacts.append(contact)
+            try contactStore.enumerateContacts(with: request) { (contact, stop) in contacts.append(contact)
                 for phoneNumber in contact.phoneNumbers {
                     if let number = phoneNumber.value as? CNPhoneNumber {
                         if cleanPhoneNumber(number: user.mobile) == cleanPhoneNumber(number: number.stringValue) ||
@@ -211,30 +208,32 @@ class ProgramUtils {
         if UIApplication.shared.canOpenURL(appUrl! as URL) {
             UIApplication.shared.openURL(appUrl! as URL)
         } else {
-          //redirect to safari because the user doesn't have an app
             UIApplication.shared.openURL(NSURL(string: siteUrl + userLink)! as URL)
         }
     }
     
-    static func openMaps(address : String) {
+    private static func openMaps(address : String) {
         let geocoder = CLGeocoder()
         geocoder.geocodeAddressString(address) { (placemarksOptional, error) -> Void in
-          if let placemarks = placemarksOptional {
-            print("placemark| \(String(describing: placemarks.first))")
-            if let location = placemarks.first?.location {
-              let query = "?ll=\(location.coordinate.latitude),\(location.coordinate.longitude)"
-              let path = "http://maps.apple.com/" + query
-              if let url = NSURL(string: path) {
-                UIApplication.shared.openURL(url as URL)
-              } else {
-                // Could not construct url. Handle error.
-              }
+          
+            if let placemarks = placemarksOptional {
+                print("placemark| \(String(describing: placemarks.first))")
+            
+                if let location = placemarks.first?.location {
+                    let query = "?ll=\(location.coordinate.latitude),\(location.coordinate.longitude)"
+                    let path = "http://maps.apple.com/" + query
+                    
+                    if let url = NSURL(string: path) {
+                        UIApplication.shared.openURL(url as URL)
+                    } else {
+                        print("Невозможно создать URL")
+                    }
+                } else {
+                    print("Невозможно получить расположение по геокоду")
+                }
             } else {
-              // Could not get a location from the geocode request. Handle error.
+                print("Не было получено ни одной точки")
             }
-          } else {
-            // Didn't get any placemarks. Handle error.
-          }
         }
     }
     
@@ -250,8 +249,8 @@ class ProgramUtils {
             data[0] = "twitter://user?screen_name="
             data[1] = "http://twitter.com/"
         } else {
-            //data[0] = "vkontakte://profile/"
-            //data[1] = "http://vk.com/"
+            data[0] = "vk://vk.com/"
+            data[1] = "http://vk.com/"
         }
         return data
     }

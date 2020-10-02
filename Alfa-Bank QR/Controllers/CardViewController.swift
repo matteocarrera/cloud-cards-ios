@@ -15,7 +15,12 @@ class CardViewController: UIViewController, MFMailComposeViewControllerDelegate,
 
     @IBOutlet weak var cardDataTable: UITableView!
     @IBOutlet var cardPhoto: UIImageView!
+    
+    let realm = try! Realm()
+    
+    // Массив данных пользователя из выбранной визитки
     var data = [DataItem]()
+    // ID пользователя, полученный при переходе в окно просмотра визитки из шаблонов или контактов
     var userId = ""
     
     override func viewDidLoad() {
@@ -31,13 +36,12 @@ class CardViewController: UIViewController, MFMailComposeViewControllerDelegate,
         }
         
         cardPhoto.layer.cornerRadius = cardPhoto.frame.height/2
-        TableUtils.configureTableView(table: cardDataTable, controller: self)
+        configureTableView(table: cardDataTable, controller: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let realm = try! Realm()
         let userBoolean = realm.objects(UserBoolean.self).filter("uuid = \"\(userId)\"")[0]
         
         let ref = Database.database().reference().child(userBoolean.parentId).child(userBoolean.parentId)
@@ -45,20 +49,13 @@ class CardViewController: UIViewController, MFMailComposeViewControllerDelegate,
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             if let json = snapshot.value as? String {
 
-                let jsonData = json.data(using: .utf8)!
-                let owner: User = try! JSONDecoder().decode(User.self, from: jsonData)
+                let owner = convertFromJson(json: json, type: User.self)
                   
                 let currentUser = DataUtils.getUserFromTemplate(user: owner, userBoolean: userBoolean)
                 
                 self.data = DataUtils.setDataToList(user: currentUser)
                 
-                let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/alfa-bank-qr.appspot.com/o/\(owner.photo)?alt=media")
-                let data = try? Data(contentsOf: url!)
-
-                if let imageData = data {
-                    let image = UIImage(data: imageData)
-                    self.cardPhoto.image = image
-                }
+                self.cardPhoto.image = DataBaseUtils.getPhotoFromDatabase(photoUuid: owner.photo)
                   
                 self.cardDataTable.reloadData()
              }
@@ -111,7 +108,7 @@ class CardDataCell : UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        TableUtils.setColorToSelectedRow(tableCell: self)
+        setColorToSelectedRow(tableCell: self)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

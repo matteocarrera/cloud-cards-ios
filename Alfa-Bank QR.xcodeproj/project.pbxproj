@@ -19,6 +19,7 @@
 		E714B25D24705D5000BB3F05 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E714B25B24705D5000BB3F05 /* Main.storyboard */; };
 		E714B25F24705D5200BB3F05 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E714B25E24705D5200BB3F05 /* Assets.xcassets */; };
 		E714B26224705D5200BB3F05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E714B26024705D5200BB3F05 /* LaunchScreen.storyboard */; };
+		E71728212526222E00704371 /* JsonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71728202526222E00704371 /* JsonUtils.swift */; };
 		E71D726E24841A3200174B24 /* QRController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D726D24841A3200174B24 /* QRController.swift */; };
 		E734F6F224D3F45A008EC9D9 /* ProgramUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734F6F124D3F45A008EC9D9 /* ProgramUtils.swift */; };
 		E734F6F424D40069008EC9D9 /* TableUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734F6F324D40069008EC9D9 /* TableUtils.swift */; };
@@ -36,6 +37,7 @@
 		E7A8275D24D188920024F414 /* BankCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A8275C24D188920024F414 /* BankCard.swift */; };
 		E7DA719624C31A19009DD08E /* UserBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DA719524C31A19009DD08E /* UserBoolean.swift */; };
 		E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DDDC1424826BDC00E8F462 /* DataUtils.swift */; };
+		E7E00F19252763EB003A7D15 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E00F18252763EB003A7D15 /* ColorUtils.swift */; };
 		E7E4E637248BA19C00C6E2A0 /* SelectDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */; };
 		E7F8E5E424A38A1E00738AB5 /* CardsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8E5E324A38A1E00738AB5 /* CardsController.swift */; };
 /* End PBXBuildFile section */
@@ -84,6 +86,7 @@
 		E714B25E24705D5200BB3F05 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E714B26124705D5200BB3F05 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E714B26324705D5200BB3F05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		E71728202526222E00704371 /* JsonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonUtils.swift; sourceTree = "<group>"; };
 		E71D726D24841A3200174B24 /* QRController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRController.swift; sourceTree = "<group>"; };
 		E734F6F124D3F45A008EC9D9 /* ProgramUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramUtils.swift; sourceTree = "<group>"; };
 		E734F6F324D40069008EC9D9 /* TableUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableUtils.swift; sourceTree = "<group>"; };
@@ -101,6 +104,7 @@
 		E7A8275C24D188920024F414 /* BankCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCard.swift; sourceTree = "<group>"; };
 		E7DA719524C31A19009DD08E /* UserBoolean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBoolean.swift; sourceTree = "<group>"; };
 		E7DDDC1424826BDC00E8F462 /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
+		E7E00F18252763EB003A7D15 /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
 		E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDataController.swift; sourceTree = "<group>"; };
 		E7F1F47F24E2A6DF00FECF65 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
 		E7F1F48124E2A6E500FECF65 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
@@ -246,6 +250,8 @@
 				E734F6F124D3F45A008EC9D9 /* ProgramUtils.swift */,
 				E734F6F324D40069008EC9D9 /* TableUtils.swift */,
 				E7062D712508C913006723EB /* DataBaseUtils.swift */,
+				E71728202526222E00704371 /* JsonUtils.swift */,
+				E7E00F18252763EB003A7D15 /* ColorUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -414,11 +420,13 @@
 				E7E4E637248BA19C00C6E2A0 /* SelectDataController.swift in Sources */,
 				E737940624CFF24000440FF4 /* CardViewController.swift in Sources */,
 				E734F6F424D40069008EC9D9 /* TableUtils.swift in Sources */,
+				E71728212526222E00704371 /* JsonUtils.swift in Sources */,
 				E714B25A24705D5000BB3F05 /* CameraController.swift in Sources */,
 				E74A4848247159B50004B5B5 /* DataItem.swift in Sources */,
 				E74A4845247158E50004B5B5 /* Card.swift in Sources */,
 				E7A8275D24D188920024F414 /* BankCard.swift in Sources */,
 				E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */,
+				E7E00F19252763EB003A7D15 /* ColorUtils.swift in Sources */,
 				E7A8275B24D171F00024F414 /* ContactsController.swift in Sources */,
 				E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */,
 				E7062D722508C913006723EB /* DataBaseUtils.swift in Sources */,

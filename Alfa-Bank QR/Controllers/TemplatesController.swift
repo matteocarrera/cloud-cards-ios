@@ -13,11 +13,15 @@ import RealmSwift
 class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
 
     @IBOutlet weak var templatesTable: UITableView!
+    
+    let realm = try! Realm()
+    
+    // Массив шаблонных карточек основного пользователя приложения
     var templates = [Card]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        TableUtils.configureTableView(table: templatesTable, controller: self)
+        configureTableView(table: templatesTable, controller: self)
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress(longPressGestureRecognizer:)))
         self.view.addGestureRecognizer(longPressRecognizer)
@@ -29,10 +33,12 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         super.viewWillAppear(animated)
         
         templates.removeAll()
-        
-        let realm = try! Realm()
 
         templates = Array(realm.objects(Card.self))
+        
+        /*
+            Получение импортированных визиток в приложение и их обработка и сохранение
+         */
         
         let defaults = UserDefaults(suiteName: "group.urfusoftware.Alfa-Bank-QR")
         let link = String((defaults?.string(forKey: "link") ?? ""))
@@ -87,9 +93,7 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
     
     private func showCardMenu(card : Card) {
         let alert = UIAlertController.init(title: "Выберите действие", message: nil, preferredStyle: .actionSheet)
-        
-        let realm = try! Realm()
-        
+    
         alert.addAction(UIAlertAction.init(title: "Открыть", style: .default, handler: { (_) in
             let viewController = self.storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
             viewController.userId = card.userId
@@ -98,7 +102,7 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         
         alert.addAction(UIAlertAction.init(title: "Поделиться", style: .default, handler: { (_) in
             
-            let owner = realm.objects(User.self)[0]
+            let owner = self.realm.objects(User.self)[0]
             let userLink = owner.uuid + "|" + card.userId
 
             if let image = ProgramUtils.generateQR(userLink: userLink) {
@@ -108,8 +112,8 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         }))
         
         alert.addAction(UIAlertAction.init(title: "Удалить", style: .default, handler: { (_) in
-            try! realm.write {
-                realm.delete(card)
+            try! self.realm.write {
+                self.realm.delete(card)
             }
             
             self.viewWillAppear(true)
@@ -124,21 +128,22 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         let showAlert = UIAlertController(title: "QR-визитка", message: nil, preferredStyle: .alert)
         let imageView = UIImageView(frame: CGRect(x: 10, y: 50, width: 250, height: 250))
         
-        let realm = try! Realm()
-        
         let owner = realm.objects(User.self)[0]
         let userLink = owner.uuid + "|" + userId
         
         imageView.image = ProgramUtils.generateQR(userLink: userLink)
+        
         showAlert.view.addSubview(imageView)
         let height = NSLayoutConstraint(item: showAlert.view as Any, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 360)
         let width = NSLayoutConstraint(item: showAlert.view as Any, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
         showAlert.view.addConstraint(height)
         showAlert.view.addConstraint(width)
         showAlert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        
         if #available(iOS 13.0, *) {
             showAlert.overrideUserInterfaceStyle = UIUserInterfaceStyle.light
         }
+        
         self.present(showAlert, animated: true, completion: nil)
     }
 }
@@ -151,7 +156,7 @@ class TemplatesCell : UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        TableUtils.setColorToSelectedRow(tableCell: self)
+        setColorToSelectedRow(tableCell: self)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
