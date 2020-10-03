@@ -1,11 +1,3 @@
-//
-//  ProfileController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 17.05.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 import FirebaseStorage
@@ -16,12 +8,11 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     @IBOutlet var tableView: UITableView!
     @IBOutlet var createProfileNotification: UILabel!
     
-    let realm = try! Realm()
+    private let realm = try! Realm()
     
     // Массив данных пользователя
-    var data = [DataItem]()
+    private var data = [DataItem]()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         userPhoto.layer.cornerRadius = userPhoto.frame.height/2
@@ -63,7 +54,7 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DataCell", for: indexPath) as! DataTableViewCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileDataCell", for: indexPath) as! ProfileDataCell
         
         let dataCell = data[indexPath.row]
         cell.descriptionText?.text = dataCell.description
@@ -73,7 +64,7 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
 }
 
-class DataTableViewCell : UITableViewCell {
+class ProfileDataCell : UITableViewCell {
     
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var descriptionText: UILabel!

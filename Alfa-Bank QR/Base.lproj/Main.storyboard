@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16097" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina5_5" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16087"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -28,7 +29,7 @@
                                 <rect key="frame" x="0.0" y="170" width="414" height="473"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DataCell" id="Cm8-fq-o4Y" customClass="DataTableViewCell" customModule="Альфа_Банк_QR" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ProfileDataCell" id="Cm8-fq-o4Y" customClass="ProfileDataCell" customModule="Альфа_Банк_QR" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="43.666667938232422"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Cm8-fq-o4Y" id="aSe-w5-rgE">
@@ -77,6 +78,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="wNT-mM-3QC"/>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="wNT-mM-3QC" firstAttribute="trailing" secondItem="zYD-dd-dTd" secondAttribute="trailing" constant="132" id="7IP-3z-kTo"/>
@@ -91,7 +93,6 @@
                             <constraint firstItem="zUn-PE-w3O" firstAttribute="top" secondItem="zYD-dd-dTd" secondAttribute="bottom" constant="122" id="qRW-ST-rii"/>
                             <constraint firstItem="G9Y-y7-3Ql" firstAttribute="leading" secondItem="wNT-mM-3QC" secondAttribute="leading" id="sLk-tI-Q8A"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="wNT-mM-3QC"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="person.fill" catalog="system" id="xSu-Qw-Shg"/>
                     <navigationItem key="navigationItem" title="Профиль" id="wkK-z7-uuG">
@@ -539,6 +540,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="XS0-64-fpj"/>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -548,7 +550,6 @@
                             <constraint firstItem="YMe-Ks-Rle" firstAttribute="trailing" secondItem="XS0-64-fpj" secondAttribute="trailing" id="vR4-cN-JPD"/>
                             <constraint firstItem="YMe-Ks-Rle" firstAttribute="top" secondItem="XS0-64-fpj" secondAttribute="top" id="zjI-K9-0cy"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="XS0-64-fpj"/>
                     </view>
                     <navigationItem key="navigationItem" id="Zf7-Ok-T5s">
                         <barButtonItem key="rightBarButtonItem" title="Готово" id="WTT-HG-laI"/>
@@ -594,6 +595,7 @@
                                 <rect key="frame" x="0.0" y="139" width="414" height="458"/>
                             </imageView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="pCx-ml-GH4"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="grV-NV-kMS" firstAttribute="leading" secondItem="pCx-ml-GH4" secondAttribute="leading" id="DZW-84-P8K"/>
@@ -601,7 +603,6 @@
                             <constraint firstItem="pCx-ml-GH4" firstAttribute="bottom" secondItem="grV-NV-kMS" secondAttribute="bottom" constant="139" id="dyt-Mc-jt4"/>
                             <constraint firstItem="grV-NV-kMS" firstAttribute="top" secondItem="pCx-ml-GH4" secondAttribute="top" constant="139" id="uYw-dx-Rkt"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="pCx-ml-GH4"/>
                     </view>
                     <navigationItem key="navigationItem" id="R6G-ES-qay"/>
                     <connections>
@@ -619,8 +620,8 @@
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.95294117649999999" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
+                        <color key="backgroundColor" red="0.95294117649999999" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="" image="camera.fill" catalog="system" id="cPa-gy-q4n"/>
                 </viewController>
@@ -700,13 +701,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="lMJ-bV-efX"/>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="9RU-Vl-TDO" firstAttribute="leading" secondItem="lMJ-bV-efX" secondAttribute="leading" id="kOa-7R-Gvd"/>
                             <constraint firstItem="9RU-Vl-TDO" firstAttribute="trailing" secondItem="lMJ-bV-efX" secondAttribute="trailing" id="oD7-jj-GiE"/>
                             <constraint firstItem="9RU-Vl-TDO" firstAttribute="top" secondItem="lMJ-bV-efX" secondAttribute="top" constant="16" id="t9R-yS-ZcC"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="lMJ-bV-efX"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="G0G-gi-ATQ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -728,13 +729,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="1JI-go-loZ"/>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="aIF-Kv-WH5" firstAttribute="trailing" secondItem="1JI-go-loZ" secondAttribute="trailing" id="5o5-9R-d55"/>
                             <constraint firstItem="aIF-Kv-WH5" firstAttribute="leading" secondItem="1JI-go-loZ" secondAttribute="leading" id="k3g-ax-pIP"/>
                             <constraint firstItem="aIF-Kv-WH5" firstAttribute="top" secondItem="1JI-go-loZ" secondAttribute="top" constant="16" id="zWS-KK-JOE"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="1JI-go-loZ"/>
                     </view>
                     <navigationItem key="navigationItem" id="U2f-K5-SxP"/>
                 </viewController>
@@ -749,8 +750,8 @@
                     <view key="view" contentMode="scaleToFill" id="CwM-FE-a3v">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <viewLayoutGuide key="safeArea" id="rHD-sW-JiM"/>
+                        <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="84I-tR-SOi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -791,7 +792,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TestCell" rowHeight="50" id="tzv-mq-nEF" customClass="TestCell" customModule="Альфа_Банк_QR" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="SelectDataCell" rowHeight="50" id="tzv-mq-nEF" customClass="SelectDataCell" customModule="Альфа_Банк_QR" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="50"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tzv-mq-nEF" id="Kf7-PW-GLs">
@@ -804,7 +805,7 @@
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q34-DG-uhs">
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Q34-DG-uhs">
                                                     <rect key="frame" x="15" y="14" width="24" height="24"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="24" id="9re-sG-WNU"/>
@@ -856,6 +857,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="m10-nU-jhS"/>
                         <color key="backgroundColor" red="0.95294117649999999" green="0.95686274510000002" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="pXe-1D-cmU" firstAttribute="top" secondItem="m10-nU-jhS" secondAttribute="top" constant="282" id="MQq-lC-D4o"/>
@@ -868,7 +870,6 @@
                             <constraint firstItem="Z8D-Ww-N9l" firstAttribute="top" secondItem="m10-nU-jhS" secondAttribute="top" id="hd7-I2-CuX"/>
                             <constraint firstItem="Z8D-Ww-N9l" firstAttribute="trailing" secondItem="m10-nU-jhS" secondAttribute="trailing" id="yy7-0c-Qjc"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="m10-nU-jhS"/>
                     </view>
                     <navigationItem key="navigationItem" title="Создание визитки" id="pmL-qd-6I0">
                         <barButtonItem key="backBarButtonItem" title="Назад" id="g9R-Yc-OvC"/>
@@ -1014,7 +1015,8 @@
                                 </connections>
                             </containerView>
                         </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <viewLayoutGuide key="safeArea" id="x9O-os-X3D"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="x9O-os-X3D" firstAttribute="trailing" secondItem="2RH-TB-zv9" secondAttribute="trailing" constant="16" id="61g-jj-k97"/>
                             <constraint firstItem="tiu-9v-cym" firstAttribute="trailing" secondItem="x9O-os-X3D" secondAttribute="trailing" id="Csf-H3-T6T"/>
@@ -1034,7 +1036,6 @@
                             <constraint firstItem="cQQ-u7-Cmx" firstAttribute="top" secondItem="2RH-TB-zv9" secondAttribute="bottom" constant="8" id="y4y-Ij-Afb"/>
                             <constraint firstItem="5fQ-Bn-mEs" firstAttribute="leading" secondItem="x9O-os-X3D" secondAttribute="leading" id="yg5-F9-J7C"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="x9O-os-X3D"/>
                     </view>
                     <navigationItem key="navigationItem" title="Визитки" id="3vP-CG-nkz">
                         <barButtonItem key="leftBarButtonItem" image="arrowshape.turn.up.left" catalog="system" id="6Cm-Bg-LRo">
@@ -1208,13 +1209,13 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="43.666667938232422"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" text="Связаться с нами" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNK-ky-qdV">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="752" ambiguous="YES" text="Связаться с нами" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cNK-ky-qdV">
                                                     <rect key="frame" x="20" y="11.000000000000002" width="141" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" text="alfabankqr@mail.ru" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cW-Ig-JFQ">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="751" ambiguous="YES" text="alfabankqr@mail.ru" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3cW-Ig-JFQ">
                                                     <rect key="frame" x="246" y="12.000000000000002" width="148" height="21.666666666666671"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1338,6 +1339,7 @@
                                 </connections>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="B2U-BJ-5bq"/>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="n6L-fe-ymz" firstAttribute="trailing" secondItem="B2U-BJ-5bq" secondAttribute="trailing" id="3gd-a7-xAw"/>
@@ -1348,7 +1350,6 @@
                             <constraint firstItem="dhQ-6q-tRs" firstAttribute="leading" secondItem="B2U-BJ-5bq" secondAttribute="leading" constant="132" id="oDv-H8-VQc"/>
                             <constraint firstItem="dhQ-6q-tRs" firstAttribute="top" secondItem="B2U-BJ-5bq" secondAttribute="top" constant="10" id="x9V-e6-NL9"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="B2U-BJ-5bq"/>
                     </view>
                     <connections>
                         <outlet property="cardDataTable" destination="n6L-fe-ymz" id="8bf-N0-1DF"/>
@@ -1372,7 +1373,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TemplatesCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TemplatesCell" rowHeight="60" id="SzR-oL-eA2" customClass="TemplatesCell" customModule="Альфа_Банк_QR" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="TemplatesCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="TemplatesDataCell" rowHeight="60" id="SzR-oL-eA2" customClass="TemplatesDataCell" customModule="Альфа_Банк_QR" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="60"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="SzR-oL-eA2" id="cP6-Q0-Yga">
@@ -1381,7 +1382,7 @@
                                             <subviews>
                                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XV0-yg-AVV">
                                                     <rect key="frame" x="0.0" y="0.0" width="10" height="60"/>
-                                                    <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372550000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="10" id="F5B-Zn-TLF"/>
                                                         <constraint firstAttribute="height" constant="60" id="X9l-do-2sW"/>
@@ -1417,6 +1418,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="Wlz-tW-UQl"/>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="45M-Gk-pTO" firstAttribute="top" secondItem="siz-Yf-ypA" secondAttribute="top" id="NAT-e0-NHd"/>
@@ -1424,7 +1426,6 @@
                             <constraint firstItem="45M-Gk-pTO" firstAttribute="leading" secondItem="siz-Yf-ypA" secondAttribute="leading" id="xeQ-wF-bEv"/>
                             <constraint firstAttribute="bottom" secondItem="45M-Gk-pTO" secondAttribute="bottom" id="xqm-64-pbi"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="Wlz-tW-UQl"/>
                     </view>
                     <connections>
                         <outlet property="templatesTable" destination="45M-Gk-pTO" id="Qur-i1-V0C"/>
@@ -1447,7 +1448,7 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="85" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactsCell" rowHeight="80" id="ThT-7d-i11" customClass="ContactsCell" customModule="Альфа_Банк_QR" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactsDataCell" rowHeight="80" id="ThT-7d-i11" customClass="ContactsDataCell" customModule="Альфа_Банк_QR" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="80"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ThT-7d-i11" id="v7M-tG-oTL">
@@ -1512,6 +1513,7 @@
                                 </prototypes>
                             </tableView>
                         </subviews>
+                        <viewLayoutGuide key="safeArea" id="DGY-RD-oPb"/>
                         <color key="backgroundColor" red="0.95294117647058818" green="0.95686274509803915" blue="0.96078431372549022" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="n8F-GY-4C7" secondAttribute="trailing" id="IwB-da-PX4"/>
@@ -1519,7 +1521,6 @@
                             <constraint firstItem="n8F-GY-4C7" firstAttribute="leading" secondItem="egb-Gz-od7" secondAttribute="leading" id="jib-dM-LZ3"/>
                             <constraint firstAttribute="bottom" secondItem="n8F-GY-4C7" secondAttribute="bottom" id="ofr-lM-wcd"/>
                         </constraints>
-                        <viewLayoutGuide key="safeArea" id="DGY-RD-oPb"/>
                     </view>
                     <connections>
                         <outlet property="contactsTable" destination="n8F-GY-4C7" id="brw-x4-c6B"/>
@@ -1533,7 +1534,7 @@
     <resources>
         <image name="arrowshape.turn.up.left" catalog="system" width="128" height="106"/>
         <image name="bookmark" catalog="system" width="112" height="128"/>
-        <image name="camera.fill" catalog="system" width="128" height="96"/>
+        <image name="camera.fill" catalog="system" width="128" height="94"/>
         <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
@@ -1541,6 +1542,12 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="rectangle.stack.fill" catalog="system" width="128" height="122"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
-        <image name="square.and.pencil" catalog="system" width="128" height="118"/>
+        <image name="square.and.pencil" catalog="system" width="128" height="115"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemOrangeColor">
+            <color red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
     </resources>
 </document>

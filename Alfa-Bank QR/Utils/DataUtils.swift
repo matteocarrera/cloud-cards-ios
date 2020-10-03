@@ -1,62 +1,54 @@
-//
-//  DataUtils.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 30.05.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import Foundation
 
 class DataUtils {
     static func setDataToList(user : User) -> [DataItem]{
         var data = [DataItem]()
-        if (user.surname != "") { data.append(DataItem(title: "фамилия", description: user.surname)) }
-        if (user.name != "") { data.append(DataItem(title: "имя", description: user.name)) }
-        if (user.patronymic != "") { data.append(DataItem(title: "отчество", description: user.patronymic)) }
-        if (user.company != "") { data.append(DataItem(title: "компания", description: user.company)) }
-        if (user.jobTitle != "") { data.append(DataItem(title: "должность", description: user.jobTitle)) }
-        if (user.mobile != "") { data.append(DataItem(title: "мобильный номер", description: user.mobile)) }
-        if (user.mobileSecond != "") { data.append(DataItem(title: "мобильный номер (другой)", description: user.mobileSecond)) }
-        if (user.email != "") { data.append(DataItem(title: "email", description: user.email)) }
-        if (user.emailSecond != "") { data.append(DataItem(title: "email (другой)", description: user.emailSecond)) }
-        if (user.address != "") { data.append(DataItem(title: "адрес", description: user.address)) }
-        if (user.addressSecond != "") { data.append(DataItem(title: "адрес (другой)", description: user.addressSecond)) }
-        if (user.cardNumber != "") { data.append(DataItem(title: "номер карты 1", description: user.cardNumber)) }
-        if (user.cardNumberSecond != "") { data.append(DataItem(title: "номер карты 2", description: user.cardNumberSecond)) }
-        if (user.website != "") { data.append(DataItem(title: "сайт", description: user.website)) }
-        if (user.vk != "") { data.append(DataItem(title: "vk", description: user.vk)) }
-        if (user.telegram != "") { data.append(DataItem(title: "telegram", description: user.telegram)) }
-        if (user.facebook != "") { data.append(DataItem(title: "facebook", description: user.facebook)) }
-        if (user.instagram != "") { data.append(DataItem(title: "instagram", description: user.instagram)) }
-        if (user.twitter != "") { data.append(DataItem(title: "twitter", description: user.twitter)) }
-        if (user.notes != "") { data.append(DataItem(title: "заметки", description: user.notes)) }
+        if (user.surname != "") { data.append(DataItem(title: SURNAME, description: user.surname)) }
+        if (user.name != "") { data.append(DataItem(title: NAME, description: user.name)) }
+        if (user.patronymic != "") { data.append(DataItem(title: PATRONYMIC, description: user.patronymic)) }
+        if (user.company != "") { data.append(DataItem(title: COMPANY, description: user.company)) }
+        if (user.jobTitle != "") { data.append(DataItem(title: JOB_TITLE, description: user.jobTitle)) }
+        if (user.mobile != "") { data.append(DataItem(title: MOBILE, description: user.mobile)) }
+        if (user.mobileSecond != "") { data.append(DataItem(title: MOBILE_OTHER, description: user.mobileSecond)) }
+        if (user.email != "") { data.append(DataItem(title: EMAIL, description: user.email)) }
+        if (user.emailSecond != "") { data.append(DataItem(title: EMAIL_OTHER, description: user.emailSecond)) }
+        if (user.address != "") { data.append(DataItem(title: ADDRESS, description: user.address)) }
+        if (user.addressSecond != "") { data.append(DataItem(title: ADDRESS_OTHER, description: user.addressSecond)) }
+        if (user.cardNumber != "") { data.append(DataItem(title: CARD_NUMBER, description: user.cardNumber)) }
+        if (user.cardNumberSecond != "") { data.append(DataItem(title: CARD_NUMBER_SECOND, description: user.cardNumberSecond)) }
+        if (user.website != "") { data.append(DataItem(title: WEBSITE, description: user.website)) }
+        if (user.vk != "") { data.append(DataItem(title: VK, description: user.vk)) }
+        if (user.telegram != "") { data.append(DataItem(title: TELEGRAM, description: user.telegram)) }
+        if (user.facebook != "") { data.append(DataItem(title: FACEBOOK, description: user.facebook)) }
+        if (user.instagram != "") { data.append(DataItem(title: INSTAGRAM, description: user.instagram)) }
+        if (user.twitter != "") { data.append(DataItem(title: TWITTER, description: user.twitter)) }
+        if (user.notes != "") { data.append(DataItem(title: NOTES, description: user.notes)) }
         return data
     }
     
     static func parseDataToUserBoolean(data : [DataItem]) -> UserBoolean {
         let user = UserBoolean()
         for elem in data {
-            if elem.title == "фамилия" { user.surname = true }
-            if elem.title == "имя" { user.name = true }
-            if elem.title == "отчество" { user.patronymic = true }
-            if elem.title == "компания" { user.company = true }
-            if elem.title == "должность" { user.jobTitle = true }
-            if elem.title == "мобильный номер" { user.mobile = true }
-            if elem.title == "мобильный номер (другой)" { user.mobileSecond = true }
-            if elem.title == "email" { user.email = true }
-            if elem.title == "email (другой)" { user.emailSecond = true }
-            if elem.title == "адрес" { user.address = true }
-            if elem.title == "адрес (другой)" { user.addressSecond = true }
-            if elem.title == "номер карты 1" { user.cardNumber = true }
-            if elem.title == "номер карты 2" { user.cardNumberSecond = true }
-            if elem.title == "сайт" { user.website = true }
-            if elem.title == "vk" { user.vk = true }
-            if elem.title == "telegram" { user.telegram = true }
-            if elem.title == "facebook" { user.facebook = true }
-            if elem.title == "instagram" { user.instagram = true }
-            if elem.title == "twitter" { user.twitter = true }
-            if elem.title == "заметки" { user.notes = true }
+            if elem.title == SURNAME { user.surname = true }
+            if elem.title == NAME { user.name = true }
+            if elem.title == PATRONYMIC { user.patronymic = true }
+            if elem.title == COMPANY { user.company = true }
+            if elem.title == JOB_TITLE { user.jobTitle = true }
+            if elem.title == MOBILE { user.mobile = true }
+            if elem.title == MOBILE_OTHER { user.mobileSecond = true }
+            if elem.title == EMAIL { user.email = true }
+            if elem.title == EMAIL_OTHER { user.emailSecond = true }
+            if elem.title == ADDRESS { user.address = true }
+            if elem.title == ADDRESS_OTHER { user.addressSecond = true }
+            if elem.title == CARD_NUMBER { user.cardNumber = true }
+            if elem.title == CARD_NUMBER_SECOND { user.cardNumberSecond = true }
+            if elem.title == WEBSITE { user.website = true }
+            if elem.title == VK { user.vk = true }
+            if elem.title == TELEGRAM { user.telegram = true }
+            if elem.title == FACEBOOK { user.facebook = true }
+            if elem.title == INSTAGRAM { user.instagram = true }
+            if elem.title == TWITTER { user.twitter = true }
+            if elem.title == NOTES { user.notes = true }
         }
         return user
     }
@@ -64,26 +56,26 @@ class DataUtils {
     static func parseDataToUser(data : [DataItem]) -> User {
         let user = User()
         for elem in data {
-            if elem.title == "фамилия" { user.surname = elem.description }
-            if elem.title == "имя" { user.name = elem.description }
-            if elem.title == "отчество" { user.patronymic = elem.description }
-            if elem.title == "компания" { user.company = elem.description }
-            if elem.title == "должность" { user.jobTitle = elem.description }
-            if elem.title == "мобильный номер" { user.mobile = elem.description }
-            if elem.title == "мобильный номер (другой)" { user.mobileSecond = elem.description }
-            if elem.title == "email" { user.email = elem.description }
-            if elem.title == "email (другой)" { user.emailSecond = elem.description }
-            if elem.title == "адрес" { user.address = elem.description }
-            if elem.title == "адрес (другой)" { user.addressSecond = elem.description }
-            if elem.title == "номер карты 1" { user.cardNumber = elem.description }
-            if elem.title == "номер карты 2" { user.cardNumberSecond = elem.description }
-            if elem.title == "сайт" { user.website = elem.description }
-            if elem.title == "vk" { user.vk = elem.description }
-            if elem.title == "telegram" { user.telegram = elem.description }
-            if elem.title == "facebook" { user.facebook = elem.description }
-            if elem.title == "instagram" { user.instagram = elem.description }
-            if elem.title == "twitter" { user.twitter = elem.description }
-            if elem.title == "заметки" { user.notes = elem.description }
+            if elem.title == SURNAME { user.surname = elem.description }
+            if elem.title == NAME { user.name = elem.description }
+            if elem.title == PATRONYMIC { user.patronymic = elem.description }
+            if elem.title == COMPANY { user.company = elem.description }
+            if elem.title == JOB_TITLE { user.jobTitle = elem.description }
+            if elem.title == MOBILE { user.mobile = elem.description }
+            if elem.title == MOBILE_OTHER { user.mobileSecond = elem.description }
+            if elem.title == EMAIL { user.email = elem.description }
+            if elem.title == EMAIL_OTHER { user.emailSecond = elem.description }
+            if elem.title == ADDRESS { user.address = elem.description }
+            if elem.title == ADDRESS_OTHER { user.addressSecond = elem.description }
+            if elem.title == CARD_NUMBER { user.cardNumber = elem.description }
+            if elem.title == CARD_NUMBER_SECOND { user.cardNumberSecond = elem.description }
+            if elem.title == WEBSITE { user.website = elem.description }
+            if elem.title == VK { user.vk = elem.description }
+            if elem.title == TELEGRAM { user.telegram = elem.description }
+            if elem.title == FACEBOOK { user.facebook = elem.description }
+            if elem.title == INSTAGRAM { user.instagram = elem.description }
+            if elem.title == TWITTER { user.twitter = elem.description }
+            if elem.title == NOTES { user.notes = elem.description }
         }
         return user
     }
@@ -144,9 +136,5 @@ class DataUtils {
         } else {
             return ""
         }
-    }
-    
-    private static func checkForEmpty(field : String) -> Bool {
-        return !field.isEmpty
     }
 }

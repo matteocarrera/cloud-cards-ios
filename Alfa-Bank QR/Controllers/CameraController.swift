@@ -1,11 +1,3 @@
-//
-//  SecondViewController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 16.05.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import AVFoundation
 import RealmSwift
@@ -13,8 +5,8 @@ import FirebaseDatabase
 
 class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
 
-    var captureSession: AVCaptureSession!
-    var previewLayer: AVCaptureVideoPreviewLayer!
+    private var captureSession: AVCaptureSession!
+    private var previewLayer: AVCaptureVideoPreviewLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()

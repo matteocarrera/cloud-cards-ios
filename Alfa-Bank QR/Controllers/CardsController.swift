@@ -1,11 +1,3 @@
-//
-//  TestController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 24.06.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 
@@ -18,7 +10,7 @@ class CardsController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var templatesView: UIView!
     @IBOutlet weak var contactsView: UIView!
     
-    let realm = try! Realm()
+    private let realm = try! Realm()
     
     // Флаг, показывающий, что пользователь выбрал функцию множественного выбора визиток
     public var multipleChoiceActivated = false

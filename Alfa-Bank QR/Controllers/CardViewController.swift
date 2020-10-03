@@ -1,11 +1,3 @@
-//
-//  CardViewController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 28.07.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 import FirebaseDatabase
@@ -16,24 +8,26 @@ class CardViewController: UIViewController, MFMailComposeViewControllerDelegate,
     @IBOutlet weak var cardDataTable: UITableView!
     @IBOutlet var cardPhoto: UIImageView!
     
-    let realm = try! Realm()
+    private let realm = try! Realm()
     
     // Массив данных пользователя из выбранной визитки
-    var data = [DataItem]()
+    private var data = [DataItem]()
     // ID пользователя, полученный при переходе в окно просмотра визитки из шаблонов или контактов
-    var userId = ""
+    public var userId = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let exportButton : UIBarButtonItem
+        
         if #available(iOS 13.0, *) {
-            let exportButton : UIBarButtonItem = UIBarButtonItem(image: UIImage.init(systemName: "square.and.arrow.up"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(exportContact(_:)))
-            exportButton.tintColor = UIColor.white
-
-            self.navigationItem.rightBarButtonItem = exportButton
+            exportButton = UIBarButtonItem(image: UIImage.init(systemName: "square.and.arrow.up"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(exportContact(_:)))
         } else {
-            // Fallback on earlier versions
+            exportButton = UIBarButtonItem(title: "Поделиться", style: UIBarButtonItem.Style.plain, target: self, action: #selector(exportContact(_:)))
         }
+        exportButton.tintColor = UIColor.white
+
+        self.navigationItem.rightBarButtonItem = exportButton
         
         cardPhoto.layer.cornerRadius = cardPhoto.frame.height/2
         configureTableView(table: cardDataTable, controller: self)

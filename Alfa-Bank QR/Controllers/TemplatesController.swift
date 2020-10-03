@@ -1,11 +1,3 @@
-//
-//  TemplatesController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 20.07.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import FirebaseDatabase
 import RealmSwift
@@ -14,10 +6,10 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
 
     @IBOutlet weak var templatesTable: UITableView!
     
-    let realm = try! Realm()
+    private let realm = try! Realm()
     
     // Массив шаблонных карточек основного пользователя приложения
-    var templates = [Card]()
+    private var templates = [Card]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,7 +53,7 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = templatesTable.dequeueReusableCell(withIdentifier: "TemplatesCell", for: indexPath) as! TemplatesCell
+        let cell = templatesTable.dequeueReusableCell(withIdentifier: "TemplatesDataCell", for: indexPath) as! TemplatesDataCell
         
         let dataCell = templates[indexPath.row]
         cell.title.text = dataCell.title
@@ -148,7 +140,7 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
     }
 }
 
-class TemplatesCell : UITableViewCell {
+class TemplatesDataCell : UITableViewCell {
     
     @IBOutlet weak var color : UIView!
     @IBOutlet weak var title : UILabel!

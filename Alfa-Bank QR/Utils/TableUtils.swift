@@ -1,11 +1,3 @@
-//
-//  TableUtils.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 31.07.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import Foundation
 import UIKit
 

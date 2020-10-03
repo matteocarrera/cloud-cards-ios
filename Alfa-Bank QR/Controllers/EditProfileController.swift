@@ -1,11 +1,3 @@
-//
-//  EditProfileController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 04.06.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 import FirebaseDatabase
@@ -36,16 +28,16 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var notesField: UITextField!
     
     // Объект Realm, позволяющий осуществлять операции с локальной БД
-    let realm : Realm = try! Realm()
+    private let realm : Realm = try! Realm()
     
     // Контроллер, отвечающий за работу выбора фотографии пользователя для его профиля
-    var imagePickerController : UIImagePickerController?
+    private var imagePickerController : UIImagePickerController?
     // Пользователь, являюемся основным для приложения
-    var ownerUser : User?
+    private var ownerUser : User?
     // Флаг, позволяющий отследить, изменялась ли фотография пользователя в процессе редактирования профиля или нет
-    var photoWasChanged = false
+    private var photoWasChanged = false
     // Правая кнопка навигации
-    var rightBarButtonItem : UIBarButtonItem?
+    private var rightBarButtonItem : UIBarButtonItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()

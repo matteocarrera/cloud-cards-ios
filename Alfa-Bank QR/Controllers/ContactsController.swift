@@ -1,11 +1,3 @@
-//
-//  ContactsController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 29.07.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 import FirebaseDatabase
@@ -14,8 +6,10 @@ import FirebaseStorage
 class ContactsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet var contactsTable: UITableView!
-    var contacts = [UserBoolean]()
-    var selectedContactsUuid = [String]()
+    
+    public var selectedContactsUuid = [String]()
+    
+    private var contacts = [UserBoolean]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,7 +100,7 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = contactsTable.dequeueReusableCell(withIdentifier: "ContactsCell", for: indexPath) as! ContactsCell
+        let cell = contactsTable.dequeueReusableCell(withIdentifier: "ContactsDataCell", for: indexPath) as! ContactsDataCell
         
         let dataCell = contacts[indexPath.row]
 
@@ -168,7 +162,7 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
     }
 }
 
-class ContactsCell : UITableViewCell {
+class ContactsDataCell : UITableViewCell {
     
     @IBOutlet var contactPhoto: UIImageView!
     @IBOutlet var contactName: UILabel!

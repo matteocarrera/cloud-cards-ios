@@ -1,11 +1,3 @@
-//
-//  SelectDataController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 06.06.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 import FirebaseDatabase
@@ -15,12 +7,12 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var createProfileNotification: UILabel!
     
-    let realm = try! Realm()
+    private let realm = try! Realm()
     
     // Массив данных пользователя: 1 элемент - 1 вид данных
-    var data = [DataItem]()
+    private var data = [DataItem]()
     // Массив выбранных данных пользователя для создания визитки
-    var selectedItems = [DataItem]()
+    private var selectedItems = [DataItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -156,7 +148,7 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TestCell", for: indexPath) as! TestCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SelectDataCell", for: indexPath) as! SelectDataCell
         
         let dataCell = data[indexPath.row]
         cell.descriptionText?.text = dataCell.description
@@ -201,7 +193,7 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 }
 
-class TestCell : UITableViewCell {
+class SelectDataCell : UITableViewCell {
     
     @IBOutlet weak var descriptionText: UILabel!
     @IBOutlet weak var titleText: UILabel!

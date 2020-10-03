@@ -33,8 +33,8 @@
 		E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A484F2471707C0004B5B5 /* ProfileController.swift */; };
 		E760A2702482D3D500009919 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E760A26F2482D3D500009919 /* NavigationController.swift */; };
 		E786836B2488E77000844DD4 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786836A2488E77000844DD4 /* EditProfileController.swift */; };
+		E78B37212528EAA40001C3B9 /* TextUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78B37202528EAA40001C3B9 /* TextUtils.swift */; };
 		E7A8275B24D171F00024F414 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A8275A24D171F00024F414 /* ContactsController.swift */; };
-		E7A8275D24D188920024F414 /* BankCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A8275C24D188920024F414 /* BankCard.swift */; };
 		E7DA719624C31A19009DD08E /* UserBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DA719524C31A19009DD08E /* UserBoolean.swift */; };
 		E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DDDC1424826BDC00E8F462 /* DataUtils.swift */; };
 		E7E00F19252763EB003A7D15 /* ColorUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E00F18252763EB003A7D15 /* ColorUtils.swift */; };
@@ -100,8 +100,8 @@
 		E74A484F2471707C0004B5B5 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
 		E760A26F2482D3D500009919 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		E786836A2488E77000844DD4 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
+		E78B37202528EAA40001C3B9 /* TextUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextUtils.swift; sourceTree = "<group>"; };
 		E7A8275A24D171F00024F414 /* ContactsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
-		E7A8275C24D188920024F414 /* BankCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BankCard.swift; sourceTree = "<group>"; };
 		E7DA719524C31A19009DD08E /* UserBoolean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBoolean.swift; sourceTree = "<group>"; };
 		E7DDDC1424826BDC00E8F462 /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
 		E7E00F18252763EB003A7D15 /* ColorUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorUtils.swift; sourceTree = "<group>"; };
@@ -220,7 +220,6 @@
 				E74A4844247158E50004B5B5 /* Card.swift */,
 				E74A4847247159B50004B5B5 /* DataItem.swift */,
 				E7DA719524C31A19009DD08E /* UserBoolean.swift */,
-				E7A8275C24D188920024F414 /* BankCard.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -252,6 +251,7 @@
 				E7062D712508C913006723EB /* DataBaseUtils.swift */,
 				E71728202526222E00704371 /* JsonUtils.swift */,
 				E7E00F18252763EB003A7D15 /* ColorUtils.swift */,
+				E78B37202528EAA40001C3B9 /* TextUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -424,7 +424,7 @@
 				E714B25A24705D5000BB3F05 /* CameraController.swift in Sources */,
 				E74A4848247159B50004B5B5 /* DataItem.swift in Sources */,
 				E74A4845247158E50004B5B5 /* Card.swift in Sources */,
-				E7A8275D24D188920024F414 /* BankCard.swift in Sources */,
+				E78B37212528EAA40001C3B9 /* TextUtils.swift in Sources */,
 				E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */,
 				E7E00F19252763EB003A7D15 /* ColorUtils.swift in Sources */,
 				E7A8275B24D171F00024F414 /* ContactsController.swift in Sources */,
