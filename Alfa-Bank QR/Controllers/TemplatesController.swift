@@ -36,7 +36,7 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         let link = String((defaults?.string(forKey: "link") ?? ""))
         
         if link.contains("|") {
-            DataBaseUtils.saveUser(controller: self, link: link)
+            saveUser(controller: self, link: link)
         }
 
         defaults?.removeObject(forKey: "link")
@@ -97,7 +97,7 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
             let owner = self.realm.objects(User.self)[0]
             let userLink = owner.uuid + "|" + card.userId
 
-            if let image = ProgramUtils.generateQR(userLink: userLink) {
+            if let image = generateQR(userLink: userLink) {
                 let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
                 self.present(vc, animated: true)
             }
@@ -123,7 +123,7 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         let owner = realm.objects(User.self)[0]
         let userLink = owner.uuid + "|" + userId
         
-        imageView.image = ProgramUtils.generateQR(userLink: userLink)
+        imageView.image = generateQR(userLink: userLink)
         
         showAlert.view.addSubview(imageView)
         let height = NSLayoutConstraint(item: showAlert.view as Any, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 360)

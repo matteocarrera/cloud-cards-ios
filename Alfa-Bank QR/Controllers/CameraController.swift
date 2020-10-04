@@ -90,12 +90,12 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
     // Проверка данных, полученных с QR. Если есть "|", то сохраняем, иначе данные некорректны
     func saveUserIfCodeIsCorrect(code: String) {
         if code.contains("|") {
-            DataBaseUtils.saveUser(controller: self, link: code)
+            saveUser(controller: self, link: code)
         }
     }
     
     func failed() {
-        ProgramUtils.showAlert(controller: self,
+        showSimpleAlert(controller: self,
                                title: "Сканирование не поддерживается",
                                message: "Ваше устройство не поддерживает функцию сканирования.")
         captureSession = nil

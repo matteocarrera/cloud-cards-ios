@@ -28,9 +28,10 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
             Получение данных пользователя
          */
         
-        let owner = realm.objects(User.self)
-        if owner.count != 0 {
-            data = DataUtils.setDataToList(user: owner[0])
+        let userDictionary = realm.objects(User.self)
+        if userDictionary.count != 0 {
+            let owner = userDictionary[0]
+            data = setDataToList(user: owner)
             createProfileNotification.isHidden = true
         } else {
             data = [DataItem]()
@@ -78,7 +79,7 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
         
         let ownerUser = realm.objects(User.self)
         
-        let newUser = DataUtils.parseDataToUserBoolean(data: selectedItems)
+        let newUser = parseDataToUserBoolean(data: selectedItems)
         newUser.parentId = ownerUser[0].parentId
         
         let users = realm.objects(UserBoolean.self)
@@ -90,7 +91,7 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
         var userExists = false
         
         for user in users {
-            if DataUtils.generatedUsersEqual(firstUser: newUser, secondUser: user) {
+            if generatedUsersEqual(firstUser: newUser, secondUser: user) {
                 newUser.uuid = user.uuid
                 userExists = true
             }
@@ -189,7 +190,7 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     }
 
     private func showAlert() {
-        ProgramUtils.showAlert(controller: self, title: "Данные не выбраны", message: "Вы не выбрали ни одного поля!")
+        showSimpleAlert(controller: self, title: "Данные не выбраны", message: "Вы не выбрали ни одного поля!")
     }
 }
 

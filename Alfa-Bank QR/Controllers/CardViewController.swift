@@ -45,11 +45,11 @@ class CardViewController: UIViewController, MFMailComposeViewControllerDelegate,
 
                 let owner = convertFromJson(json: json, type: User.self)
                   
-                let currentUser = DataUtils.getUserFromTemplate(user: owner, userBoolean: userBoolean)
+                let currentUser = getUserFromTemplate(user: owner, userBoolean: userBoolean)
                 
-                self.data = DataUtils.setDataToList(user: currentUser)
+                self.data = setDataToList(user: currentUser)
                 
-                self.cardPhoto.image = DataBaseUtils.getPhotoFromDatabase(photoUuid: owner.photo)
+                self.cardPhoto.image = getPhotoFromDatabase(photoUuid: owner.photo)
                   
                 self.cardDataTable.reloadData()
              }
@@ -61,7 +61,7 @@ class CardViewController: UIViewController, MFMailComposeViewControllerDelegate,
     @objc func exportContact(_ sender: Any) {
         let alert = UIAlertController(title: "Экспорт контакта", message: "Вы действительно хотите экспортировать контакт?", preferredStyle: .alert)
         alert.addAction(UIAlertAction.init(title: "Да", style: .default, handler: { (_) in
-            ProgramUtils.exportToContacts(user: DataUtils.parseDataToUser(data: self.data), photo: self.cardPhoto.image, controller: self)
+            exportToContacts(user: parseDataToUser(data: self.data), photo: self.cardPhoto.image, controller: self)
         }))
         alert.addAction(UIAlertAction.init(title: "Нет", style: .cancel))
         self.present(alert, animated: true, completion: nil)
@@ -89,7 +89,7 @@ class CardViewController: UIViewController, MFMailComposeViewControllerDelegate,
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataCell = data[indexPath.row]
         
-        ProgramUtils.performAction(title: dataCell.title, description: dataCell.description, controller: self)
+        performActionWithField(title: dataCell.title, description: dataCell.description, controller: self)
         
         cardDataTable.reloadData()
     }

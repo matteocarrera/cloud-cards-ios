@@ -82,7 +82,7 @@ class CardsController: UIViewController, UISearchBarDelegate {
             
             var images = [UIImage]()
             for contactLink in child.selectedContactsUuid {
-                let image = ProgramUtils.generateQR(userLink: contactLink)
+                let image = generateQR(userLink: contactLink)
                 images.append(image!)
             }
             

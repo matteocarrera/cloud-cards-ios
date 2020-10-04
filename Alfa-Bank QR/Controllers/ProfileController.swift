@@ -28,14 +28,16 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
             Получение данных основного пользователя приложения
          */
         
-        let owner = realm.objects(User.self)
-        if owner.count != 0 {
+        let userDictionary = realm.objects(User.self)
+        if userDictionary.count != 0 {
             createProfileNotification.isHidden = true
             
-            userPhoto.isHidden = false
-            userPhoto.image = DataBaseUtils.getPhotoFromDatabase(photoUuid: owner[0].photo)
+            let owner = userDictionary[0]
             
-            data = DataUtils.setDataToList(user: owner[0])
+            userPhoto.isHidden = false
+            userPhoto.image = getPhotoFromDatabase(photoUuid: owner.photo)
+            
+            data = setDataToList(user: owner)
         } else {
             createProfileNotification.isHidden = false
             userPhoto.isHidden = true

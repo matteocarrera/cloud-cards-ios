@@ -75,12 +75,12 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
             Получение основного пользователя приложения
          */
         
-        let query = realm.objects(User.self)
-        if query.count != 0 {
-            ownerUser = query[0]
+        let userDictionary = realm.objects(User.self)
+        if userDictionary.count != 0 {
+            ownerUser = userDictionary[0]
             setUserDataToFields(user: ownerUser!)
             
-            profileImage.image = DataBaseUtils.getPhotoFromDatabase(photoUuid: ownerUser!.photo)
+            profileImage.image = getPhotoFromDatabase(photoUuid: ownerUser!.photo)
         }
     }
     

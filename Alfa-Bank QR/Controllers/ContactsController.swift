@@ -72,7 +72,7 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
             let contact = realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
             let userLink = contact.parentId + "|" + contact.uuid
 
-            if let image = ProgramUtils.generateQR(userLink: userLink) {
+            if let image = generateQR(userLink: userLink) {
                 let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
                 self.present(vc, animated: true)
             }
@@ -113,13 +113,13 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
 
                 let parentUser: User = convertFromJson(json: json, type: User.self)
                   
-                let currentUser = DataUtils.getUserFromTemplate(user: parentUser, userBoolean: user)
+                let currentUser = getUserFromTemplate(user: parentUser, userBoolean: user)
 
                 /*
                     TODO("Если пользователь без фотографии, то сделать две буквы вместо фотографии")
                  */
                 
-                cell.contactPhoto.image = DataBaseUtils.getPhotoFromDatabase(photoUuid: parentUser.photo)
+                cell.contactPhoto.image = getPhotoFromDatabase(photoUuid: parentUser.photo)
                 cell.contactPhoto.layer.cornerRadius = cell.contactPhoto.frame.height/2
                   
                 cell.contactName.text = currentUser.name + " " + currentUser.surname
