@@ -10,6 +10,6 @@ public func configureTableView(table : UITableView, controller : UIViewControlle
 
 public func setColorToSelectedRow(tableCell : UITableViewCell) {
     let bgColorView = UIView()
-    bgColorView.backgroundColor = UIColor(hexString: selectedRowColor)
+    bgColorView.backgroundColor = UIColor(hexString: SELECTED_ROW_COLOR)
     tableCell.selectedBackgroundView = bgColorView
 }

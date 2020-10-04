@@ -123,7 +123,7 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
             self.navigationController?.pushViewController(viewController, animated: true)
         } else {
             let card = Card()
-            card.color = colors[Int.random(in: 0..<colors.count)]
+            card.color = COLORS[Int.random(in: 0..<COLORS.count)]
             card.title = title!
             card.userId = newUser.uuid
             

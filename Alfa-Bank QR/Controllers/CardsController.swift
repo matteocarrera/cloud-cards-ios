@@ -34,7 +34,7 @@ class CardsController: UIViewController, UISearchBarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        shareButton.tintColor = UIColor(hexString: primaryDark)
+        shareButton.tintColor = UIColor(hexString: PRIMARY_DARK)
         shareButton.isEnabled = false
         
         multipleChoiceActivated = false
@@ -65,7 +65,7 @@ class CardsController: UIViewController, UISearchBarDelegate {
             self.navigationItem.rightBarButtonItem = cancelButton
             
             multipleChoiceActivated = true
-            shareButton.tintColor = UIColor(hexString: white)
+            shareButton.tintColor = UIColor(hexString: WHITE)
             shareButton.isEnabled = true
         }
     }
@@ -142,7 +142,7 @@ class CardsController: UIViewController, UISearchBarDelegate {
         
         child.viewWillAppear(true)
         multipleChoiceActivated = false
-        shareButton.tintColor = UIColor(hexString: primaryDark)
+        shareButton.tintColor = UIColor(hexString: PRIMARY_DARK)
         shareButton.isEnabled = false
     }
     

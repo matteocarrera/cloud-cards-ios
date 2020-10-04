@@ -6,7 +6,7 @@ class NavigationController: UINavigationController {
         super.viewDidLoad()
 
         let statusBarView = UIView()
-        let statusBarColor = UIColor.init(hexString: primaryDark)
+        let statusBarColor = UIColor.init(hexString: PRIMARY_DARK)
         statusBarView.backgroundColor = statusBarColor
         self.view.addSubview(statusBarView)
 
