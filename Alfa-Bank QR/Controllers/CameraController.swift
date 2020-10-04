@@ -81,16 +81,16 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
             guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
             guard let stringValue = readableObject.stringValue else { return }
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            saveUserIfCodeIsCorrect(code: stringValue)
+            saveUserIfDataIsCorrect(data: stringValue)
         }
 
         dismiss(animated: true)
     }
 
     // Проверка данных, полученных с QR. Если есть "|", то сохраняем, иначе данные некорректны
-    func saveUserIfCodeIsCorrect(code: String) {
-        if code.contains("|") {
-            saveUser(controller: self, link: code)
+    func saveUserIfDataIsCorrect(data: String) {
+        if data.contains("|") {
+            saveUser(controller: self, link: data)
         }
     }
     

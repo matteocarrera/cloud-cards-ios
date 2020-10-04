@@ -43,7 +43,7 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
         super.viewDidLoad()
         
         /*
-            TapGestureRecognizer позволяет добавить функионал нажатия на фотографию пользователя
+            TapGestureRecognizer позволяет добавить функционал нажатия на фотографию пользователя
          */
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
@@ -169,7 +169,7 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
                     print("Ошибка во время удаления фотографии пользователя")
                     print(error)
                   } else {
-                    print("Фотография удачно удалена")
+                    print("Фотография успешно удалена")
                   }
                 }
             }
