@@ -77,12 +77,12 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     
     private func saveUser(segue : String, title : String?) {
         
-        let ownerUser = realm.objects(User.self)
+        let ownerUser = realm.objects(User.self)[0]
         
         let newUser = parseDataToUserBoolean(data: selectedItems)
-        newUser.parentId = ownerUser[0].parentId
+        newUser.parentId = ownerUser.parentId
         
-        let users = realm.objects(UserBoolean.self)
+        let userDictionary = realm.objects(UserBoolean.self)
         
         /*
             Делаем проверку на то, что визитка с выбранными полями уже существует
@@ -90,7 +90,7 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
         
         var userExists = false
         
-        for user in users {
+        for user in userDictionary {
             if generatedUsersEqual(firstUser: newUser, secondUser: user) {
                 newUser.uuid = user.uuid
                 userExists = true

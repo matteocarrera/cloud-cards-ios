@@ -77,25 +77,23 @@ class CardsController: UIViewController, UISearchBarDelegate {
     @IBAction func openMenu(_ sender: Any) {
         let alert = UIAlertController.init(title: "Выберите действие", message: nil, preferredStyle: .actionSheet)
         
+        let contactsController = self.children[1] as! ContactsController
+        
         alert.addAction(UIAlertAction.init(title: "Поделиться", style: .default, handler: { (_) in
-            let child = self.children[1] as! ContactsController
-            
             var images = [UIImage]()
-            for contactLink in child.selectedContactsUuid {
+            for contactLink in contactsController.selectedContactsUuid {
                 let image = generateQR(userLink: contactLink)
                 images.append(image!)
             }
             
-            let vc = UIActivityViewController(activityItems: images, applicationActivities: [])
-            self.present(vc, animated: true)
+            let shareController = UIActivityViewController(activityItems: images, applicationActivities: [])
+            self.present(shareController, animated: true)
             
             self.cancelSelection()
         }))
         
         alert.addAction(UIAlertAction.init(title: "Удалить", style: .default, handler: { (_) in
-            let child = self.children[1] as! ContactsController
-            
-            for uuid in child.selectedContactsUuid {
+            for uuid in contactsController.selectedContactsUuid {
                 let userUuid = uuid.split(separator: "|")[1]
                 
                 let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(userUuid)\"")[0]

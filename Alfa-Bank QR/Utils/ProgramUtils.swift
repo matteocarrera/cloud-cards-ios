@@ -21,30 +21,30 @@ func generateQR(userLink : String) -> UIImage? {
 }
 
 func performActionWithField(title : String, description : String, controller : UIViewController) {
-    if title == "мобильный номер" || title == "мобильный номер (другой)" {
+    
+    switch title {
+    case MOBILE,
+         MOBILE_OTHER:
         if let url = NSURL(string: "tel://\(description)"), UIApplication.shared.canOpenURL(url as URL) {
             UIApplication.shared.openURL(url as URL)
         }
-    } else if title == "email" || title == "email (другой)" {
+    case EMAIL,
+         EMAIL_OTHER:
         if let url = URL(string: "mailto:\(description)") {
           UIApplication.shared.openURL(url)
         }
-    } else if title == "адрес" || title == "адрес (другой)"{
+    case ADDRESS,
+         ADDRESS_OTHER:
         openMaps(address: description)
-    } else if title == "сайт" {
+    case WEBSITE:
         guard let url = URL(string: "http://\(description)") else { return }
         UIApplication.shared.openURL(url)
-    } else if title == "vk" {
-        //guard let url = URL(string: "http://vk.com/\(description)") else { return }
-        //UIApplication.shared.openURL(url)
+    case VK,
+         FACEBOOK,
+         TWITTER,
+         INSTAGRAM:
         openApp(site: title, userLink: description)
-    } else if title == "facebook" {
-        openApp(site: title, userLink: description)
-    } else if title == "twitter" {
-        openApp(site: title, userLink: description)
-    } else if title == "instagram" {
-        openApp(site: title, userLink: description)
-    } else {
+    default:
         UIPasteboard.general.string = description
         showAlert(title: title, controller: controller)
     }

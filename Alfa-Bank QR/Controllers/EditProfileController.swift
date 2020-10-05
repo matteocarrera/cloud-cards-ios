@@ -160,7 +160,7 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
             Удаление старой фотографии пользователя из Firebase Storage
         */
         if profileImage.image != nil && photoWasChanged {
-            var storageRef = Storage.storage().reference()
+            var storageRef : FirebaseStorage.StorageReference
             if photoUuid != "" {
                 storageRef = Storage.storage().reference().child(photoUuid!)
 

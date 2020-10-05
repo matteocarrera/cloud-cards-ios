@@ -9,6 +9,7 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
     
     public var selectedContactsUuid = [String]()
     
+    private let realm = try! Realm()
     private var contacts = [UserBoolean]()
     
     override func viewDidLoad() {
@@ -24,8 +25,6 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
 
         contacts.removeAll()
         selectedContactsUuid.removeAll()
-        
-        let realm = try! Realm()
 
         let userDictionary = realm.objects(User.self)
         if userDictionary.count != 0 {
@@ -52,14 +51,12 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
     
     private func showContactMenu(contact : UserBoolean) {
         let alert = UIAlertController.init(title: "Выберите действие", message: nil, preferredStyle: .actionSheet)
-        
-        let realm = try! Realm()
-        
+
         alert.addAction(UIAlertAction.init(title: "QR код", style: .default, handler: { (_) in
             
             let qrController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
             
-            let contact = realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
+            let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
             let userLink = contact.parentId + "|" + contact.uuid
 
             qrController.userLink = userLink
@@ -69,7 +66,7 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
         
         alert.addAction(UIAlertAction.init(title: "Поделиться", style: .default, handler: { (_) in
             
-            let contact = realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
+            let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
             let userLink = contact.parentId + "|" + contact.uuid
 
             if let image = generateQR(userLink: userLink) {
@@ -79,8 +76,8 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
         }))
         
         alert.addAction(UIAlertAction.init(title: "Удалить", style: .default, handler: { (_) in
-            try! realm.write {
-                realm.delete(contact)
+            try! self.realm.write {
+                self.realm.delete(contact)
             }
             
             self.viewWillAppear(true)
