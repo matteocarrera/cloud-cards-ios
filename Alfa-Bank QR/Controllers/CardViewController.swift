@@ -3,7 +3,7 @@ import RealmSwift
 import FirebaseDatabase
 import MessageUI
 
-class CardViewController: UIViewController, MFMailComposeViewControllerDelegate, UITableViewDelegate, UITableViewDataSource {
+class CardViewController: UIViewController {
 
     @IBOutlet weak var cardDataTable: UITableView!
     @IBOutlet var cardPhoto: UIImageView!
@@ -67,7 +67,10 @@ class CardViewController: UIViewController, MFMailComposeViewControllerDelegate,
         self.present(alert, animated: true, completion: nil)
         
     }
-        
+}
+
+extension CardViewController: UITableViewDataSource {
+    
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
@@ -94,6 +97,10 @@ class CardViewController: UIViewController, MFMailComposeViewControllerDelegate,
         cardDataTable.reloadData()
     }
 }
+
+extension CardViewController: UITableViewDelegate {}
+
+extension CardViewController: MFMailComposeViewControllerDelegate {}
 
 class CardDataCell : UITableViewCell {
     

@@ -2,7 +2,7 @@ import UIKit
 import FirebaseDatabase
 import RealmSwift
 
-class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
+class TemplatesController: UIViewController {
 
     @IBOutlet weak var templatesTable: UITableView!
     
@@ -40,33 +40,6 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         }
 
         defaults?.removeObject(forKey: "link")
-        
-        templatesTable.reloadData()
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return templates.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = templatesTable.dequeueReusableCell(withIdentifier: "TemplatesDataCell", for: indexPath) as! TemplatesDataCell
-        
-        let dataCell = templates[indexPath.row]
-        cell.title.text = dataCell.title
-        cell.color.backgroundColor = UIColor(hexString: dataCell.color)
-        cell.userId = dataCell.userId
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dataCell = templates[indexPath.row]
-
-        showQR(userId: dataCell.userId)
         
         templatesTable.reloadData()
     }
@@ -139,6 +112,38 @@ class TemplatesController: UIViewController, UITableViewDelegate, UITableViewDat
         self.present(showAlert, animated: true, completion: nil)
     }
 }
+
+extension TemplatesController: UITableViewDataSource {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return templates.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = templatesTable.dequeueReusableCell(withIdentifier: "TemplatesDataCell", for: indexPath) as! TemplatesDataCell
+        
+        let dataCell = templates[indexPath.row]
+        cell.title.text = dataCell.title
+        cell.color.backgroundColor = UIColor(hexString: dataCell.color)
+        cell.userId = dataCell.userId
+        
+        return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let dataCell = templates[indexPath.row]
+
+        showQR(userId: dataCell.userId)
+        
+        templatesTable.reloadData()
+    }
+}
+
+extension TemplatesController: UITableViewDelegate {}
 
 class TemplatesDataCell : UITableViewCell {
     

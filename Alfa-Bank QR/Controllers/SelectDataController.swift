@@ -2,7 +2,7 @@ import UIKit
 import RealmSwift
 import FirebaseDatabase
 
-class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SelectDataController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var createProfileNotification: UILabel!
@@ -139,16 +139,23 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
             }
         }
     }
+
+    private func showAlert() {
+        showSimpleAlert(controller: self, title: "Данные не выбраны", message: "Вы не выбрали ни одного поля!")
+    }
+}
+
+extension SelectDataController: UITableViewDataSource {
     
-    internal func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
     
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SelectDataCell", for: indexPath) as! SelectDataCell
         
         let dataCell = data[indexPath.row]
@@ -176,7 +183,7 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
-    internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataCell = data[indexPath.row]
         dataCell.isSelected = !dataCell.isSelected
         
@@ -188,11 +195,9 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.reloadData()
     }
-
-    private func showAlert() {
-        showSimpleAlert(controller: self, title: "Данные не выбраны", message: "Вы не выбрали ни одного поля!")
-    }
 }
+
+extension SelectDataController: UITableViewDelegate {}
 
 class SelectDataCell : UITableViewCell {
     

@@ -2,7 +2,7 @@ import UIKit
 import RealmSwift
 import FirebaseStorage
 
-class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ProfileController: UIViewController {
 
     @IBOutlet var userPhoto: UIImageView!
     @IBOutlet var tableView: UITableView!
@@ -15,7 +15,6 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        userPhoto.layer.cornerRadius = userPhoto.frame.height/2
         configureTableView(table: tableView, controller: self)
     }
     
@@ -43,19 +42,24 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
             userPhoto.isHidden = true
             data = [DataItem]()
         }
+        
+        userPhoto.layer.cornerRadius = userPhoto.frame.height/2
     
         tableView.reloadData()
     }
+}
+
+extension ProfileController: UITableViewDataSource {
     
-    internal func numberOfSections(in tableView: UITableView) -> Int {
+    func numberOfSections(in tableView: UITableView) -> Int {
         return 1
     }
     
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
     }
     
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileDataCell", for: indexPath) as! ProfileDataCell
         
         let dataCell = data[indexPath.row]
@@ -66,7 +70,9 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
 }
 
-class ProfileDataCell : UITableViewCell {
+extension ProfileController: UITableViewDelegate {}
+
+class ProfileDataCell: UITableViewCell {
     
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var descriptionText: UILabel!

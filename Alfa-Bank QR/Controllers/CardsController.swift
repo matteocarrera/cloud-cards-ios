@@ -1,7 +1,7 @@
 import UIKit
 import RealmSwift
 
-class CardsController: UIViewController, UISearchBarDelegate {
+class CardsController: UIViewController {
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet var shareButton: UIBarButtonItem!
@@ -40,19 +40,6 @@ class CardsController: UIViewController, UISearchBarDelegate {
         multipleChoiceActivated = false
         
         indexChanged(segmentedControl)
-    }
-    
-    public func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(true, animated: true)
-    }
-
-    public func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        searchBar.setShowsCancelButton(false, animated: true)
-        return true
-    }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
     }
     
     @IBAction func selectMultiple(_ sender: Any) {
@@ -144,4 +131,20 @@ class CardsController: UIViewController, UISearchBarDelegate {
         shareButton.isEnabled = false
     }
     
+}
+
+extension CardsController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.setShowsCancelButton(false, animated: true)
+        return true
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }

@@ -3,7 +3,7 @@ import RealmSwift
 import FirebaseDatabase
 import FirebaseStorage
 
-class ContactsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ContactsController: UIViewController {
 
     @IBOutlet var contactsTable: UITableView!
     
@@ -87,6 +87,9 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
             
         self.present(alert, animated: true)
     }
+}
+
+extension ContactsController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -158,6 +161,8 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
         }
     }
 }
+
+extension ContactsController: UITableViewDelegate {}
 
 class ContactsDataCell : UITableViewCell {
     

@@ -3,7 +3,7 @@ import AVFoundation
 import RealmSwift
 import FirebaseDatabase
 
-class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class CameraController: UIViewController {
 
     private var captureSession: AVCaptureSession!
     private var previewLayer: AVCaptureVideoPreviewLayer!
@@ -50,14 +50,6 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         captureSession.startRunning()
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        if #available(iOS 13.0, *) {
-            return .darkContent
-        } else {
-            return .lightContent
-        }
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -74,6 +66,33 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
     }
 
+    private func failed() {
+        showSimpleAlert(controller: self,
+                        title: "Сканирование не поддерживается",
+                        message: "Ваше устройство не поддерживает функцию сканирования.")
+        captureSession = nil
+    }
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13.0, *) {
+            return .darkContent
+        } else {
+            return .lightContent
+        }
+    }
+
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
+
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
+    }
+
+}
+
+extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
+    
     func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
         captureSession.stopRunning()
 
@@ -86,27 +105,11 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
 
         dismiss(animated: true)
     }
-
+    
     // Проверка данных, полученных с QR. Если есть "|", то сохраняем, иначе данные некорректны
     private func saveUserIfDataIsCorrect(data: String) {
         if data.contains("|") {
             saveUser(controller: self, link: data)
         }
     }
-    
-    private func failed() {
-        showSimpleAlert(controller: self,
-                               title: "Сканирование не поддерживается",
-                               message: "Ваше устройство не поддерживает функцию сканирования.")
-        captureSession = nil
-    }
-
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-
-    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
-        return .portrait
-    }
-
 }

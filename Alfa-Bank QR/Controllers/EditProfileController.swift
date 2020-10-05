@@ -3,7 +3,7 @@ import RealmSwift
 import FirebaseDatabase
 import FirebaseStorage
 
-class EditProfileController: UIViewController, UITextFieldDelegate {
+class EditProfileController: UIViewController {
     
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var surnameField: UITextField!
@@ -82,35 +82,6 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
             
             profileImage.image = getPhotoFromDatabase(photoUuid: ownerUser!.photo)
         }
-    }
-    
-    /*
-        TODO("Баг с пропадающими полями при редактировании профиля")
-     */
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        moveTextField(textField, moveDistance: -260, up: true)
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        moveTextField(textField, moveDistance: -260, up: false)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        self.view.endEditing(true)
-        return true
-    }
-    
-    func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
-        let moveDuration = 0.3
-        let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
-        
-        UIView.beginAnimations("animateTextField", context: nil)
-        UIView.setAnimationBeginsFromCurrentState(true)
-        UIView.setAnimationDuration(moveDuration)
-        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
-        UIView.commitAnimations()
     }
     
     @objc func dismissKeyboard() {
@@ -282,17 +253,49 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
         ownerUser.notes = notesField.text!
     }
     
-    internal func presentImagePicker(controller : UIImagePickerController, source : UIImagePickerController.SourceType) {
+    func presentImagePicker(controller : UIImagePickerController, source : UIImagePickerController.SourceType) {
         controller.delegate = self
         controller.sourceType = source
         self.present(controller, animated: true)
     }
 }
 
+extension EditProfileController: UITextFieldDelegate {
+    
+    /*
+        TODO("Баг с пропадающими полями при редактировании профиля")
+     */
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        moveTextField(textField, moveDistance: -260, up: true)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        moveTextField(textField, moveDistance: -260, up: false)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        self.view.endEditing(true)
+        return true
+    }
+    
+    func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
+        let moveDuration = 0.3
+        let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
+        
+        UIView.beginAnimations("animateTextField", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(moveDuration)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
+    }
+}
+
 /*
     Расширение класса для использования библиотеки и камеры
  */
-extension EditProfileController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension EditProfileController: UIImagePickerControllerDelegate {
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
             return self.imagePickerControllerDidCancel(picker)
@@ -312,3 +315,5 @@ extension EditProfileController : UIImagePickerControllerDelegate, UINavigationC
         }
     }
 }
+
+extension EditProfileController: UINavigationControllerDelegate {}
