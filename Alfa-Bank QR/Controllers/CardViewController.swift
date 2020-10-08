@@ -71,14 +71,6 @@ class CardViewController: UIViewController {
 
 extension CardViewController: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cardDataTable.dequeueReusableCell(withIdentifier: "CardDataCell", for: indexPath) as! CardDataCell
         
@@ -98,7 +90,16 @@ extension CardViewController: UITableViewDataSource {
     }
 }
 
-extension CardViewController: UITableViewDelegate {}
+extension CardViewController: UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+}
 
 extension CardViewController: MFMailComposeViewControllerDelegate {}
 

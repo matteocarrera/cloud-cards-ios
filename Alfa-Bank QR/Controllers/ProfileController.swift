@@ -51,14 +51,6 @@ class ProfileController: UIViewController {
 
 extension ProfileController: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileDataCell", for: indexPath) as! ProfileDataCell
         
@@ -70,7 +62,16 @@ extension ProfileController: UITableViewDataSource {
     }
 }
 
-extension ProfileController: UITableViewDelegate {}
+extension ProfileController: UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+}
 
 class ProfileDataCell: UITableViewCell {
     

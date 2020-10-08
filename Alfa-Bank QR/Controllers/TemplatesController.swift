@@ -115,14 +115,6 @@ class TemplatesController: UIViewController {
 
 extension TemplatesController: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return templates.count
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = templatesTable.dequeueReusableCell(withIdentifier: "TemplatesDataCell", for: indexPath) as! TemplatesDataCell
         
@@ -143,7 +135,16 @@ extension TemplatesController: UITableViewDataSource {
     }
 }
 
-extension TemplatesController: UITableViewDelegate {}
+extension TemplatesController: UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return templates.count
+    }
+}
 
 class TemplatesDataCell : UITableViewCell {
     

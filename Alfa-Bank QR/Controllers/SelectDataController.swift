@@ -147,14 +147,6 @@ class SelectDataController: UIViewController {
 
 extension SelectDataController: UITableViewDataSource {
     
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
-    }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "SelectDataCell", for: indexPath) as! SelectDataCell
         
@@ -197,7 +189,16 @@ extension SelectDataController: UITableViewDataSource {
     }
 }
 
-extension SelectDataController: UITableViewDelegate {}
+extension SelectDataController: UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+}
 
 class SelectDataCell : UITableViewCell {
     
