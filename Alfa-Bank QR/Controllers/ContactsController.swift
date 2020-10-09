@@ -1,25 +1,20 @@
-//
-//  ContactsController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 29.07.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 import FirebaseDatabase
 import FirebaseStorage
 
-class ContactsController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ContactsController: UIViewController {
 
     @IBOutlet var contactsTable: UITableView!
-    var contacts = [UserBoolean]()
-    var selectedContactsUuid = [String]()
+    
+    public var selectedContactsUuid = [String]()
+    
+    private let realm = try! Realm()
+    private var contacts = [UserBoolean]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        TableUtils.configureTableView(table: contactsTable, controller: self)
+        configureTableView(table: contactsTable, controller: self)
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress(longPressGestureRecognizer:)))
         self.view.addGestureRecognizer(longPressRecognizer)
@@ -30,8 +25,6 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
 
         contacts.removeAll()
         selectedContactsUuid.removeAll()
-        
-        let realm = try! Realm()
 
         let userDictionary = realm.objects(User.self)
         if userDictionary.count != 0 {
@@ -58,14 +51,12 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
     
     private func showContactMenu(contact : UserBoolean) {
         let alert = UIAlertController.init(title: "Выберите действие", message: nil, preferredStyle: .actionSheet)
-        
-        let realm = try! Realm()
-        
+
         alert.addAction(UIAlertAction.init(title: "QR код", style: .default, handler: { (_) in
             
             let qrController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
             
-            let contact = realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
+            let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
             let userLink = contact.parentId + "|" + contact.uuid
 
             qrController.userLink = userLink
@@ -75,18 +66,18 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
         
         alert.addAction(UIAlertAction.init(title: "Поделиться", style: .default, handler: { (_) in
             
-            let contact = realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
+            let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
             let userLink = contact.parentId + "|" + contact.uuid
 
-            if let image = ProgramUtils.generateQR(userLink: userLink) {
+            if let image = generateQR(userLink: userLink) {
                 let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
                 self.present(vc, animated: true)
             }
         }))
         
         alert.addAction(UIAlertAction.init(title: "Удалить", style: .default, handler: { (_) in
-            try! realm.write {
-                realm.delete(contact)
+            try! self.realm.write {
+                self.realm.delete(contact)
             }
             
             self.viewWillAppear(true)
@@ -96,17 +87,12 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
             
         self.present(alert, animated: true)
     }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return contacts.count
-    }
+}
+
+extension ContactsController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = contactsTable.dequeueReusableCell(withIdentifier: "ContactsCell", for: indexPath) as! ContactsCell
+        let cell = contactsTable.dequeueReusableCell(withIdentifier: "ContactsDataCell", for: indexPath) as! ContactsDataCell
         
         let dataCell = contacts[indexPath.row]
 
@@ -117,19 +103,16 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             if let json = snapshot.value as? String {
 
-                let jsonData = json.data(using: .utf8)!
-                let parentUser: User = try! JSONDecoder().decode(User.self, from: jsonData)
+                let parentUser: User = convertFromJson(json: json, type: User.self)
                   
-                let currentUser = DataUtils.getUserFromTemplate(user: parentUser, userBoolean: user)
+                let currentUser = getUserFromTemplate(user: parentUser, userBoolean: user)
 
-                let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/alfa-bank-qr.appspot.com/o/\(parentUser.photo)?alt=media")
-                let data = try? Data(contentsOf: url!)
-
-                if let imageData = data {
-                    let image = UIImage(data: imageData)
-                    cell.contactPhoto.image = image
-                    cell.contactPhoto.layer.cornerRadius = cell.contactPhoto.frame.height/2
-                }
+                /*
+                    TODO("Если пользователь без фотографии, то сделать две буквы вместо фотографии")
+                 */
+                
+                cell.contactPhoto.image = getPhotoFromDatabase(photoUuid: parentUser.photo)
+                cell.contactPhoto.layer.cornerRadius = cell.contactPhoto.frame.height/2
                   
                 cell.contactName.text = currentUser.name + " " + currentUser.surname
                 
@@ -153,12 +136,14 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataCell = contacts[indexPath.row]
         
+        let uuid = dataCell.parentId + "|" + dataCell.uuid
+        
         let parentViewController = self.parent as! CardsController
-        if parentViewController.selectionIsActivated {
-            if selectedContactsUuid.contains(dataCell.parentId + "|" + dataCell.uuid) {
-                selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: dataCell.parentId + "|" + dataCell.uuid)!)
+        if parentViewController.multipleChoiceActivated {
+            if selectedContactsUuid.contains(uuid) {
+                selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: uuid)!)
             } else {
-                selectedContactsUuid.append(dataCell.parentId + "|" + dataCell.uuid)
+                selectedContactsUuid.append(uuid)
             }
             print(selectedContactsUuid)
         } else {
@@ -169,7 +154,18 @@ class ContactsController: UIViewController, UITableViewDelegate, UITableViewData
     }
 }
 
-class ContactsCell : UITableViewCell {
+extension ContactsController: UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return contacts.count
+    }
+}
+
+class ContactsDataCell : UITableViewCell {
     
     @IBOutlet var contactPhoto: UIImageView!
     @IBOutlet var contactName: UILabel!
@@ -178,7 +174,7 @@ class ContactsCell : UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        TableUtils.setColorToSelectedRow(tableCell: self)
+        setColorToSelectedRow(tableCell: self)
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {

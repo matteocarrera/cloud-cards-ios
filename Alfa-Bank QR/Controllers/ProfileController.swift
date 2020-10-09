@@ -1,68 +1,58 @@
-//
-//  ProfileController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 17.05.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 import FirebaseStorage
 
-class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ProfileController: UIViewController {
 
     @IBOutlet var userPhoto: UIImageView!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var createProfileNotification: UILabel!
-    var data = [DataItem]()
-
+    
+    private let realm = try! Realm()
+    
+    // Массив данных пользователя
+    private var data = [DataItem]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        userPhoto.layer.cornerRadius = userPhoto.frame.height/2
-        TableUtils.configureTableView(table: tableView, controller: self)
+        configureTableView(table: tableView, controller: self)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        let realm = try! Realm()
-        
         //print(Realm.Configuration.defaultConfiguration.fileURL)
         
-        let owner = realm.objects(User.self)
-        if owner.count != 0 {
+        /*
+            Получение данных основного пользователя приложения
+         */
+        
+        let userDictionary = realm.objects(User.self)
+        if userDictionary.count != 0 {
             createProfileNotification.isHidden = true
+            
+            let owner = userDictionary[0]
+            
             userPhoto.isHidden = false
-            data = DataUtils.setDataToList(user: owner[0])
+            userPhoto.image = getPhotoFromDatabase(photoUuid: owner.photo)
             
-            let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/alfa-bank-qr.appspot.com/o/\(owner[0].photo)?alt=media")
-            let data = try? Data(contentsOf: url!)
-
-            if let imageData = data {
-                let image = UIImage(data: imageData)
-                userPhoto.image = image
-            }
-            
+            data = setDataToList(user: owner)
         } else {
             createProfileNotification.isHidden = false
             userPhoto.isHidden = true
             data = [DataItem]()
         }
+        
+        userPhoto.layer.cornerRadius = userPhoto.frame.height/2
     
         tableView.reloadData()
     }
+}
+
+extension ProfileController: UITableViewDataSource {
     
-    internal func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
-    }
-    
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DataCell", for: indexPath) as! DataTableViewCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileDataCell", for: indexPath) as! ProfileDataCell
         
         let dataCell = data[indexPath.row]
         cell.descriptionText?.text = dataCell.description
@@ -72,7 +62,18 @@ class ProfileController: UIViewController, UITableViewDelegate, UITableViewDataS
     }
 }
 
-class DataTableViewCell : UITableViewCell {
+extension ProfileController: UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+}
+
+class ProfileDataCell: UITableViewCell {
     
     @IBOutlet weak var titleText: UILabel!
     @IBOutlet weak var descriptionText: UILabel!

@@ -1,20 +1,12 @@
-//
-//  SecondViewController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 16.05.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import AVFoundation
 import RealmSwift
 import FirebaseDatabase
 
-class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDelegate {
+class CameraController: UIViewController {
 
-    var captureSession: AVCaptureSession!
-    var previewLayer: AVCaptureVideoPreviewLayer!
+    private var captureSession: AVCaptureSession!
+    private var previewLayer: AVCaptureVideoPreviewLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,19 +50,6 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         captureSession.startRunning()
     }
 
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        if #available(iOS 13.0, *) {
-            return .darkContent
-        } else {
-            return .lightContent
-        }
-    }
-    
-    func failed() {
-        ProgramUtils.showAlert(controller: self, title: "Сканирование не поддерживается", message: "Ваше устройство не поддерживает функцию сканирования.")
-        captureSession = nil
-    }
-
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
@@ -87,22 +66,18 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
         }
     }
 
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
-        captureSession.stopRunning()
-
-        if let metadataObject = metadataObjects.first {
-            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
-            guard let stringValue = readableObject.stringValue else { return }
-            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
-            found(code: stringValue)
-        }
-
-        dismiss(animated: true)
+    private func failed() {
+        showSimpleAlert(controller: self,
+                        title: "Сканирование не поддерживается",
+                        message: "Ваше устройство не поддерживает функцию сканирования.")
+        captureSession = nil
     }
-
-    func found(code: String) {
-        if code.contains("|") {
-            DataBaseUtils.saveUser(controller: self, link: code)
+    
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        if #available(iOS 13.0, *) {
+            return .darkContent
+        } else {
+            return .lightContent
         }
     }
 
@@ -116,3 +91,25 @@ class SecondViewController: UIViewController, AVCaptureMetadataOutputObjectsDele
 
 }
 
+extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
+    
+    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+        captureSession.stopRunning()
+
+        if let metadataObject = metadataObjects.first {
+            guard let readableObject = metadataObject as? AVMetadataMachineReadableCodeObject else { return }
+            guard let stringValue = readableObject.stringValue else { return }
+            AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
+            saveUserIfDataIsCorrect(data: stringValue)
+        }
+
+        dismiss(animated: true)
+    }
+    
+    // Проверка данных, полученных с QR. Если есть "|", то сохраняем, иначе данные некорректны
+    private func saveUserIfDataIsCorrect(data: String) {
+        if data.contains("|") {
+            saveUser(controller: self, link: data)
+        }
+    }
+}

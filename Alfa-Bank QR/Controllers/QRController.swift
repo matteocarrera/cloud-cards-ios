@@ -1,20 +1,14 @@
-//
-//  QRController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 31.05.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 
 class QRController: UIViewController {
 
     @IBOutlet weak var imageView: UIImageView!
-    var userLink = ""
+    
+    // ID пользователя, полученный при переходе в окно просмотра QR кода
+    public var userLink = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()        
-        imageView.image = ProgramUtils.generateQR(userLink: userLink)
+        imageView.image = generateQR(userLink: userLink)
     }
 }

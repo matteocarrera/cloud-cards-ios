@@ -1,18 +1,10 @@
-//
-//  SettingsViewController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 06.06.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 
 class SettingsViewController: UITableViewController {
 
     @IBOutlet var settingsTable: UITableView!
-    var items = [String]()
-    var identities = [String]()
+    private var items = [String]()
+    private var identities = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,7 +20,7 @@ class SettingsViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell")
         
-        TableUtils.setColorToSelectedRow(tableCell: cell!)
+        setColorToSelectedRow(tableCell: cell!)
         
         cell?.textLabel?.text = items[indexPath.row]
         cell?.textLabel?.textColor = UIColor.black

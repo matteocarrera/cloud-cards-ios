@@ -1,16 +1,5 @@
-//
-//  AppDelegate.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 16.05.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import Firebase
-import AppCenter
-import AppCenterAnalytics
-import AppCenterCrashes
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,10 +7,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        MSAppCenter.start("059b2e24-0766-4ceb-94b4-ac5e45d35dc2", withServices:[
-          MSAnalytics.self,
-          MSCrashes.self
-        ])
         FirebaseApp.configure()
         return true
     }

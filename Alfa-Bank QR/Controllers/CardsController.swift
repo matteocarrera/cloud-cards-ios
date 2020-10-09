@@ -1,15 +1,7 @@
-//
-//  TestController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 24.06.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 
-class CardsController: UIViewController, UISearchBarDelegate {
+class CardsController: UIViewController {
 
     @IBOutlet weak var segmentedControl: UISegmentedControl!
     @IBOutlet var shareButton: UIBarButtonItem!
@@ -17,11 +9,16 @@ class CardsController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var templatesView: UIView!
     @IBOutlet weak var contactsView: UIView!
-    public var selectionIsActivated = false
+    
+    private let realm = try! Realm()
+    
+    // Флаг, показывающий, что пользователь выбрал функцию множественного выбора визиток
+    public var multipleChoiceActivated = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        // В данном случае Recognizer требуется для того, чтобы скрывать клавиатуру при нажатии на свободное место на экране
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
@@ -37,29 +34,16 @@ class CardsController: UIViewController, UISearchBarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        shareButton.tintColor = UIColor(hexString: "#0B1F35")
+        shareButton.tintColor = UIColor(hexString: PRIMARY_DARK)
         shareButton.isEnabled = false
         
-        selectionIsActivated = false
+        multipleChoiceActivated = false
         
         indexChanged(segmentedControl)
     }
     
-    public func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        searchBar.setShowsCancelButton(true, animated: true)
-    }
-
-    public func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
-        searchBar.setShowsCancelButton(false, animated: true)
-        return true
-    }
-
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-    }
-    
     @IBAction func selectMultiple(_ sender: Any) {
-        if selectionIsActivated {
+        if multipleChoiceActivated {
             cancelSelection()
         } else {
             let cancelButton : UIBarButtonItem = UIBarButtonItem(title: "Отменить", style: UIBarButtonItem.Style.plain, target: self, action: #selector(selectMultiple(_:)))
@@ -67,42 +51,42 @@ class CardsController: UIViewController, UISearchBarDelegate {
 
             self.navigationItem.rightBarButtonItem = cancelButton
             
-            selectionIsActivated = true
-            shareButton.tintColor = UIColor(hexString: "#FFFFFF")
+            multipleChoiceActivated = true
+            shareButton.tintColor = UIColor(hexString: WHITE)
             shareButton.isEnabled = true
         }
     }
     
+    /*
+        TODO("Сделать отправку ссылок на визитку пользователя, не QR кода")
+     */
+    
     @IBAction func openMenu(_ sender: Any) {
         let alert = UIAlertController.init(title: "Выберите действие", message: nil, preferredStyle: .actionSheet)
         
+        let contactsController = self.children[1] as! ContactsController
+        
         alert.addAction(UIAlertAction.init(title: "Поделиться", style: .default, handler: { (_) in
-            let child = self.children[1] as! ContactsController
-            
             var images = [UIImage]()
-            for contactLink in child.selectedContactsUuid {
-                let image = ProgramUtils.generateQR(userLink: contactLink)
+            for contactLink in contactsController.selectedContactsUuid {
+                let image = generateQR(userLink: contactLink)
                 images.append(image!)
             }
             
-            let vc = UIActivityViewController(activityItems: images, applicationActivities: [])
-            self.present(vc, animated: true)
+            let shareController = UIActivityViewController(activityItems: images, applicationActivities: [])
+            self.present(shareController, animated: true)
             
             self.cancelSelection()
         }))
         
         alert.addAction(UIAlertAction.init(title: "Удалить", style: .default, handler: { (_) in
-            let child = self.children[1] as! ContactsController
-            
-            let realm = try! Realm()
-            
-            for uuid in child.selectedContactsUuid {
+            for uuid in contactsController.selectedContactsUuid {
                 let userUuid = uuid.split(separator: "|")[1]
                 
-                let contact = realm.objects(UserBoolean.self).filter("uuid = \"\(userUuid)\"")[0]
+                let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(userUuid)\"")[0]
                 
-                try! realm.write {
-                    realm.delete(contact)
+                try! self.realm.write {
+                    self.realm.delete(contact)
                 }
             }
             
@@ -142,9 +126,25 @@ class CardsController: UIViewController, UISearchBarDelegate {
         self.navigationItem.rightBarButtonItem = select
         
         child.viewWillAppear(true)
-        selectionIsActivated = false
-        shareButton.tintColor = UIColor(hexString: "#0B1F35")
+        multipleChoiceActivated = false
+        shareButton.tintColor = UIColor(hexString: PRIMARY_DARK)
         shareButton.isEnabled = false
     }
     
+}
+
+extension CardsController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.setShowsCancelButton(false, animated: true)
+        return true
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
+    }
 }

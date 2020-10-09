@@ -1,11 +1,3 @@
-//
-//  NavigationController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 30.05.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 
 class NavigationController: UINavigationController {
@@ -14,7 +6,7 @@ class NavigationController: UINavigationController {
         super.viewDidLoad()
 
         let statusBarView = UIView()
-        let statusBarColor = UIColor(red: 11, green: 31, blue: 53, alpha: 1)
+        let statusBarColor = UIColor.init(hexString: PRIMARY_DARK)
         statusBarView.backgroundColor = statusBarColor
         self.view.addSubview(statusBarView)
 

@@ -1,17 +1,9 @@
-//
-//  EditProfileController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 04.06.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 import FirebaseDatabase
 import FirebaseStorage
 
-class EditProfileController: UIViewController, UITextFieldDelegate {
+class EditProfileController: UIViewController {
     
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var surnameField: UITextField!
@@ -35,19 +27,32 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
     @IBOutlet weak var twitterField: UITextField!
     @IBOutlet weak var notesField: UITextField!
     
-    var imagePickerController : UIImagePickerController?
-    var ownerUser : User?
-    var photoWasChanged = false
-    var rightBarButtonItem : UIBarButtonItem?
+    // Объект Realm, позволяющий осуществлять операции с локальной БД
+    private let realm : Realm = try! Realm()
+    
+    // Контроллер, отвечающий за работу выбора фотографии пользователя для его профиля
+    private var imagePickerController : UIImagePickerController?
+    // Пользователь, являюемся основным для приложения
+    private var ownerUser : User?
+    // Флаг, позволяющий отследить, изменялась ли фотография пользователя в процессе редактирования профиля или нет
+    private var photoWasChanged = false
+    // Правая кнопка навигации
+    private var rightBarButtonItem : UIBarButtonItem?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        /*
+            TapGestureRecognizer позволяет добавить функционал нажатия на фотографию пользователя
+         */
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
         
-        profileImage.layer.cornerRadius = profileImage.frame.height/2
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        profileImage.isUserInteractionEnabled = true
+        profileImage.addGestureRecognizer(tapGestureRecognizer)
         
         rightBarButtonItem = UIBarButtonItem(
             title: "Готово",
@@ -56,9 +61,7 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
             action: #selector(saveUser)
         )
         
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
-        profileImage.isUserInteractionEnabled = true
-        profileImage.addGestureRecognizer(tapGestureRecognizer)
+        profileImage.layer.cornerRadius = profileImage.frame.height/2
         
         self.navigationItem.rightBarButtonItem = rightBarButtonItem
     }
@@ -68,50 +71,17 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
         
         photoWasChanged = false
         
-        let realm = try! Realm()
+        /*
+            Получение основного пользователя приложения
+         */
         
-        let query = realm.objects(User.self)
-        if query.count != 0 {
-            ownerUser = query[0]
+        let userDictionary = realm.objects(User.self)
+        if userDictionary.count != 0 {
+            ownerUser = userDictionary[0]
             setUserDataToFields(user: ownerUser!)
             
-            let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/alfa-bank-qr.appspot.com/o/\(ownerUser!.photo)?alt=media")
-            let data = try? Data(contentsOf: url!)
-
-            if let imageData = data {
-                let image = UIImage(data: imageData)
-                profileImage.image = image
-            }
+            profileImage.image = getPhotoFromDatabase(photoUuid: ownerUser!.photo)
         }
-    }
-    
-    // Start Editing The Text Field
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        moveTextField(textField, moveDistance: -260, up: true)
-    }
-    
-    // Finish Editing The Text Field
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        moveTextField(textField, moveDistance: -260, up: false)
-    }
-    
-    // Hide the keyboard when the return key pressed
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        self.view.endEditing(true)
-        return true
-    }
-    
-    // Move the text field in a pretty animation!
-    func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
-        let moveDuration = 0.3
-        let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
-        
-        UIView.beginAnimations("animateTextField", context: nil)
-        UIView.setAnimationBeginsFromCurrentState(true)
-        UIView.setAnimationDuration(moveDuration)
-        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
-        UIView.commitAnimations()
     }
     
     @objc func dismissKeyboard() {
@@ -161,16 +131,16 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
             Удаление старой фотографии пользователя из Firebase Storage
         */
         if profileImage.image != nil && photoWasChanged {
-            var storageRef = Storage.storage().reference()
+            var storageRef : FirebaseStorage.StorageReference
             if photoUuid != "" {
                 storageRef = Storage.storage().reference().child(photoUuid!)
 
                 storageRef.delete { error in
                   if let error = error {
-                    print("Error while deleting a file")
+                    print("Ошибка во время удаления фотографии пользователя")
                     print(error)
                   } else {
-                    print("File successfully deleted")
+                    print("Фотография успешно удалена")
                   }
                 }
             }
@@ -178,8 +148,8 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
             /*
                 Добавление новой фотографии пользователя в Firebase Storage
              */
-            guard let im: UIImage = profileImage.image else { return }
-            guard let d: Data = im.jpegData(compressionQuality: 0.5) else { return }
+            guard let photo: UIImage = profileImage.image else { return }
+            guard let photoData: Data = photo.jpegData(compressionQuality: 0.5) else { return }
 
             let md = StorageMetadata()
             md.contentType = "image/png"
@@ -187,7 +157,7 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
             photoUuid = UUID().uuidString
             storageRef = Storage.storage().reference().child(photoUuid!)
 
-            storageRef.putData(d, metadata: md) { (metadata, error) in
+            storageRef.putData(photoData, metadata: md) { (metadata, error) in
                 if error == nil {
                     storageRef.downloadURL(completion: { (url, error) in
                         print("Done, url is \(String(describing: url))")
@@ -199,7 +169,10 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
             }
         }
         
-        let realm = try! Realm()
+        /*
+            Сохранение пользователя в БД Realm
+         */
+        
         let ref = Database.database().reference()
         if ownerUser == nil {
             
@@ -222,11 +195,10 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
         }
         
         /*
-            Перевод данных пользователя в JSON
+            Сохранение пользователя в Firebase
          */
-        let jsonEncoder = JSONEncoder()
-        let jsonData = try! jsonEncoder.encode(ownerUser)
-        let json = String(data: jsonData, encoding: String.Encoding.utf8)
+        
+        let json = convertToJson(someUser: ownerUser!)
         
         ref.child(ownerUser!.parentId).child(ownerUser!.uuid).setValue(json)
         
@@ -281,17 +253,49 @@ class EditProfileController: UIViewController, UITextFieldDelegate {
         ownerUser.notes = notesField.text!
     }
     
-    internal func presentImagePicker(controller : UIImagePickerController, source : UIImagePickerController.SourceType) {
+    func presentImagePicker(controller : UIImagePickerController, source : UIImagePickerController.SourceType) {
         controller.delegate = self
         controller.sourceType = source
         self.present(controller, animated: true)
     }
 }
 
+extension EditProfileController: UITextFieldDelegate {
+    
+    /*
+        TODO("Баг с пропадающими полями при редактировании профиля")
+     */
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        moveTextField(textField, moveDistance: -260, up: true)
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        moveTextField(textField, moveDistance: -260, up: false)
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        self.view.endEditing(true)
+        return true
+    }
+    
+    func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
+        let moveDuration = 0.3
+        let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
+        
+        UIView.beginAnimations("animateTextField", context: nil)
+        UIView.setAnimationBeginsFromCurrentState(true)
+        UIView.setAnimationDuration(moveDuration)
+        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
+        UIView.commitAnimations()
+    }
+}
+
 /*
     Расширение класса для использования библиотеки и камеры
  */
-extension EditProfileController : UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+extension EditProfileController: UIImagePickerControllerDelegate {
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
             return self.imagePickerControllerDidCancel(picker)
@@ -311,3 +315,5 @@ extension EditProfileController : UIImagePickerControllerDelegate, UINavigationC
         }
     }
 }
+
+extension EditProfileController: UINavigationControllerDelegate {}

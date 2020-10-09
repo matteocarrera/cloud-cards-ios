@@ -1,26 +1,22 @@
-//
-//  SelectDataController.swift
-//  Alfa-Bank QR
-//
-//  Created by Владимир Макаров on 06.06.2020.
-//  Copyright © 2020 Vladimir Makarov. All rights reserved.
-//
-
 import UIKit
 import RealmSwift
 import FirebaseDatabase
 
-class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SelectDataController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var createProfileNotification: UILabel!
-    var data = [DataItem]()
-    var selectedItems = [DataItem]()
-    var colors = ["#FF0000", "#00FF00", "#0000FF", "#7B4987", "#48a89a", "#c5db37", "#cf9211", "#7c888a", "#000000"]
-        
+    
+    private let realm = try! Realm()
+    
+    // Массив данных пользователя: 1 элемент - 1 вид данных
+    private var data = [DataItem]()
+    // Массив выбранных данных пользователя для создания визитки
+    private var selectedItems = [DataItem]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        TableUtils.configureTableView(table: tableView, controller: self)
+        configureTableView(table: tableView, controller: self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -28,11 +24,14 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
         
         selectedItems.removeAll()
         
-        let realm = try! Realm()
+        /*
+            Получение данных пользователя
+         */
         
-        let owner = realm.objects(User.self)
-        if owner.count != 0 {
-            data = DataUtils.setDataToList(user: owner[0])
+        let userDictionary = realm.objects(User.self)
+        if userDictionary.count != 0 {
+            let owner = userDictionary[0]
+            data = setDataToList(user: owner)
             createProfileNotification.isHidden = true
         } else {
             data = [DataItem]()
@@ -77,27 +76,34 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
     }
     
     private func saveUser(segue : String, title : String?) {
-        let newUser = DataUtils.parseDataToUserBoolean(data: selectedItems)
-        let realm = try! Realm()
-        let ownerUser = realm.objects(User.self)
-        newUser.parentId = ownerUser[0].parentId
-        let users = realm.objects(UserBoolean.self)
+        
+        let ownerUser = realm.objects(User.self)[0]
+        
+        let newUser = parseDataToUserBoolean(data: selectedItems)
+        newUser.parentId = ownerUser.parentId
+        
+        let userDictionary = realm.objects(UserBoolean.self)
+        
+        /*
+            Делаем проверку на то, что визитка с выбранными полями уже существует
+         */
+        
         var userExists = false
-        for user in users {
-            if DataUtils.generatedUsersEqual(firstUser: newUser, secondUser: user) {
+        
+        for user in userDictionary {
+            if generatedUsersEqual(firstUser: newUser, secondUser: user) {
                 newUser.uuid = user.uuid
                 userExists = true
             }
         }
+        
         if !userExists {
             let uuid = UUID().uuidString
             newUser.uuid = uuid
             
             let ref = Database.database().reference()
             
-            let jsonEncoder = JSONEncoder()
-            let jsonData = try! jsonEncoder.encode(newUser)
-            let json = String(data: jsonData, encoding: String.Encoding.utf8)
+            let json = convertToJson(someUser: newUser)
             
             ref.child(newUser.parentId).child(newUser.uuid).setValue(json)
             
@@ -105,38 +111,44 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
                 realm.add(newUser)
             }
         }
+        
+        /*
+            Если мы вызываем метод для генерации QR без сохранения в шаблоны, то передаем QRView
+            для последующего перехода в окно, демонстрирующее QR код на экране
+         */
+        
         if (segue == "QRView") {
             let viewController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
             viewController.userLink = newUser.parentId + "|" + newUser.uuid
             self.navigationController?.pushViewController(viewController, animated: true)
         } else {
             let card = Card()
-            let randomInt = Int.random(in: 0..<colors.count)
-            card.color = colors[randomInt]
+            card.color = COLORS[Int.random(in: 0..<COLORS.count)]
             card.title = title!
             card.userId = newUser.uuid
+            
             let maxValue = realm.objects(Card.self).max(ofProperty: "id") as Int?
             if (maxValue != nil) {
                 card.id = maxValue! + 1
             } else {
                 card.id = 0
             }
+            
             try! realm.write {
                 realm.add(card)
             }
         }
     }
-    
-    internal func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+
+    private func showAlert() {
+        showSimpleAlert(controller: self, title: "Данные не выбраны", message: "Вы не выбрали ни одного поля!")
     }
+}
+
+extension SelectDataController: UITableViewDataSource {
     
-    internal func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data.count
-    }
-    
-    internal func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "TestCell", for: indexPath) as! TestCell
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SelectDataCell", for: indexPath) as! SelectDataCell
         
         let dataCell = data[indexPath.row]
         cell.descriptionText?.text = dataCell.description
@@ -163,7 +175,7 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
         return cell
     }
     
-    internal func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataCell = data[indexPath.row]
         dataCell.isSelected = !dataCell.isSelected
         
@@ -175,13 +187,20 @@ class SelectDataController: UIViewController, UITableViewDelegate, UITableViewDa
         
         tableView.reloadData()
     }
+}
 
-    private func showAlert() {
-        ProgramUtils.showAlert(controller: self, title: "Данные не выбраны", message: "Вы не выбрали ни одного поля!")
+extension SelectDataController: UITableViewDelegate {
+    
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
     }
 }
 
-class TestCell : UITableViewCell {
+class SelectDataCell : UITableViewCell {
     
     @IBOutlet weak var descriptionText: UILabel!
     @IBOutlet weak var titleText: UILabel!
