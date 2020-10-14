@@ -10,7 +10,9 @@ class ContactsController: UIViewController {
     public var selectedContactsUuid = [String]()
     
     private let realm = try! Realm()
+    private var cardsController = CardsController()
     private var contacts = [UserBoolean]()
+    private let selectedCounter : UIBarButtonItem = UIBarButtonItem(title: "0 выбрано", style: .plain, target: self, action: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,6 +20,8 @@ class ContactsController: UIViewController {
         
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress(longPressGestureRecognizer:)))
         self.view.addGestureRecognizer(longPressRecognizer)
+
+        setToolbar()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -35,12 +39,42 @@ class ContactsController: UIViewController {
         }
         
         contactsTable.reloadData()
+        self.navigationController?.isToolbarHidden = true
+    }
+    
+    @objc func deleteContacts(_ sender: Any) {
+        for uuid in selectedContactsUuid {
+            let userUuid = uuid.split(separator: "|")[1]
+            
+            let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(userUuid)\"")[0]
+            
+            try! self.realm.write {
+                self.realm.delete(contact)
+            }
+        }
+        
+        cancelSelection()
+    }
+    
+    /*
+        TODO("Сделать отправку ссылок на визитку пользователя, не QR кода")
+     */
+    
+    @objc func shareContacts(_ sender: Any) {
+        var images = [UIImage]()
+        for contactLink in selectedContactsUuid {
+            let image = generateQR(userLink: contactLink)
+            images.append(image!)
+        }
+        
+        let shareController = UIActivityViewController(activityItems: images, applicationActivities: [])
+        self.present(shareController, animated: true)
+        
+        cancelSelection()
     }
     
     @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
-        
         if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
-            
             let touchPoint = longPressGestureRecognizer.location(in: self.view)
             if let index = self.contactsTable.indexPathForRow(at: touchPoint)  {
                 let contact = contacts[index.row]
@@ -87,16 +121,60 @@ class ContactsController: UIViewController {
             
         self.present(alert, animated: true)
     }
+    
+    /*
+        Нижний тулбар, появляется при множественном выборе визиток
+     */
+    
+    private func setToolbar() {
+        var items = [UIBarButtonItem]()
+        
+        items.append(UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.deleteContacts(_:))))
+        items.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
+        items.append(UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.shareContacts(_:))))
+        
+        self.navigationController?.toolbar.setItems(items, animated: true)
+        self.navigationController?.toolbar.barTintColor = UIColor.white
+        self.navigationController?.toolbar.isTranslucent = false
+    }
+    
+    /*
+        Сброс множественного выбора визиток
+     */
+    
+    public func cancelSelection() {
+        cardsController = self.parent as! CardsController
+        
+        setSelectButton()
+        
+        viewWillAppear(true)
+        self.navigationController?.isToolbarHidden = true
+        cardsController.multipleChoiceActivated = false
+    }
+    
+    /*
+        Установка кнопки множественного выбора визиток
+     */
+    
+    private func setSelectButton() {
+        let select : UIBarButtonItem = UIBarButtonItem(
+            image: cardsController.selectButton.image,
+            style: UIBarButtonItem.Style.plain,
+            target: cardsController,
+            action: #selector(CardsController.selectMultiple(_:))
+        )
+        select.tintColor = UIColor.white
+
+        cardsController.navigationItem.rightBarButtonItem = select
+    }
 }
 
 extension ContactsController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = contactsTable.dequeueReusableCell(withIdentifier: "ContactsDataCell", for: indexPath) as! ContactsDataCell
-        
-        let dataCell = contacts[indexPath.row]
-
-        let user = dataCell
+        cell.accessoryType = .none
+        let user = contacts[indexPath.row]
         
         let ref = Database.database().reference().child(user.parentId).child(user.parentId)
         
@@ -134,22 +212,44 @@ extension ContactsController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let dataCell = contacts[indexPath.row]
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
         
+        let dataCell = contacts[indexPath.row]
         let uuid = dataCell.parentId + "|" + dataCell.uuid
         
-        let parentViewController = self.parent as! CardsController
-        if parentViewController.multipleChoiceActivated {
-            if selectedContactsUuid.contains(uuid) {
-                selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: uuid)!)
-            } else {
-                selectedContactsUuid.append(uuid)
+        if cardsController.multipleChoiceActivated {
+            selectedContactsUuid.append(uuid)
+
+            selectedCounter.title = "\(selectedContactsUuid.count) выбрано"
+            cardsController.navigationItem.leftBarButtonItem = selectedCounter
+            cell.accessoryType = .checkmark
+            
+            if self.navigationController?.isToolbarHidden == true {
+                self.navigationController?.isToolbarHidden = false
+                setToolbar()
             }
-            print(selectedContactsUuid)
         } else {
             let viewController = storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
             viewController.userId = dataCell.uuid
             self.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        
+        let dataCell = contacts[indexPath.row]
+        let uuid = dataCell.parentId + "|" + dataCell.uuid
+        
+        selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: uuid)!)
+        cell.accessoryType = .none
+        
+        if selectedContactsUuid.count == 0 {
+            self.navigationController?.isToolbarHidden = true
+            cardsController.navigationItem.leftBarButtonItem = nil
+        } else {
+            selectedCounter.title = "\(selectedContactsUuid.count) выбрано"
+            cardsController.navigationItem.leftBarButtonItem = selectedCounter
         }
     }
 }
