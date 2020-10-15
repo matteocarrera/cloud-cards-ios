@@ -150,6 +150,7 @@ class ContactsController: UIViewController {
         viewWillAppear(true)
         self.navigationController?.isToolbarHidden = true
         cardsController.multipleChoiceActivated = false
+        cardsController.navigationItem.leftBarButtonItem = nil
     }
     
     /*
