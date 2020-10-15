@@ -35,7 +35,7 @@ class CardViewController: UIViewController {
                 action: #selector(exportContact(_:))
             )
         }
-        exportButton.tintColor = UIColor.white
+        exportButton.tintColor = PRIMARY
 
         self.navigationItem.rightBarButtonItem = exportButton
         

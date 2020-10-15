@@ -1,4 +1,13 @@
 import Foundation
+import UIKit
+
+public let PRIMARY = UIColor.init(hexString: "#0286F2")
+public let PRIMARY_10 = UIColor.init(hexString: "#0286F2", alpha: 0.1)
+public let LIGHT_GRAY = UIColor.init(hexString: "#F6F6F6")
+public let GRAPHITE = UIColor.init(hexString: "#494E5A")
+public let GRAPHITE_10 = UIColor.init(hexString: "#494E5A", alpha: 0.1)
+
+
 
 // Основной темный синий цвет
 public let PRIMARY_DARK = "#0B1F35"

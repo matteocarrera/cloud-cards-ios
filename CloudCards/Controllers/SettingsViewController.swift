@@ -8,6 +8,10 @@ class SettingsViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.navigationController?.navigationBar.shadowImage = GRAPHITE_10.as1ptImage()
+        
+        settingsTable.backgroundColor = UIColor.white
         settingsTable.tableFooterView = UIView()
         items = ["Конфиденциальность", "Пользовательское соглашение", "Помощь", "О приложении"]
         identities = ["Privacy", "TermsOfUse", "Help", "AboutApp"]

@@ -21,6 +21,7 @@ class ContactsController: UIViewController {
         let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress(longPressGestureRecognizer:)))
         self.view.addGestureRecognizer(longPressRecognizer)
 
+        selectedCounter.tintColor = UIColor.black
         setToolbar()
     }
     
@@ -134,7 +135,7 @@ class ContactsController: UIViewController {
         items.append(UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.shareContacts(_:))))
         
         self.navigationController?.toolbar.setItems(items, animated: true)
-        self.navigationController?.toolbar.barTintColor = UIColor.white
+        self.navigationController?.toolbar.barTintColor = LIGHT_GRAY
         self.navigationController?.toolbar.isTranslucent = false
     }
     
@@ -164,7 +165,7 @@ class ContactsController: UIViewController {
             target: cardsController,
             action: #selector(CardsController.selectMultiple(_:))
         )
-        select.tintColor = UIColor.white
+        select.tintColor = PRIMARY
 
         cardsController.navigationItem.rightBarButtonItem = select
     }

@@ -1,5 +1,6 @@
 import Foundation
 import UIKit
+import CoreGraphics
 
 extension UIColor {
     
@@ -29,5 +30,15 @@ extension UIColor {
         getRed(&r, green: &g, blue: &b, alpha: &a)
         let rgb:Int = (Int)(r*255)<<16 | (Int)(g*255)<<8 | (Int)(b*255)<<0
         return String(format:"#%06x", rgb)
+    }
+    
+    func as1ptImage() -> UIImage {
+        UIGraphicsBeginImageContext(CGSize(width: 1, height: 1))
+        let ctx = UIGraphicsGetCurrentContext()!
+        self.setFill()
+        ctx.fill(CGRect(x: 0, y: 0, width: 1, height: 1))
+        let image = UIGraphicsGetImageFromCurrentImageContext()!
+        UIGraphicsEndImageContext()
+        return image
     }
 }

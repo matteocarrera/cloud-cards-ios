@@ -32,7 +32,7 @@ class TemplatesController: UIViewController {
             Получение импортированных визиток в приложение и их обработка и сохранение
          */
         
-        let defaults = UserDefaults(suiteName: "group.urfusoftware.Alfa-Bank-QR")
+        let defaults = UserDefaults(suiteName: "group.urfusoftware.CloudCards")
         let link = String((defaults?.string(forKey: "link") ?? ""))
         
         if link.contains("|") {

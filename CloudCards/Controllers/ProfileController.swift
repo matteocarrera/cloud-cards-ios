@@ -21,6 +21,8 @@ class ProfileController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.navigationController?.navigationBar.shadowImage = GRAPHITE_10.as1ptImage()
+        
         //print(Realm.Configuration.defaultConfiguration.fileURL)
         
         /*

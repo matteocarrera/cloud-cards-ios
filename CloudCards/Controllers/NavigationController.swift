@@ -9,10 +9,13 @@ class NavigationController: UINavigationController {
         let statusBarColor = UIColor.init(hexString: PRIMARY_DARK)
         statusBarView.backgroundColor = statusBarColor
         self.view.addSubview(statusBarView)
-
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        if #available(iOS 13.0, *) {
+            return .darkContent
+        } else {
+            return .lightContent
+        }
     }
 }

@@ -26,8 +26,8 @@ class CardsController: UIViewController {
         view.addGestureRecognizer(tap)
 
         // Белый цвет текста для переключателя окон визиток
-        UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .selected)
-        UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor:UIColor.white], for: .normal)
+        UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: GRAPHITE ], for: .selected)
+        UISegmentedControl.appearance().setTitleTextAttributes([NSAttributedString.Key.foregroundColor: GRAPHITE ], for: .normal)
     }
     
     @objc func dismissKeyboard() {
@@ -58,7 +58,7 @@ class CardsController: UIViewController {
                 target: self,
                 action: #selector(selectMultiple(_:))
             )
-            cancelButton.tintColor = UIColor.white
+            cancelButton.tintColor = PRIMARY
 
             self.navigationItem.rightBarButtonItem = cancelButton
             
@@ -77,7 +77,7 @@ class CardsController: UIViewController {
             case 1:
                 templatesView.isHidden = true
                 contactsView.isHidden = false
-                self.navigationItem.rightBarButtonItem?.tintColor = UIColor.white
+                self.navigationItem.rightBarButtonItem?.tintColor = PRIMARY
                 self.navigationItem.rightBarButtonItem?.isEnabled = true
             default:
                 break;
