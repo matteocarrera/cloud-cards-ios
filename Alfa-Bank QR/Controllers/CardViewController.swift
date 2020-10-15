@@ -21,9 +21,19 @@ class CardViewController: UIViewController {
         let exportButton : UIBarButtonItem
         
         if #available(iOS 13.0, *) {
-            exportButton = UIBarButtonItem(image: UIImage.init(systemName: "square.and.arrow.up"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(exportContact(_:)))
+            exportButton = UIBarButtonItem(
+                image: UIImage.init(systemName: "square.and.arrow.up"),
+                style: UIBarButtonItem.Style.plain,
+                target: self,
+                action: #selector(exportContact(_:))
+            )
         } else {
-            exportButton = UIBarButtonItem(title: "Поделиться", style: UIBarButtonItem.Style.plain, target: self, action: #selector(exportContact(_:)))
+            exportButton = UIBarButtonItem(
+                title: "Поделиться",
+                style: UIBarButtonItem.Style.plain,
+                target: self,
+                action: #selector(exportContact(_:))
+            )
         }
         exportButton.tintColor = UIColor.white
 
@@ -59,7 +69,11 @@ class CardViewController: UIViewController {
     }
     
     @objc func exportContact(_ sender: Any) {
-        let alert = UIAlertController(title: "Экспорт контакта", message: "Вы действительно хотите экспортировать контакт?", preferredStyle: .alert)
+        let alert = UIAlertController(
+            title: "Экспорт контакта",
+            message: "Вы действительно хотите экспортировать контакт?",
+            preferredStyle: .alert
+        )
         alert.addAction(UIAlertAction.init(title: "Да", style: .default, handler: { (_) in
             exportToContacts(user: parseDataToUser(data: self.data), photo: self.cardPhoto.image, controller: self)
         }))

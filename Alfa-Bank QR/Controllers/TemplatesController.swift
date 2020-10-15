@@ -66,7 +66,6 @@ class TemplatesController: UIViewController {
         }))
         
         alert.addAction(UIAlertAction.init(title: "Поделиться", style: .default, handler: { (_) in
-            
             let owner = self.realm.objects(User.self)[0]
             let userLink = owner.uuid + "|" + card.userId
 
@@ -98,9 +97,25 @@ class TemplatesController: UIViewController {
         
         imageView.image = generateQR(userLink: userLink)
         
+        let height = NSLayoutConstraint(
+            item: showAlert.view as Any,
+            attribute: .height,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .notAnAttribute,
+            multiplier: 1,
+            constant: 360
+        )
+        let width = NSLayoutConstraint(
+            item: showAlert.view as Any,
+            attribute: .width,
+            relatedBy: .equal,
+            toItem: nil,
+            attribute: .notAnAttribute,
+            multiplier: 1,
+            constant: 250
+        )
         showAlert.view.addSubview(imageView)
-        let height = NSLayoutConstraint(item: showAlert.view as Any, attribute: .height, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 360)
-        let width = NSLayoutConstraint(item: showAlert.view as Any, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1, constant: 250)
         showAlert.view.addConstraint(height)
         showAlert.view.addConstraint(width)
         showAlert.addAction(UIAlertAction(title: "OK", style: .cancel))
