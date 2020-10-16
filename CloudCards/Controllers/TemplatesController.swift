@@ -120,10 +120,6 @@ class TemplatesController: UIViewController {
         showAlert.view.addConstraint(width)
         showAlert.addAction(UIAlertAction(title: "OK", style: .cancel))
         
-        if #available(iOS 13.0, *) {
-            showAlert.overrideUserInterfaceStyle = UIUserInterfaceStyle.light
-        }
-        
         self.present(showAlert, animated: true, completion: nil)
     }
 }

@@ -21,9 +21,7 @@ class SelectDataController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        self.navigationController?.navigationBar.shadowImage = GRAPHITE_10.as1ptImage()
-        
+
         selectedItems.removeAll()
         
         /*
@@ -41,14 +39,6 @@ class SelectDataController: UIViewController {
         }
         
         tableView.reloadData()
-    }
-    
-    @IBAction func generateQR(_ sender: Any) {
-        if selectedItems.count != 0 {
-            saveUser(segue: "QRView", title: nil)
-        } else {
-            showAlert()
-        }
     }
 
     @IBAction func saveCardToTemplates(_ sender: Any) {
@@ -68,8 +58,8 @@ class SelectDataController: UIViewController {
 
         alert.addAction(UIAlertAction(title: "Сохранить", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
-            self.saveUser(segue: "", title: textField?.text)
-            self.tabBarController?.selectedIndex = 0
+            self.saveUser(title: textField?.text)
+            self.navigationController?.popViewController(animated: true)
         }))
         
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
@@ -77,7 +67,7 @@ class SelectDataController: UIViewController {
         self.present(alert, animated: true, completion: nil)
     }
     
-    private func saveUser(segue : String, title : String?) {
+    private func saveUser(title : String?) {
         
         let ownerUser = realm.objects(User.self)[0]
         
@@ -119,26 +109,20 @@ class SelectDataController: UIViewController {
             для последующего перехода в окно, демонстрирующее QR код на экране
          */
         
-        if (segue == "QRView") {
-            let viewController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
-            viewController.userLink = newUser.parentId + "|" + newUser.uuid
-            self.navigationController?.pushViewController(viewController, animated: true)
+        let card = Card()
+        card.color = COLORS[Int.random(in: 0..<COLORS.count)]
+        card.title = title!
+        card.userId = newUser.uuid
+        
+        let maxValue = realm.objects(Card.self).max(ofProperty: "id") as Int?
+        if (maxValue != nil) {
+            card.id = maxValue! + 1
         } else {
-            let card = Card()
-            card.color = COLORS[Int.random(in: 0..<COLORS.count)]
-            card.title = title!
-            card.userId = newUser.uuid
-            
-            let maxValue = realm.objects(Card.self).max(ofProperty: "id") as Int?
-            if (maxValue != nil) {
-                card.id = maxValue! + 1
-            } else {
-                card.id = 0
-            }
-            
-            try! realm.write {
-                realm.add(card)
-            }
+            card.id = 0
+        }
+        
+        try! realm.write {
+            realm.add(card)
         }
     }
 
@@ -156,21 +140,10 @@ extension SelectDataController: UITableViewDataSource {
         cell.descriptionText?.text = dataCell.description
         cell.titleText?.text = dataCell.title
         
-        if dataCell.isSelected
-        {
-            if #available(iOS 13.0, *) {
-                cell.buttonTick.setBackgroundImage(UIImage(systemName: "checkmark.circle.fill"), for: UIControl.State.normal)
-            } else {
-                cell.accessoryType = .checkmark
-            }
-        }
-        else
-        {
-            if #available(iOS 13.0, *) {
-                cell.buttonTick.setBackgroundImage(UIImage(systemName: "circle"), for: UIControl.State.normal)
-            } else {
-                cell.accessoryType = .none
-            }
+        if dataCell.isSelected {
+            cell.buttonTick.setBackgroundImage(UIImage(systemName: "checkmark.circle.fill"), for: UIControl.State.normal)
+        } else {
+            cell.buttonTick.setBackgroundImage(UIImage(systemName: "circle"), for: UIControl.State.normal)
         }
         cell.selectionStyle = .none
         

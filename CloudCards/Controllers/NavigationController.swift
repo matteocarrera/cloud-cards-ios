@@ -10,12 +10,4 @@ class NavigationController: UINavigationController {
         statusBarView.backgroundColor = statusBarColor
         self.view.addSubview(statusBarView)
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        if #available(iOS 13.0, *) {
-            return .darkContent
-        } else {
-            return .lightContent
-        }
-    }
 }

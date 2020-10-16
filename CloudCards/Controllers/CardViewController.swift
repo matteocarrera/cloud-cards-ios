@@ -17,34 +17,17 @@ class CardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let exportButton : UIBarButtonItem
-        
-        if #available(iOS 13.0, *) {
-            exportButton = UIBarButtonItem(
-                image: UIImage.init(systemName: "square.and.arrow.up"),
-                style: UIBarButtonItem.Style.plain,
-                target: self,
-                action: #selector(exportContact(_:))
-            )
-        } else {
-            exportButton = UIBarButtonItem(
-                title: "Поделиться",
-                style: UIBarButtonItem.Style.plain,
-                target: self,
-                action: #selector(exportContact(_:))
-            )
-        }
-        exportButton.tintColor = PRIMARY
-
-        self.navigationItem.rightBarButtonItem = exportButton
-        
-        cardPhoto.layer.cornerRadius = cardPhoto.frame.height/2
         configureTableView(table: cardDataTable, controller: self)
+
+        setExportButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        self.navigationItem.title = "Визитка"
+        
+        cardPhoto.layer.cornerRadius = cardPhoto.frame.height/2
         
         let userBoolean = realm.objects(UserBoolean.self).filter("uuid = \"\(userId)\"")[0]
         
@@ -80,6 +63,20 @@ class CardViewController: UIViewController {
         alert.addAction(UIAlertAction.init(title: "Нет", style: .cancel))
         self.present(alert, animated: true, completion: nil)
         
+    }
+    
+    private func setExportButton() {
+        let exportButton : UIBarButtonItem
+        
+        exportButton = UIBarButtonItem(
+            image: UIImage.init(systemName: "square.and.arrow.up"),
+            style: UIBarButtonItem.Style.plain,
+            target: self,
+            action: #selector(exportContact(_:))
+        )
+        exportButton.tintColor = PRIMARY
+        
+        self.navigationItem.rightBarButtonItem = exportButton
     }
 }
 

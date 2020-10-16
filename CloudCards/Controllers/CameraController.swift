@@ -72,14 +72,6 @@ class CameraController: UIViewController {
                         message: "Ваше устройство не поддерживает функцию сканирования.")
         captureSession = nil
     }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        if #available(iOS 13.0, *) {
-            return .darkContent
-        } else {
-            return .lightContent
-        }
-    }
 
     override var prefersStatusBarHidden: Bool {
         return true

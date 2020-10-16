@@ -9,12 +9,15 @@ class SettingsViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationController?.navigationBar.shadowImage = GRAPHITE_10.as1ptImage()
-        
         settingsTable.backgroundColor = UIColor.white
         settingsTable.tableFooterView = UIView()
         items = ["Конфиденциальность", "Пользовательское соглашение", "Помощь", "О приложении"]
         identities = ["Privacy", "TermsOfUse", "Help", "AboutApp"]
+    }
+    
+    @IBAction func openEditProfileWindow(_ sender: Any) {
+        let viewController = storyboard?.instantiateViewController(withIdentifier: "EditProfileController") as! EditProfileController
+        self.navigationController?.pushViewController(viewController, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

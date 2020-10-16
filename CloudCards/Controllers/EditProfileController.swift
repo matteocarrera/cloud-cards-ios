@@ -60,6 +60,7 @@ class EditProfileController: UIViewController {
             target: self,
             action: #selector(saveUser)
         )
+        rightBarButtonItem?.tintColor = PRIMARY
         
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         

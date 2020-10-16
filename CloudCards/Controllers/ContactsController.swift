@@ -160,7 +160,7 @@ class ContactsController: UIViewController {
     
     private func setSelectButton() {
         let select : UIBarButtonItem = UIBarButtonItem(
-            image: cardsController.selectButton.image,
+            image: cardsController.selectMultipleButton.image,
             style: UIBarButtonItem.Style.plain,
             target: cardsController,
             action: #selector(CardsController.selectMultiple(_:))

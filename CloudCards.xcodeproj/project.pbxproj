@@ -12,7 +12,6 @@
 		E7062D68250505F4006723EB /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7062D66250505F4006723EB /* MainInterface.storyboard */; };
 		E7062D6C250505F4006723EB /* Share.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E7062D62250505F4006723EB /* Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E7062D722508C913006723EB /* DatabaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7062D712508C913006723EB /* DatabaseUtils.swift */; };
-		E70B748824B0C17000C52072 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E70B748724B0C17000C52072 /* GoogleService-Info.plist */; };
 		E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25324705D5000BB3F05 /* AppDelegate.swift */; };
 		E714B25624705D5000BB3F05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25524705D5000BB3F05 /* SceneDelegate.swift */; };
 		E714B25A24705D5000BB3F05 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25924705D5000BB3F05 /* CameraController.swift */; };
@@ -39,6 +38,7 @@
 		E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DDDC1424826BDC00E8F462 /* DataUtils.swift */; };
 		E7E00F19252763EB003A7D15 /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E00F18252763EB003A7D15 /* ColorConstants.swift */; };
 		E7E4E637248BA19C00C6E2A0 /* SelectDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */; };
+		E7F8B5C72539BE9A004A6F99 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = E7F8B5C62539BE99004A6F99 /* GoogleService-Info.plist */; };
 		E7F8E5E424A38A1E00738AB5 /* CardsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F8E5E324A38A1E00738AB5 /* CardsController.swift */; };
 /* End PBXBuildFile section */
 
@@ -79,7 +79,6 @@
 		E7062D69250505F4006723EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7062D70250505FA006723EB /* Share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Share.entitlements; sourceTree = "<group>"; };
 		E7062D712508C913006723EB /* DatabaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUtils.swift; sourceTree = "<group>"; };
-		E70B748724B0C17000C52072 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../Downloads/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E714B25024705D5000BB3F05 /* CloudCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E714B25324705D5000BB3F05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E714B25524705D5000BB3F05 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -113,6 +112,7 @@
 		E7F1F48324E2A6F000FECF65 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		E7F1F48524E2A6F600FECF65 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E7F1F48724E2A6FF00FECF65 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
+		E7F8B5C62539BE99004A6F99 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		E7F8E5E324A38A1E00738AB5 /* CardsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -173,6 +173,7 @@
 		E714B24724705D5000BB3F05 = {
 			isa = PBXGroup;
 			children = (
+				E7F8B5C62539BE99004A6F99 /* GoogleService-Info.plist */,
 				E714B25224705D5000BB3F05 /* CloudCards */,
 				E7062D63250505F4006723EB /* Share */,
 				E714B25124705D5000BB3F05 /* Products */,
@@ -196,7 +197,6 @@
 				E77F9AF1252A197800799EC5 /* Constants */,
 				E7062D4A24F687F2006723EB /* CloudCards.entitlements */,
 				E737940724D0004100440FF4 /* Extensions */,
-				E70B748724B0C17000C52072 /* GoogleService-Info.plist */,
 				E74A484C24715A830004B5B5 /* Utils */,
 				E74A484B24715A500004B5B5 /* Controllers */,
 				E74A4846247159A10004B5B5 /* Entities */,
@@ -316,7 +316,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 1160;
-				LastUpgradeCheck = 1140;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = "Vladimir Makarov";
 				TargetAttributes = {
 					E7062D61250505F4006723EB = {
@@ -360,7 +360,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E714B26224705D5200BB3F05 /* LaunchScreen.storyboard in Resources */,
-				E70B748824B0C17000C52072 /* GoogleService-Info.plist in Resources */,
+				E7F8B5C72539BE9A004A6F99 /* GoogleService-Info.plist in Resources */,
 				E714B25F24705D5200BB3F05 /* Assets.xcassets in Resources */,
 				E714B25D24705D5000BB3F05 /* Main.storyboard in Resources */,
 			);
@@ -496,7 +496,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQUYF75S8L;
 				INFOPLIST_FILE = Share/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -517,7 +517,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQUYF75S8L;
 				INFOPLIST_FILE = Share/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -557,6 +557,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -581,7 +582,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -617,6 +618,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -635,7 +637,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -655,7 +657,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQUYF75S8L;
 				INFOPLIST_FILE = CloudCards/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -682,7 +684,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = DQUYF75S8L;
 				INFOPLIST_FILE = CloudCards/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
