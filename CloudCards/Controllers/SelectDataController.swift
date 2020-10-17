@@ -142,8 +142,10 @@ extension SelectDataController: UITableViewDataSource {
         
         if dataCell.isSelected {
             cell.buttonTick.setBackgroundImage(UIImage(systemName: "checkmark.circle.fill"), for: UIControl.State.normal)
+            cell.buttonTick.tintColor = PRIMARY
         } else {
             cell.buttonTick.setBackgroundImage(UIImage(systemName: "circle"), for: UIControl.State.normal)
+            cell.buttonTick.tintColor = PRIMARY
         }
         cell.selectionStyle = .none
         

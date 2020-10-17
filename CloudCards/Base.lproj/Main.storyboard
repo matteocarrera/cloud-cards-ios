@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,7 +20,7 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zYD-dd-dTd">
                                 <rect key="frame" x="132" y="54" width="150" height="150"/>
-                                <color key="backgroundColor" red="0.0078431372550000003" green="0.52549019610000003" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="Primary"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="150" id="ZQE-3h-qeM"/>
                                     <constraint firstAttribute="width" constant="150" id="iRW-Et-2c8"/>
@@ -122,7 +123,7 @@
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mfl-4O-1XL">
                                                 <rect key="frame" x="107" y="10" width="200" height="200"/>
-                                                <color key="backgroundColor" red="0.0078431372549019607" green="0.52549019607843139" blue="0.94901960784313721" alpha="1" colorSpace="calibratedRGB"/>
+                                                <color key="backgroundColor" name="Primary"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="200" id="eTK-IE-Ypx"/>
                                                     <constraint firstAttribute="width" constant="200" id="jPY-DB-hsL"/>
@@ -587,7 +588,7 @@
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="CameraController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -606,7 +607,6 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="QPc-xc-mo4">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
-                        <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="barTintColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -625,7 +625,7 @@
             <objects>
                 <tableViewController title="Settings" id="ZaO-9P-a5P" customClass="SettingsViewController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ynk-He-vA0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -648,10 +648,10 @@
                     </tableView>
                     <navigationItem key="navigationItem" title="Настройки" id="q1f-Ib-Sg6">
                         <barButtonItem key="backBarButtonItem" title="Назад" id="5z8-z3-Nyz">
-                            <color key="tintColor" red="0.0078431372550000003" green="0.52549019610000003" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" name="Primary"/>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Изм." id="WFn-h2-lF1">
-                            <color key="tintColor" red="0.0078431372550000003" green="0.52549019610000003" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" name="Primary"/>
                             <connections>
                                 <action selector="openEditProfileWindow:" destination="ZaO-9P-a5P" id="KNg-dQ-G9U"/>
                             </connections>
@@ -769,7 +769,7 @@
                                                         <constraint firstAttribute="height" constant="24" id="9re-sG-WNU"/>
                                                         <constraint firstAttribute="width" constant="24" id="WC3-on-rZU"/>
                                                     </constraints>
-                                                    <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <color key="tintColor" name="Primary"/>
                                                     <state key="normal" backgroundImage="circle" catalog="system">
                                                         <color key="titleColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     </state>
@@ -830,9 +830,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Создание шаблона" id="pmL-qd-6I0">
-                        <barButtonItem key="backBarButtonItem" title="Назад" id="g9R-Yc-OvC"/>
-                        <barButtonItem key="rightBarButtonItem" title="Сохранить" image="bookmark" catalog="system" id="GQM-zf-Dfm">
-                            <color key="tintColor" red="0.0078431372550000003" green="0.52549019610000003" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="g9R-Yc-OvC">
+                            <color key="tintColor" name="Primary"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Сохранить" id="GQM-zf-Dfm">
+                            <color key="tintColor" name="Primary"/>
                             <connections>
                                 <action selector="saveCardToTemplates:" destination="RtQ-vZ-waR" id="87S-fZ-2cv"/>
                             </connections>
@@ -845,7 +847,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="yse-VS-7Os" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1776.8115942028987" y="1465.7608695652175"/>
+            <point key="canvasLocation" x="1776.8115942028987" y="1465.1785714285713"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="yl2-sM-qoP">
@@ -856,8 +858,9 @@
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" name="Primary"/>
                         <color key="barTintColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="selectedImageTintColor" red="0.0078431372550000003" green="0.52549019610000003" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="selectedImageTintColor" name="Primary"/>
                     </tabBar>
                     <connections>
                         <segue destination="BUo-ua-BtS" kind="relationship" relationship="viewControllers" id="daU-NB-fFW"/>
@@ -876,7 +879,7 @@
                     <tabBarItem key="tabBarItem" title="Визитки" image="rectangle.stack.fill" catalog="system" id="Rwv-ej-i7m"/>
                     <navigationItem key="navigationItem" title="Визитки" id="nRH-mC-K1H">
                         <barButtonItem key="backBarButtonItem" title="Назад" id="zAV-NL-rVp">
-                            <color key="tintColor" red="0.0078431372550000003" green="0.52549019610000003" blue="0.94901960780000005" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <color key="tintColor" name="Primary"/>
                         </barButtonItem>
                     </navigationItem>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translucent="NO" id="Dv0-L1-MGg">
@@ -905,7 +908,7 @@
             <objects>
                 <viewController id="W3Z-Bu-dRl" customClass="CardsController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dhw-OQ-eVd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="tiu-9v-cym">
@@ -964,11 +967,14 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Визитки" id="3vP-CG-nkz">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="kLE-cn-MWc">
+                            <color key="tintColor" name="Primary"/>
+                        </barButtonItem>
                         <barButtonItem key="leftBarButtonItem" title="Добавить" image="plus" catalog="system" id="HaR-62-GNZ">
-                            <color key="tintColor" red="0.0078431372550000003" green="0.52549019610000003" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" name="Primary"/>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="checkmark.circle" catalog="system" id="noE-rW-dK7">
-                            <color key="tintColor" red="0.0078431372550000003" green="0.52549019610000003" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                            <color key="tintColor" name="Primary"/>
                             <connections>
                                 <action selector="selectMultiple:" destination="W3Z-Bu-dRl" id="LJS-EA-Cag"/>
                             </connections>
@@ -1210,7 +1216,7 @@
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dhQ-6q-tRs">
                                 <rect key="frame" x="132" y="54" width="150" height="150"/>
-                                <color key="backgroundColor" red="0.0078431372550000003" green="0.52549019610000003" blue="0.94901960780000005" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" name="Primary"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="150" id="Nmf-f3-95y"/>
                                     <constraint firstAttribute="height" constant="150" id="m3b-De-4vA"/>
@@ -1457,7 +1463,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="bookmark" catalog="system" width="112" height="128"/>
         <image name="camera.fill" catalog="system" width="128" height="94"/>
         <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
@@ -1465,6 +1470,9 @@
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="rectangle.stack.fill" catalog="system" width="128" height="122"/>
+        <namedColor name="Primary">
+            <color red="0.20784313725490197" green="0.55686274509803924" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

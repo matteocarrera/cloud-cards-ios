@@ -79,48 +79,9 @@ class ContactsController: UIViewController {
             let touchPoint = longPressGestureRecognizer.location(in: self.view)
             if let index = self.contactsTable.indexPathForRow(at: touchPoint)  {
                 let contact = contacts[index.row]
-                showContactMenu(contact: contact)
+                //showContactMenu(contact: contact)
             }
         }
-    }
-    
-    private func showContactMenu(contact : UserBoolean) {
-        let alert = UIAlertController.init(title: "Выберите действие", message: nil, preferredStyle: .actionSheet)
-
-        alert.addAction(UIAlertAction.init(title: "QR код", style: .default, handler: { (_) in
-            
-            let qrController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
-            
-            let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
-            let userLink = contact.parentId + "|" + contact.uuid
-
-            qrController.userLink = userLink
-            
-            self.navigationController?.pushViewController(qrController, animated: true)
-        }))
-        
-        alert.addAction(UIAlertAction.init(title: "Поделиться", style: .default, handler: { (_) in
-            
-            let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
-            let userLink = contact.parentId + "|" + contact.uuid
-
-            if let image = generateQR(userLink: userLink) {
-                let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
-                self.present(vc, animated: true)
-            }
-        }))
-        
-        alert.addAction(UIAlertAction.init(title: "Удалить", style: .default, handler: { (_) in
-            try! self.realm.write {
-                self.realm.delete(contact)
-            }
-            
-            self.viewWillAppear(true)
-        }))
-        
-        alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
-            
-        self.present(alert, animated: true)
     }
     
     /*
@@ -264,6 +225,68 @@ extension ContactsController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return contacts.count
+    }
+    
+    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let qr = showQR(at: indexPath)
+        let share = shareContact(at: indexPath)
+        let delete = deleteContact(at: indexPath)
+        return UISwipeActionsConfiguration(actions: [delete, share, qr])
+    }
+    
+    func showQR(at indexPath: IndexPath) -> UIContextualAction {
+        let contact = contacts[indexPath.row]
+        let action = UIContextualAction(style: .normal, title: "ShowQR") { (action, view, completion) in
+            
+            let qrController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
+            
+            let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
+            let userLink = contact.parentId + "|" + contact.uuid
+
+            qrController.userLink = userLink
+            
+            self.navigationController?.pushViewController(qrController, animated: true)
+            
+            completion(true)
+        }
+        action.image = UIImage(systemName: "qrcode")
+        return action
+    }
+    
+    func shareContact(at indexPath: IndexPath) -> UIContextualAction {
+        let contact = contacts[indexPath.row]
+        let action = UIContextualAction(style: .normal, title: "Share") { (action, view, completion) in
+            
+            let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
+            let userLink = contact.parentId + "|" + contact.uuid
+
+            if let image = generateQR(userLink: userLink) {
+                let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
+                self.present(vc, animated: true)
+            }
+            
+            completion(true)
+        }
+        action.image = UIImage(systemName: "square.and.arrow.up")
+        return action
+    }
+    
+    func deleteContact(at indexPath: IndexPath) -> UIContextualAction {
+        let contact = contacts[indexPath.row]
+        let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
+            
+            try! self.realm.write {
+                self.realm.delete(contact)
+            }
+            
+            self.contacts.remove(at: indexPath.row)
+            self.contactsTable.deleteRows(at: [indexPath], with: .automatic)
+            //self.viewWillAppear(true)
+            
+            completion(true)
+        }
+        action.image = UIImage(systemName: "trash")
+        return action
     }
 }
 
