@@ -27,7 +27,7 @@ class ContactsController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         contacts.removeAll()
         selectedContactsUuid.removeAll()
 
@@ -89,13 +89,13 @@ class ContactsController: UIViewController {
      */
     
     private func setToolbar() {
-        var items = [UIBarButtonItem]()
+        let trashButton = UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.deleteContacts(_:)))
+        trashButton.tintColor = PRIMARY
+        let space = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil)
+        let shareButton = UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.shareContacts(_:)))
+        shareButton.tintColor = PRIMARY
         
-        items.append(UIBarButtonItem(barButtonSystemItem: .trash, target: self, action: #selector(self.deleteContacts(_:))))
-        items.append(UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: self, action: nil))
-        items.append(UIBarButtonItem(barButtonSystemItem: .action, target: self, action: #selector(self.shareContacts(_:))))
-        
-        self.navigationController?.toolbar.setItems(items, animated: true)
+        self.navigationController?.toolbar.setItems([trashButton, space, shareButton], animated: true)
         self.navigationController?.toolbar.barTintColor = LIGHT_GRAY
         self.navigationController?.toolbar.isTranslucent = false
     }
@@ -148,11 +148,15 @@ extension ContactsController: UITableViewDataSource {
                   
                 let currentUser = getUserFromTemplate(user: parentUser, userBoolean: user)
 
-                /*
-                    TODO("Если пользователь без фотографии, то сделать две буквы вместо фотографии")
-                 */
-                
-                cell.contactPhoto.image = getPhotoFromDatabase(photoUuid: parentUser.photo)
+                if parentUser.photo != "" {
+                    cell.contactPhoto.image = getPhotoFromDatabase(photoUuid: parentUser.photo)
+                    cell.contactInitials.isHidden = true
+                } else {
+                    cell.contactPhoto.image = nil
+                    cell.contactPhoto.backgroundColor = PRIMARY
+                    cell.contactInitials.isHidden = false
+                    cell.contactInitials.text = String(currentUser.name.character(at: 0)!) + String(currentUser.surname.character(at: 0)!)
+                }
                 cell.contactPhoto.layer.cornerRadius = cell.contactPhoto.frame.height/2
                   
                 cell.contactName.text = currentUser.name + " " + currentUser.surname
@@ -235,21 +239,20 @@ extension ContactsController: UITableViewDelegate {
     }
     
     func showQR(at indexPath: IndexPath) -> UIContextualAction {
-        let contact = contacts[indexPath.row]
+        let person = contacts[indexPath.row]
         let action = UIContextualAction(style: .normal, title: "ShowQR") { (action, view, completion) in
             
-            let qrController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
+            let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(person.uuid)\"")[0]
             
-            let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
-            let userLink = contact.parentId + "|" + contact.uuid
-
-            qrController.userLink = userLink
+            let qrController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
+            qrController.contact = contact
             
             self.navigationController?.pushViewController(qrController, animated: true)
             
             completion(true)
         }
         action.image = UIImage(systemName: "qrcode")
+        action.backgroundColor = PRIMARY
         return action
     }
     
@@ -268,6 +271,7 @@ extension ContactsController: UITableViewDelegate {
             completion(true)
         }
         action.image = UIImage(systemName: "square.and.arrow.up")
+        action.backgroundColor = GRAPHITE
         return action
     }
     
@@ -296,6 +300,7 @@ class ContactsDataCell : UITableViewCell {
     @IBOutlet var contactName: UILabel!
     @IBOutlet var contactCompany: UILabel!
     @IBOutlet var contactJobTitle: UILabel!
+    @IBOutlet var contactInitials: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

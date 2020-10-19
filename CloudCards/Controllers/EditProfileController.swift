@@ -2,6 +2,7 @@ import UIKit
 import RealmSwift
 import FirebaseDatabase
 import FirebaseStorage
+import FirebaseFirestore
 
 class EditProfileController: UIViewController {
     
@@ -200,6 +201,13 @@ class EditProfileController: UIViewController {
          */
         
         let json = convertToJson(someUser: ownerUser!)
+        //let jsonEncoder = JSONEncoder()
+        //let jsonData = try! jsonEncoder.encode(ownerUser!)
+        //let json = try! JSONSerialization.jsonObject(with: jsonData, options: [])
+        
+        //let db = Firestore.firestore()
+        //var reference: DocumentReference? = nil
+        //db.collection("users").document(ownerUser!.uuid).setData(json as! [String : Any])
         
         ref.child(ownerUser!.parentId).child(ownerUser!.uuid).setValue(json)
         

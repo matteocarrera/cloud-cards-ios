@@ -55,41 +55,6 @@ class TemplatesController: UIViewController {
             }
         }
     }
-    
-    private func showQR(userId : String) {
-        let showAlert = UIAlertController(title: "QR-визитка", message: nil, preferredStyle: .alert)
-        let imageView = UIImageView(frame: CGRect(x: 10, y: 50, width: 250, height: 250))
-        
-        let owner = realm.objects(User.self)[0]
-        let userLink = owner.uuid + "|" + userId
-        
-        imageView.image = generateQR(userLink: userLink)
-        
-        let height = NSLayoutConstraint(
-            item: showAlert.view as Any,
-            attribute: .height,
-            relatedBy: .equal,
-            toItem: nil,
-            attribute: .notAnAttribute,
-            multiplier: 1,
-            constant: 360
-        )
-        let width = NSLayoutConstraint(
-            item: showAlert.view as Any,
-            attribute: .width,
-            relatedBy: .equal,
-            toItem: nil,
-            attribute: .notAnAttribute,
-            multiplier: 1,
-            constant: 250
-        )
-        showAlert.view.addSubview(imageView)
-        showAlert.view.addConstraint(height)
-        showAlert.view.addConstraint(width)
-        showAlert.addAction(UIAlertAction(title: "OK", style: .cancel))
-        
-        self.present(showAlert, animated: true, completion: nil)
-    }
 }
 
 extension TemplatesController: UITableViewDataSource {
@@ -108,8 +73,13 @@ extension TemplatesController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataCell = templates[indexPath.row]
 
-        showQR(userId: dataCell.userId)
+        let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(dataCell.userId)\"")[0]
         
+        let qrController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
+        qrController.contact = contact
+        
+        self.navigationController?.pushViewController(qrController, animated: true)
+
         templatesTable.reloadData()
     }
 }
@@ -142,6 +112,7 @@ extension TemplatesController: UITableViewDelegate {
             completion(true)
         }
         action.image = UIImage(systemName: "person.fill")
+        action.backgroundColor = PRIMARY
         return action
     }
     
@@ -160,6 +131,7 @@ extension TemplatesController: UITableViewDelegate {
             completion(true)
         }
         action.image = UIImage(systemName: "square.and.arrow.up")
+        action.backgroundColor = GRAPHITE
         return action
     }
     

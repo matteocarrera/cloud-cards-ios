@@ -7,6 +7,7 @@ class CardViewController: UIViewController {
 
     @IBOutlet weak var cardDataTable: UITableView!
     @IBOutlet var cardPhoto: UIImageView!
+    @IBOutlet var userInitialsLabel: UILabel!
     
     private let realm = try! Realm()
     
@@ -42,8 +43,14 @@ class CardViewController: UIViewController {
                 
                 self.data = setDataToList(user: currentUser)
                 
-                self.cardPhoto.image = getPhotoFromDatabase(photoUuid: owner.photo)
-                  
+                if owner.photo != "" {
+                    self.cardPhoto.image = getPhotoFromDatabase(photoUuid: owner.photo)
+                    self.userInitialsLabel.isHidden = true
+                } else {
+                    self.userInitialsLabel.text = String(currentUser.name.character(at: 0)!) + String(currentUser.surname.character(at: 0)!)
+                    self.userInitialsLabel.isHidden = false
+                }
+                
                 self.cardDataTable.reloadData()
              }
         })

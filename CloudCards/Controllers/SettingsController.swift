@@ -1,6 +1,6 @@
 import UIKit
 
-class SettingsViewController: UITableViewController {
+class SettingsController: UITableViewController {
 
     @IBOutlet var settingsTable: UITableView!
     private var items = [String]()

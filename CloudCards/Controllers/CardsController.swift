@@ -126,8 +126,6 @@ class CardsController: UIViewController {
         navigationBar.compactAppearance = appearance
         navigationBar.standardAppearance = appearance
         navigationBar.scrollEdgeAppearance = appearance
-        // Убирает нижнюю полосу у NavBar
-        navigationBar.shadowImage = UIImage()
     }
     
     // Добавляет строку поиска в NavBar
@@ -135,6 +133,7 @@ class CardsController: UIViewController {
         search = UISearchController(searchResultsController: nil)
         search.searchResultsUpdater = self
         search.searchBar.placeholder = "Поиск"
+        search.searchBar.setValue("Отмена", forKey: "cancelButtonText")
         self.navigationItem.searchController = search
     }
     
