@@ -41,7 +41,7 @@ class ShareViewController: SLComposeServiceViewController {
                 let qr = self.detectQRCode(UIImage(data: imageData))?.first as! CIQRCodeFeature
                 let link = String(qr.messageString!)
                 
-                let defaults = UserDefaults(suiteName: "group.urfusoftware.Alfa-Bank-QR")
+                let defaults = UserDefaults(suiteName: "group.urfusoftware.CloudCards")
                 defaults?.set(link, forKey: "link")
                 
             } else {
