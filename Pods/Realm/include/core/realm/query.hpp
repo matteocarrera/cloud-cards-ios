@@ -73,12 +73,9 @@ struct QueryGroup {
     QueryGroup(QueryGroup&&) = default;
     QueryGroup& operator=(QueryGroup&&) = default;
 
-    QueryGroup(const QueryGroup&, Transaction*);
-
     std::unique_ptr<ParentNode> m_root_node;
 
     bool m_pending_not = false;
-    size_t m_subtable_column = not_found;
     State m_state = State::Default;
 };
 
@@ -175,6 +172,23 @@ public:
     Query& less_equal(ColKey column_key, Timestamp value);
     Query& less(ColKey column_key, Timestamp value);
 
+    // Conditions: ObjectId
+    Query& equal(ColKey column_key, ObjectId value);
+    Query& not_equal(ColKey column_key, ObjectId value);
+    Query& greater(ColKey column_key, ObjectId value);
+    Query& greater_equal(ColKey column_key, ObjectId value);
+    Query& less_equal(ColKey column_key, ObjectId value);
+    Query& less(ColKey column_key, ObjectId value);
+
+    // Conditions: Decimal128
+    Query& equal(ColKey column_key, Decimal128 value);
+    Query& not_equal(ColKey column_key, Decimal128 value);
+    Query& greater(ColKey column_key, Decimal128 value);
+    Query& greater_equal(ColKey column_key, Decimal128 value);
+    Query& less_equal(ColKey column_key, Decimal128 value);
+    Query& less(ColKey column_key, Decimal128 value);
+    Query& between(ColKey column_key, Decimal128 from, Decimal128 to);
+
     // Conditions: size
     Query& size_equal(ColKey column_key, int64_t value);
     Query& size_not_equal(ColKey column_key, int64_t value);
@@ -247,6 +261,10 @@ public:
     double minimum_double(ColKey column_key, ObjKey* return_ndx = nullptr) const;
     Timestamp maximum_timestamp(ColKey column_key, ObjKey* return_ndx = nullptr);
     Timestamp minimum_timestamp(ColKey column_key, ObjKey* return_ndx = nullptr);
+    Decimal128 sum_decimal128(ColKey column_key) const;
+    Decimal128 maximum_decimal128(ColKey column_key, ObjKey* return_ndx = nullptr) const;
+    Decimal128 minimum_decimal128(ColKey column_key, ObjKey* return_ndx = nullptr) const;
+    Decimal128 average_decimal128(ColKey column_key, size_t* resultcount = nullptr) const;
 
     // Deletion
     size_t remove();
@@ -358,6 +376,7 @@ private:
     friend class Table;
     friend class ConstTableView;
     friend class SubQueryCount;
+    friend class PrimitiveListCount;
     friend class metrics::QueryInfo;
 
     std::string error_code;

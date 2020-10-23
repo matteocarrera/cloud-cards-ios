@@ -131,7 +131,7 @@ public:
     /// there is no concurrent access to the file (see below for more on
     /// concurrency), but if the file is modified via Group::commit() the
     /// history will be discarded. To retain the history, the application must
-    /// instead access the file in shared mode, i.e., via SharedGroup, and
+    /// instead access the file in shared mode, i.e., via DB, and
     /// supply the right kind of replication plugin (see
     /// Replication::get_history_type()).
     ///
@@ -146,7 +146,7 @@ public:
     /// Accessing a Realm database file through manual construction
     /// of a Group object does not offer any level of thread safety or
     /// transaction safety. When any of those kinds of safety are a
-    /// concern, consider using a SharedGroup instead. When accessing
+    /// concern, consider using a DB instead. When accessing
     /// a database file in read/write mode through a manually
     /// constructed Group object, it is entirely the responsibility of
     /// the application that the file is not accessed in any way by a
@@ -338,6 +338,7 @@ public:
     ConstTableRef get_table(StringData name) const;
 
     TableRef add_table(StringData name);
+    TableRef add_embedded_table(StringData name);
     TableRef add_table_with_primary_key(StringData name, DataType pk_type, StringData pk_name, bool nullable = false);
     TableRef get_or_add_table(StringData name, bool* was_added = nullptr);
 
@@ -529,7 +530,7 @@ public:
     };
     /// Compute the sum of the sizes in number of bytes of all the array nodes
     /// that currently make up this group. When this group represents a snapshot
-    /// in a Realm file (such as during a read transaction via a SharedGroup
+    /// in a Realm file (such as during a read transaction via a Transaction
     /// instance), this function computes the footprint of that snapshot within
     /// the Realm file.
     ///
@@ -537,8 +538,8 @@ public:
     /// zero.
     size_t compute_aggregated_byte_size(SizeAggregateControl ctrl = SizeAggregateControl::size_of_all) const noexcept;
     /// Return the size taken up by the current snapshot. This is in contrast to
-    /// the number returned by SharedGroup::get_stats() which will return the
-    /// size of the last snapshot done in that SharedGroup. If the snapshots are
+    /// the number returned by DB::get_stats() which will return the
+    /// size of the last snapshot done in that DB. If the snapshots are
     /// identical, the numbers will of course be equal.
     size_t get_used_space() const noexcept;
 
@@ -588,6 +589,7 @@ private:
     ///    8th   History type         (optional)             4
     ///    9th   History ref          (optional)             4
     ///   10th   History version      (optional)             7
+    ///   11th   Sync File Id         (optional)            10
     ///
     /// </pre>
     ///
@@ -599,12 +601,11 @@ private:
     /// Group::write(), none of the optional entries are present and the size of
     /// `m_top` is 3. In files updated by Group::commit(), the 4th and 5th entry
     /// are present, and the size of `m_top` is 5. In files updated by way of a
-    /// transaction (SharedGroup::commit()), the 4th, 5th, 6th, and 7th entry
+    /// transaction (Transaction::commit()), the 4th, 5th, 6th, and 7th entry
     /// are present, and the size of `m_top` is 7. In files that contain a
-    /// changeset history, the 8th, 9th, and 10th entry are present, except that
-    /// if the file was opened in nonshared mode (via Group::open()), and the
-    /// file format remains at 6 (not previously upgraded to 7 or later), then
-    /// the 10th entry will be absent.
+    /// changeset history, the 8th, 9th, and 10th entry are present. The 11th entry
+    /// will be present if the file is syncked and the client has received a client
+    /// file id from the server.
     ///
     /// When a group accessor is attached to a newly created file or an empty
     /// memory buffer where there is no top array yet, `m_top`, `m_tables`, and
@@ -617,8 +618,8 @@ private:
     ArrayStringShort m_table_names;
     uint64_t m_last_seen_mapping_version = 0;
 
-    typedef std::vector<Table*> table_accessors;
-    mutable table_accessors m_table_accessors;
+    typedef std::vector<Table*> TableAccessors;
+    mutable TableAccessors m_table_accessors;
     mutable std::mutex m_accessor_mutex;
     mutable int m_num_tables = 0;
     bool m_attached = false;
@@ -728,9 +729,7 @@ private:
     const Table* do_get_table(size_t ndx) const;
     Table* do_get_table(StringData name);
     const Table* do_get_table(StringData name) const;
-    Table* do_add_table(StringData name);
-
-    Table* do_get_or_add_table(StringData name, bool* was_added);
+    Table* do_add_table(StringData name, bool is_embedded, bool do_repl = true);
 
     void create_and_insert_table(TableKey key, StringData name);
     Table* create_table_accessor(size_t table_ndx);
@@ -765,17 +764,17 @@ private:
     /// with the unattached_tag). The version number will then be determined in the
     /// subsequent call to Group::open.
     ///
-    /// In shared mode (when a Realm file is opened via a SharedGroup instance)
+    /// In shared mode (when a Realm file is opened via a DB instance)
     /// it can happen that the file format is upgraded asyncronously (via
-    /// another SharedGroup instance), and in that case the file format version
+    /// another DB instance), and in that case the file format version
     /// field can get out of date, but only for a short while. It is always
     /// guaranteed to be, and remain up to date after the opening process completes
-    /// (when SharedGroup::do_open() returns).
+    /// (when DB::do_open() returns).
     ///
     /// An empty Realm file (one whose top-ref is zero) may specify a file
     /// format version of zero to indicate that the format is not yet
     /// decided. In that case the file format version must be changed to a proper
-    /// before the opening process completes (Group::open() or SharedGroup::open()).
+    /// before the opening process completes (Group::open() or DB::open()).
     ///
     /// File format versions:
     ///
@@ -810,11 +809,18 @@ private:
     ///
     ///   9 Replication instruction values shuffled, instr_MoveRow added.
     ///
-    ///  10 Memory mapping changes which require special treatment of large files
-    ///     of preceeding versions.
+    ///  10 Cluster based table layout. Memory mapping changes which require
+    ///     special treatment of large files of preceding versions.
+    ///
+    ///  11 Same as 10, but version 11 files will have search index added on
+    ///     string primary key columns.
+    ///
+    ///  12 - 19 Room for new file formats in legacy code.
+    ///
+    ///  20 New data types: Decimal128 and ObjectId. Embedded tables.
     ///
     /// IMPORTANT: When introducing a new file format version, be sure to review
-    /// the file validity checks in Group::open() and SharedGroup::do_open, the file
+    /// the file validity checks in Group::open() and DB::do_open, the file
     /// format selection logic in
     /// Group::get_target_file_format_version_for_session(), and the file format
     /// upgrade logic in Group::upgrade_file_format().
@@ -825,8 +831,6 @@ private:
 
     /// The specified history type must be a value of Replication::HistoryType.
     static int get_target_file_format_version_for_session(int current_file_format_version, int history_type) noexcept;
-
-    std::pair<ref_type, size_t> get_to_dot_parent(size_t ndx_in_parent) const override;
 
     void send_cascade_notification(const CascadeNotification& notification) const;
     void send_schema_change_notification() const;
@@ -848,7 +852,7 @@ private:
     size_t key2ndx(TableKey key) const;
     size_t key2ndx_checked(TableKey key) const;
     void set_size() const noexcept;
-    void remove_pk_table();
+    std::map<TableRef, ColKey> get_primary_key_columns_from_pk_table(TableRef pk_table);
     void check_table_name_uniqueness(StringData name)
     {
         if (m_table_names.find_first(name) != not_found)
@@ -1012,16 +1016,30 @@ inline TableRef Group::add_table(StringData name)
     if (!is_attached())
         throw LogicError(LogicError::detached_accessor);
     check_table_name_uniqueness(name);
-    Table* table = do_add_table(name); // Throws
-    return TableRef(table, table ? table->m_alloc.get_instance_version() : 0);
+    Table* table = do_add_table(name, false); // Throws
+    return TableRef(table, table->m_alloc.get_instance_version());
+}
+
+inline TableRef Group::add_embedded_table(StringData name)
+{
+    if (!is_attached())
+        throw LogicError(LogicError::detached_accessor);
+    check_table_name_uniqueness(name);
+    Table* table = do_add_table(name, true); // Throws
+    return TableRef(table, table->m_alloc.get_instance_version());
 }
 
 inline TableRef Group::get_or_add_table(StringData name, bool* was_added)
 {
     if (!is_attached())
         throw LogicError(LogicError::detached_accessor);
-    Table* table = do_get_or_add_table(name, was_added); // Throws
-    return TableRef(table, table ? table->m_alloc.get_instance_version() : 0);
+    auto table = do_get_table(name);
+    if (was_added)
+        *was_added = !table;
+    if (!table) {
+        table = do_add_table(name, false);
+    }
+    return TableRef(table, table->m_alloc.get_instance_version());
 }
 
 template <class S>
@@ -1036,6 +1054,7 @@ void Group::to_json(S& out, size_t link_depth, std::map<std::string, std::string
     out << "{" << std::endl;
 
     auto keys = get_table_keys();
+    bool first = true;
     for (size_t i = 0; i < keys.size(); ++i) {
         auto key = keys[i];
         StringData name = get_table_name(key);
@@ -1045,12 +1064,15 @@ void Group::to_json(S& out, size_t link_depth, std::map<std::string, std::string
 
         ConstTableRef table = get_table(key);
 
-        if (i)
-            out << ",";
-        out << "\"" << name << "\"";
-        out << ":";
-        table->to_json(out, link_depth, renames);
-        out << std::endl;
+        if (!table->is_embedded()) {
+            if (!first)
+                out << ",";
+            out << "\"" << name << "\"";
+            out << ":";
+            table->to_json(out, link_depth, renames);
+            out << std::endl;
+            first = false;
+        }
     }
 
     out << "}" << std::endl;
@@ -1105,49 +1127,13 @@ inline void Group::send_schema_change_notification() const
         m_schema_change_handler();
 }
 
-inline void Group::get_version_and_history_info(const Array& top, _impl::History::version_type& version,
-                                                int& history_type, int& history_schema_version) noexcept
-{
-    using version_type = _impl::History::version_type;
-    version_type version_2 = 0;
-    int history_type_2 = 0;
-    int history_schema_version_2 = 0;
-    if (top.is_attached()) {
-        if (top.size() > s_version_ndx) {
-            version_2 = version_type(top.get_as_ref_or_tagged(s_version_ndx).get_as_int());
-        }
-        if (top.size() > s_hist_version_ndx) {
-            history_type_2 = int(top.get_as_ref_or_tagged(s_hist_type_ndx).get_as_int());
-            history_schema_version_2 = int(top.get_as_ref_or_tagged(s_hist_version_ndx).get_as_int());
-        }
-    }
-    // Version 0 is not a legal initial version, so it has to be set to 1
-    // instead.
-    if (version_2 == 0)
-        version_2 = 1;
-    version = version_2;
-    history_type = history_type_2;
-    history_schema_version = history_schema_version_2;
-}
-
 inline ref_type Group::get_history_ref(const Array& top) noexcept
 {
     bool has_history = (top.is_attached() && top.size() > s_hist_type_ndx);
     if (has_history) {
-        // This function is only used is shared mode (from SharedGroup)
+        // This function is only used is shared mode (from DB)
         REALM_ASSERT(top.size() > s_hist_version_ndx);
         return top.get_as_ref(s_hist_ref_ndx);
-    }
-    return 0;
-}
-
-inline int Group::get_history_schema_version() noexcept
-{
-    bool has_history = (m_top.is_attached() && m_top.size() > s_hist_type_ndx);
-    if (has_history) {
-        // This function is only used is shared mode (from SharedGroup)
-        REALM_ASSERT(m_top.size() > s_hist_version_ndx);
-        return int(m_top.get_as_ref_or_tagged(s_hist_version_ndx).get_as_int());
     }
     return 0;
 }
@@ -1161,9 +1147,9 @@ inline void Group::set_sync_file_id(uint64_t id)
 
 inline void Group::set_history_schema_version(int version)
 {
-    // This function is only used is shared mode (from SharedGroup)
-    REALM_ASSERT(m_top.size() >= 10);
-    m_top.set(9, RefOrTagged::make_tagged(unsigned(version))); // Throws
+    while (m_top.size() < s_hist_version_ndx + 1)
+        m_top.add(0);
+    m_top.set(s_hist_version_ndx, RefOrTagged::make_tagged(unsigned(version))); // Throws
 }
 
 template <class Accessor>
@@ -1349,7 +1335,7 @@ public:
     bool enqueue_for_cascade(const Obj& target_obj, bool link_is_strong, bool last_removed)
     {
         // Check if the object should be cascade deleted
-        if (m_mode == Mode::None && last_removed) {
+        if (m_mode == Mode::None || !last_removed) {
             return false;
         }
         if (m_mode == Mode::All || link_is_strong) {

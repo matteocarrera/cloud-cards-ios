@@ -43,8 +43,8 @@ public class ListBase: RLMListBase {
  `List` is the container type in Realm used to define to-many relationships.
 
  Like Swift's `Array`, `List` is a generic type that is parameterized on the type it stores. This can be either an `Object`
- subclass or one of the following types: `Bool`, `Int`, `Int8`, `Int16`, `Int32`, `Int64`, `Float`, `Double`, `String`, `Data`,
- and `Date` (and their optional versions)
+ subclass or one of the following types: `Bool`, `Int`, `Int8`, `Int16`, `Int32`, `Int64`, `Float`, `Double`,
+ `String`, `Data`, `Date`, `Decimal128`, and `ObjectId` (and their optional versions)
 
  Unlike Swift's native collections, `List`s are reference types, and are only immutable if the Realm that manages them
  is opened as read-only.
@@ -241,7 +241,7 @@ public final class List<Element: RealmCollectionValue>: ListBase {
 
      - parameter property: The name of a property whose average value should be calculated.
      */
-    public func average(ofProperty property: String) -> Double? {
+    public func average<T: AddableType>(ofProperty property: String) -> T? {
         return _rlmArray.average(ofProperty: property).map(dynamicBridgeCast)
     }
 
@@ -465,7 +465,7 @@ extension List where Element: AddableType {
     /**
      Returns the average of the values in the list, or `nil` if the list is empty.
      */
-    public func average() -> Double? {
+    public func average<T: AddableType>() -> T? {
         return average(ofProperty: "self")
     }
 }
@@ -527,11 +527,7 @@ extension List: RealmCollection {
 
 // MARK: - MutableCollection conformance, range replaceable collection emulation
 extension List: MutableCollection {
-#if swift(>=4.1)
     public typealias SubSequence = Slice<List>
-#else
-    public typealias SubSequence = RandomAccessSlice<List>
-#endif
 
     /**
      Returns the objects at the given range (get), or replaces the objects at the
@@ -598,7 +594,6 @@ extension List: MutableCollection {
             currentIndex += 1
         }
     }
-    #if swift(>=4.1.50)
     /**
      Removes objects from the list at the given range.
 
@@ -610,69 +605,6 @@ extension List: MutableCollection {
             remove(at: bounds.lowerBound)
         }
     }
-    #else
-    /**
-     Removes objects from the list at the given range.
-
-     - warning: This method may only be called during a write transaction.
-     */
-    public func removeSubrange(_ bounds: Range<Int>) {
-        removeSubrange(bounds.lowerBound..<bounds.upperBound)
-    }
-
-    /// :nodoc:
-    public func removeSubrange(_ bounds: ClosedRange<Int>) {
-        removeSubrange(bounds.lowerBound...bounds.upperBound)
-    }
-
-    /// :nodoc:
-    public func removeSubrange(_ bounds: CountableRange<Int>) {
-        for _ in bounds {
-            remove(at: bounds.lowerBound)
-        }
-    }
-
-    /// :nodoc:
-    public func removeSubrange(_ bounds: CountableClosedRange<Int>) {
-        for _ in bounds {
-            remove(at: bounds.lowerBound)
-        }
-    }
-
-    /// :nodoc:
-    public func removeSubrange(_ bounds: DefaultRandomAccessIndices<List>) {
-        removeSubrange(bounds.startIndex..<bounds.endIndex)
-    }
-
-    /// :nodoc:
-    public func replaceSubrange<C: Collection>(_ subrange: ClosedRange<Int>, with newElements: C)
-        where C.Iterator.Element == Element {
-            removeSubrange(subrange)
-            insert(contentsOf: newElements, at: subrange.lowerBound)
-    }
-
-    /// :nodoc:
-    public func replaceSubrange<C: Collection>(_ subrange: CountableRange<Int>, with newElements: C)
-        where C.Iterator.Element == Element {
-            removeSubrange(subrange)
-            insert(contentsOf: newElements, at: subrange.lowerBound)
-    }
-
-    /// :nodoc:
-    public func replaceSubrange<C: Collection>(_ subrange: CountableClosedRange<Int>, with newElements: C)
-        where C.Iterator.Element == Element {
-            removeSubrange(subrange)
-            insert(contentsOf: newElements, at: subrange.lowerBound)
-    }
-
-
-    /// :nodoc:
-    public func replaceSubrange<C: Collection>(_ subrange: DefaultRandomAccessIndices<List>, with newElements: C)
-        where C.Iterator.Element == Element {
-            removeSubrange(subrange)
-            insert(contentsOf: newElements, at: subrange.startIndex)
-    }
-#endif
     /// :nodoc:
     public func remove(atOffsets offsets: IndexSet) {
         for offset in offsets.reversed() {
@@ -700,7 +632,6 @@ extension List: MutableCollection {
 
 // MARK: - Codable
 
-#if swift(>=4.1)
 extension List: Decodable where Element: Decodable {
     public convenience init(from decoder: Decoder) throws {
         self.init()
@@ -719,7 +650,6 @@ extension List: Encodable where Element: Encodable {
         }
     }
 }
-#endif
 
 // MARK: - AssistedObjectiveCBridgeable
 
