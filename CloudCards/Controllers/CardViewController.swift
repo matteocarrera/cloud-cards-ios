@@ -1,6 +1,6 @@
 import UIKit
 import RealmSwift
-import FirebaseDatabase
+import FirebaseFirestore
 import MessageUI
 
 class CardViewController: UIViewController {
@@ -9,7 +9,7 @@ class CardViewController: UIViewController {
     @IBOutlet var cardPhoto: UIImageView!
     @IBOutlet var userInitialsLabel: UILabel!
     
-    private let realm = try! Realm()
+    private let realm = RealmInstance.getInstance()
     
     // Массив данных пользователя из выбранной визитки
     private var data = [DataItem]()
@@ -32,28 +32,30 @@ class CardViewController: UIViewController {
         
         let userBoolean = realm.objects(UserBoolean.self).filter("uuid = \"\(userId)\"")[0]
         
-        let ref = Database.database().reference().child(userBoolean.parentId).child(userBoolean.parentId)
-        
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            if let json = snapshot.value as? String {
-
-                let owner = convertFromJson(json: json, type: User.self)
-                  
-                let currentUser = getUserFromTemplate(user: owner, userBoolean: userBoolean)
+        let db = FirestoreInstance.getInstance()
+        db.collection("users").document(userBoolean.parentId).collection("data").document(userBoolean.parentId).getDocument { (document, error) in
+            if let document = document, document.exists {
+                    let dataDescription = document.data()
                 
-                self.data = setDataToList(user: currentUser)
-                
-                if owner.photo != "" {
-                    self.cardPhoto.image = getPhotoFromDatabase(photoUuid: owner.photo)
-                    self.userInitialsLabel.isHidden = true
+                    let owner = convertFromDictionary(dictionary: dataDescription!, type: User.self)
+                      
+                    let currentUser = getUserFromTemplate(user: owner, userBoolean: userBoolean)
+                    
+                    self.data = setDataToList(user: currentUser)
+                    
+                    if owner.photo != "" {
+                        self.cardPhoto.image = getPhotoFromDatabase(photoUuid: owner.photo)
+                        self.userInitialsLabel.isHidden = true
+                    } else {
+                        self.userInitialsLabel.text = String(currentUser.name.character(at: 0)!) + String(currentUser.surname.character(at: 0)!)
+                        self.userInitialsLabel.isHidden = false
+                    }
+                    
+                    self.cardDataTable.reloadData()
                 } else {
-                    self.userInitialsLabel.text = String(currentUser.name.character(at: 0)!) + String(currentUser.surname.character(at: 0)!)
-                    self.userInitialsLabel.isHidden = false
+                    print("Document does not exist")
                 }
-                
-                self.cardDataTable.reloadData()
-             }
-        })
+        }
         
         cardDataTable.reloadData()
     }

@@ -9,7 +9,7 @@ class CardsController: UIViewController {
     @IBOutlet weak var templatesView: UIView!
     @IBOutlet weak var contactsView: UIView!
     
-    private let realm = try! Realm()
+    private let realm = RealmInstance.getInstance()
     private var navigationBar = UINavigationBar()
     private var search = UISearchController()
     

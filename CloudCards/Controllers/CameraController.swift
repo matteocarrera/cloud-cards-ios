@@ -1,7 +1,5 @@
 import UIKit
 import AVFoundation
-import RealmSwift
-import FirebaseDatabase
 
 class CameraController: UIViewController {
 

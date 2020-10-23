@@ -8,7 +8,7 @@ class ProfileController: UIViewController {
     @IBOutlet var tableView: UITableView!
     @IBOutlet var createProfileNotification: UILabel!
     
-    private let realm = try! Realm()
+    private let realm = RealmInstance.getInstance()
     
     // Массив данных пользователя
     private var data = [DataItem]()
