@@ -1,13 +1,13 @@
 import UIKit
 import RealmSwift
-import FirebaseDatabase
+import FirebaseFirestore
 
 class SelectDataController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var createProfileNotification: UILabel!
     
-    private let realm = try! Realm()
+    private let realm = RealmInstance.getInstance()
     
     // Массив данных пользователя: 1 элемент - 1 вид данных
     private var data = [DataItem]()
@@ -93,12 +93,11 @@ class SelectDataController: UIViewController {
             let uuid = UUID().uuidString
             newUser.uuid = uuid
             
-            let ref = Database.database().reference()
+            let userData = convertToDictionary(someUser: newUser)
             
-            let json = convertToJson(someUser: newUser)
-            
-            ref.child(newUser.parentId).child(newUser.uuid).setValue(json)
-            
+            let db = FirestoreInstance.getInstance()
+            db.collection("users").document(newUser.parentId).collection("cards").document(newUser.uuid).setData(userData)
+
             try! realm.write {
                 realm.add(newUser)
             }

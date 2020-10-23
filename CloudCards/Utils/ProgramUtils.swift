@@ -26,19 +26,19 @@ func performActionWithField(title : String, description : String, controller : U
     case MOBILE,
          MOBILE_OTHER:
         if let url = NSURL(string: "tel://\(description)"), UIApplication.shared.canOpenURL(url as URL) {
-            UIApplication.shared.openURL(url as URL)
+            UIApplication.shared.open(url as URL, options: .init(), completionHandler: nil)
         }
     case EMAIL,
          EMAIL_OTHER:
         if let url = URL(string: "mailto:\(description)") {
-          UIApplication.shared.openURL(url)
+            UIApplication.shared.open(url as URL, options: .init(), completionHandler: nil)
         }
     case ADDRESS,
          ADDRESS_OTHER:
         openMaps(address: description)
     case WEBSITE:
         guard let url = URL(string: "http://\(description)") else { return }
-        UIApplication.shared.openURL(url)
+        UIApplication.shared.open(url as URL, options: .init(), completionHandler: nil)
     case VK,
          FACEBOOK,
          TWITTER,
@@ -196,9 +196,9 @@ private func openApp(site : String, userLink : String) {
     let siteUrl = getHooksAndUrl(site: site)[1]
     let appUrl = NSURL(string: hooks)
     if UIApplication.shared.canOpenURL(appUrl! as URL) {
-        UIApplication.shared.openURL(appUrl! as URL)
+        UIApplication.shared.open(appUrl! as URL, options: .init(), completionHandler: nil)
     } else {
-        UIApplication.shared.openURL(NSURL(string: siteUrl + userLink)! as URL)
+        UIApplication.shared.open(NSURL(string: siteUrl + userLink)! as URL, options: .init(), completionHandler: nil)
     }
 }
 
@@ -214,7 +214,7 @@ private func openMaps(address : String) {
                 let path = "http://maps.apple.com/" + query
                 
                 if let url = NSURL(string: path) {
-                    UIApplication.shared.openURL(url as URL)
+                    UIApplication.shared.open(url as URL, options: .init(), completionHandler: nil)
                 } else {
                     print("Невозможно создать URL")
                 }

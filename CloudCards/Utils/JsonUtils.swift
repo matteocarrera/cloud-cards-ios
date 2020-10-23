@@ -1,15 +1,17 @@
 import Foundation
 
-public func convertToJson<T:Encodable>(someUser : T) -> String {
+public func convertToDictionary<T:Encodable>(someUser : T) -> [String : Any] {
     let jsonEncoder = JSONEncoder()
     let jsonData = try! jsonEncoder.encode(someUser)
-    let json = String(data: jsonData, encoding: String.Encoding.utf8)!
+    //let json = String(data: jsonData, encoding: String.Encoding.utf8)!
+    let data = try! JSONSerialization.jsonObject(with: jsonData, options: [])
     
-    return json
+    return data as! [String : Any]
 }
 
-public func convertFromJson<T:Decodable>(json : String, type : T.Type) -> T {
-    let jsonData = json.data(using: .utf8)!
+public func convertFromDictionary<T:Decodable>(dictionary : [String : Any], type : T.Type) -> T {
+    let jsonData = try! JSONSerialization.data(withJSONObject: dictionary, options: .prettyPrinted)
+    //let jsonData = json.data(using: .utf8)!
     let user = try! JSONDecoder().decode(type, from: jsonData)
     
     return user

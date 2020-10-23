@@ -1,12 +1,11 @@
 import UIKit
-import FirebaseDatabase
 import RealmSwift
 
 class TemplatesController: UIViewController {
 
     @IBOutlet weak var templatesTable: UITableView!
     
-    private let realm = try! Realm()
+    private let realm = RealmInstance.getInstance()
     
     // Массив шаблонных карточек основного пользователя приложения
     private var templates = [Card]()

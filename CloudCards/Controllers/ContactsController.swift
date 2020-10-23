@@ -1,6 +1,6 @@
 import UIKit
 import RealmSwift
-import FirebaseDatabase
+import FirebaseFirestore
 import FirebaseStorage
 
 class ContactsController: UIViewController {
@@ -9,7 +9,7 @@ class ContactsController: UIViewController {
     
     public var selectedContactsUuid = [String]()
     
-    private let realm = try! Realm()
+    private let realm = RealmInstance.getInstance()
     private var cardsController = CardsController()
     private var contacts = [UserBoolean]()
     private let selectedCounter : UIBarButtonItem = UIBarButtonItem(title: "0 выбрано", style: .plain, target: self, action: nil)
@@ -139,12 +139,13 @@ extension ContactsController: UITableViewDataSource {
         cell.accessoryType = .none
         let user = contacts[indexPath.row]
         
-        let ref = Database.database().reference().child(user.parentId).child(user.parentId)
-        
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            if let json = snapshot.value as? String {
-
-                let parentUser: User = convertFromJson(json: json, type: User.self)
+        let db = FirestoreInstance.getInstance()
+        db.collection("users").document(user.parentId).collection("data").document(user.parentId).getDocument {
+            (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data()
+                
+                let parentUser: User = convertFromDictionary(dictionary: dataDescription!, type: User.self)
                   
                 let currentUser = getUserFromTemplate(user: parentUser, userBoolean: user)
 
@@ -172,8 +173,8 @@ extension ContactsController: UITableViewDataSource {
                 } else {
                     cell.contactJobTitle.text = "Должность не указана"
                 }
-             }
-        })
+            }
+        }
         
         return cell
     }

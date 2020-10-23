@@ -1,18 +1,19 @@
 import Foundation
 import UIKit
-import FirebaseDatabase
+import FirebaseFirestore
 import RealmSwift
 
 public func saveUser(controller : UIViewController, link : String) {
-    let parentId = link.split(separator: "|")[0]
-    let uuid = link.split(separator: "|")[1]
+    let parentId = String(link.split(separator: "|")[0])
+    let uuid = String(link.split(separator: "|")[1])
     
-    let ref = Database.database().reference().child(String(parentId)).child(String(uuid))
-    
-    ref.observeSingleEvent(of: .value, with: { (snapshot) in
-         if let json = snapshot.value as? String {
-
-            let userBoolean = convertFromJson(json: json, type: UserBoolean.self)
+    let db = Firestore.firestore()
+    db.collection("users").document(parentId).collection("cards").document(uuid).getDocument {
+        (document, error) in
+        if let document = document, document.exists {
+            let dataDescription = document.data()
+            
+            let userBoolean = convertFromDictionary(dictionary: dataDescription!, type: UserBoolean.self)
 
             let realm = try! Realm()
             
@@ -41,8 +42,8 @@ public func saveUser(controller : UIViewController, link : String) {
                 controller.present(alert, animated: true, completion: nil)
                 
             }
-         }
-    })
+        }
+    }
 }
 
 public func getPhotoFromDatabase(photoUuid : String) -> UIImage? {

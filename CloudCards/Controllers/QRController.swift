@@ -1,6 +1,5 @@
 import UIKit
-import RealmSwift
-import FirebaseDatabase
+import FirebaseFirestore
 
 class QRController: UIViewController {
 
@@ -19,12 +18,14 @@ class QRController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        let ref = Database.database().reference().child(contact!.parentId).child(contact!.parentId)
-
-        ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            if let json = snapshot.value as? String {
-
-                let owner = convertFromJson(json: json, type: User.self)
+        
+        let db = FirestoreInstance.getInstance()
+        db.collection("users").document(contact!.parentId).collection("data").document(contact!.parentId).getDocument {
+            (document, error) in
+            if let document = document, document.exists {
+                let dataDescription = document.data()
+                
+                let owner = convertFromDictionary(dictionary: dataDescription!, type: User.self)
                   
                 let currentUser = getUserFromTemplate(user: owner, userBoolean: self.contact!)
                 
@@ -33,8 +34,8 @@ class QRController: UIViewController {
                 self.jobTitleLabel.text = currentUser.jobTitle
                 self.mobileLabel.text = currentUser.mobile
                 self.emailLabel.text = currentUser.email
-             }
-        })
+            }
+        }
         imageView.image = generateQR(userLink: contact!.parentId + "|" + contact!.uuid)
     }
 }

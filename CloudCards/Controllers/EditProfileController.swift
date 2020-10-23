@@ -1,6 +1,5 @@
 import UIKit
 import RealmSwift
-import FirebaseDatabase
 import FirebaseStorage
 import FirebaseFirestore
 
@@ -29,7 +28,7 @@ class EditProfileController: UIViewController {
     @IBOutlet weak var notesField: UITextField!
     
     // Объект Realm, позволяющий осуществлять операции с локальной БД
-    private let realm : Realm = try! Realm()
+    private let realm : Realm = RealmInstance.getInstance()
     
     // Контроллер, отвечающий за работу выбора фотографии пользователя для его профиля
     private var imagePickerController : UIImagePickerController?
@@ -175,7 +174,6 @@ class EditProfileController: UIViewController {
             Сохранение пользователя в БД Realm
          */
         
-        let ref = Database.database().reference()
         if ownerUser == nil {
             
             let uuid = UUID().uuidString
@@ -200,16 +198,10 @@ class EditProfileController: UIViewController {
             Сохранение пользователя в Firebase
          */
         
-        let json = convertToJson(someUser: ownerUser!)
-        //let jsonEncoder = JSONEncoder()
-        //let jsonData = try! jsonEncoder.encode(ownerUser!)
-        //let json = try! JSONSerialization.jsonObject(with: jsonData, options: [])
-        
-        //let db = Firestore.firestore()
-        //var reference: DocumentReference? = nil
-        //db.collection("users").document(ownerUser!.uuid).setData(json as! [String : Any])
-        
-        ref.child(ownerUser!.parentId).child(ownerUser!.uuid).setValue(json)
+        let userData = convertToDictionary(someUser: ownerUser!)
+
+        let db = FirestoreInstance.getInstance()
+        db.collection("users").document(ownerUser!.uuid).collection("data").document(ownerUser!.uuid).setData(userData)
         
         if !photoWasChanged {
             self.navigationController?.popViewController(animated: true)
