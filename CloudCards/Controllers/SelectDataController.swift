@@ -96,7 +96,11 @@ class SelectDataController: UIViewController {
             let userData = convertToDictionary(someUser: newUser)
             
             let db = FirestoreInstance.getInstance()
-            db.collection("users").document(newUser.parentId).collection("cards").document(newUser.uuid).setData(userData)
+            db.collection(FirestoreInstance.USERS)
+                .document(newUser.parentId)
+                .collection(FirestoreInstance.CARDS)
+                .document(newUser.uuid)
+                .setData(userData)
 
             try! realm.write {
                 realm.add(newUser)

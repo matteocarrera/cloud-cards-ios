@@ -33,7 +33,11 @@ class CardViewController: UIViewController {
         let userBoolean = realm.objects(UserBoolean.self).filter("uuid = \"\(userId)\"")[0]
         
         let db = FirestoreInstance.getInstance()
-        db.collection("users").document(userBoolean.parentId).collection("data").document(userBoolean.parentId).getDocument { (document, error) in
+        db.collection(FirestoreInstance.USERS)
+            .document(userBoolean.parentId)
+            .collection(FirestoreInstance.DATA)
+            .document(userBoolean.parentId)
+            .getDocument { (document, error) in
             if let document = document, document.exists {
                     let dataDescription = document.data()
                 

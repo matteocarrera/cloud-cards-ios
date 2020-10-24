@@ -1,6 +1,6 @@
 APPLICATION_EXTENSION_API_ONLY = YES
 CONFIGURATION_BUILD_DIR = ${PODS_CONFIGURATION_BUILD_DIR}/RealmSwift
-FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Realm"
+FRAMEWORK_SEARCH_PATHS = $(inherited) "${PODS_CONFIGURATION_BUILD_DIR}/Realm" "${PODS_ROOT}/Realm/core" "${PODS_ROOT}/Realm/core/realm-sync.xcframework/ios-arm64_i386_x86_64-simulator" "${PODS_ROOT}/Realm/core/realm-sync.xcframework/ios-armv7_arm64" "${PODS_ROOT}/Realm/core/realm-sync.xcframework/ios-x86_64-maccatalyst"
 GCC_PREPROCESSOR_DEFINITIONS = $(inherited) COCOAPODS=1
 OTHER_SWIFT_FLAGS = $(inherited) -D COCOAPODS
 PODS_BUILD_DIR = ${BUILD_DIR}
