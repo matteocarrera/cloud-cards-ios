@@ -140,8 +140,11 @@ extension ContactsController: UITableViewDataSource {
         let user = contacts[indexPath.row]
         
         let db = FirestoreInstance.getInstance()
-        db.collection("users").document(user.parentId).collection("data").document(user.parentId).getDocument {
-            (document, error) in
+        db.collection(FirestoreInstance.USERS)
+            .document(user.parentId)
+            .collection(FirestoreInstance.DATA)
+            .document(user.parentId)
+            .getDocument { (document, error) in
             if let document = document, document.exists {
                 let dataDescription = document.data()
                 

@@ -201,7 +201,11 @@ class EditProfileController: UIViewController {
         let userData = convertToDictionary(someUser: ownerUser!)
 
         let db = FirestoreInstance.getInstance()
-        db.collection("users").document(ownerUser!.uuid).collection("data").document(ownerUser!.uuid).setData(userData)
+        db.collection(FirestoreInstance.USERS)
+            .document(ownerUser!.uuid)
+            .collection(FirestoreInstance.DATA)
+            .document(ownerUser!.uuid)
+            .setData(userData)
         
         if !photoWasChanged {
             self.navigationController?.popViewController(animated: true)

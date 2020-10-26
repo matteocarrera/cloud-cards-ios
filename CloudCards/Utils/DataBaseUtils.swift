@@ -7,9 +7,12 @@ public func saveUser(controller : UIViewController, link : String) {
     let parentId = String(link.split(separator: "|")[0])
     let uuid = String(link.split(separator: "|")[1])
     
-    let db = Firestore.firestore()
-    db.collection("users").document(parentId).collection("cards").document(uuid).getDocument {
-        (document, error) in
+    let db = FirestoreInstance.getInstance()
+    db.collection(FirestoreInstance.USERS)
+        .document(parentId)
+        .collection(FirestoreInstance.CARDS)
+        .document(uuid)
+        .getDocument { (document, error) in
         if let document = document, document.exists {
             let dataDescription = document.data()
             
@@ -58,5 +61,5 @@ public func getPhotoFromDatabase(photoUuid : String) -> UIImage? {
 }
 
 private func getPhotoLink(uuid : String) -> String {
-    return "https://firebasestorage.googleapis.com/v0/b/alfa-bank-qr.appspot.com/o/\(uuid)?alt=media"
+    return "https://firebasestorage.googleapis.com/v0/b/cloudcards-app.appspot.com/o/\(uuid)?alt=media"
 }
