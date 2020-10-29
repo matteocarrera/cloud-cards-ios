@@ -61,5 +61,5 @@ public func getPhotoFromDatabase(photoUuid : String) -> UIImage? {
 }
 
 private func getPhotoLink(uuid : String) -> String {
-    return "https://firebasestorage.googleapis.com/v0/b/cloudcards-app.appspot.com/o/\(uuid)?alt=media"
+    return "https://firebasestorage.googleapis.com/v0/b/cloudcardsmobile.appspot.com/o/\(uuid)?alt=media"
 }

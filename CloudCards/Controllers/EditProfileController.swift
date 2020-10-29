@@ -101,7 +101,7 @@ class EditProfileController: UIViewController {
         
         self.imagePickerController = UIImagePickerController.init()
         
-        let alert = UIAlertController.init(title: "Выберите действие", message: nil, preferredStyle: .actionSheet)
+        let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
         
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             alert.addAction(UIAlertAction.init(title: "Сделать снимок", style: .default, handler: { (_) in
@@ -114,6 +114,11 @@ class EditProfileController: UIViewController {
                 self.presentImagePicker(controller: self.imagePickerController!, source: .photoLibrary)
             }))
         }
+        
+        alert.addAction(UIAlertAction.init(title: "Удалить фото", style: .destructive, handler: { (_) in
+            self.profileImage.image = nil
+            self.photoWasChanged = true
+        }))
         
         alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
             
@@ -131,7 +136,7 @@ class EditProfileController: UIViewController {
         /*
             Удаление старой фотографии пользователя из Firebase Storage
         */
-        if profileImage.image != nil && photoWasChanged {
+        if photoWasChanged {
             var storageRef : FirebaseStorage.StorageReference
             if photoUuid != "" {
                 storageRef = Storage.storage().reference().child(photoUuid!)
@@ -149,23 +154,28 @@ class EditProfileController: UIViewController {
             /*
                 Добавление новой фотографии пользователя в Firebase Storage
              */
-            guard let photo: UIImage = profileImage.image else { return }
-            guard let photoData: Data = photo.jpegData(compressionQuality: 0.5) else { return }
+            if profileImage.image != nil {
+                guard let photo: UIImage = profileImage.image else { return }
+                guard let photoData: Data = photo.jpegData(compressionQuality: 0.5) else { return }
 
-            let md = StorageMetadata()
-            md.contentType = "image/png"
+                let md = StorageMetadata()
+                md.contentType = "image/png"
 
-            photoUuid = UUID().uuidString
-            storageRef = Storage.storage().reference().child(photoUuid!)
+                photoUuid = UUID().uuidString
+                storageRef = Storage.storage().reference().child(photoUuid!)
 
-            storageRef.putData(photoData, metadata: md) { (metadata, error) in
-                if error == nil {
-                    storageRef.downloadURL(completion: { (url, error) in
-                        print("Done, url is \(String(describing: url))")
-                    })
-                } else {
-                    print("error \(String(describing: error))")
+                storageRef.putData(photoData, metadata: md) { (metadata, error) in
+                    if error == nil {
+                        storageRef.downloadURL(completion: { (url, error) in
+                            print("Done, url is \(String(describing: url))")
+                        })
+                    } else {
+                        print("error \(String(describing: error))")
+                    }
+                    self.navigationController?.popViewController(animated: true)
                 }
+            } else {
+                photoUuid = ""
                 self.navigationController?.popViewController(animated: true)
             }
         }
@@ -197,7 +207,6 @@ class EditProfileController: UIViewController {
         /*
             Сохранение пользователя в Firebase
          */
-        
         let userData = convertToDictionary(someUser: ownerUser!)
 
         let db = FirestoreInstance.getInstance()
@@ -262,38 +271,6 @@ class EditProfileController: UIViewController {
         controller.delegate = self
         controller.sourceType = source
         self.present(controller, animated: true)
-    }
-}
-
-extension EditProfileController: UITextFieldDelegate {
-    
-    /*
-        TODO("Баг с пропадающими полями при редактировании профиля")
-     */
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        moveTextField(textField, moveDistance: -260, up: true)
-    }
-    
-    func textFieldDidEndEditing(_ textField: UITextField) {
-        moveTextField(textField, moveDistance: -260, up: false)
-    }
-    
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        textField.resignFirstResponder()
-        self.view.endEditing(true)
-        return true
-    }
-    
-    func moveTextField(_ textField: UITextField, moveDistance: Int, up: Bool) {
-        let moveDuration = 0.3
-        let movement: CGFloat = CGFloat(up ? moveDistance : -moveDistance)
-        
-        UIView.beginAnimations("animateTextField", context: nil)
-        UIView.setAnimationBeginsFromCurrentState(true)
-        UIView.setAnimationDuration(moveDuration)
-        self.view.frame = self.view.frame.offsetBy(dx: 0, dy: movement)
-        UIView.commitAnimations()
     }
 }
 

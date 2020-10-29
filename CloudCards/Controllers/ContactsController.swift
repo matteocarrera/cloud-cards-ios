@@ -6,6 +6,7 @@ import FirebaseStorage
 class ContactsController: UIViewController {
 
     @IBOutlet var contactsTable: UITableView!
+    @IBOutlet var importFirstContactNotification: UILabel!
     
     public var selectedContactsUuid = [String]()
     
@@ -37,6 +38,12 @@ class ContactsController: UIViewController {
             contacts = Array(realm.objects(UserBoolean.self).filter("parentId != \"\(owner.uuid)\""))
         } else {
             contacts = Array(realm.objects(UserBoolean.self))
+        }
+        
+        if contacts.count != 0 {
+            importFirstContactNotification.isHidden = true
+        } else {
+            importFirstContactNotification.isHidden = false
         }
         
         contactsTable.reloadData()

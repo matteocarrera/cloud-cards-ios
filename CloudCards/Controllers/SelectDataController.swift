@@ -53,13 +53,16 @@ class SelectDataController: UIViewController {
         let alert = UIAlertController(title: "Сохранение визитки", message: "Введите имя визитки", preferredStyle: .alert)
 
         alert.addTextField { (textField) in
+            textField.autocapitalizationType = .words
             textField.text = ""
         }
 
         alert.addAction(UIAlertAction(title: "Сохранить", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
             self.saveUser(title: textField?.text)
-            self.navigationController?.popViewController(animated: true)
+            // Получение TemplatesController (Nav -> Tab -> Nav -> Cards -> Templates)
+            self.navigationController?.presentingViewController?.children.first?.children.first?.children.first?.viewWillAppear(true)
+            self.navigationController?.dismiss(animated: true, completion: nil)
         }))
         
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))

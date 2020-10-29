@@ -224,7 +224,7 @@
                                                 <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                                <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="tel"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
                                                         <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -639,7 +639,7 @@
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="CameraController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -676,7 +676,7 @@
             <objects>
                 <tableViewController title="Settings" id="ZaO-9P-a5P" customClass="SettingsController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="ynk-He-vA0">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -847,6 +847,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <inset key="separatorInset" minX="56" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <connections>
                                             <outlet property="buttonTick" destination="Q34-DG-uhs" id="TXM-Va-GQ4"/>
                                             <outlet property="descriptionText" destination="Xue-by-XKh" id="pbk-FV-mbG"/>
@@ -960,7 +961,7 @@
             <objects>
                 <viewController id="W3Z-Bu-dRl" customClass="CardsController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="dhw-OQ-eVd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2RH-TB-zv9">
@@ -1361,7 +1362,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XV0-yg-AVV">
+                                                <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XV0-yg-AVV">
                                                     <rect key="frame" x="0.0" y="0.0" width="15" height="60"/>
                                                     <color key="backgroundColor" systemColor="systemOrangeColor"/>
                                                     <constraints>
@@ -1394,17 +1395,28 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Создайте свою первую визитку с помощью кнопки +" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LA6-WA-XtI">
+                                <rect key="frame" x="10" y="237.5" width="394" height="254"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Wlz-tW-UQl"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="Wlz-tW-UQl" firstAttribute="bottom" secondItem="LA6-WA-XtI" secondAttribute="bottom" constant="193.5" id="7I8-Hz-Vwz"/>
+                            <constraint firstItem="Wlz-tW-UQl" firstAttribute="trailing" secondItem="LA6-WA-XtI" secondAttribute="trailing" constant="10" id="DTw-96-HoA"/>
+                            <constraint firstItem="LA6-WA-XtI" firstAttribute="leading" secondItem="Wlz-tW-UQl" secondAttribute="leading" constant="10" id="LxA-bj-iUQ"/>
                             <constraint firstItem="45M-Gk-pTO" firstAttribute="top" secondItem="siz-Yf-ypA" secondAttribute="top" id="NAT-e0-NHd"/>
+                            <constraint firstItem="LA6-WA-XtI" firstAttribute="top" secondItem="Wlz-tW-UQl" secondAttribute="top" constant="193.5" id="V1K-w3-p6X"/>
                             <constraint firstAttribute="trailing" secondItem="45M-Gk-pTO" secondAttribute="trailing" id="oDv-SD-cRM"/>
                             <constraint firstItem="45M-Gk-pTO" firstAttribute="leading" secondItem="siz-Yf-ypA" secondAttribute="leading" id="xeQ-wF-bEv"/>
                             <constraint firstAttribute="bottom" secondItem="45M-Gk-pTO" secondAttribute="bottom" id="xqm-64-pbi"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="createFirstTemplateNotification" destination="LA6-WA-XtI" id="eve-M4-nMo"/>
                         <outlet property="templatesTable" destination="45M-Gk-pTO" id="Qur-i1-V0C"/>
                     </connections>
                 </viewController>
@@ -1499,18 +1511,29 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Отсканируйте первый контакт камерой или импортируйте его с помощью ссылки" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BYa-5E-HBo">
+                                <rect key="frame" x="10" y="237.5" width="394" height="254"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
+                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DGY-RD-oPb"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
+                            <constraint firstItem="BYa-5E-HBo" firstAttribute="top" secondItem="DGY-RD-oPb" secondAttribute="top" constant="193.5" id="Ie9-ga-N2G"/>
                             <constraint firstAttribute="trailing" secondItem="n8F-GY-4C7" secondAttribute="trailing" id="IwB-da-PX4"/>
+                            <constraint firstItem="BYa-5E-HBo" firstAttribute="leading" secondItem="DGY-RD-oPb" secondAttribute="leading" constant="10" id="OFh-Vr-srO"/>
+                            <constraint firstItem="DGY-RD-oPb" firstAttribute="trailing" secondItem="BYa-5E-HBo" secondAttribute="trailing" constant="10" id="SVA-G0-VV5"/>
                             <constraint firstItem="n8F-GY-4C7" firstAttribute="top" secondItem="egb-Gz-od7" secondAttribute="top" id="Wok-QG-kaF"/>
+                            <constraint firstItem="DGY-RD-oPb" firstAttribute="bottom" secondItem="BYa-5E-HBo" secondAttribute="bottom" constant="193.5" id="gED-34-qHo"/>
                             <constraint firstItem="n8F-GY-4C7" firstAttribute="leading" secondItem="egb-Gz-od7" secondAttribute="leading" id="jib-dM-LZ3"/>
                             <constraint firstAttribute="bottom" secondItem="n8F-GY-4C7" secondAttribute="bottom" id="ofr-lM-wcd"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="contactsTable" destination="n8F-GY-4C7" id="brw-x4-c6B"/>
+                        <outlet property="importFirstContactNotification" destination="BYa-5E-HBo" id="cfm-4g-zJ7"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xeN-sK-4mX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
