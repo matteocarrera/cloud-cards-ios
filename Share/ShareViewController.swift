@@ -41,7 +41,7 @@ class ShareViewController: SLComposeServiceViewController {
                 let qr = self.detectQRCode(UIImage(data: imageData))?.first as! CIQRCodeFeature
                 let link = String(qr.messageString!)
                 
-                let defaults = UserDefaults(suiteName: "group.urfusoftware.CloudCards")
+                let defaults = UserDefaults(suiteName: "group.com.mksdevelopmentgroup.cloudcards")
                 defaults?.set(link, forKey: "link")
                 
             } else {
