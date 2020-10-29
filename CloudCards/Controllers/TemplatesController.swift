@@ -31,7 +31,7 @@ class TemplatesController: UIViewController {
             Получение импортированных визиток в приложение и их обработка и сохранение
          */
         
-        let defaults = UserDefaults(suiteName: "group.urfusoftware.CloudCards")
+        let defaults = UserDefaults(suiteName: "group.com.mksdevelopmentgroup.cloudcards")
         let link = String((defaults?.string(forKey: "link") ?? ""))
         
         if link.contains("|") {

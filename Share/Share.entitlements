@@ -4,7 +4,7 @@
 <dict>
 	<key>com.apple.security.application-groups</key>
 	<array>
-		<string>group.urfusoftware.CloudCards</string>
+		<string>group.com.mksdevelopmentgroup.cloudcards</string>
 	</array>
 </dict>
 </plist>
