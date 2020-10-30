@@ -1,5 +1,4 @@
 import UIKit
-import RealmSwift
 import FirebaseStorage
 
 class ProfileController: UIViewController {

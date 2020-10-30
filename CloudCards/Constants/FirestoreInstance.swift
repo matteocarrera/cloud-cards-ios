@@ -6,7 +6,7 @@ class FirestoreInstance {
     public static let DATA = "data"
     public static let CARDS = "cards"
     
-    private static var db : Firestore? = nil
+    private static var db : Firestore?
     
     static func getInstance() -> Firestore {
         if db == nil {
