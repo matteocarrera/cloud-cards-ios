@@ -68,7 +68,8 @@ class CardsController: UIViewController {
     
     @objc func openCreateTemplateWindow(_ sender: Any) {
         let viewController = storyboard?.instantiateViewController(withIdentifier: "SelectDataController") as! SelectDataController
-        self.navigationController?.pushViewController(viewController, animated: true)
+        let nav = UINavigationController(rootViewController: viewController)
+        self.navigationController?.showDetailViewController(nav, sender: nil)
     }
     
     @objc func selectMultiple(_ sender: Any) {

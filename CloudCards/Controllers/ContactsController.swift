@@ -6,6 +6,7 @@ import FirebaseStorage
 class ContactsController: UIViewController {
 
     @IBOutlet var contactsTable: UITableView!
+    @IBOutlet var importFirstContactNotification: UILabel!
     
     public var selectedContactsUuid = [String]()
     
@@ -38,6 +39,8 @@ class ContactsController: UIViewController {
         } else {
             contacts = Array(realm.objects(UserBoolean.self))
         }
+        
+        importFirstContactNotification.isHidden = contacts.count != 0
         
         contactsTable.reloadData()
         self.navigationController?.isToolbarHidden = true

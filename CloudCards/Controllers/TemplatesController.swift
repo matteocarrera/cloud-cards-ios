@@ -4,6 +4,7 @@ import RealmSwift
 class TemplatesController: UIViewController {
 
     @IBOutlet weak var templatesTable: UITableView!
+    @IBOutlet var createFirstTemplateNotification: UILabel!
     
     private let realm = RealmInstance.getInstance()
     
@@ -26,6 +27,8 @@ class TemplatesController: UIViewController {
         templates.removeAll()
 
         templates = Array(realm.objects(Card.self))
+        
+        createFirstTemplateNotification.isHidden = templates.count != 0
         
         /*
             Получение импортированных визиток в приложение и их обработка и сохранение

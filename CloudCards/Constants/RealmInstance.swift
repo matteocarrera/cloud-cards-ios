@@ -2,7 +2,7 @@ import Foundation
 import RealmSwift
 
 class RealmInstance {
-    private static var realm : Realm? = nil
+    private static var realm : Realm?
     
     static func getInstance() -> Realm {
         if realm == nil {
