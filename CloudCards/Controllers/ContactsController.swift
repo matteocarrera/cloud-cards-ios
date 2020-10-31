@@ -40,11 +40,7 @@ class ContactsController: UIViewController {
             contacts = Array(realm.objects(UserBoolean.self))
         }
         
-        if contacts.count != 0 {
-            importFirstContactNotification.isHidden = true
-        } else {
-            importFirstContactNotification.isHidden = false
-        }
+        importFirstContactNotification.isHidden = contacts.count != 0
         
         contactsTable.reloadData()
         self.navigationController?.isToolbarHidden = true

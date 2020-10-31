@@ -28,11 +28,7 @@ class TemplatesController: UIViewController {
 
         templates = Array(realm.objects(Card.self))
         
-        if templates.count != 0 {
-            createFirstTemplateNotification.isHidden = true
-        } else {
-            createFirstTemplateNotification.isHidden = false
-        }
+        createFirstTemplateNotification.isHidden = templates.count != 0
         
         /*
             Получение импортированных визиток в приложение и их обработка и сохранение
