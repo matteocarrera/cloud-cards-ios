@@ -49,6 +49,10 @@ class SelectDataController: UIViewController {
         }
     }
     
+    @IBAction func closeWindow(_ sender: Any) {
+        self.navigationController?.dismiss(animated: true, completion: nil)
+    }
+    
     private func showSaveAlert() {
         let alert = UIAlertController(title: "Сохранение визитки", message: "Введите имя визитки", preferredStyle: .alert)
 
@@ -60,8 +64,8 @@ class SelectDataController: UIViewController {
         alert.addAction(UIAlertAction(title: "Сохранить", style: .default, handler: { [weak alert] (_) in
             let textField = alert?.textFields![0]
             self.saveUser(title: textField?.text)
-            // Получение TemplatesController (Nav -> Tab -> Nav -> Cards -> Templates)
-            self.navigationController?.presentingViewController?.children.first?.children.first?.children.first?.viewWillAppear(true)
+            // Получение TemplatesController (Nav -> Tab -> Nav -> Cards)
+            self.navigationController?.presentingViewController?.children.first?.children.first?.viewWillAppear(true)
             self.navigationController?.dismiss(animated: true, completion: nil)
         }))
         

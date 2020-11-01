@@ -5,18 +5,23 @@ class TemplatesController: UIViewController {
 
     @IBOutlet weak var templatesTable: UITableView!
     @IBOutlet var createFirstTemplateNotification: UILabel!
+    @IBOutlet var addTemplateButton: UIBarButtonItem!
     
     private let realm = RealmInstance.getInstance()
     
     // Массив шаблонных карточек основного пользователя приложения
     private var templates = [Card]()
+    private var navigationBar = UINavigationBar()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView(table: templatesTable, controller: self)
         
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress(longPressGestureRecognizer:)))
-        self.view.addGestureRecognizer(longPressRecognizer)
+        navigationBar = self.navigationController!.navigationBar
+        navigationBar.prefersLargeTitles = true
+        
+        setLargeNavigationBar()
+        setAddTemplateButton()
         
         viewWillAppear(true)
     }
@@ -24,12 +29,59 @@ class TemplatesController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        // Сделано для устранения бага с зависанием заголовка при переходе на просмотр визитки
+        self.navigationItem.title = "Визитки"
+        self.navigationItem.largeTitleDisplayMode = .always
+        
         templates.removeAll()
-
         templates = Array(realm.objects(Card.self))
         
         createFirstTemplateNotification.isHidden = templates.count != 0
         
+        getImportedCard()
+        
+        templatesTable.reloadData()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        // Сделано для устранения бага с зависанием заголовка при переходе на просмотр визитки
+        self.navigationItem.title = ""
+        self.navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    @objc func openCreateTemplateWindow() {
+        let viewController = storyboard?.instantiateViewController(withIdentifier: "SelectDataController") as! SelectDataController
+        let nav = UINavigationController(rootViewController: viewController)
+        self.navigationController?.showDetailViewController(nav, sender: nil)
+    }
+    
+    // Добавляет стиль для большого варианта NavBar
+    private func setLargeNavigationBar() {
+        
+        self.navigationController?.view.backgroundColor = LIGHT_GRAY
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = LIGHT_GRAY
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+
+        navigationBar.compactAppearance = appearance
+        navigationBar.standardAppearance = appearance
+        navigationBar.scrollEdgeAppearance = appearance
+    }
+    
+    private func setAddTemplateButton() {
+        let addTemplate: UIBarButtonItem = UIBarButtonItem(
+            image: addTemplateButton.image,
+            style: UIBarButtonItem.Style.plain,
+            target: self,
+            action: #selector(openCreateTemplateWindow)
+        )
+        addTemplate.tintColor = PRIMARY
+        self.navigationItem.leftBarButtonItem = addTemplate
+    }
+    
+    private func getImportedCard() {
         /*
             Получение импортированных визиток в приложение и их обработка и сохранение
          */
@@ -42,20 +94,6 @@ class TemplatesController: UIViewController {
         }
 
         defaults?.removeObject(forKey: "link")
-        
-        templatesTable.reloadData()
-    }
-    
-    @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
-        
-        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
-            
-            let touchPoint = longPressGestureRecognizer.location(in: self.view)
-            if let index = self.templatesTable.indexPathForRow(at: touchPoint)  {
-                let card = templates[index.row]
-                //showCardMenu(card: card)
-            }
-        }
     }
 }
 

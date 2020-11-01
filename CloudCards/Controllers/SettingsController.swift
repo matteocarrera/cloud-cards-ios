@@ -26,12 +26,16 @@ class SettingsController: UIViewController {
         profileView.addGestureRecognizer(tapGestureRecognizer)
         
         profilePhoto.layer.cornerRadius = profilePhoto.frame.height/2
+        
+        getProfileInfo()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         setTopSeparator(table: settingsTable)
         setBottomSeparator(table: settingsTable)
-        
+    }
+    
+    public func getProfileInfo() {
         let userDictionary = realm.objects(User.self)
         if userDictionary.count != 0 {
             

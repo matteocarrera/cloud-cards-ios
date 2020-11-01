@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17125"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -637,18 +638,46 @@
         <!--Камера-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="CameraController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="8rJ-Kc-sve" customClass="CameraController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyy-kp-vJY">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSj-0Z-4Ra">
+                                <rect key="frame" x="356" y="104" width="50" height="40"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal">
+                                    <imageReference key="image" image="xmark.circle.fill" catalog="system" symbolScale="large"/>
+                                </state>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" name="Primary"/>
+                        <constraints>
+                            <constraint firstItem="RSj-0Z-4Ra" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="356" id="2Rb-RS-NL1"/>
+                            <constraint firstItem="Tyy-kp-vJY" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="5go-Vw-MiW"/>
+                            <constraint firstItem="Tyy-kp-vJY" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="6Fr-gu-yVU"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="RSj-0Z-4Ra" secondAttribute="trailing" constant="8" id="FVl-bA-z0J"/>
+                            <constraint firstItem="Tyy-kp-vJY" firstAttribute="bottom" secondItem="O1u-W8-tvY" secondAttribute="bottom" id="QzM-2k-RQQ"/>
+                            <constraint firstItem="Tyy-kp-vJY" firstAttribute="trailing" secondItem="O1u-W8-tvY" secondAttribute="trailing" id="dDP-h8-fMk"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="RSj-0Z-4Ra" secondAttribute="bottom" constant="718" id="di5-q2-Uru"/>
+                            <constraint firstItem="RSj-0Z-4Ra" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="16" id="sKQ-r9-NFq"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Камера" image="camera.fill" catalog="system" id="cPa-gy-q4n"/>
+                    <navigationItem key="navigationItem" title="Камера" id="rmh-bR-UDx"/>
+                    <connections>
+                        <outlet property="cameraView" destination="Tyy-kp-vJY" id="yLH-Hs-mUV"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-949" y="250"/>
+            <point key="canvasLocation" x="895.6521739130435" y="249.77678571428569"/>
         </scene>
         <!--Настройки-->
         <scene sceneID="zIU-Xy-BPY">
@@ -961,6 +990,12 @@
                         <barButtonItem key="backBarButtonItem" title="Назад" id="g9R-Yc-OvC">
                             <color key="tintColor" name="Primary"/>
                         </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Отменить" id="0K6-0N-Sqv">
+                            <color key="tintColor" name="Primary"/>
+                            <connections>
+                                <action selector="closeWindow:" destination="RtQ-vZ-waR" id="klc-cC-DXL"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Сохранить" id="GQM-zf-Dfm">
                             <color key="tintColor" name="Primary"/>
                             <connections>
@@ -992,7 +1027,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="BUo-ua-BtS" kind="relationship" relationship="viewControllers" id="daU-NB-fFW"/>
-                        <segue destination="8rJ-Kc-sve" kind="relationship" relationship="viewControllers" id="lzU-1b-eKA"/>
+                        <segue destination="CNf-j8-dKa" kind="relationship" relationship="viewControllers" id="nAu-qG-4l7"/>
                         <segue destination="Msg-HZ-fNK" kind="relationship" relationship="viewControllers" id="7dG-Kw-njJ"/>
                     </connections>
                 </tabBarController>
@@ -1024,88 +1059,12 @@
                         </userDefinedRuntimeAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="W3Z-Bu-dRl" kind="relationship" relationship="rootViewController" id="E8g-Oq-gUh"/>
+                        <segue destination="AgW-sJ-zeS" kind="relationship" relationship="rootViewController" id="bme-mi-PIw"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jSh-ek-3Fb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-949" y="1152"/>
-        </scene>
-        <!--Визитки-->
-        <scene sceneID="aKP-wf-cbQ">
-            <objects>
-                <viewController id="W3Z-Bu-dRl" customClass="CardsController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="dhw-OQ-eVd">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <segmentedControl contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="2RH-TB-zv9">
-                                <rect key="frame" x="16" y="4.5" width="382" height="32"/>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <segments>
-                                    <segment title="Шаблоны"/>
-                                    <segment title="Контакты"/>
-                                </segments>
-                                <color key="tintColor" name="Primary"/>
-                                <color key="selectedSegmentTintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <connections>
-                                    <action selector="indexChanged:" destination="W3Z-Bu-dRl" eventType="valueChanged" id="yaa-x5-8kf"/>
-                                </connections>
-                            </segmentedControl>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="cQQ-u7-Cmx">
-                                <rect key="frame" x="0.0" y="40" width="414" height="685"/>
-                                <connections>
-                                    <segue destination="AgW-sJ-zeS" kind="embed" id="7Qe-mq-bSZ"/>
-                                </connections>
-                            </containerView>
-                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="70K-hj-cZ0">
-                                <rect key="frame" x="0.0" y="40" width="414" height="685"/>
-                                <connections>
-                                    <segue destination="KNG-E6-V2A" kind="embed" id="Ll3-KX-WVQ"/>
-                                </connections>
-                            </containerView>
-                        </subviews>
-                        <viewLayoutGuide key="safeArea" id="x9O-os-X3D"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                        <constraints>
-                            <constraint firstItem="70K-hj-cZ0" firstAttribute="top" secondItem="2RH-TB-zv9" secondAttribute="bottom" constant="4.5" id="8qs-TX-Yic"/>
-                            <constraint firstItem="x9O-os-X3D" firstAttribute="trailing" secondItem="2RH-TB-zv9" secondAttribute="trailing" constant="16" id="DCm-ZQ-z4h"/>
-                            <constraint firstItem="2RH-TB-zv9" firstAttribute="top" secondItem="x9O-os-X3D" secondAttribute="top" constant="4.5" id="DEc-js-tvK"/>
-                            <constraint firstItem="cQQ-u7-Cmx" firstAttribute="leading" secondItem="x9O-os-X3D" secondAttribute="leading" id="Tqz-2z-wjf"/>
-                            <constraint firstItem="70K-hj-cZ0" firstAttribute="bottom" secondItem="x9O-os-X3D" secondAttribute="bottom" id="YbN-Db-Y2b"/>
-                            <constraint firstItem="70K-hj-cZ0" firstAttribute="trailing" secondItem="x9O-os-X3D" secondAttribute="trailing" id="aWl-OH-L5v"/>
-                            <constraint firstItem="2RH-TB-zv9" firstAttribute="leading" secondItem="x9O-os-X3D" secondAttribute="leading" constant="16" id="ghD-D9-GAV"/>
-                            <constraint firstItem="cQQ-u7-Cmx" firstAttribute="top" secondItem="2RH-TB-zv9" secondAttribute="bottom" constant="4.5" id="r5C-yw-361"/>
-                            <constraint firstItem="cQQ-u7-Cmx" firstAttribute="trailing" secondItem="x9O-os-X3D" secondAttribute="trailing" id="sBN-fA-5YK"/>
-                            <constraint firstItem="cQQ-u7-Cmx" firstAttribute="bottom" secondItem="x9O-os-X3D" secondAttribute="bottom" id="t2j-fb-EKF"/>
-                            <constraint firstItem="70K-hj-cZ0" firstAttribute="leading" secondItem="x9O-os-X3D" secondAttribute="leading" id="vU6-NP-7SR"/>
-                        </constraints>
-                    </view>
-                    <navigationItem key="navigationItem" title="Визитки" id="3vP-CG-nkz">
-                        <barButtonItem key="backBarButtonItem" title="Назад" id="kLE-cn-MWc">
-                            <color key="tintColor" name="Primary"/>
-                        </barButtonItem>
-                        <barButtonItem key="leftBarButtonItem" title="Добавить" image="plus" catalog="system" id="HaR-62-GNZ">
-                            <color key="tintColor" name="Primary"/>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="checkmark.circle" catalog="system" id="noE-rW-dK7">
-                            <color key="tintColor" name="Primary"/>
-                            <connections>
-                                <action selector="selectMultiple:" destination="W3Z-Bu-dRl" id="LJS-EA-Cag"/>
-                            </connections>
-                        </barButtonItem>
-                    </navigationItem>
-                    <connections>
-                        <outlet property="addTemplateButton" destination="HaR-62-GNZ" id="KJc-V5-R2p"/>
-                        <outlet property="contactsView" destination="70K-hj-cZ0" id="MUs-Qp-xF3"/>
-                        <outlet property="segmentedControl" destination="2RH-TB-zv9" id="OVd-JR-XmP"/>
-                        <outlet property="selectMultipleButton" destination="noE-rW-dK7" id="EV6-Ht-DqL"/>
-                        <outlet property="templatesView" destination="cQQ-u7-Cmx" id="Hrg-08-fSp"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="5dy-Ba-UI5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-35" y="1152"/>
         </scene>
         <!--О приложении-->
         <scene sceneID="ezM-bX-Jo0">
@@ -1382,16 +1341,16 @@
             </objects>
             <point key="canvasLocation" x="-949.27536231884062" y="1954.6875"/>
         </scene>
-        <!--Templates-->
+        <!--Мои визитки-->
         <scene sceneID="lqG-Gj-mn6">
             <objects>
-                <viewController title="Templates" id="AgW-sJ-zeS" customClass="TemplatesController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Мои визитки" id="AgW-sJ-zeS" customClass="TemplatesController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="siz-Yf-ypA">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="685"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="45M-Gk-pTO">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="685"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
@@ -1436,7 +1395,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Создайте свою первую визитку с помощью кнопки +" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LA6-WA-XtI">
-                                <rect key="frame" x="10" y="237.5" width="394" height="254"/>
+                                <rect key="frame" x="10" y="193.5" width="394" height="338"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1455,25 +1414,54 @@
                             <constraint firstAttribute="bottom" secondItem="45M-Gk-pTO" secondAttribute="bottom" id="xqm-64-pbi"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Мои визитки" id="bfU-sT-Diu">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="SbH-5j-N1Z">
+                            <color key="tintColor" name="Primary"/>
+                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Добавить" image="plus" catalog="system" id="HaR-62-GNZ">
+                            <color key="tintColor" name="Primary"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
+                        <outlet property="addTemplateButton" destination="HaR-62-GNZ" id="CwJ-ha-w1f"/>
                         <outlet property="createFirstTemplateNotification" destination="LA6-WA-XtI" id="eve-M4-nMo"/>
                         <outlet property="templatesTable" destination="45M-Gk-pTO" id="Qur-i1-V0C"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bgy-t6-elR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-170" y="1883"/>
+            <point key="canvasLocation" x="-36" y="1152"/>
         </scene>
-        <!--Contacts-->
+        <!--Контакты-->
+        <scene sceneID="AK4-5g-ljg">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iYf-xZ-qNX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <navigationController id="CNf-j8-dKa" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Контакты" image="person.2.fill" catalog="system" id="qaw-1a-uU5"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Ngj-7p-ve2">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="tintColor" name="Primary"/>
+                        <color key="barTintColor" name="Light Gray"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="KNG-E6-V2A" kind="relationship" relationship="rootViewController" id="0aV-Xk-Zut"/>
+                    </connections>
+                </navigationController>
+            </objects>
+            <point key="canvasLocation" x="-949" y="250"/>
+        </scene>
+        <!--Контакты-->
         <scene sceneID="vrR-rQ-rLZ">
             <objects>
-                <viewController storyboardIdentifier="ContactsController" title="Contacts" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KNG-E6-V2A" customClass="ContactsController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ContactsController" title="Контакты" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KNG-E6-V2A" customClass="ContactsController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="egb-Gz-od7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="685"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n8F-GY-4C7">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="685"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="96" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
@@ -1554,7 +1542,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Отсканируйте первый контакт камерой или импортируйте его с помощью ссылки" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BYa-5E-HBo">
-                                <rect key="frame" x="10" y="237.5" width="394" height="254"/>
+                                <rect key="frame" x="10" y="281.5" width="394" height="338"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1573,24 +1561,45 @@
                             <constraint firstAttribute="bottom" secondItem="n8F-GY-4C7" secondAttribute="bottom" id="ofr-lM-wcd"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="" id="mug-9w-jRa">
+                        <color key="badgeColor" name="Primary"/>
+                    </tabBarItem>
+                    <navigationItem key="navigationItem" title="Контакты" id="Auh-FG-6bK">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="EpP-XI-MhX">
+                            <color key="tintColor" name="Primary"/>
+                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Камера" image="camera" catalog="system" id="ga9-0p-79b">
+                            <color key="tintColor" name="Primary"/>
+                            <connections>
+                                <segue destination="8rJ-Kc-sve" kind="show" id="u0M-4g-hSp"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" image="checkmark.circle" catalog="system" id="noE-rW-dK7">
+                            <color key="tintColor" name="Primary"/>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="contactsTable" destination="n8F-GY-4C7" id="brw-x4-c6B"/>
                         <outlet property="importFirstContactNotification" destination="BYa-5E-HBo" id="cfm-4g-zJ7"/>
+                        <outlet property="selectMultipleButton" destination="noE-rW-dK7" id="uVe-PB-OjD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xeN-sK-4mX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="634.78260869565224" y="1882.7008928571427"/>
+            <point key="canvasLocation" x="-36" y="250"/>
         </scene>
     </scenes>
     <resources>
+        <image name="camera" catalog="system" width="128" height="94"/>
         <image name="camera.fill" catalog="system" width="128" height="94"/>
         <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
+        <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="rectangle.stack.fill" catalog="system" width="128" height="122"/>
+        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="Graphite">
             <color red="0.28627450980392155" green="0.30588235294117649" blue="0.35294117647058826" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

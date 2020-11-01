@@ -3,13 +3,15 @@ import AVFoundation
 
 class CameraController: UIViewController {
 
+    @IBOutlet var cameraView: UIView!
     private var captureSession: AVCaptureSession!
     private var previewLayer: AVCaptureVideoPreviewLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        view.backgroundColor = UIColor.black
+        //navigationController?.setNavigationBarHidden(true, animated: true)
+        
         captureSession = AVCaptureSession()
 
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
@@ -43,7 +45,7 @@ class CameraController: UIViewController {
         previewLayer = AVCaptureVideoPreviewLayer(session: captureSession)
         previewLayer.frame = view.layer.bounds
         previewLayer.videoGravity = .resizeAspectFill
-        view.layer.addSublayer(previewLayer)
+        cameraView.layer.addSublayer(previewLayer)
 
         captureSession.startRunning()
     }
@@ -71,14 +73,9 @@ class CameraController: UIViewController {
         captureSession = nil
     }
 
-    override var prefersStatusBarHidden: Bool {
-        return true
-    }
-
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
-
 }
 
 extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
