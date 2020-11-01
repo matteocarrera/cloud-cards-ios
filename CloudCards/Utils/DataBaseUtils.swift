@@ -33,8 +33,8 @@ public func saveUser(controller : UIViewController, link : String) {
                 
                 let alert = UIAlertController(title: "Успешно", message: "Контакт успешно считан!", preferredStyle: .alert)
                 alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
-                    controller.tabBarController?.selectedIndex = 1
-                    controller.tabBarController?.selectedIndex = 0
+                    controller.navigationController?.popViewController(animated: true)
+                    controller.parent?.viewWillAppear(true)
                 }))
                 controller.present(alert, animated: true, completion: nil)
                 

@@ -37,10 +37,13 @@ class EditProfileController: UIViewController {
     // Флаг, позволяющий отследить, изменялась ли фотография пользователя в процессе редактирования профиля или нет
     private var photoWasChanged = false
     // Правая кнопка навигации
-    private var rightBarButtonItem : UIBarButtonItem?
+    private var rightBarButtonItem: UIBarButtonItem?
+    private var settingsController: SettingsController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        settingsController = (self.parent?.children.first as! SettingsController)
         
         /*
             TapGestureRecognizer позволяет добавить функционал нажатия на фотографию пользователя
@@ -172,10 +175,12 @@ class EditProfileController: UIViewController {
                     } else {
                         print("error \(String(describing: error))")
                     }
+                    self.settingsController?.getProfileInfo()
                     self.navigationController?.popViewController(animated: true)
                 }
             } else {
                 photoUuid = ""
+                settingsController?.getProfileInfo()
                 self.navigationController?.popViewController(animated: true)
             }
         }
@@ -217,6 +222,7 @@ class EditProfileController: UIViewController {
             .setData(userData)
         
         if !photoWasChanged {
+            settingsController?.getProfileInfo()
             self.navigationController?.popViewController(animated: true)
         }
     }

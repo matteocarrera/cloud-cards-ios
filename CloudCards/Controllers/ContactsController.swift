@@ -7,20 +7,29 @@ class ContactsController: UIViewController {
 
     @IBOutlet var contactsTable: UITableView!
     @IBOutlet var importFirstContactNotification: UILabel!
+    @IBOutlet var selectMultipleButton: UIBarButtonItem!
     
     public var selectedContactsUuid = [String]()
     
     private let realm = RealmInstance.getInstance()
-    private var cardsController = CardsController()
+    private var navigationBar = UINavigationBar()
+    private var search = UISearchController()
     private var contacts = [UserBoolean]()
     private let selectedCounter : UIBarButtonItem = UIBarButtonItem(title: "0 выбрано", style: .plain, target: self, action: nil)
+    
+    // Флаг, показывающий, что пользователь выбрал функцмножественного выбора визиток
+    public var multipleChoiceActivated = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView(table: contactsTable, controller: self)
         
-        let longPressRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(self.longPress(longPressGestureRecognizer:)))
-        self.view.addGestureRecognizer(longPressRecognizer)
+        navigationBar = self.navigationController!.navigationBar
+        navigationBar.prefersLargeTitles = true
+        
+        setLargeNavigationBar()
+        setSearchBar()
+        setSelectButton()
 
         selectedCounter.tintColor = UIColor.black
         setToolbar()
@@ -28,6 +37,14 @@ class ContactsController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        // Сделано для устранения бага с зависанием заголовка при переходе на просмотр визитки
+        self.navigationItem.title = "Контакты"
+        self.navigationItem.largeTitleDisplayMode = .always
+        
+        if multipleChoiceActivated {
+            cancelSelection()
+        }
         
         contacts.removeAll()
         selectedContactsUuid.removeAll()
@@ -44,6 +61,12 @@ class ContactsController: UIViewController {
         
         contactsTable.reloadData()
         self.navigationController?.isToolbarHidden = true
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        // Сделано для устранения бага с зависанием заголовка при переходе на просмотр визитки
+        self.navigationItem.title = ""
+        self.navigationItem.largeTitleDisplayMode = .never
     }
     
     @objc func deleteContacts(_ sender: Any) {
@@ -77,14 +100,57 @@ class ContactsController: UIViewController {
         cancelSelection()
     }
     
-    @objc func longPress(longPressGestureRecognizer: UILongPressGestureRecognizer) {
-        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
-            let touchPoint = longPressGestureRecognizer.location(in: self.view)
-            if let index = self.contactsTable.indexPathForRow(at: touchPoint)  {
-                let contact = contacts[index.row]
-                //showContactMenu(contact: contact)
-            }
+    /*
+        Кнопка для множественного выбора
+     */
+    
+    @objc func selectMultiple(_ sender: Any) {
+        if multipleChoiceActivated {
+            cancelSelection()
+            //self.navigationItem.prompt = nil
+        } else {
+            let cancelButton : UIBarButtonItem = UIBarButtonItem(
+                title: "Отменить",
+                style: UIBarButtonItem.Style.plain,
+                target: self,
+                action: #selector(selectMultiple(_:))
+            )
+            cancelButton.tintColor = PRIMARY
+
+            self.navigationItem.rightBarButtonItem = cancelButton
+            
+            multipleChoiceActivated = true
         }
+    }
+    
+    /*
+        Добавляет стиль для большого варианта NavBar
+     */
+
+    private func setLargeNavigationBar() {
+        
+        self.navigationController?.view.backgroundColor = LIGHT_GRAY
+        
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = LIGHT_GRAY
+        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+
+        navigationBar.compactAppearance = appearance
+        navigationBar.standardAppearance = appearance
+        navigationBar.scrollEdgeAppearance = appearance
+    }
+    
+    /*
+        Добавляет строку поиска в NavBar
+     */
+
+    private func setSearchBar() {
+        search = UISearchController(searchResultsController: nil)
+        search.searchResultsUpdater = self
+        search.searchBar.placeholder = "Поиск"
+        search.searchBar.setValue("Отмена", forKey: "cancelButtonText")
+        self.navigationItem.searchController = search
     }
     
     /*
@@ -108,14 +174,11 @@ class ContactsController: UIViewController {
      */
     
     public func cancelSelection() {
-        cardsController = self.parent as! CardsController
-        
         setSelectButton()
         
-        viewWillAppear(true)
         self.navigationController?.isToolbarHidden = true
-        cardsController.multipleChoiceActivated = false
-        cardsController.navigationItem.leftBarButtonItem = nil
+        multipleChoiceActivated = false
+        viewWillAppear(true)
     }
     
     /*
@@ -124,14 +187,14 @@ class ContactsController: UIViewController {
     
     private func setSelectButton() {
         let select : UIBarButtonItem = UIBarButtonItem(
-            image: cardsController.selectMultipleButton.image,
+            image: selectMultipleButton.image,
             style: UIBarButtonItem.Style.plain,
-            target: cardsController,
-            action: #selector(CardsController.selectMultiple(_:))
+            target: self,
+            action: #selector(selectMultiple(_:))
         )
         select.tintColor = PRIMARY
 
-        cardsController.navigationItem.rightBarButtonItem = select
+        self.navigationItem.rightBarButtonItem = select
     }
 }
 
@@ -191,11 +254,10 @@ extension ContactsController: UITableViewDataSource {
         let dataCell = contacts[indexPath.row]
         let uuid = dataCell.parentId + "|" + dataCell.uuid
         
-        if cardsController.multipleChoiceActivated {
+        if multipleChoiceActivated {
             selectedContactsUuid.append(uuid)
 
-            selectedCounter.title = "\(selectedContactsUuid.count) выбрано"
-            cardsController.navigationItem.leftBarButtonItem = selectedCounter
+            //self.navigationItem.prompt = "\(selectedContactsUuid.count) выбрано"
             cell.accessoryType = .checkmark
             
             if self.navigationController?.isToolbarHidden == true {
@@ -220,10 +282,9 @@ extension ContactsController: UITableViewDataSource {
         
         if selectedContactsUuid.count == 0 {
             self.navigationController?.isToolbarHidden = true
-            cardsController.navigationItem.leftBarButtonItem = nil
+            //self.navigationItem.prompt = nil
         } else {
-            selectedCounter.title = "\(selectedContactsUuid.count) выбрано"
-            cardsController.navigationItem.leftBarButtonItem = selectedCounter
+            //self.navigationItem.prompt = "\(selectedContactsUuid.count) выбрано"
         }
     }
 }
@@ -292,12 +353,34 @@ extension ContactsController: UITableViewDelegate {
             
             self.contacts.remove(at: indexPath.row)
             self.contactsTable.deleteRows(at: [indexPath], with: .automatic)
-            //self.viewWillAppear(true)
-            
+
             completion(true)
         }
         action.image = UIImage(systemName: "trash")
         return action
+    }
+}
+
+extension ContactsController: UISearchResultsUpdating {
+    
+    func updateSearchResults(for searchController: UISearchController) {
+        // Поиск
+    }
+}
+
+extension ContactsController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.setShowsCancelButton(true, animated: true)
+    }
+
+    func searchBarShouldEndEditing(_ searchBar: UISearchBar) -> Bool {
+        searchBar.setShowsCancelButton(false, animated: true)
+        return true
+    }
+
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }
 
