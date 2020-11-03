@@ -106,6 +106,7 @@ func getUserFromTemplate(user : User, userBoolean : UserBoolean) -> User {
     let currentUser = User()
     currentUser.parentId = userBoolean.parentId
     currentUser.uuid = userBoolean.uuid
+    currentUser.photo = user.photo != "" ? user.photo : ""
     currentUser.name = checkField(field: user.name, isSelected: userBoolean.name)
     currentUser.surname = checkField(field: user.surname, isSelected: userBoolean.surname)
     currentUser.patronymic = checkField(field: user.patronymic, isSelected: userBoolean.patronymic)

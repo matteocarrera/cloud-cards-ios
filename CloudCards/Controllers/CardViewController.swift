@@ -9,17 +9,18 @@ class CardViewController: UIViewController {
     @IBOutlet var cardPhoto: UIImageView!
     @IBOutlet var userInitialsLabel: UILabel!
     
-    private let realm = RealmInstance.getInstance()
-    
-    // Массив данных пользователя из выбранной визитки
-    private var data = [DataItem]()
     // ID пользователя, полученный при переходе в окно просмотра визитки из шаблонов или контактов
     public var userId = ""
+    public var user: User?
+    
+    private let realm = RealmInstance.getInstance()
+    // Массив данных пользователя из выбранной визитки
+    private var data = [DataItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView(table: cardDataTable, controller: self)
-
+        cardPhoto.layer.cornerRadius = cardPhoto.frame.height/2
         setExportButton()
     }
     
@@ -27,38 +28,19 @@ class CardViewController: UIViewController {
         super.viewWillAppear(animated)
         
         self.navigationItem.title = "Визитка"
-        
-        cardPhoto.layer.cornerRadius = cardPhoto.frame.height/2
-        
+
         let userBoolean = realm.objects(UserBoolean.self).filter("uuid = \"\(userId)\"")[0]
         
-        let db = FirestoreInstance.getInstance()
-        db.collection(FirestoreInstance.USERS)
-            .document(userBoolean.parentId)
-            .collection(FirestoreInstance.DATA)
-            .document(userBoolean.parentId)
-            .getDocument { (document, error) in
-            if let document = document, document.exists {
-                    let dataDescription = document.data()
-                
-                    let owner = convertFromDictionary(dictionary: dataDescription!, type: User.self)
-                      
-                    let currentUser = getUserFromTemplate(user: owner, userBoolean: userBoolean)
-                    
-                    self.data = setDataToList(user: currentUser)
-                    
-                    if owner.photo != "" {
-                        self.cardPhoto.image = getPhotoFromDatabase(photoUuid: owner.photo)
-                        self.userInitialsLabel.isHidden = true
-                    } else {
-                        self.userInitialsLabel.text = String(currentUser.name.character(at: 0)!) + String(currentUser.surname.character(at: 0)!)
-                        self.userInitialsLabel.isHidden = false
-                    }
-                    
-                    self.cardDataTable.reloadData()
-                } else {
-                    print("Document does not exist")
-                }
+        guard let contact = user == nil ? getUserFromFirebase(userBoolean: userBoolean) : user else { return }
+        
+        data = setDataToList(user: contact)
+        
+        if contact.photo != "" {
+            cardPhoto.image = getPhotoFromDatabase(photoUuid: contact.photo)
+            userInitialsLabel.isHidden = true
+        } else {
+            userInitialsLabel.text = String(contact.name.character(at: 0)!) + String(contact.surname.character(at: 0)!)
+            userInitialsLabel.isHidden = false
         }
         
         cardDataTable.reloadData()
@@ -76,6 +58,27 @@ class CardViewController: UIViewController {
         alert.addAction(UIAlertAction.init(title: "Нет", style: .cancel))
         self.present(alert, animated: true, completion: nil)
         
+    }
+    
+    private func getUserFromFirebase(userBoolean: UserBoolean) -> User {
+        var currentUser = User()
+        let db = FirestoreInstance.getInstance()
+        db.collection(FirestoreInstance.USERS)
+            .document(userBoolean.parentId)
+            .collection(FirestoreInstance.DATA)
+            .document(userBoolean.parentId)
+            .getDocument { (document, error) in
+            if let document = document, document.exists {
+                    let userData = document.data()
+                
+                    let owner = convertFromDictionary(dictionary: userData!, type: User.self)
+                      
+                    currentUser = getUserFromTemplate(user: owner, userBoolean: userBoolean)
+                } else {
+                    print("Данные пользователя отсутствуют!")
+                }
+        }
+        return currentUser
     }
     
     private func setExportButton() {

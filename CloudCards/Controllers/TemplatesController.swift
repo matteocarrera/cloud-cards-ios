@@ -145,9 +145,10 @@ extension TemplatesController: UITableViewDelegate {
         let card = templates[indexPath.row]
         let action = UIContextualAction(style: .normal, title: "Open Template") { (action, view, completion) in
             
-            let viewController = self.storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
-            viewController.userId = card.userId
-            self.navigationController?.pushViewController(viewController, animated: true)
+            let cardViewController = self.storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
+            cardViewController.userId = card.userId
+            cardViewController.user = nil
+            self.navigationController?.pushViewController(cardViewController, animated: true)
             
             completion(true)
         }
