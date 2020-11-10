@@ -1,17 +1,14 @@
 import UIKit
-import RealmSwift
-import FirebaseFirestore
 import MessageUI
 
 class CardViewController: UIViewController {
 
     @IBOutlet weak var cardDataTable: UITableView!
+    @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet var cardPhoto: UIImageView!
     @IBOutlet var userInitialsLabel: UILabel!
     
-    // ID пользователя, полученный при переходе в окно просмотра визитки из шаблонов или контактов
-    public var userId = ""
-    public var user: User?
+    public var currentUser = User()
     
     private let realm = RealmInstance.getInstance()
     // Массив данных пользователя из выбранной визитки
@@ -26,24 +23,13 @@ class CardViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.navigationItem.title = "Визитка"
-
-        let userBoolean = realm.objects(UserBoolean.self).filter("uuid = \"\(userId)\"")[0]
-        
-        guard let contact = user == nil ? getUserFromFirebase(userBoolean: userBoolean) : user else { return }
-        
-        data = setDataToList(user: contact)
-        
-        if contact.photo != "" {
-            cardPhoto.image = getPhotoFromDatabase(photoUuid: contact.photo)
-            userInitialsLabel.isHidden = true
-        } else {
-            userInitialsLabel.text = String(contact.name.character(at: 0)!) + String(contact.surname.character(at: 0)!)
-            userInitialsLabel.isHidden = false
-        }
-        
-        cardDataTable.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadUserData()
+        loadingIndicator.stopAnimating()
     }
     
     @objc func exportContact(_ sender: Any) {
@@ -60,25 +46,19 @@ class CardViewController: UIViewController {
         
     }
     
-    private func getUserFromFirebase(userBoolean: UserBoolean) -> User {
-        var currentUser = User()
-        let db = FirestoreInstance.getInstance()
-        db.collection(FirestoreInstance.USERS)
-            .document(userBoolean.parentId)
-            .collection(FirestoreInstance.DATA)
-            .document(userBoolean.parentId)
-            .getDocument { (document, error) in
-            if let document = document, document.exists {
-                    let userData = document.data()
-                
-                    let owner = convertFromDictionary(dictionary: userData!, type: User.self)
-                      
-                    currentUser = getUserFromTemplate(user: owner, userBoolean: userBoolean)
-                } else {
-                    print("Данные пользователя отсутствуют!")
-                }
+    private func loadUserData() {
+        data = setDataToList(user: currentUser)
+        
+        if currentUser.photo != "" {
+            cardPhoto.image = getPhotoFromDatabase(photoUuid: currentUser.photo)
+            userInitialsLabel.isHidden = true
+        } else {
+            userInitialsLabel.text = String(currentUser.name.character(at: 0)!) + String(currentUser.surname.character(at: 0)!)
+            userInitialsLabel.isHidden = false
         }
-        return currentUser
+        cardPhoto.isHidden = false
+        
+        cardDataTable.reloadData()
     }
     
     private func setExportButton() {

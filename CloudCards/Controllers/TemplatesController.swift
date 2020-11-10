@@ -81,11 +81,11 @@ class TemplatesController: UIViewController {
         self.navigationItem.leftBarButtonItem = addTemplate
     }
     
+    /*
+        Получение импортированных визиток в приложение и их обработка и сохранение
+     */
+    
     private func getImportedCard() {
-        /*
-            Получение импортированных визиток в приложение и их обработка и сохранение
-         */
-        
         let defaults = UserDefaults(suiteName: "group.com.mksdevelopmentgroup.cloudcards")
         let link = String((defaults?.string(forKey: "link") ?? ""))
         
@@ -113,10 +113,12 @@ extension TemplatesController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataCell = templates[indexPath.row]
 
-        let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(dataCell.userId)\"")[0]
+        let templateUser = self.realm.objects(UserBoolean.self).filter("uuid = \"\(dataCell.userId)\"")[0]
+        let parentUser = self.realm.objects(User.self)[0]
+        let generatedUser = getUserFromTemplate(user: parentUser, userBoolean: templateUser)
         
         let qrController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
-        qrController.contact = contact
+        qrController.contact = generatedUser
         
         self.navigationController?.pushViewController(qrController, animated: true)
 
@@ -145,9 +147,12 @@ extension TemplatesController: UITableViewDelegate {
         let card = templates[indexPath.row]
         let action = UIContextualAction(style: .normal, title: "Open Template") { (action, view, completion) in
             
+            let templateUser = self.realm.objects(UserBoolean.self).filter("uuid = \"\(card.userId)\"")[0]
+            let parentUser = self.realm.objects(User.self)[0]
+            let generatedUser = getUserFromTemplate(user: parentUser, userBoolean: templateUser)
+            
             let cardViewController = self.storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
-            cardViewController.userId = card.userId
-            cardViewController.user = nil
+            cardViewController.currentUser = generatedUser
             self.navigationController?.pushViewController(cardViewController, animated: true)
             
             completion(true)
@@ -162,7 +167,7 @@ extension TemplatesController: UITableViewDelegate {
         let action = UIContextualAction(style: .normal, title: "Share") { (action, view, completion) in
             
             let owner = self.realm.objects(User.self)[0]
-            let userLink = owner.uuid + "|" + card.userId
+            let userLink = "\(owner.uuid)|\(card.userId)"
 
             if let image = generateQR(userLink: userLink) {
                 let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
@@ -186,8 +191,7 @@ extension TemplatesController: UITableViewDelegate {
             
             self.templates.remove(at: indexPath.row)
             self.templatesTable.deleteRows(at: [indexPath], with: .automatic)
-            //self.viewWillAppear(true)
-            
+
             completion(true)
         }
         action.image = UIImage(systemName: "trash")

@@ -12,7 +12,6 @@ class ContactsController: UIViewController {
     public var selectedContactsUuid = [String]()
     
     private let realm = RealmInstance.getInstance()
-    private var contacts = [User]()
     private var contactsDictionary = [String:[User]]()
     private var contactsSectionTitles = [String]()
     
@@ -103,7 +102,6 @@ class ContactsController: UIViewController {
     }
     
     private func loadData() {
-        contacts.removeAll()
         contactsDictionary.removeAll()
         contactsSectionTitles.removeAll()
         selectedContactsUuid.removeAll()
@@ -228,19 +226,18 @@ class ContactsController: UIViewController {
                     let parentUser = convertFromDictionary(dictionary: dataDescription, type: User.self)
                       
                     let currentUser = getUserFromTemplate(user: parentUser, userBoolean: userBoolean)
-                    
-                    self.contacts.append(currentUser)
+
+                    let contactKey = String(currentUser.surname.prefix(1))
+                    if var contactValues = self.contactsDictionary[contactKey] {
+                        if !contactValues.contains(currentUser) {
+                            contactValues.append(currentUser)
+                            self.contactsDictionary[contactKey] = contactValues
+                        }
+                    } else {
+                        self.contactsDictionary[contactKey] = [currentUser]
+                    }
 
                     DispatchQueue.main.async {
-                        for contact in self.contacts {
-                            let contactKey = String(contact.surname.prefix(1))
-                            if var contactValues = self.contactsDictionary[contactKey] {
-                                contactValues.append(contact)
-                                self.contactsDictionary[contactKey] = contactValues
-                            } else {
-                                self.contactsDictionary[contactKey] = [contact]
-                            }
-                        }
                         self.contactsSectionTitles = [String](self.contactsDictionary.keys)
                         self.contactsSectionTitles = self.contactsSectionTitles.sorted(by: {$0 < $1})
                         
@@ -252,64 +249,6 @@ class ContactsController: UIViewController {
 }
 
 extension ContactsController: UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = contactsTable.dequeueReusableCell(withIdentifier: "ContactsDataCell", for: indexPath) as! ContactsDataCell
-        
-        cell.accessoryType = .none
-        
-        let contactKey = contactsSectionTitles[indexPath.section]
-        if let contactValues = contactsDictionary[contactKey] {
-            cell.update(with: contactValues[indexPath.row])
-        }
-        
-        if indexPath.row == contacts.count - 1 {
-            loadingIndicator.stopAnimating()
-            self.importFirstContactNotification.isHidden = self.contacts.count != 0
-        }
-        
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        
-        let contact = contacts[indexPath.row]
-        let uuid = "\(contact.parentId)|\(contact.uuid)"
-        
-        if multipleChoiceActivated {
-            selectedContactsUuid.append(uuid)
-
-            cell.accessoryType = .checkmark
-            
-            if self.navigationController?.isToolbarHidden == true {
-                self.navigationController?.isToolbarHidden = false
-                setToolbar()
-            }
-        } else {
-            let cardViewController = storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
-            cardViewController.userId = contact.uuid
-            cardViewController.user = contact
-            self.navigationController?.pushViewController(cardViewController, animated: true)
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        
-        let contact = contacts[indexPath.row]
-        let uuid = "\(contact.parentId)|\(contact.uuid)"
-        
-        selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: uuid)!)
-        cell.accessoryType = .none
-        
-        if selectedContactsUuid.count == 0 {
-            self.navigationController?.isToolbarHidden = true
-        }
-    }
-}
-
-extension ContactsController: UITableViewDelegate {
     
     func numberOfSections(in tableView: UITableView) -> Int {
         return contactsSectionTitles.count
@@ -323,12 +262,74 @@ extension ContactsController: UITableViewDelegate {
         return 0
     }
     
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = contactsTable.dequeueReusableCell(withIdentifier: "ContactsDataCell", for: indexPath) as! ContactsDataCell
+        
+        cell.accessoryType = .none
+        
+        let contactKey = contactsSectionTitles[indexPath.section]
+        if let contactValues = contactsDictionary[contactKey] {
+            cell.update(with: contactValues[indexPath.row])
+        }
+        
+        return cell
+    }
+    
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return contactsSectionTitles[section]
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return contactsSectionTitles
+    }
+}
+
+extension ContactsController: UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        
+        let contact = getUserFromRow(with: indexPath)
+        
+        let uuid = "\(contact.parentId)|\(contact.uuid)"
+        
+        if multipleChoiceActivated {
+            selectedContactsUuid.append(uuid)
+
+            cell.accessoryType = .checkmark
+            
+            if self.navigationController?.isToolbarHidden == true {
+                self.navigationController?.isToolbarHidden = false
+                setToolbar()
+            }
+        } else {
+            let cardViewController = storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
+            cardViewController.currentUser = contact
+            self.navigationController?.pushViewController(cardViewController, animated: true)
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        if let lastVisibleIndexPath = tableView.indexPathsForVisibleRows?.last {
+            if indexPath == lastVisibleIndexPath {
+                loadingIndicator.stopAnimating()
+                self.importFirstContactNotification.isHidden = self.contactsSectionTitles.count != 0
+            }
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
+        
+        let contact = getUserFromRow(with: indexPath)
+        let uuid = "\(contact.parentId)|\(contact.uuid)"
+        
+        selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: uuid)!)
+        cell.accessoryType = .none
+        
+        if selectedContactsUuid.count == 0 {
+            self.navigationController?.isToolbarHidden = true
+        }
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -338,12 +339,19 @@ extension ContactsController: UITableViewDelegate {
         return UISwipeActionsConfiguration(actions: [delete, share, qr])
     }
     
+    private func getUserFromRow(with indexPath : IndexPath) -> User {
+        let contactKey = contactsSectionTitles[indexPath.section]
+        let contactValues = contactsDictionary[contactKey]
+        return contactValues![indexPath.row]
+    }
+}
+
+extension ContactsController {
+    
     func showQR(at indexPath: IndexPath) -> UIContextualAction {
-        let person = contacts[indexPath.row]
+        let contact = getUserFromRow(with: indexPath)
         let action = UIContextualAction(style: .normal, title: "ShowQR") { (action, view, completion) in
-            
-            let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(person.uuid)\"")[0]
-            
+
             let qrController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
             qrController.contact = contact
             
@@ -357,10 +365,9 @@ extension ContactsController: UITableViewDelegate {
     }
     
     func shareContact(at indexPath: IndexPath) -> UIContextualAction {
-        let contact = contacts[indexPath.row]
+        let contact = getUserFromRow(with: indexPath)
         let action = UIContextualAction(style: .normal, title: "Share") { (action, view, completion) in
-            
-            let contact = self.realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\"")[0]
+
             let contactUuids = "\(contact.parentId)|\(contact.uuid)"
 
             if let image = generateQR(userLink: contactUuids) {
@@ -376,32 +383,29 @@ extension ContactsController: UITableViewDelegate {
     }
     
     func deleteContact(at indexPath: IndexPath) -> UIContextualAction {
-        let contact = contacts[indexPath.row]
+        let contact = getUserFromRow(with: indexPath)
         let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
             
             try! self.realm.write {
                 self.realm.delete(self.realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\""))
             }
-            
-            // Удаляем контакт из списка контактов
-            self.contacts.remove(at: indexPath.row)
-            
+
             // Удаляем контакт из словаря контактов
             let contactKey = self.contactsSectionTitles[indexPath.section]
-            self.contactsDictionary.removeValue(forKey: contactKey)
+            self.contactsDictionary[contactKey]?.removeAll(where: { $0.uuid == contact.uuid })
             
             // Удаляем ячейку таблицы с данным контактом
             self.contactsTable.deleteRows(at: [indexPath], with: .automatic)
             
             // Если на первую букву фамилии никого больше нет, то удаляем сначала букву из списка,
             // а уже после удаляем секцию в самой таблице, отображаемой на экране
-            if !self.contacts.contains(where: { $0.surname.prefix(1) == contact.surname.prefix(1) }) {
-                self.contactsSectionTitles.remove(at: indexPath.row)
+            if !self.contactsDictionary[contactKey]!.contains(where: { $0.surname.prefix(1) == contact.surname.prefix(1) }) {
+                self.contactsSectionTitles.removeAll(where: { $0 == String(contact.surname.prefix(1)) })
                 let indexSet = IndexSet(arrayLiteral: indexPath.section)
                 self.contactsTable.deleteSections(indexSet, with: .automatic)
             }
             
-            self.importFirstContactNotification.isHidden = self.contacts.count != 0
+            self.importFirstContactNotification.isHidden = self.contactsSectionTitles.count != 0
 
             completion(true)
         }
