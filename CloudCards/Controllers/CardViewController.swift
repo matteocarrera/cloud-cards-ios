@@ -1,67 +1,35 @@
 import UIKit
-import RealmSwift
-import FirebaseFirestore
 import MessageUI
 
 class CardViewController: UIViewController {
 
     @IBOutlet weak var cardDataTable: UITableView!
+    @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet var cardPhoto: UIImageView!
     @IBOutlet var userInitialsLabel: UILabel!
     
-    private let realm = RealmInstance.getInstance()
+    public var currentUser = User()
     
+    private let realm = RealmInstance.getInstance()
     // Массив данных пользователя из выбранной визитки
     private var data = [DataItem]()
-    // ID пользователя, полученный при переходе в окно просмотра визитки из шаблонов или контактов
-    public var userId = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView(table: cardDataTable, controller: self)
-
+        cardPhoto.layer.cornerRadius = cardPhoto.frame.height/2
         setExportButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
         self.navigationItem.title = "Визитка"
-        
-        cardPhoto.layer.cornerRadius = cardPhoto.frame.height/2
-        
-        let userBoolean = realm.objects(UserBoolean.self).filter("uuid = \"\(userId)\"")[0]
-        
-        let db = FirestoreInstance.getInstance()
-        db.collection(FirestoreInstance.USERS)
-            .document(userBoolean.parentId)
-            .collection(FirestoreInstance.DATA)
-            .document(userBoolean.parentId)
-            .getDocument { (document, error) in
-            if let document = document, document.exists {
-                    let dataDescription = document.data()
-                
-                    let owner = convertFromDictionary(dictionary: dataDescription!, type: User.self)
-                      
-                    let currentUser = getUserFromTemplate(user: owner, userBoolean: userBoolean)
-                    
-                    self.data = setDataToList(user: currentUser)
-                    
-                    if owner.photo != "" {
-                        self.cardPhoto.image = getPhotoFromDatabase(photoUuid: owner.photo)
-                        self.userInitialsLabel.isHidden = true
-                    } else {
-                        self.userInitialsLabel.text = String(currentUser.name.character(at: 0)!) + String(currentUser.surname.character(at: 0)!)
-                        self.userInitialsLabel.isHidden = false
-                    }
-                    
-                    self.cardDataTable.reloadData()
-                } else {
-                    print("Document does not exist")
-                }
-        }
-        
-        cardDataTable.reloadData()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        loadUserData()
+        loadingIndicator.stopAnimating()
     }
     
     @objc func exportContact(_ sender: Any) {
@@ -76,6 +44,21 @@ class CardViewController: UIViewController {
         alert.addAction(UIAlertAction.init(title: "Нет", style: .cancel))
         self.present(alert, animated: true, completion: nil)
         
+    }
+    
+    private func loadUserData() {
+        data = setDataToList(user: currentUser)
+        
+        if currentUser.photo != "" {
+            cardPhoto.image = getPhotoFromDatabase(photoUuid: currentUser.photo)
+            userInitialsLabel.isHidden = true
+        } else {
+            userInitialsLabel.text = String(currentUser.name.character(at: 0)!) + String(currentUser.surname.character(at: 0)!)
+            userInitialsLabel.isHidden = false
+        }
+        cardPhoto.isHidden = false
+        
+        cardDataTable.reloadData()
     }
     
     private func setExportButton() {
