@@ -229,10 +229,8 @@ class ContactsController: UIViewController {
 
                     let contactKey = String(currentUser.surname.prefix(1))
                     if var contactValues = self.contactsDictionary[contactKey] {
-                        if !contactValues.contains(currentUser) {
-                            contactValues.append(currentUser)
-                            self.contactsDictionary[contactKey] = contactValues
-                        }
+                        contactValues.append(currentUser)
+                        self.contactsDictionary[contactKey] = contactValues
                     } else {
                         self.contactsDictionary[contactKey] = [currentUser]
                     }
