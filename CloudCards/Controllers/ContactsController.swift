@@ -14,6 +14,8 @@ class ContactsController: UIViewController {
     private let realm = RealmInstance.getInstance()
     private var contactsDictionary = [String:[User]]()
     private var contactsSectionTitles = [String]()
+    private var filteredContacts = [User]()
+    private let search = UISearchController(searchResultsController: nil)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -149,10 +151,12 @@ class ContactsController: UIViewController {
      */
 
     private func setSearchBar() {
-        let search = UISearchController(searchResultsController: nil)
         search.searchResultsUpdater = self
         search.searchBar.placeholder = "Поиск"
         search.searchBar.setValue("Отмена", forKey: "cancelButtonText")
+        search.searchResultsUpdater = self
+        search.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
         self.navigationItem.searchController = search
     }
     
@@ -253,14 +257,19 @@ class ContactsController: UIViewController {
 extension ContactsController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return contactsSectionTitles.count
+        return searchIsActivated() ? 1 : contactsSectionTitles.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchIsActivated() {
+            return filteredContacts.count
+        }
+        
         let contactKey = contactsSectionTitles[section]
         if let contactValues = contactsDictionary[contactKey] {
             return contactValues.count
         }
+        
         return 0
     }
     
@@ -269,20 +278,24 @@ extension ContactsController: UITableViewDataSource {
         
         cell.accessoryType = .none
         
-        let contactKey = contactsSectionTitles[indexPath.section]
-        if let contactValues = contactsDictionary[contactKey] {
-            cell.update(with: contactValues[indexPath.row])
+        if searchIsActivated() {
+            cell.update(with: filteredContacts[indexPath.row])
+        } else {
+            let contactKey = contactsSectionTitles[indexPath.section]
+            if let contactValues = contactsDictionary[contactKey] {
+                cell.update(with: contactValues[indexPath.row])
+            }
         }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return contactsSectionTitles[section]
+        return searchIsActivated() ? nil : contactsSectionTitles[section]
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return contactsSectionTitles
+        return searchIsActivated() ? nil : contactsSectionTitles
     }
 }
 
@@ -342,6 +355,9 @@ extension ContactsController: UITableViewDelegate {
     }
     
     private func getUserFromRow(with indexPath : IndexPath) -> User {
+        if searchIsActivated() {
+            return filteredContacts[indexPath.row]
+        }
         let contactKey = contactsSectionTitles[indexPath.section]
         let contactValues = contactsDictionary[contactKey]
         return contactValues![indexPath.row]
@@ -418,8 +434,27 @@ extension ContactsController {
 
 extension ContactsController: UISearchResultsUpdating {
     
+    func filterContacts(for searchText: String) {
+        let contactsArrays = contactsDictionary.values
+        var contacts = [User]()
+        
+        contactsArrays.forEach { (users) in
+            contacts.append(contentsOf: users)
+        }
+        
+        filteredContacts = contacts.filter { contact in
+            return contact.surname.lowercased().contains(searchText.lowercased())
+        }
+        
+        contactsTable.reloadData()
+    }
+    
     func updateSearchResults(for searchController: UISearchController) {
-        // Поиск
+        filterContacts(for: searchController.searchBar.text ?? String())
+    }
+    
+    func searchIsActivated() -> Bool {
+        return search.isActive && search.searchBar.text != ""
     }
 }
 
@@ -436,6 +471,7 @@ extension ContactsController: UISearchBarDelegate {
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        contactsTable.reloadData()
     }
 }
 
