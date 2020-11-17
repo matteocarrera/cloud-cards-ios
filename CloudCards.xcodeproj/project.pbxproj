@@ -199,6 +199,7 @@
 		E714B25224705D5000BB3F05 /* CloudCards */ = {
 			isa = PBXGroup;
 			children = (
+				E7E282142563DBE90088A0D5 /* Instances */,
 				E77F9AF1252A197800799EC5 /* Constants */,
 				E7062D4A24F687F2006723EB /* CloudCards.entitlements */,
 				E737940724D0004100440FF4 /* Extensions */,
@@ -271,10 +272,17 @@
 			children = (
 				E7E00F18252763EB003A7D15 /* ColorConstants.swift */,
 				E78B37202528EAA40001C3B9 /* TextConstants.swift */,
+			);
+			path = Constants;
+			sourceTree = "<group>";
+		};
+		E7E282142563DBE90088A0D5 /* Instances */ = {
+			isa = PBXGroup;
+			children = (
 				E7EB2858253F0BC20004D4E7 /* FirestoreInstance.swift */,
 				E7EB285E253F0FE60004D4E7 /* RealmInstance.swift */,
 			);
-			path = Constants;
+			path = Instances;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

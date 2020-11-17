@@ -1,7 +1,5 @@
 import UIKit
-import RealmSwift
 import FirebaseStorage
-import FirebaseFirestore
 
 class EditProfileController: UIViewController {
     
@@ -28,7 +26,7 @@ class EditProfileController: UIViewController {
     @IBOutlet weak var notesField: UITextField!
     
     // Объект Realm, позволяющий осуществлять операции с локальной БД
-    private let realm : Realm = RealmInstance.getInstance()
+    private let realm = RealmInstance.getInstance()
     
     // Контроллер, отвечающий за работу выбора фотографии пользователя для его профиля
     private var imagePickerController : UIImagePickerController?

@@ -1,7 +1,5 @@
 import Foundation
 import UIKit
-import FirebaseFirestore
-import RealmSwift
 
 public func saveUser(controller : UIViewController, link : String) {
     let parentId = String(link.split(separator: "|")[0])
@@ -18,7 +16,7 @@ public func saveUser(controller : UIViewController, link : String) {
             
             let userBoolean = convertFromDictionary(dictionary: dataDescription!, type: UserBoolean.self)
 
-            let realm = try! Realm()
+            let realm = RealmInstance.getInstance()
             
             let existingUserDict = realm.objects(UserBoolean.self).filter("uuid = \"\(userBoolean.uuid)\"")
             
@@ -26,7 +24,7 @@ public func saveUser(controller : UIViewController, link : String) {
                 
                 try! realm.write {
                     realm.add(userBoolean)
-                    print("User successfully added!")
+                    print("Пользователь успешно добавлен!")
                 }
                 
                 realm.refresh()

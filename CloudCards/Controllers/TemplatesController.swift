@@ -1,5 +1,4 @@
 import UIKit
-import RealmSwift
 
 class TemplatesController: UIViewController {
 
