@@ -101,6 +101,10 @@ class ContactsController: UIViewController {
         }
     }
     
+    /*
+        Загрузка данных контактов
+     */
+    
     private func loadData() {
         contactsDictionary.removeAll()
         contactsSectionTitles.removeAll()
