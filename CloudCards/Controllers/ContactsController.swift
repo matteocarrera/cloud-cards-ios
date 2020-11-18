@@ -7,13 +7,13 @@ class ContactsController: UIViewController {
     @IBOutlet var selectMultipleButton: UIBarButtonItem!
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     
-    // Флаг, показывающий, что пользователь выбрал функцию множественного выбора визиток
-    public var multipleChoiceActivated = false
     public var selectedContactsUuid = [String]()
     
     private let realm = RealmInstance.getInstance()
+    private let search = UISearchController(searchResultsController: nil)
     private var contactsDictionary = [String:[User]]()
     private var contactsSectionTitles = [String]()
+    private var filteredContacts = [User]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,10 +83,11 @@ class ContactsController: UIViewController {
      */
     
     @objc func selectMultiple(_ sender: Any) {
-        if multipleChoiceActivated {
+        if contactsTable.isEditing {
             self.contactsTable.deselectSelectedRow(animated: true)
             cancelSelection()
         } else {
+            contactsTable.setEditing(true, animated: true)
             let cancelButton : UIBarButtonItem = UIBarButtonItem(
                 title: "Отменить",
                 style: UIBarButtonItem.Style.plain,
@@ -96,8 +97,6 @@ class ContactsController: UIViewController {
             cancelButton.tintColor = PRIMARY
 
             self.navigationItem.rightBarButtonItem = cancelButton
-            
-            multipleChoiceActivated = true
         }
     }
     
@@ -149,10 +148,12 @@ class ContactsController: UIViewController {
      */
 
     private func setSearchBar() {
-        let search = UISearchController(searchResultsController: nil)
         search.searchResultsUpdater = self
         search.searchBar.placeholder = "Поиск"
         search.searchBar.setValue("Отмена", forKey: "cancelButtonText")
+        search.searchResultsUpdater = self
+        search.dimsBackgroundDuringPresentation = false
+        definesPresentationContext = true
         self.navigationItem.searchController = search
     }
     
@@ -194,7 +195,7 @@ class ContactsController: UIViewController {
         setSelectButton()
         selectedContactsUuid.removeAll()
         self.navigationController?.isToolbarHidden = true
-        multipleChoiceActivated = false
+        contactsTable.setEditing(false, animated: true)
     }
     
     /*
@@ -250,41 +251,52 @@ class ContactsController: UIViewController {
     }
 }
 
+// MARK: - UITableViewDataSource
+
 extension ContactsController: UITableViewDataSource {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return contactsSectionTitles.count
+        return searchIsActivated() ? 1 : contactsSectionTitles.count
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if searchIsActivated() {
+            return filteredContacts.count
+        }
+        
         let contactKey = contactsSectionTitles[section]
         if let contactValues = contactsDictionary[contactKey] {
             return contactValues.count
         }
+        
         return 0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = contactsTable.dequeueReusableCell(withIdentifier: "ContactsDataCell", for: indexPath) as! ContactsDataCell
-        
-        cell.accessoryType = .none
-        
-        let contactKey = contactsSectionTitles[indexPath.section]
-        if let contactValues = contactsDictionary[contactKey] {
-            cell.update(with: contactValues[indexPath.row])
+
+        if searchIsActivated() {
+            cell.update(with: filteredContacts[indexPath.row])
+        } else {
+            let contactKey = contactsSectionTitles[indexPath.section]
+            if let contactValues = contactsDictionary[contactKey] {
+                cell.update(with: contactValues[indexPath.row])
+            }
         }
         
         return cell
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return contactsSectionTitles[section]
+        return searchIsActivated() ? nil : contactsSectionTitles[section]
     }
     
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
-        return contactsSectionTitles
+        return searchIsActivated() ? nil : contactsSectionTitles
     }
 }
+
+// MARK: - UITableViewDelegate
 
 extension ContactsController: UITableViewDelegate {
     
@@ -295,10 +307,10 @@ extension ContactsController: UITableViewDelegate {
         
         let uuid = "\(contact.parentId)|\(contact.uuid)"
         
-        if multipleChoiceActivated {
+        if contactsTable.isEditing {
             selectedContactsUuid.append(uuid)
 
-            cell.accessoryType = .checkmark
+            cell.tintColor = PRIMARY
             
             if self.navigationController?.isToolbarHidden == true {
                 self.navigationController?.isToolbarHidden = false
@@ -321,13 +333,10 @@ extension ContactsController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-        guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        
         let contact = getUserFromRow(with: indexPath)
         let uuid = "\(contact.parentId)|\(contact.uuid)"
         
         selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: uuid)!)
-        cell.accessoryType = .none
         
         if selectedContactsUuid.count == 0 {
             self.navigationController?.isToolbarHidden = true
@@ -342,11 +351,16 @@ extension ContactsController: UITableViewDelegate {
     }
     
     private func getUserFromRow(with indexPath : IndexPath) -> User {
+        if searchIsActivated() {
+            return filteredContacts[indexPath.row]
+        }
         let contactKey = contactsSectionTitles[indexPath.section]
         let contactValues = contactsDictionary[contactKey]
         return contactValues![indexPath.row]
     }
 }
+
+// MARK: - RowButtons
 
 extension ContactsController {
     
@@ -416,12 +430,41 @@ extension ContactsController {
     }
 }
 
+// MARK: - UISearchResultsUpdating
+
 extension ContactsController: UISearchResultsUpdating {
     
+    func filterContacts(for searchText: String) {
+        let contactsArrays = contactsDictionary.values
+        var contacts = [User]()
+        
+        contactsArrays.forEach { (users) in
+            contacts.append(contentsOf: users)
+        }
+        
+        filteredContacts.removeAll()
+        
+        contacts.forEach { (contact) in
+            if contact.name.lowercased().contains(searchText.lowercased()) ||
+                contact.surname.lowercased().contains(searchText.lowercased()) ||
+                contact.company.lowercased().contains(searchText.lowercased()) {
+                filteredContacts.append(contact)
+            }
+        }
+    }
+    
     func updateSearchResults(for searchController: UISearchController) {
-        // Поиск
+        filterContacts(for: searchController.searchBar.text ?? String())
+        
+        contactsTable.reloadData()
+    }
+    
+    func searchIsActivated() -> Bool {
+        return search.isActive && search.searchBar.text != ""
     }
 }
+
+// MARK: - UISearchBarDelegate
 
 extension ContactsController: UISearchBarDelegate {
     
@@ -436,6 +479,7 @@ extension ContactsController: UISearchBarDelegate {
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        contactsTable.reloadData()
     }
 }
 
@@ -449,6 +493,7 @@ class ContactsDataCell : UITableViewCell {
 
     public func update(with user: User) {
         contactPhoto.image = getPhotoFromDatabase(photoUuid: user.photo)
+        contactInitials.isHidden = true
         if contactPhoto.image == nil {
             contactInitials.isHidden = false
             contactInitials.text = String(user.name.character(at: 0)!) + String(user.surname.character(at: 0)!)
