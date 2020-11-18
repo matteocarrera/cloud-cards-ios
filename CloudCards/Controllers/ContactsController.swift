@@ -493,6 +493,7 @@ class ContactsDataCell : UITableViewCell {
 
     public func update(with user: User) {
         contactPhoto.image = getPhotoFromDatabase(photoUuid: user.photo)
+        contactInitials.isHidden = true
         if contactPhoto.image == nil {
             contactInitials.isHidden = false
             contactInitials.text = String(user.name.character(at: 0)!) + String(user.surname.character(at: 0)!)
