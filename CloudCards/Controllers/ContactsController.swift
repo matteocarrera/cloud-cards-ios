@@ -151,7 +151,6 @@ class ContactsController: UIViewController {
         search.searchResultsUpdater = self
         search.searchBar.placeholder = "Поиск"
         search.searchBar.setValue("Отмена", forKey: "cancelButtonText")
-        search.searchResultsUpdater = self
         search.dimsBackgroundDuringPresentation = false
         definesPresentationContext = true
         self.navigationItem.searchController = search

@@ -8,6 +8,7 @@
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="collection view cell content view" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -1039,7 +1040,7 @@
         <scene sceneID="pg3-CD-GLV">
             <objects>
                 <navigationController title="Визитки" id="BUo-ua-BtS" customClass="NavigationController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Визитки" image="rectangle.stack.fill" catalog="system" id="Rwv-ej-i7m"/>
+                    <tabBarItem key="tabBarItem" title="Мои визитки" image="rectangle.stack.fill" catalog="system" id="Rwv-ej-i7m"/>
                     <navigationItem key="navigationItem" title="Визитки" id="nRH-mC-K1H">
                         <barButtonItem key="backBarButtonItem" title="Назад" id="zAV-NL-rVp">
                             <color key="tintColor" name="Primary"/>
@@ -1059,7 +1060,7 @@
                         </userDefinedRuntimeAttributes>
                     </navigationBar>
                     <connections>
-                        <segue destination="AgW-sJ-zeS" kind="relationship" relationship="rootViewController" id="bme-mi-PIw"/>
+                        <segue destination="ryJ-N3-Zw2" kind="relationship" relationship="rootViewController" id="vAa-Rc-pp3"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jSh-ek-3Fb" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1349,6 +1350,89 @@
             <point key="canvasLocation" x="-949.27536231884062" y="1954.6875"/>
         </scene>
         <!--Мои визитки-->
+        <scene sceneID="LWa-yX-pjN">
+            <objects>
+                <collectionViewController id="ryJ-N3-Zw2" customClass="NewTemplatesController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="8Q0-gB-3E7">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BKr-fV-Adq">
+                            <size key="itemSize" width="128" height="128"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TemplateCell" id="K4U-2m-Og1" customClass="TemplateCell" customModule="CloudCards" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="VBJ-qb-RfD">
+                                    <rect key="frame" x="0.0" y="0.0" width="128" height="128"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Se-dF-JtI">
+                                            <rect key="frame" x="15" y="87.5" width="105" height="25.5"/>
+                                            <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
+                                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwI-8F-KQI">
+                                            <rect key="frame" x="90" y="8.5" width="30" height="29"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="30" id="Tnn-Mh-G3J"/>
+                                                <constraint firstAttribute="width" constant="30" id="YcX-4f-zpX"/>
+                                            </constraints>
+                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                            <color key="tintColor" white="1" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <state key="normal" backgroundImage="ellipsis.circle.fill" catalog="system"/>
+                                            <connections>
+                                                <action selector="moreButtonClicked:" destination="K4U-2m-Og1" eventType="touchUpInside" id="Sjp-8h-oGm"/>
+                                            </connections>
+                                        </button>
+                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.circle.fill" catalog="system" id="C1t-cD-K2j">
+                                            <rect key="frame" x="8" y="8" width="30" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <color key="tintColor" name="Primary"/>
+                                        </imageView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="fwI-8F-KQI" secondAttribute="trailing" constant="8" id="2op-nk-OrV"/>
+                                        <constraint firstAttribute="trailing" secondItem="9Se-dF-JtI" secondAttribute="trailing" constant="8" id="8bL-2R-TKb"/>
+                                        <constraint firstItem="9Se-dF-JtI" firstAttribute="leading" secondItem="VBJ-qb-RfD" secondAttribute="leading" constant="15" id="NPA-m9-9Vo"/>
+                                        <constraint firstItem="fwI-8F-KQI" firstAttribute="top" secondItem="VBJ-qb-RfD" secondAttribute="top" constant="8" id="lBo-qu-CTh"/>
+                                        <constraint firstAttribute="bottom" secondItem="9Se-dF-JtI" secondAttribute="bottom" constant="15" id="mPE-KY-LVf"/>
+                                    </constraints>
+                                </collectionViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="moreButton" destination="fwI-8F-KQI" id="KH0-tH-xeB"/>
+                                    <outlet property="plusImage" destination="C1t-cD-K2j" id="05W-H0-X8y"/>
+                                    <outlet property="title" destination="9Se-dF-JtI" id="wA8-DQ-OxX"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="ryJ-N3-Zw2" id="yHF-ac-JX5"/>
+                            <outlet property="delegate" destination="ryJ-N3-Zw2" id="P50-us-F22"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Мои визитки" id="yxw-4S-CZh">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="ZUy-Zz-aw9"/>
+                        <barButtonItem key="leftBarButtonItem" title="Добавить" image="plus" catalog="system" id="HaR-62-GNZ">
+                            <color key="tintColor" name="Primary"/>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="addTemplateButton" destination="HaR-62-GNZ" id="7fe-PZ-RPV"/>
+                    </connections>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="NlX-Vo-mZG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-36" y="1152"/>
+        </scene>
+        <!--Мои визитки-->
         <scene sceneID="lqG-Gj-mn6">
             <objects>
                 <viewController title="Мои визитки" id="AgW-sJ-zeS" customClass="TemplatesController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
@@ -1357,7 +1441,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="45M-Gk-pTO">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <inset key="separatorInset" minX="10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                 <prototypes>
@@ -1402,7 +1486,7 @@
                                 </prototypes>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Создайте свою первую визитку с помощью кнопки +" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LA6-WA-XtI">
-                                <rect key="frame" x="10" y="193.5" width="394" height="338"/>
+                                <rect key="frame" x="10" y="237.5" width="394" height="431"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1425,9 +1509,6 @@
                         <barButtonItem key="backBarButtonItem" title="Назад" id="SbH-5j-N1Z">
                             <color key="tintColor" name="Primary"/>
                         </barButtonItem>
-                        <barButtonItem key="leftBarButtonItem" title="Добавить" image="plus" catalog="system" id="HaR-62-GNZ">
-                            <color key="tintColor" name="Primary"/>
-                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="addTemplateButton" destination="HaR-62-GNZ" id="CwJ-ha-w1f"/>
@@ -1437,7 +1518,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bgy-t6-elR" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-36" y="1152"/>
+            <point key="canvasLocation" x="896" y="1955"/>
         </scene>
         <!--Контакты-->
         <scene sceneID="AK4-5g-ljg">
@@ -1613,10 +1694,12 @@
         <image name="camera.fill" catalog="system" width="128" height="94"/>
         <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="circle" catalog="system" width="128" height="121"/>
+        <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
         <image name="plus" catalog="system" width="128" height="113"/>
+        <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="rectangle.stack.fill" catalog="system" width="128" height="122"/>
         <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
         <namedColor name="Graphite">

@@ -19,8 +19,6 @@ class ProfileController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        //print(Realm.Configuration.defaultConfiguration.fileURL)
-        
         /*
             Получение данных основного пользователя приложения
          */
