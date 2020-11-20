@@ -69,12 +69,8 @@ class TemplateCell : UICollectionViewCell {
         
         let menu = UIMenu(title: String(), children: [info, share, changeColor, delete])
         
-        if #available(iOS 14.0, *) {
-            moreButton.menu = menu
-            moreButton.showsMenuAsPrimaryAction = true
-        } else {
-            // Fallback on earlier versions
-        }
+        moreButton.menu = menu
+        moreButton.showsMenuAsPrimaryAction = true
     }
     
     private func openCard() {
