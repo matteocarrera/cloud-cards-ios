@@ -23,7 +23,7 @@
 		E71D726E24841A3200174B24 /* QRController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D726D24841A3200174B24 /* QRController.swift */; };
 		E734F6F224D3F45A008EC9D9 /* ProgramUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734F6F124D3F45A008EC9D9 /* ProgramUtils.swift */; };
 		E734F6F424D40069008EC9D9 /* TableUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734F6F324D40069008EC9D9 /* TableUtils.swift */; };
-		E737940224C5C73400440FF4 /* TemplatesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E737940124C5C73400440FF4 /* TemplatesController.swift */; };
+		E737940224C5C73400440FF4 /* OldTemplatesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E737940124C5C73400440FF4 /* OldTemplatesController.swift */; };
 		E737940424CD6DA400440FF4 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E737940324CD6DA400440FF4 /* UIColor.swift */; };
 		E737940624CFF24000440FF4 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E737940524CFF24000440FF4 /* CardViewController.swift */; };
 		E74A48432471560C0004B5B5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A48422471560C0004B5B5 /* User.swift */; };
@@ -34,7 +34,7 @@
 		E786836B2488E77000844DD4 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786836A2488E77000844DD4 /* EditProfileController.swift */; };
 		E78B37212528EAA40001C3B9 /* TextConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78B37202528EAA40001C3B9 /* TextConstants.swift */; };
 		E78BB3312566C28D0023BFC9 /* TemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78BB3302566C28D0023BFC9 /* TemplateCell.swift */; };
-		E78BB3352566C3370023BFC9 /* NewTemplatesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78BB3342566C3370023BFC9 /* NewTemplatesController.swift */; };
+		E78BB3352566C3370023BFC9 /* TemplatesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78BB3342566C3370023BFC9 /* TemplatesController.swift */; };
 		E7A8275B24D171F00024F414 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A8275A24D171F00024F414 /* ContactsController.swift */; };
 		E7DA719624C31A19009DD08E /* UserBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DA719524C31A19009DD08E /* UserBoolean.swift */; };
 		E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DDDC1424826BDC00E8F462 /* DataUtils.swift */; };
@@ -95,7 +95,7 @@
 		E71D726D24841A3200174B24 /* QRController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRController.swift; sourceTree = "<group>"; };
 		E734F6F124D3F45A008EC9D9 /* ProgramUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramUtils.swift; sourceTree = "<group>"; };
 		E734F6F324D40069008EC9D9 /* TableUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableUtils.swift; sourceTree = "<group>"; };
-		E737940124C5C73400440FF4 /* TemplatesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesController.swift; sourceTree = "<group>"; };
+		E737940124C5C73400440FF4 /* OldTemplatesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldTemplatesController.swift; sourceTree = "<group>"; };
 		E737940324CD6DA400440FF4 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E737940524CFF24000440FF4 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		E74A48422471560C0004B5B5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 		E786836A2488E77000844DD4 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		E78B37202528EAA40001C3B9 /* TextConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConstants.swift; sourceTree = "<group>"; };
 		E78BB3302566C28D0023BFC9 /* TemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCell.swift; sourceTree = "<group>"; };
-		E78BB3342566C3370023BFC9 /* NewTemplatesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTemplatesController.swift; sourceTree = "<group>"; };
+		E78BB3342566C3370023BFC9 /* TemplatesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesController.swift; sourceTree = "<group>"; };
 		E7A8275A24D171F00024F414 /* ContactsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
 		E7DA719524C31A19009DD08E /* UserBoolean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBoolean.swift; sourceTree = "<group>"; };
 		E7DDDC1424826BDC00E8F462 /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
@@ -252,10 +252,10 @@
 				E786836A2488E77000844DD4 /* EditProfileController.swift */,
 				E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */,
 				E737940524CFF24000440FF4 /* CardViewController.swift */,
-				E737940124C5C73400440FF4 /* TemplatesController.swift */,
+				E737940124C5C73400440FF4 /* OldTemplatesController.swift */,
 				E7A8275A24D171F00024F414 /* ContactsController.swift */,
 				E7F939FE254C1A7900F9B77B /* SettingsController.swift */,
-				E78BB3342566C3370023BFC9 /* NewTemplatesController.swift */,
+				E78BB3342566C3370023BFC9 /* TemplatesController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -454,7 +454,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E78BB3352566C3370023BFC9 /* NewTemplatesController.swift in Sources */,
+				E78BB3352566C3370023BFC9 /* TemplatesController.swift in Sources */,
 				E7F939FF254C1A7900F9B77B /* SettingsController.swift in Sources */,
 				E760A2702482D3D500009919 /* NavigationController.swift in Sources */,
 				E71D726E24841A3200174B24 /* QRController.swift in Sources */,
@@ -477,7 +477,7 @@
 				E7062D722508C913006723EB /* DatabaseUtils.swift in Sources */,
 				E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */,
 				E734F6F224D3F45A008EC9D9 /* ProgramUtils.swift in Sources */,
-				E737940224C5C73400440FF4 /* TemplatesController.swift in Sources */,
+				E737940224C5C73400440FF4 /* OldTemplatesController.swift in Sources */,
 				E7179FBE25517C800082DEDA /* UITableView.swift in Sources */,
 				E7EB2859253F0BC20004D4E7 /* FirestoreInstance.swift in Sources */,
 				E74A48432471560C0004B5B5 /* User.swift in Sources */,

@@ -7,13 +7,13 @@ class TemplateCell : UICollectionViewCell {
     @IBOutlet var plusImage: UIImageView!
     @IBOutlet var moreButton: UIButton!
     
-    private var controller = NewTemplatesController()
+    private var controller = TemplatesController()
     private var userId = String()
     private var cardId = 0
     
     private let realm = RealmInstance.getInstance()
     
-    public func update(with card: Card?, in parentController: NewTemplatesController) {
+    public func update(with card: Card?, in parentController: TemplatesController) {
         setMenu()
         controller = parentController
 

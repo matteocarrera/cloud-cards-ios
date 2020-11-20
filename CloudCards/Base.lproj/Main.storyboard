@@ -1352,7 +1352,7 @@
         <!--Мои визитки-->
         <scene sceneID="LWa-yX-pjN">
             <objects>
-                <collectionViewController id="ryJ-N3-Zw2" customClass="NewTemplatesController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
+                <collectionViewController id="ryJ-N3-Zw2" customClass="TemplatesController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="8Q0-gB-3E7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1432,7 +1432,7 @@
         <!--Мои визитки-->
         <scene sceneID="lqG-Gj-mn6">
             <objects>
-                <viewController title="Мои визитки" id="AgW-sJ-zeS" customClass="TemplatesController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Мои визитки" id="AgW-sJ-zeS" customClass="OldTemplatesController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="siz-Yf-ypA">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
