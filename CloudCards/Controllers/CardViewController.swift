@@ -16,6 +16,11 @@ class CardViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let back = UIBarButtonItem(title: "Назад", style: .done, target: self, action: #selector(closeWindow(_:)))
+        back.tintColor = PRIMARY
+        navigationItem.leftBarButtonItem = back
+        
         configureTableView(table: cardDataTable, controller: self)
         cardPhoto.layer.cornerRadius = cardPhoto.frame.height/2
         setExportButton()
@@ -30,6 +35,10 @@ class CardViewController: UIViewController {
         super.viewDidAppear(animated)
         loadUserData()
         loadingIndicator.stopAnimating()
+    }
+    
+    @objc func closeWindow(_ sender: Any) {
+        self.navigationController?.dismiss(animated: true, completion: nil)
     }
     
     @objc func exportContact(_ sender: Any) {

@@ -8,4 +8,12 @@ public let GRAPHITE = UIColor.init(hexString: "#494E5A")
 public let GRAPHITE_10 = UIColor.init(hexString: "#494E5A", alpha: 0.1)
 
 // Цвета, используемые для создания шаблона визитки основного пользователя
-public var COLORS = ["#FF0000", "#00FF00", "#0000FF", "#7B4987", "#48a89a", "#c5db37", "#cf9211", "#7c888a", "#000000"]
+public var COLORS = [
+    "#7B4987",
+    "#40978A",
+    "#BA830F",
+    "#728CC0",
+    "#8E76BF",
+    "#CB7370",
+    "#D68345"
+]

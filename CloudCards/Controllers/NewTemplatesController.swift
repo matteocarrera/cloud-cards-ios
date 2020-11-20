@@ -6,10 +6,10 @@ class NewTemplatesController: UICollectionViewController, UICollectionViewDelega
     
     @IBOutlet var addTemplateButton: UIBarButtonItem!
     
-    private let realm = RealmInstance.getInstance()
-    
     // Массив шаблонных карточек основного пользователя приложения
-    private var templates = [Card]()
+    public var templates = [Card]()
+    
+    private let realm = RealmInstance.getInstance()
     private var navigationBar = UINavigationBar()
 
     override func viewDidLoad() {
@@ -101,25 +101,13 @@ extension NewTemplatesController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TemplateCell
         
-        cell.layer.cornerRadius = 15
-        
         if indexPath.row == templates.count {
-            cell.title.text = "Создать визитку"
-            cell.title.textColor = PRIMARY
-            cell.plusImage.isHidden = false
-            cell.moreButton.isHidden = true
-            cell.contentView.backgroundColor = PRIMARY_10
-        } else {
-            let template = templates[indexPath.row]
-            
-            cell.title.text = template.title
-            cell.title.textColor = .white
-            cell.userId = template.userId
-            cell.cardId = template.id
-            cell.contentView.backgroundColor = UIColor.init(hexString: template.color)
-            cell.plusImage.isHidden = true
-            cell.moreButton.isHidden = false
+            cell.update(with: nil, in: self)
+            return cell
         }
+        
+        cell.update(with: templates[indexPath.row], in: self)
+        
 
         return cell
     }

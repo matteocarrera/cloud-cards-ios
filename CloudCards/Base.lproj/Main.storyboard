@@ -1386,9 +1386,6 @@
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="tintColor" white="1" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <state key="normal" backgroundImage="ellipsis.circle.fill" catalog="system"/>
-                                            <connections>
-                                                <action selector="moreButtonClicked:" destination="K4U-2m-Og1" eventType="touchUpInside" id="Sjp-8h-oGm"/>
-                                            </connections>
                                         </button>
                                         <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.circle.fill" catalog="system" id="C1t-cD-K2j">
                                             <rect key="frame" x="8" y="8" width="30" height="30"/>
