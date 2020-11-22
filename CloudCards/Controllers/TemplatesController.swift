@@ -24,21 +24,34 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
-        // Сделано для устранения бага с зависанием заголовка при переходе на просмотр визитки
-        self.navigationItem.title = "Мои визитки"
-        self.navigationItem.largeTitleDisplayMode = .always
-        
+
         templates.removeAll()
         templates = Array(realm.objects(Card.self))
 
         collectionView.reloadData()
+        
+        getImportedCard()
     }
     
     @objc func openCreateTemplateWindow() {
         let viewController = storyboard?.instantiateViewController(withIdentifier: "SelectDataController") as! SelectDataController
         let nav = UINavigationController(rootViewController: viewController)
         self.navigationController?.showDetailViewController(nav, sender: nil)
+    }
+    
+    /*
+        Получение импортированных визиток в приложение и их обработка и сохранение
+     */
+    
+    private func getImportedCard() {
+        let defaults = UserDefaults(suiteName: "group.com.mksdevelopmentgroup.cloudcards")
+        let link = String((defaults?.string(forKey: "link") ?? ""))
+        
+        if link.contains("|") {
+            saveUser(controller: self, link: link)
+        }
+
+        defaults?.removeObject(forKey: "link")
     }
     
     private func setLargeNavigationBar() {
@@ -71,7 +84,13 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             openCreateTemplateWindow()
             return
         }
-        let cell = templates[indexPath.row]
+        
+        let templateUser = realm.objects(UserBoolean.self).filter("uuid = \"\(templates[indexPath.row].userId)\"")[0]
+        let parentUser = realm.objects(User.self)[0]
+        let generatedUser = getUserFromTemplate(user: parentUser, userBoolean: templateUser)
+        let userLink = "\(generatedUser.parentId)|\(generatedUser.uuid)"
+        
+        showShareController(with: userLink, in: self)
     }
 }
 
@@ -108,7 +127,6 @@ extension TemplatesController {
         
         cell.update(with: templates[indexPath.row], in: self)
         
-
         return cell
     }
 }

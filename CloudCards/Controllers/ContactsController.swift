@@ -366,12 +366,8 @@ extension ContactsController {
     func showQR(at indexPath: IndexPath) -> UIContextualAction {
         let contact = getUserFromRow(with: indexPath)
         let action = UIContextualAction(style: .normal, title: "ShowQR") { (action, view, completion) in
-
-            let qrController = self.storyboard?.instantiateViewController(withIdentifier: "QRController") as! QRController
-            qrController.contact = contact
-            
-            self.navigationController?.pushViewController(qrController, animated: true)
-            
+            let userLink = "\(contact.parentId)|\(contact.uuid)"
+            showShareController(with: userLink, in: self)
             completion(true)
         }
         action.image = UIImage(systemName: "qrcode")

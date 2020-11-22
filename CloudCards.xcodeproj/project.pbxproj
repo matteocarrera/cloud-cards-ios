@@ -20,10 +20,12 @@
 		E714B26224705D5200BB3F05 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E714B26024705D5200BB3F05 /* LaunchScreen.storyboard */; };
 		E71728212526222E00704371 /* JsonUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71728202526222E00704371 /* JsonUtils.swift */; };
 		E7179FBE25517C800082DEDA /* UITableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7179FBD25517C800082DEDA /* UITableView.swift */; };
-		E71D726E24841A3200174B24 /* QRController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D726D24841A3200174B24 /* QRController.swift */; };
+		E71D4E27256AC317003FC189 /* PresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D4E26256AC317003FC189 /* PresentationController.swift */; };
+		E71D4E2C256AC3C1003FC189 /* ShareController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E71D4E2B256AC3C1003FC189 /* ShareController.xib */; };
+		E71D4E30256AC5A6003FC189 /* ShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D4E2F256AC5A6003FC189 /* ShareController.swift */; };
+		E71D4E34256AC6E4003FC189 /* ControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D4E33256AC6E4003FC189 /* ControllerExtensions.swift */; };
 		E734F6F224D3F45A008EC9D9 /* ProgramUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734F6F124D3F45A008EC9D9 /* ProgramUtils.swift */; };
 		E734F6F424D40069008EC9D9 /* TableUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734F6F324D40069008EC9D9 /* TableUtils.swift */; };
-		E737940224C5C73400440FF4 /* OldTemplatesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E737940124C5C73400440FF4 /* OldTemplatesController.swift */; };
 		E737940424CD6DA400440FF4 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E737940324CD6DA400440FF4 /* UIColor.swift */; };
 		E737940624CFF24000440FF4 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E737940524CFF24000440FF4 /* CardViewController.swift */; };
 		E74A48432471560C0004B5B5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A48422471560C0004B5B5 /* User.swift */; };
@@ -92,10 +94,12 @@
 		E714B26324705D5200BB3F05 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E71728202526222E00704371 /* JsonUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JsonUtils.swift; sourceTree = "<group>"; };
 		E7179FBD25517C800082DEDA /* UITableView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UITableView.swift; sourceTree = "<group>"; };
-		E71D726D24841A3200174B24 /* QRController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRController.swift; sourceTree = "<group>"; };
+		E71D4E26256AC317003FC189 /* PresentationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresentationController.swift; sourceTree = "<group>"; };
+		E71D4E2B256AC3C1003FC189 /* ShareController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareController.xib; sourceTree = "<group>"; };
+		E71D4E2F256AC5A6003FC189 /* ShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareController.swift; sourceTree = "<group>"; };
+		E71D4E33256AC6E4003FC189 /* ControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerExtensions.swift; sourceTree = "<group>"; };
 		E734F6F124D3F45A008EC9D9 /* ProgramUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramUtils.swift; sourceTree = "<group>"; };
 		E734F6F324D40069008EC9D9 /* TableUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableUtils.swift; sourceTree = "<group>"; };
-		E737940124C5C73400440FF4 /* OldTemplatesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OldTemplatesController.swift; sourceTree = "<group>"; };
 		E737940324CD6DA400440FF4 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E737940524CFF24000440FF4 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
 		E74A48422471560C0004B5B5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -203,22 +207,39 @@
 		E714B25224705D5000BB3F05 /* CloudCards */ = {
 			isa = PBXGroup;
 			children = (
+				E71D4E56256AD265003FC189 /* Xibs */,
+				E71D4E55256AD252003FC189 /* Delegates */,
 				E78BB32F2566C27D0023BFC9 /* Cells */,
 				E7E282142563DBE90088A0D5 /* Instances */,
 				E77F9AF1252A197800799EC5 /* Constants */,
-				E7062D4A24F687F2006723EB /* CloudCards.entitlements */,
 				E737940724D0004100440FF4 /* Extensions */,
 				E74A484C24715A830004B5B5 /* Utils */,
 				E74A484B24715A500004B5B5 /* Controllers */,
 				E74A4846247159A10004B5B5 /* Entities */,
-				E714B25324705D5000BB3F05 /* AppDelegate.swift */,
-				E714B25524705D5000BB3F05 /* SceneDelegate.swift */,
 				E714B25B24705D5000BB3F05 /* Main.storyboard */,
+				E7062D4A24F687F2006723EB /* CloudCards.entitlements */,
 				E714B25E24705D5200BB3F05 /* Assets.xcassets */,
 				E714B26024705D5200BB3F05 /* LaunchScreen.storyboard */,
 				E714B26324705D5200BB3F05 /* Info.plist */,
 			);
 			path = CloudCards;
+			sourceTree = "<group>";
+		};
+		E71D4E55256AD252003FC189 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				E714B25324705D5000BB3F05 /* AppDelegate.swift */,
+				E714B25524705D5000BB3F05 /* SceneDelegate.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
+		E71D4E56256AD265003FC189 /* Xibs */ = {
+			isa = PBXGroup;
+			children = (
+				E71D4E2B256AC3C1003FC189 /* ShareController.xib */,
+			);
+			path = Xibs;
 			sourceTree = "<group>";
 		};
 		E737940724D0004100440FF4 /* Extensions */ = {
@@ -227,6 +248,7 @@
 				E737940324CD6DA400440FF4 /* UIColor.swift */,
 				E7F2D448253D8ABD00C38227 /* String.swift */,
 				E7179FBD25517C800082DEDA /* UITableView.swift */,
+				E71D4E33256AC6E4003FC189 /* ControllerExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -245,14 +267,14 @@
 		E74A484B24715A500004B5B5 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				E71D4E2F256AC5A6003FC189 /* ShareController.swift */,
+				E71D4E26256AC317003FC189 /* PresentationController.swift */,
 				E714B25924705D5000BB3F05 /* CameraController.swift */,
 				E74A484F2471707C0004B5B5 /* ProfileController.swift */,
 				E760A26F2482D3D500009919 /* NavigationController.swift */,
-				E71D726D24841A3200174B24 /* QRController.swift */,
 				E786836A2488E77000844DD4 /* EditProfileController.swift */,
 				E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */,
 				E737940524CFF24000440FF4 /* CardViewController.swift */,
-				E737940124C5C73400440FF4 /* OldTemplatesController.swift */,
 				E7A8275A24D171F00024F414 /* ContactsController.swift */,
 				E7F939FE254C1A7900F9B77B /* SettingsController.swift */,
 				E78BB3342566C3370023BFC9 /* TemplatesController.swift */,
@@ -392,6 +414,7 @@
 			files = (
 				E714B26224705D5200BB3F05 /* LaunchScreen.storyboard in Resources */,
 				E7F6B97C2544365400224115 /* GoogleService-Info.plist in Resources */,
+				E71D4E2C256AC3C1003FC189 /* ShareController.xib in Resources */,
 				E714B25F24705D5200BB3F05 /* Assets.xcassets in Resources */,
 				E714B25D24705D5000BB3F05 /* Main.storyboard in Resources */,
 			);
@@ -457,7 +480,6 @@
 				E78BB3352566C3370023BFC9 /* TemplatesController.swift in Sources */,
 				E7F939FF254C1A7900F9B77B /* SettingsController.swift in Sources */,
 				E760A2702482D3D500009919 /* NavigationController.swift in Sources */,
-				E71D726E24841A3200174B24 /* QRController.swift in Sources */,
 				E7E4E637248BA19C00C6E2A0 /* SelectDataController.swift in Sources */,
 				E7F2D449253D8ABD00C38227 /* String.swift in Sources */,
 				E737940624CFF24000440FF4 /* CardViewController.swift in Sources */,
@@ -469,6 +491,7 @@
 				E74A4845247158E50004B5B5 /* Card.swift in Sources */,
 				E78B37212528EAA40001C3B9 /* TextConstants.swift in Sources */,
 				E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */,
+				E71D4E30256AC5A6003FC189 /* ShareController.swift in Sources */,
 				E7E00F19252763EB003A7D15 /* ColorConstants.swift in Sources */,
 				E7F2D445253D867200C38227 /* Reachability.swift in Sources */,
 				E7A8275B24D171F00024F414 /* ContactsController.swift in Sources */,
@@ -477,8 +500,9 @@
 				E7062D722508C913006723EB /* DatabaseUtils.swift in Sources */,
 				E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */,
 				E734F6F224D3F45A008EC9D9 /* ProgramUtils.swift in Sources */,
-				E737940224C5C73400440FF4 /* OldTemplatesController.swift in Sources */,
+				E71D4E27256AC317003FC189 /* PresentationController.swift in Sources */,
 				E7179FBE25517C800082DEDA /* UITableView.swift in Sources */,
+				E71D4E34256AC6E4003FC189 /* ControllerExtensions.swift in Sources */,
 				E7EB2859253F0BC20004D4E7 /* FirestoreInstance.swift in Sources */,
 				E74A48432471560C0004B5B5 /* User.swift in Sources */,
 				E7DA719624C31A19009DD08E /* UserBoolean.swift in Sources */,

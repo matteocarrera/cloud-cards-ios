@@ -52,12 +52,13 @@ class TemplateCell : UICollectionViewCell {
             self.shareCard()
         }
         
-        let changeColor = UIAction(
+        // Оставлю на будущее для другого окна
+        /*let changeColor = UIAction(
             title: "Изменить цвет",
             image: UIImage(systemName: "paintbrush.pointed")
         ) { (_) in
             self.changeCardColor()
-        }
+        }*/
         
         let delete = UIAction(
             title: "Удалить",
@@ -67,7 +68,7 @@ class TemplateCell : UICollectionViewCell {
             self.deleteCard()
         }
         
-        let menu = UIMenu(title: String(), children: [info, share, changeColor, delete])
+        let menu = UIMenu(title: String(), children: [info, share, delete])
         
         moreButton.menu = menu
         moreButton.showsMenuAsPrimaryAction = true
