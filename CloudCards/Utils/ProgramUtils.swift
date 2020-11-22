@@ -9,6 +9,14 @@ func showSimpleAlert(controller : UIViewController, title : String, message : St
     controller.present(ac, animated: true)
 }
 
+func showShareController(with link: String, in controller: UIViewController) {
+    let shareController = ShareController()
+    shareController.modalPresentationStyle = .custom
+    shareController.transitioningDelegate = controller as? UIViewControllerTransitioningDelegate
+    shareController.userLink = link
+    controller.present(shareController, animated: true, completion: nil)
+}
+
 func generateQR(userLink : String) -> UIImage? {
     let data = userLink.data(using: String.Encoding.utf8)
     guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
