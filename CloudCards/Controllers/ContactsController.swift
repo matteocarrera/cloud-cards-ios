@@ -1,5 +1,7 @@
 import UIKit
 
+private let reuseIdentifier = "ContactCell"
+
 class ContactsController: UIViewController {
 
     @IBOutlet var contactsTable: UITableView!
@@ -27,20 +29,7 @@ class ContactsController: UIViewController {
         loadData()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        // Сделано для устранения бага с зависанием заголовка при переходе на просмотр визитки
-        self.navigationItem.title = "Контакты"
-        self.navigationItem.largeTitleDisplayMode = .always
-        self.navigationController?.isToolbarHidden = true
-    }
-    
     override func viewWillDisappear(_ animated: Bool) {
-        // Сделано для устранения бага с зависанием заголовка при переходе на просмотр визитки
-        self.navigationItem.title = ""
-        self.navigationItem.largeTitleDisplayMode = .never
-        
         cancelSelection()
         contactsTable.reloadData()
     }
@@ -84,7 +73,7 @@ class ContactsController: UIViewController {
     
     @objc func selectMultiple(_ sender: Any) {
         if contactsTable.isEditing {
-            self.contactsTable.deselectSelectedRow(animated: true)
+            self.contactsTable.deselectSelectedRows(animated: true)
             cancelSelection()
         } else {
             contactsTable.setEditing(true, animated: true)
@@ -130,6 +119,8 @@ class ContactsController: UIViewController {
         let navigationBar = self.navigationController!.navigationBar
         
         navigationBar.prefersLargeTitles = true
+        self.navigationItem.title = "Контакты"
+        self.navigationItem.largeTitleDisplayMode = .always
         
         self.navigationController?.view.backgroundColor = LIGHT_GRAY
         
@@ -190,7 +181,7 @@ class ContactsController: UIViewController {
         Сброс множественного выбора визиток
      */
     
-    public func cancelSelection() {
+    private func cancelSelection() {
         setSelectButton()
         selectedContactsUuid.removeAll()
         self.navigationController?.isToolbarHidden = true
@@ -217,7 +208,7 @@ class ContactsController: UIViewController {
          Получение данных контакта из Firebase
      */
 
-    public func getUserFromDatabase(userBoolean: UserBoolean) {
+    private func getUserFromDatabase(userBoolean: UserBoolean) {
         let db = FirestoreInstance.getInstance()
         db.collection(FirestoreInstance.USERS)
             .document(userBoolean.parentId)
@@ -272,7 +263,7 @@ extension ContactsController: UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = contactsTable.dequeueReusableCell(withIdentifier: "ContactsDataCell", for: indexPath) as! ContactsDataCell
+        let cell = contactsTable.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! ContactCell
 
         if searchIsActivated() {
             cell.update(with: filteredContacts[indexPath.row])
@@ -316,9 +307,11 @@ extension ContactsController: UITableViewDelegate {
                 setToolbar()
             }
         } else {
-            let cardViewController = storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
+            let cardViewController = self.storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
             cardViewController.currentUser = contact
-            self.navigationController?.pushViewController(cardViewController, animated: true)
+            let nav = UINavigationController(rootViewController: cardViewController)
+            self.navigationController?.showDetailViewController(nav, sender: nil)
+            contactsTable.deselectSelectedRows(animated: true)
         }
     }
     
@@ -475,43 +468,5 @@ extension ContactsController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
         contactsTable.reloadData()
-    }
-}
-
-class ContactsDataCell : UITableViewCell {
-    
-    @IBOutlet var contactPhoto: UIImageView!
-    @IBOutlet var contactName: UILabel!
-    @IBOutlet var contactCompany: UILabel!
-    @IBOutlet var contactJobTitle: UILabel!
-    @IBOutlet var contactInitials: UILabel!
-
-    public func update(with user: User) {
-        contactPhoto.image = getPhotoFromDatabase(photoUuid: user.photo)
-        contactInitials.isHidden = true
-        if contactPhoto.image == nil {
-            contactInitials.isHidden = false
-            contactInitials.text = String(user.name.character(at: 0)!) + String(user.surname.character(at: 0)!)
-        }
-        contactPhoto.layer.cornerRadius = contactPhoto.frame.height/2
-          
-        contactName.text = "\(user.name) \(user.surname)"
-        
-        if user.company != "" {
-            contactCompany.text = user.company
-        }
-        
-        if user.jobTitle != "" {
-            contactJobTitle.text = user.jobTitle
-        }
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setColorToSelectedRow(tableCell: self)
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
 }

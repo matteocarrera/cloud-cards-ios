@@ -28,6 +28,8 @@
 		E734F6F424D40069008EC9D9 /* TableUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734F6F324D40069008EC9D9 /* TableUtils.swift */; };
 		E737940424CD6DA400440FF4 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E737940324CD6DA400440FF4 /* UIColor.swift */; };
 		E737940624CFF24000440FF4 /* CardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E737940524CFF24000440FF4 /* CardViewController.swift */; };
+		E73FD3A8256BBE9B00E97226 /* ContactCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73FD3A7256BBE9B00E97226 /* ContactCell.swift */; };
+		E73FD3B4256BC41F00E97226 /* DataCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73FD3B3256BC41F00E97226 /* DataCell.swift */; };
 		E74A48432471560C0004B5B5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A48422471560C0004B5B5 /* User.swift */; };
 		E74A4845247158E50004B5B5 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4844247158E50004B5B5 /* Card.swift */; };
 		E74A4848247159B50004B5B5 /* DataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4847247159B50004B5B5 /* DataItem.swift */; };
@@ -102,6 +104,8 @@
 		E734F6F324D40069008EC9D9 /* TableUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableUtils.swift; sourceTree = "<group>"; };
 		E737940324CD6DA400440FF4 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
 		E737940524CFF24000440FF4 /* CardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardViewController.swift; sourceTree = "<group>"; };
+		E73FD3A7256BBE9B00E97226 /* ContactCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactCell.swift; sourceTree = "<group>"; };
+		E73FD3B3256BC41F00E97226 /* DataCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataCell.swift; sourceTree = "<group>"; };
 		E74A48422471560C0004B5B5 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		E74A4844247158E50004B5B5 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		E74A4847247159B50004B5B5 /* DataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataItem.swift; sourceTree = "<group>"; };
@@ -308,6 +312,8 @@
 			isa = PBXGroup;
 			children = (
 				E78BB3302566C28D0023BFC9 /* TemplateCell.swift */,
+				E73FD3A7256BBE9B00E97226 /* ContactCell.swift */,
+				E73FD3B3256BC41F00E97226 /* DataCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -490,6 +496,7 @@
 				E74A4848247159B50004B5B5 /* DataItem.swift in Sources */,
 				E74A4845247158E50004B5B5 /* Card.swift in Sources */,
 				E78B37212528EAA40001C3B9 /* TextConstants.swift in Sources */,
+				E73FD3A8256BBE9B00E97226 /* ContactCell.swift in Sources */,
 				E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */,
 				E71D4E30256AC5A6003FC189 /* ShareController.swift in Sources */,
 				E7E00F19252763EB003A7D15 /* ColorConstants.swift in Sources */,
@@ -507,6 +514,7 @@
 				E74A48432471560C0004B5B5 /* User.swift in Sources */,
 				E7DA719624C31A19009DD08E /* UserBoolean.swift in Sources */,
 				E737940424CD6DA400440FF4 /* UIColor.swift in Sources */,
+				E73FD3B4256BC41F00E97226 /* DataCell.swift in Sources */,
 				E786836B2488E77000844DD4 /* EditProfileController.swift in Sources */,
 				E714B25624705D5000BB3F05 /* SceneDelegate.swift in Sources */,
 			);

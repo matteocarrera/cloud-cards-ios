@@ -1,5 +1,7 @@
 import UIKit
 
+private let reuseIdentifier = "DataCell"
+
 class ProfileController: UIViewController {
 
     @IBOutlet var userPhoto: UIImageView!
@@ -48,11 +50,11 @@ class ProfileController: UIViewController {
 extension ProfileController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "ProfileDataCell", for: indexPath) as! ProfileDataCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DataCell
         
         let dataCell = data[indexPath.row]
-        cell.descriptionText?.text = dataCell.description
-        cell.titleText?.text = dataCell.title
+        cell.titleLabel?.text = dataCell.title
+        cell.dataLabel?.text = dataCell.description
         
         return cell
     }
@@ -66,19 +68,5 @@ extension ProfileController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
-    }
-}
-
-class ProfileDataCell: UITableViewCell {
-    
-    @IBOutlet weak var titleText: UILabel!
-    @IBOutlet weak var descriptionText: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
 }

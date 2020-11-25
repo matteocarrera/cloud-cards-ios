@@ -1,5 +1,7 @@
 import UIKit
 
+private let reuseIdentifier = "DataCell"
+
 class SelectDataController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -15,6 +17,7 @@ class SelectDataController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView(table: tableView, controller: self)
+        tableView.setEditing(true, animated: true)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -55,7 +58,7 @@ class SelectDataController: UIViewController {
         let alert = UIAlertController(title: "Сохранение визитки", message: "Введите имя визитки", preferredStyle: .alert)
 
         alert.addTextField { (textField) in
-            textField.autocapitalizationType = .words
+            textField.autocapitalizationType = .sentences
             textField.text = ""
         }
 
@@ -111,12 +114,7 @@ class SelectDataController: UIViewController {
                 realm.add(newUser)
             }
         }
-        
-        /*
-            Если мы вызываем метод для генерации QR без сохранения в шаблоны, то передаем QRView
-            для последующего перехода в окно, демонстрирующее QR код на экране
-         */
-        
+
         let card = Card()
         card.color = COLORS[Int.random(in: 0..<COLORS.count)]
         card.title = title!
@@ -142,35 +140,26 @@ class SelectDataController: UIViewController {
 extension SelectDataController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SelectDataCell", for: indexPath) as! SelectDataCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DataCell
         
         let dataCell = data[indexPath.row]
-        cell.descriptionText?.text = dataCell.description
-        cell.titleText?.text = dataCell.title
-        
-        if dataCell.isSelected {
-            cell.buttonTick.setBackgroundImage(UIImage(systemName: "checkmark.circle.fill"), for: UIControl.State.normal)
-            cell.buttonTick.tintColor = PRIMARY
-        } else {
-            cell.buttonTick.setBackgroundImage(UIImage(systemName: "circle"), for: UIControl.State.normal)
-            cell.buttonTick.tintColor = PRIMARY
-        }
-        cell.selectionStyle = .none
-        
+        cell.titleLabel?.text = dataCell.title
+        cell.dataLabel?.text = dataCell.description
+
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath) else { return }
         let dataCell = data[indexPath.row]
-        dataCell.isSelected = !dataCell.isSelected
+        
+        cell.tintColor = PRIMARY
         
         if !selectedItems.contains(where: { $0.title == dataCell.title }) {
             selectedItems.append(DataItem(title: dataCell.title, description: dataCell.description))
         } else {
             selectedItems.removeAll(where: { $0.title == dataCell.title })
         }
-        
-        tableView.reloadData()
     }
 }
 
@@ -182,20 +171,5 @@ extension SelectDataController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
-    }
-}
-
-class SelectDataCell : UITableViewCell {
-    
-    @IBOutlet weak var descriptionText: UILabel!
-    @IBOutlet weak var titleText: UILabel!
-    @IBOutlet weak var buttonTick: UIButton!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
     }
 }

@@ -97,6 +97,16 @@ extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
     private func saveUserIfDataIsCorrect(data: String) {
         if data.contains("|") {
             saveUser(controller: self, link: data)
+            return
         }
+        showUnableToReadQRAlert()
+    }
+    
+    private func showUnableToReadQRAlert() {
+        let alert = UIAlertController(title: "Ошибка", message: "QR код невозможно считать!", preferredStyle: .alert)
+        alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
+            self.navigationController?.popViewController(animated: true)
+        }))
+        self.present(alert, animated: true, completion: nil)
     }
 }

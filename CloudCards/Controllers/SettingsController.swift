@@ -1,5 +1,7 @@
 import UIKit
 
+private let reuseIdentifier = "SettingsCell"
+
 class SettingsController: UIViewController {
 
     @IBOutlet var profileView: UIView!
@@ -68,7 +70,7 @@ class SettingsController: UIViewController {
 extension SettingsController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "SettingsCell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
         
         setColorToSelectedRow(tableCell: cell)
         

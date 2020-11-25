@@ -1,5 +1,9 @@
 import UIKit
 
+/*
+    Контроллер для представления экрана с QR и кнопкой поделиться
+ */
+
 class PresentationController: UIPresentationController {
 
   let blurEffectView: UIVisualEffectView!
