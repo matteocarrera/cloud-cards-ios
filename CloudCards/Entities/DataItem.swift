@@ -1,6 +1,6 @@
 import Foundation
 
-class DataItem {
+public class DataItem {
     var title : String = ""
     var description : String = ""
     

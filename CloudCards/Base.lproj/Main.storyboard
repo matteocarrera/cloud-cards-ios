@@ -559,11 +559,11 @@
         <scene sceneID="wg7-f3-ORb">
             <objects>
                 <viewController id="8rJ-Kc-sve" customClass="CameraController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="QS5-Rx-YEW">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyy-kp-vJY">
+                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tyy-kp-vJY">
                                 <rect key="frame" x="0.0" y="88" width="414" height="725"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
@@ -604,7 +604,7 @@
             <objects>
                 <viewController title="Настройки" id="Ken-jf-WGs" customClass="SettingsController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mdx-tv-Sb5">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OpU-dp-l2E">
@@ -812,33 +812,33 @@
             </objects>
             <point key="canvasLocation" x="2722" y="-547"/>
         </scene>
-        <!--Создание шаблона-->
+        <!--Новая визитка-->
         <scene sceneID="xjZ-lJ-t9n">
             <objects>
-                <viewController storyboardIdentifier="SelectDataController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RtQ-vZ-waR" customClass="SelectDataController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CreateCardController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RtQ-vZ-waR" customClass="CreateCardController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="9Tb-l8-0Sn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Z8D-Ww-N9l">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Z8D-Ww-N9l">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DataCell" rowHeight="55" id="tzv-mq-nEF" customClass="DataCell" customModule="CloudCards" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="28" width="414" height="55"/>
+                                        <rect key="frame" x="16" y="55.5" width="568" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tzv-mq-nEF" id="Kf7-PW-GLs">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="568" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="заголовок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xg5-ID-VLk">
-                                                    <rect key="frame" x="20" y="7" width="374" height="17"/>
+                                                    <rect key="frame" x="20" y="7" width="528" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="данные" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xue-by-XKh">
-                                                    <rect key="frame" x="20" y="28" width="374" height="20"/>
+                                                    <rect key="frame" x="20" y="28" width="528" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -855,7 +855,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="Xue-by-XKh" secondAttribute="bottom" constant="7" id="ls3-Nh-Gp3"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="dataLabel" destination="Xue-by-XKh" id="Q0u-pr-GQf"/>
                                             <outlet property="titleLabel" destination="xg5-ID-VLk" id="Z6h-sj-ZzF"/>
@@ -869,14 +869,14 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Создайте профиль, чтобы открыть доступ к данному окну" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXe-1D-cmU">
-                                <rect key="frame" x="0.0" y="326" width="414" height="244"/>
+                                <rect key="frame" x="0.0" y="282" width="600" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="m10-nU-jhS"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="Light Gray"/>
                         <constraints>
                             <constraint firstItem="pXe-1D-cmU" firstAttribute="top" secondItem="m10-nU-jhS" secondAttribute="top" constant="282" id="MQq-lC-D4o"/>
                             <constraint firstItem="Z8D-Ww-N9l" firstAttribute="leading" secondItem="m10-nU-jhS" secondAttribute="leading" id="MyT-JZ-nUt"/>
@@ -889,7 +889,7 @@
                             <constraint firstItem="Z8D-Ww-N9l" firstAttribute="trailing" secondItem="m10-nU-jhS" secondAttribute="trailing" id="yy7-0c-Qjc"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" title="Создание шаблона" id="pmL-qd-6I0">
+                    <navigationItem key="navigationItem" title="Новая визитка" id="pmL-qd-6I0">
                         <barButtonItem key="backBarButtonItem" title="Назад" id="g9R-Yc-OvC">
                             <color key="tintColor" name="Primary"/>
                         </barButtonItem>
@@ -1257,7 +1257,7 @@
             <objects>
                 <collectionViewController id="ryJ-N3-Zw2" customClass="TemplatesController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="8Q0-gB-3E7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BKr-fV-Adq">
@@ -1288,7 +1288,9 @@
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                             <color key="tintColor" white="1" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                            <state key="normal" backgroundImage="ellipsis.circle.fill" catalog="system"/>
+                                            <state key="normal">
+                                                <imageReference key="backgroundImage" image="ellipsis.circle.fill" catalog="system" symbolScale="default"/>
+                                            </state>
                                         </button>
                                         <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.circle.fill" catalog="system" id="C1t-cD-K2j">
                                             <rect key="frame" x="8" y="8" width="30" height="30"/>
@@ -1357,7 +1359,7 @@
             <objects>
                 <viewController storyboardIdentifier="ContactsController" title="Контакты" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KNG-E6-V2A" customClass="ContactsController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="egb-Gz-od7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n8F-GY-4C7">

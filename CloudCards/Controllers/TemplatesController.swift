@@ -8,23 +8,17 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
     
     // Массив шаблонных карточек основного пользователя приложения
     public var templates = [Card]()
-    
     private let realm = RealmInstance.getInstance()
-    private var navigationBar = UINavigationBar()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        navigationBar = self.navigationController!.navigationBar
-        navigationBar.prefersLargeTitles = true
-        
-        setLargeNavigationBar()
+        setLargeNavigationBar(for: self)
         setAddTemplateButton()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-
+        
         templates.removeAll()
         templates = Array(realm.objects(Card.self))
 
@@ -34,7 +28,7 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     @objc func openCreateTemplateWindow() {
-        let viewController = storyboard?.instantiateViewController(withIdentifier: "SelectDataController") as! SelectDataController
+        let viewController = storyboard?.instantiateViewController(withIdentifier: "CreateCardController") as! CreateCardController
         let nav = UINavigationController(rootViewController: viewController)
         self.navigationController?.showDetailViewController(nav, sender: nil)
     }
@@ -48,24 +42,10 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
         let link = String((defaults?.string(forKey: "link") ?? ""))
         
         if link.contains("|") {
-            saveUser(controller: self, link: link)
+            getUserFromQR(from: self, with: link)
         }
 
         defaults?.removeObject(forKey: "link")
-    }
-    
-    private func setLargeNavigationBar() {
-        
-        self.navigationController?.view.backgroundColor = LIGHT_GRAY
-        
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = LIGHT_GRAY
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
-
-        navigationBar.compactAppearance = appearance
-        navigationBar.standardAppearance = appearance
-        navigationBar.scrollEdgeAppearance = appearance
     }
     
     private func setAddTemplateButton() {

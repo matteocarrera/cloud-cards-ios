@@ -96,7 +96,7 @@ extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
     // Проверка данных, полученных с QR. Если есть "|", то сохраняем, иначе данные некорректны
     private func saveUserIfDataIsCorrect(data: String) {
         if data.contains("|") {
-            saveUser(controller: self, link: data)
+            getUserFromQR(from: self, with: data)
             return
         }
         showUnableToReadQRAlert()
