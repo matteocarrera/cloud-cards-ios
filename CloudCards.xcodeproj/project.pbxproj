@@ -43,7 +43,7 @@
 		E7DA719624C31A19009DD08E /* UserBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DA719524C31A19009DD08E /* UserBoolean.swift */; };
 		E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DDDC1424826BDC00E8F462 /* DataUtils.swift */; };
 		E7E00F19252763EB003A7D15 /* ColorConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E00F18252763EB003A7D15 /* ColorConstants.swift */; };
-		E7E4E637248BA19C00C6E2A0 /* SelectDataController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */; };
+		E7E4E637248BA19C00C6E2A0 /* CreateCardController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E4E636248BA19C00C6E2A0 /* CreateCardController.swift */; };
 		E7EB2859253F0BC20004D4E7 /* FirestoreInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EB2858253F0BC20004D4E7 /* FirestoreInstance.swift */; };
 		E7EB285F253F0FE60004D4E7 /* RealmInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7EB285E253F0FE60004D4E7 /* RealmInstance.swift */; };
 		E7F2D445253D867200C38227 /* Reachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F2D444253D867200C38227 /* Reachability.swift */; };
@@ -119,7 +119,7 @@
 		E7DA719524C31A19009DD08E /* UserBoolean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBoolean.swift; sourceTree = "<group>"; };
 		E7DDDC1424826BDC00E8F462 /* DataUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUtils.swift; sourceTree = "<group>"; };
 		E7E00F18252763EB003A7D15 /* ColorConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorConstants.swift; sourceTree = "<group>"; };
-		E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectDataController.swift; sourceTree = "<group>"; };
+		E7E4E636248BA19C00C6E2A0 /* CreateCardController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateCardController.swift; sourceTree = "<group>"; };
 		E7EB2858253F0BC20004D4E7 /* FirestoreInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreInstance.swift; sourceTree = "<group>"; };
 		E7EB285E253F0FE60004D4E7 /* RealmInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmInstance.swift; sourceTree = "<group>"; };
 		E7F1F47F24E2A6DF00FECF65 /* CoreMotion.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMotion.framework; path = System/Library/Frameworks/CoreMotion.framework; sourceTree = SDKROOT; };
@@ -277,7 +277,7 @@
 				E74A484F2471707C0004B5B5 /* ProfileController.swift */,
 				E760A26F2482D3D500009919 /* NavigationController.swift */,
 				E786836A2488E77000844DD4 /* EditProfileController.swift */,
-				E7E4E636248BA19C00C6E2A0 /* SelectDataController.swift */,
+				E7E4E636248BA19C00C6E2A0 /* CreateCardController.swift */,
 				E737940524CFF24000440FF4 /* CardViewController.swift */,
 				E7A8275A24D171F00024F414 /* ContactsController.swift */,
 				E7F939FE254C1A7900F9B77B /* SettingsController.swift */,
@@ -486,7 +486,7 @@
 				E78BB3352566C3370023BFC9 /* TemplatesController.swift in Sources */,
 				E7F939FF254C1A7900F9B77B /* SettingsController.swift in Sources */,
 				E760A2702482D3D500009919 /* NavigationController.swift in Sources */,
-				E7E4E637248BA19C00C6E2A0 /* SelectDataController.swift in Sources */,
+				E7E4E637248BA19C00C6E2A0 /* CreateCardController.swift in Sources */,
 				E7F2D449253D8ABD00C38227 /* String.swift in Sources */,
 				E737940624CFF24000440FF4 /* CardViewController.swift in Sources */,
 				E734F6F424D40069008EC9D9 /* TableUtils.swift in Sources */,

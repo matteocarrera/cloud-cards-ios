@@ -1,7 +1,7 @@
 import Foundation
 import UIKit
 
-public func saveUser(controller : UIViewController, link : String) {
+public func getUserFromQR(from controller: UIViewController, with link: String) {
     let parentId = String(link.split(separator: "|")[0])
     let uuid = String(link.split(separator: "|")[1])
     
@@ -44,6 +44,63 @@ public func saveUser(controller : UIViewController, link : String) {
                 
             }
         }
+    }
+}
+
+public func saveCard(withTitle title: String?, withColor selectedColor: String, withUserData selectedItems: [DataItem]) {
+    let realm = RealmInstance.getInstance()
+    let ownerUser = realm.objects(User.self)[0]
+    
+    let newUser = parseDataToUserBoolean(data: selectedItems)
+    newUser.parentId = ownerUser.parentId
+    
+    let userDictionary = realm.objects(UserBoolean.self)
+    
+    /*
+        Делаем проверку на то, что визитка с выбранными полями уже существует
+     */
+    
+    var userExists = false
+    
+    for user in userDictionary {
+        if generatedUsersEqual(firstUser: newUser, secondUser: user) {
+            newUser.uuid = user.uuid
+            userExists = true
+        }
+    }
+    
+    if !userExists {
+        let uuid = UUID().uuidString
+        newUser.uuid = uuid
+        
+        let userData = convertToDictionary(someUser: newUser)
+        
+        let db = FirestoreInstance.getInstance()
+        db.collection(FirestoreInstance.USERS)
+            .document(newUser.parentId)
+            .collection(FirestoreInstance.CARDS)
+            .document(newUser.uuid)
+            .setData(userData)
+
+        try! realm.write {
+            realm.add(newUser)
+        }
+    }
+
+    let card = Card()
+    card.color = selectedColor
+    card.title = title!
+    card.userId = newUser.uuid
+    
+    let maxValue = realm.objects(Card.self).max(ofProperty: "id") as Int?
+    if (maxValue != nil) {
+        card.id = maxValue! + 1
+    } else {
+        card.id = 0
+    }
+    
+    try! realm.write {
+        realm.add(card)
     }
 }
 

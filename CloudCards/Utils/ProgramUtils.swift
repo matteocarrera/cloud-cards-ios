@@ -28,6 +28,20 @@ func generateQR(userLink : String) -> UIImage? {
     return UIImage.init(ciImage: scaledQrImage)
 }
 
+func setLargeNavigationBar(for controller: UIViewController) {
+    controller.navigationController!.navigationBar.prefersLargeTitles = true
+    controller.navigationController?.view.backgroundColor = LIGHT_GRAY
+    
+    let appearance = UINavigationBarAppearance()
+    appearance.backgroundColor = LIGHT_GRAY
+    appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
+    appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+
+    controller.navigationController!.navigationBar.compactAppearance = appearance
+    controller.navigationController!.navigationBar.standardAppearance = appearance
+    controller.navigationController!.navigationBar.scrollEdgeAppearance = appearance
+}
+
 func performActionWithField(title : String, description : String, controller : UIViewController) {
     
     switch title {
