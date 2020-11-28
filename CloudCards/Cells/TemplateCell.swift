@@ -39,7 +39,7 @@ class TemplateCell : UICollectionViewCell {
     
     private func setMenu() {
         let info = UIAction(
-            title: "Просмотр",
+            title: "Просмотреть",
             image: UIImage(systemName: "info.circle")
         ) { (_) in
             self.openCard()

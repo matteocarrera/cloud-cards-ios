@@ -4,13 +4,18 @@ import AVFoundation
 class CameraController: UIViewController {
 
     @IBOutlet var cameraView: UIView!
+    @IBOutlet var qrAreaView: UIView!
     private var captureSession: AVCaptureSession!
     private var previewLayer: AVCaptureVideoPreviewLayer!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        //navigationController?.setNavigationBarHidden(true, animated: true)
+        navigationController?.setNavigationBarHidden(true, animated: true)
+        
+        qrAreaView.layer.cornerRadius = 15
+        qrAreaView.layer.borderWidth = 2
+        qrAreaView.layer.borderColor = UIColor.white.cgColor
         
         captureSession = AVCaptureSession()
 
@@ -60,6 +65,9 @@ class CameraController: UIViewController {
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        
+        navigationController?.setNavigationBarHidden(false, animated: true)
+        hidesBottomBarWhenPushed = false
 
         if (captureSession?.isRunning == true) {
             captureSession.stopRunning()
@@ -75,6 +83,14 @@ class CameraController: UIViewController {
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
+    }
+    
+    @IBAction func closeButtonClicked(_ sender: Any) {
+        self.navigationController?.popViewController(animated: true)
+    }
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
     }
 }
 

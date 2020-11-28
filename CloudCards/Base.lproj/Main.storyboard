@@ -558,41 +558,68 @@
         <!--Камера-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController id="8rJ-Kc-sve" customClass="CameraController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="QS5-Rx-YEW">
+                <viewController hidesBottomBarWhenPushed="YES" id="8rJ-Kc-sve" customClass="CameraController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Tyy-kp-vJY">
-                                <rect key="frame" x="0.0" y="88" width="414" height="725"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tyy-kp-vJY">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             </view>
-                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSj-0Z-4Ra">
-                                <rect key="frame" x="356" y="104" width="50" height="24"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RaE-RZ-lIb">
+                                <rect key="frame" x="87" y="328" width="240" height="240"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal">
-                                    <imageReference key="image" image="xmark.circle.fill" catalog="system" symbolScale="large"/>
-                                </state>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="ezX-zR-3eW"/>
+                                    <constraint firstAttribute="height" constant="240" id="kAK-Tu-1UB"/>
+                                </constraints>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Наведите камеру на QR-код визитки" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mi9-NM-I0E">
+                                <rect key="frame" x="87" y="588" width="240" height="65"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="240" id="4OL-dO-qC4"/>
+                                    <constraint firstAttribute="height" constant="65" id="vg4-4g-0wg"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="25"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RSj-0Z-4Ra">
+                                <rect key="frame" x="364" y="106" width="30" height="25.5"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="30" id="evM-Ll-3gH"/>
+                                    <constraint firstAttribute="height" constant="30" id="qtJ-UN-zIh"/>
+                                </constraints>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" backgroundImage="xmark" catalog="system"/>
+                                <connections>
+                                    <action selector="closeButtonClicked:" destination="8rJ-Kc-sve" eventType="touchUpInside" id="qfB-x6-HQj"/>
+                                </connections>
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="O1u-W8-tvY"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="tintColor" name="Primary"/>
                         <constraints>
-                            <constraint firstItem="RSj-0Z-4Ra" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" constant="356" id="2Rb-RS-NL1"/>
                             <constraint firstItem="Tyy-kp-vJY" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" id="5go-Vw-MiW"/>
                             <constraint firstItem="Tyy-kp-vJY" firstAttribute="leading" secondItem="O1u-W8-tvY" secondAttribute="leading" id="6Fr-gu-yVU"/>
-                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="RSj-0Z-4Ra" secondAttribute="trailing" constant="8" id="FVl-bA-z0J"/>
+                            <constraint firstItem="RaE-RZ-lIb" firstAttribute="centerY" secondItem="QS5-Rx-YEW" secondAttribute="centerY" id="7X7-ky-Ii6"/>
+                            <constraint firstItem="RaE-RZ-lIb" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="8Kb-RZ-9Mw"/>
+                            <constraint firstItem="RSj-0Z-4Ra" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="16" id="LhM-Gg-14n"/>
                             <constraint firstItem="Tyy-kp-vJY" firstAttribute="bottom" secondItem="O1u-W8-tvY" secondAttribute="bottom" id="QzM-2k-RQQ"/>
                             <constraint firstItem="Tyy-kp-vJY" firstAttribute="trailing" secondItem="O1u-W8-tvY" secondAttribute="trailing" id="dDP-h8-fMk"/>
-                            <constraint firstItem="O1u-W8-tvY" firstAttribute="bottom" secondItem="RSj-0Z-4Ra" secondAttribute="bottom" constant="718" id="di5-q2-Uru"/>
-                            <constraint firstItem="RSj-0Z-4Ra" firstAttribute="top" secondItem="O1u-W8-tvY" secondAttribute="top" constant="16" id="sKQ-r9-NFq"/>
+                            <constraint firstItem="mi9-NM-I0E" firstAttribute="top" secondItem="RaE-RZ-lIb" secondAttribute="bottom" constant="20" id="dTJ-Ch-YSE"/>
+                            <constraint firstItem="mi9-NM-I0E" firstAttribute="centerX" secondItem="QS5-Rx-YEW" secondAttribute="centerX" id="dap-ba-Nel"/>
+                            <constraint firstItem="O1u-W8-tvY" firstAttribute="trailing" secondItem="RSj-0Z-4Ra" secondAttribute="trailing" constant="20" id="g0u-Ik-XX6"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Камера" image="camera.fill" catalog="system" id="cPa-gy-q4n"/>
                     <navigationItem key="navigationItem" title="Камера" id="rmh-bR-UDx"/>
                     <connections>
                         <outlet property="cameraView" destination="Tyy-kp-vJY" id="yLH-Hs-mUV"/>
+                        <outlet property="qrAreaView" destination="RaE-RZ-lIb" id="3z4-xc-n15"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="4Nw-L8-lE0" sceneMemberID="firstResponder"/>
@@ -1514,7 +1541,7 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="rectangle.stack.fill" catalog="system" width="128" height="122"/>
-        <image name="xmark.circle.fill" catalog="system" width="128" height="121"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="Graphite">
             <color red="0.28627450980392155" green="0.30588235294117649" blue="0.35294117647058826" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
