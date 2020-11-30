@@ -28,7 +28,7 @@ class ContactsController: UIViewController {
         
         loadData()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         cancelSelection()
         contactsTable.reloadData()

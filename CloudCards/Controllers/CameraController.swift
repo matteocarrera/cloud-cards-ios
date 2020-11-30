@@ -55,29 +55,26 @@ class CameraController: UIViewController {
         captureSession.startRunning()
     }
 
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-
-        if (captureSession?.isRunning == false) {
-            captureSession.startRunning()
-        }
+    override func viewDidAppear(_ animated: Bool) {
+        captureSession.startRunning()
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        
-        navigationController?.setNavigationBarHidden(false, animated: true)
         hidesBottomBarWhenPushed = false
-
-        if (captureSession?.isRunning == true) {
-            captureSession.stopRunning()
-        }
+        navigationController?.setNavigationBarHidden(false, animated: true)
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        captureSession.stopRunning()
     }
 
     private func failed() {
-        showSimpleAlert(controller: self,
-                        title: "Сканирование не поддерживается",
-                        message: "Ваше устройство не поддерживает функцию сканирования.")
+        showSimpleAlert(
+            controller: self,
+            title: "Сканирование не поддерживается",
+            message: "Ваше устройство не поддерживает функцию сканирования."
+        )
         captureSession = nil
     }
 
@@ -105,8 +102,6 @@ extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
             AudioServicesPlaySystemSound(SystemSoundID(kSystemSoundID_Vibrate))
             saveUserIfDataIsCorrect(data: stringValue)
         }
-
-        dismiss(animated: true)
     }
     
     // Проверка данных, полученных с QR. Если есть "|", то сохраняем, иначе данные некорректны
@@ -119,6 +114,8 @@ extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
     }
     
     private func showUnableToReadQRAlert() {
+        captureSession.stopRunning()
+        
         let alert = UIAlertController(title: "Ошибка", message: "QR код невозможно считать!", preferredStyle: .alert)
         alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
             self.navigationController?.popViewController(animated: true)

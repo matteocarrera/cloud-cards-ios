@@ -59,6 +59,16 @@ class CreateCardController: UIViewController {
             return
         }
         
+        if !selectedItems.contains(where: { $0.title == "фамилия" }) ||
+            !selectedItems.contains(where: { $0.title == "имя" }) {
+            showSimpleAlert(
+                controller: self,
+                title: "Данные не выбраны",
+                message: "Визитка обязательно должна содержать Ваши имя и фамилию!"
+            )
+            return
+        }
+        
         if title == cardParameters[0] {
             showSimpleAlert(
                 controller: self,
@@ -127,7 +137,7 @@ extension CreateCardController: UITableViewDataSource {
         
         let dataCell = data[indexPath.row]
         cell.titleLabel?.text = dataCell.title
-        cell.dataLabel?.text = dataCell.description
+        cell.dataLabel?.text = dataCell.data
         
         let view = UIView()
         view.backgroundColor = .clear
@@ -155,7 +165,7 @@ extension CreateCardController: UITableViewDataSource {
     
         cell.tintColor = PRIMARY
         
-        selectedItems.append(DataItem(title: dataCell.title, description: dataCell.description))
+        selectedItems.append(DataItem(title: dataCell.title, data: dataCell.data))
     }
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {

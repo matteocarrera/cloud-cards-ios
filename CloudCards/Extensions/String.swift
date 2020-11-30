@@ -11,4 +11,8 @@ extension String {
         }
         return self[indexPosition]
     }
+    
+    func isEmpty() -> Bool {
+        return self == String()
+    }
 }
