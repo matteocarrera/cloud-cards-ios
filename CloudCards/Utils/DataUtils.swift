@@ -2,26 +2,26 @@ import Foundation
 
 func setDataToList(user : User) -> [DataItem]{
     var data = [DataItem]()
-    if (user.surname != "") { data.append(DataItem(title: SURNAME, description: user.surname)) }
-    if (user.name != "") { data.append(DataItem(title: NAME, description: user.name)) }
-    if (user.patronymic != "") { data.append(DataItem(title: PATRONYMIC, description: user.patronymic)) }
-    if (user.company != "") { data.append(DataItem(title: COMPANY, description: user.company)) }
-    if (user.jobTitle != "") { data.append(DataItem(title: JOB_TITLE, description: user.jobTitle)) }
-    if (user.mobile != "") { data.append(DataItem(title: MOBILE, description: user.mobile)) }
-    if (user.mobileSecond != "") { data.append(DataItem(title: MOBILE_OTHER, description: user.mobileSecond)) }
-    if (user.email != "") { data.append(DataItem(title: EMAIL, description: user.email)) }
-    if (user.emailSecond != "") { data.append(DataItem(title: EMAIL_OTHER, description: user.emailSecond)) }
-    if (user.address != "") { data.append(DataItem(title: ADDRESS, description: user.address)) }
-    if (user.addressSecond != "") { data.append(DataItem(title: ADDRESS_OTHER, description: user.addressSecond)) }
-    if (user.cardNumber != "") { data.append(DataItem(title: CARD_NUMBER, description: user.cardNumber)) }
-    if (user.cardNumberSecond != "") { data.append(DataItem(title: CARD_NUMBER_SECOND, description: user.cardNumberSecond)) }
-    if (user.website != "") { data.append(DataItem(title: WEBSITE, description: user.website)) }
-    if (user.vk != "") { data.append(DataItem(title: VK, description: user.vk)) }
-    if (user.telegram != "") { data.append(DataItem(title: TELEGRAM, description: user.telegram)) }
-    if (user.facebook != "") { data.append(DataItem(title: FACEBOOK, description: user.facebook)) }
-    if (user.instagram != "") { data.append(DataItem(title: INSTAGRAM, description: user.instagram)) }
-    if (user.twitter != "") { data.append(DataItem(title: TWITTER, description: user.twitter)) }
-    if (user.notes != "") { data.append(DataItem(title: NOTES, description: user.notes)) }
+    if (user.surname != "") { data.append(DataItem(title: SURNAME, data: user.surname)) }
+    if (user.name != "") { data.append(DataItem(title: NAME, data: user.name)) }
+    if (user.patronymic != "") { data.append(DataItem(title: PATRONYMIC, data: user.patronymic)) }
+    if (user.company != "") { data.append(DataItem(title: COMPANY, data: user.company)) }
+    if (user.jobTitle != "") { data.append(DataItem(title: JOB_TITLE, data: user.jobTitle)) }
+    if (user.mobile != "") { data.append(DataItem(title: MOBILE, data: user.mobile)) }
+    if (user.mobileSecond != "") { data.append(DataItem(title: MOBILE_OTHER, data: user.mobileSecond)) }
+    if (user.email != "") { data.append(DataItem(title: EMAIL, data: user.email)) }
+    if (user.emailSecond != "") { data.append(DataItem(title: EMAIL_OTHER, data: user.emailSecond)) }
+    if (user.address != "") { data.append(DataItem(title: ADDRESS, data: user.address)) }
+    if (user.addressSecond != "") { data.append(DataItem(title: ADDRESS_OTHER, data: user.addressSecond)) }
+    if (user.cardNumber != "") { data.append(DataItem(title: CARD_NUMBER, data: user.cardNumber)) }
+    if (user.cardNumberSecond != "") { data.append(DataItem(title: CARD_NUMBER_SECOND, data: user.cardNumberSecond)) }
+    if (user.website != "") { data.append(DataItem(title: WEBSITE, data: user.website)) }
+    if (user.vk != "") { data.append(DataItem(title: VK, data: user.vk)) }
+    if (user.telegram != "") { data.append(DataItem(title: TELEGRAM, data: user.telegram)) }
+    if (user.facebook != "") { data.append(DataItem(title: FACEBOOK, data: user.facebook)) }
+    if (user.instagram != "") { data.append(DataItem(title: INSTAGRAM, data: user.instagram)) }
+    if (user.twitter != "") { data.append(DataItem(title: TWITTER, data: user.twitter)) }
+    if (user.notes != "") { data.append(DataItem(title: NOTES, data: user.notes)) }
     return data
 }
 
@@ -55,26 +55,26 @@ func parseDataToUserBoolean(data : [DataItem]) -> UserBoolean {
 func parseDataToUser(data : [DataItem]) -> User {
     let user = User()
     for elem in data {
-        if elem.title == SURNAME { user.surname = elem.description }
-        if elem.title == NAME { user.name = elem.description }
-        if elem.title == PATRONYMIC { user.patronymic = elem.description }
-        if elem.title == COMPANY { user.company = elem.description }
-        if elem.title == JOB_TITLE { user.jobTitle = elem.description }
-        if elem.title == MOBILE { user.mobile = elem.description }
-        if elem.title == MOBILE_OTHER { user.mobileSecond = elem.description }
-        if elem.title == EMAIL { user.email = elem.description }
-        if elem.title == EMAIL_OTHER { user.emailSecond = elem.description }
-        if elem.title == ADDRESS { user.address = elem.description }
-        if elem.title == ADDRESS_OTHER { user.addressSecond = elem.description }
-        if elem.title == CARD_NUMBER { user.cardNumber = elem.description }
-        if elem.title == CARD_NUMBER_SECOND { user.cardNumberSecond = elem.description }
-        if elem.title == WEBSITE { user.website = elem.description }
-        if elem.title == VK { user.vk = elem.description }
-        if elem.title == TELEGRAM { user.telegram = elem.description }
-        if elem.title == FACEBOOK { user.facebook = elem.description }
-        if elem.title == INSTAGRAM { user.instagram = elem.description }
-        if elem.title == TWITTER { user.twitter = elem.description }
-        if elem.title == NOTES { user.notes = elem.description }
+        if elem.title == SURNAME { user.surname = elem.data }
+        if elem.title == NAME { user.name = elem.data }
+        if elem.title == PATRONYMIC { user.patronymic = elem.data }
+        if elem.title == COMPANY { user.company = elem.data }
+        if elem.title == JOB_TITLE { user.jobTitle = elem.data }
+        if elem.title == MOBILE { user.mobile = elem.data }
+        if elem.title == MOBILE_OTHER { user.mobileSecond = elem.data }
+        if elem.title == EMAIL { user.email = elem.data }
+        if elem.title == EMAIL_OTHER { user.emailSecond = elem.data }
+        if elem.title == ADDRESS { user.address = elem.data }
+        if elem.title == ADDRESS_OTHER { user.addressSecond = elem.data }
+        if elem.title == CARD_NUMBER { user.cardNumber = elem.data }
+        if elem.title == CARD_NUMBER_SECOND { user.cardNumberSecond = elem.data }
+        if elem.title == WEBSITE { user.website = elem.data }
+        if elem.title == VK { user.vk = elem.data }
+        if elem.title == TELEGRAM { user.telegram = elem.data }
+        if elem.title == FACEBOOK { user.facebook = elem.data }
+        if elem.title == INSTAGRAM { user.instagram = elem.data }
+        if elem.title == TWITTER { user.twitter = elem.data }
+        if elem.title == NOTES { user.notes = elem.data }
     }
     return user
 }

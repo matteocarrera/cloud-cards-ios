@@ -2,10 +2,10 @@ import Foundation
 
 public class DataItem {
     var title : String = ""
-    var description : String = ""
+    var data : String = ""
     
-    init(title : String, description : String) {
+    init(title : String, data : String) {
         self.title = title
-        self.description = description
+        self.data = data
     }
 }

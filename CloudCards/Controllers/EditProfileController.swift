@@ -127,6 +127,18 @@ class EditProfileController: UIViewController {
     }
 
     @objc func saveUser() {
+        if nameField.text!.isEmpty ||
+            surnameField.text!.isEmpty ||
+            mobileNumberField.text!.isEmpty ||
+            emailField.text!.isEmpty {
+            showSimpleAlert(
+                controller: self,
+                title: "Поля не заполнены",
+                message: "Обязательные поля: имя, фамилия, мобильный номер и email - не заполнены!"
+            )
+            return
+        }
+        
         rightBarButtonItem?.isEnabled = false
         var photoUuid = ownerUser?.photo
         

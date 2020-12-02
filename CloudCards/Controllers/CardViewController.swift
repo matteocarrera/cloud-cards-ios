@@ -92,7 +92,7 @@ extension CardViewController: UITableViewDataSource {
         
         let dataCell = data[indexPath.row]
         cell.itemTitle.text = dataCell.title
-        cell.itemDescription.text = dataCell.description
+        cell.itemDescription.text = dataCell.data
         
         return cell
     }
@@ -100,7 +100,7 @@ extension CardViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let dataCell = data[indexPath.row]
         
-        performActionWithField(title: dataCell.title, description: dataCell.description, controller: self)
+        performActionWithField(title: dataCell.title, description: dataCell.data, controller: self)
         
         cardDataTable.reloadData()
     }

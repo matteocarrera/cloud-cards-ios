@@ -54,7 +54,7 @@ extension ProfileController: UITableViewDataSource {
         
         let dataCell = data[indexPath.row]
         cell.titleLabel?.text = dataCell.title
-        cell.dataLabel?.text = dataCell.description
+        cell.dataLabel?.text = dataCell.data
         
         return cell
     }
