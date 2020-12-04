@@ -17,9 +17,9 @@ class CardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let back = UIBarButtonItem(title: "Назад", style: .done, target: self, action: #selector(closeWindow(_:)))
-        back.tintColor = PRIMARY
-        navigationItem.leftBarButtonItem = back
+        let backButton = UIBarButtonItem(title: "Назад", style: .done, target: self, action: #selector(closeWindow(_:)))
+        backButton.tintColor = PRIMARY
+        navigationItem.leftBarButtonItem = backButton
         
         configureTableView(table: cardDataTable, controller: self)
         cardPhoto.layer.cornerRadius = cardPhoto.frame.height/2
@@ -48,7 +48,7 @@ class CardViewController: UIViewController {
             preferredStyle: .alert
         )
         alert.addAction(UIAlertAction.init(title: "Да", style: .default, handler: { (_) in
-            exportToContacts(user: parseDataToUser(data: self.data), photo: self.cardPhoto.image, controller: self)
+            exportToContacts(user: parseDataToUser(from: self.data), photo: self.cardPhoto.image, controller: self)
         }))
         alert.addAction(UIAlertAction.init(title: "Нет", style: .cancel))
         self.present(alert, animated: true, completion: nil)
@@ -56,7 +56,7 @@ class CardViewController: UIViewController {
     }
     
     private func loadUserData() {
-        data = setDataToList(user: currentUser)
+        data = setDataToList(from: currentUser)
         
         if currentUser.photo != "" {
             cardPhoto.image = getPhotoFromDatabase(photoUuid: currentUser.photo)

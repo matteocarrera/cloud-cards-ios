@@ -155,12 +155,12 @@ class EditProfileController: UIViewController {
                 storageRef = Storage.storage().reference().child(photoUuid!)
 
                 storageRef.delete { error in
-                  if let error = error {
-                    print("Ошибка во время удаления фотографии пользователя")
-                    print(error)
-                  } else {
-                    print("Фотография успешно удалена")
-                  }
+                    if let error = error {
+                        print("Ошибка во время удаления фотографии пользователя")
+                        print(error)
+                    } else {
+                        print("Фотография успешно удалена")
+                    }
                 }
             }
             

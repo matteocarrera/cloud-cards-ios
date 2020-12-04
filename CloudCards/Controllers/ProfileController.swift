@@ -34,7 +34,7 @@ class ProfileController: UIViewController {
             userPhoto.isHidden = false
             userPhoto.image = getPhotoFromDatabase(photoUuid: owner.photo)
             
-            data = setDataToList(user: owner)
+            data = setDataToList(from: owner)
         } else {
             createProfileNotification.isHidden = false
             userPhoto.isHidden = true

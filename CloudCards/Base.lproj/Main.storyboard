@@ -848,24 +848,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="Z8D-Ww-N9l">
-                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DataCell" rowHeight="55" id="tzv-mq-nEF" customClass="DataCell" customModule="CloudCards" customModuleProvider="target">
-                                        <rect key="frame" x="16" y="55.5" width="568" height="55"/>
+                                        <rect key="frame" x="20" y="55.5" width="374" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tzv-mq-nEF" id="Kf7-PW-GLs">
-                                            <rect key="frame" x="0.0" y="0.0" width="568" height="55"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="заголовок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xg5-ID-VLk">
-                                                    <rect key="frame" x="20" y="7" width="528" height="17"/>
+                                                    <rect key="frame" x="20" y="7" width="334" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="данные" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xue-by-XKh">
-                                                    <rect key="frame" x="20" y="28" width="528" height="20"/>
+                                                    <rect key="frame" x="20" y="28" width="334" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                     <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -896,7 +896,7 @@
                                 </connections>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Создайте профиль, чтобы открыть доступ к данному окну" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXe-1D-cmU">
-                                <rect key="frame" x="0.0" y="282" width="600" height="36"/>
+                                <rect key="frame" x="0.0" y="326" width="414" height="244"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                 <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1278,6 +1278,66 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZME-GT-wgr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-949.27536231884062" y="1954.6875"/>
+        </scene>
+        <!--Моя визитка-->
+        <scene sceneID="o0K-qb-eOX">
+            <objects>
+                <tableViewController storyboardIdentifier="MyCardViewController" title="Моя визитка" useStoryboardIdentifierAsRestorationIdentifier="YES" id="eLg-DT-9jT" customClass="MyCardViewController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ew9-d5-4jU">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="Light Gray"/>
+                        <prototypes>
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DataCell" rowHeight="55" id="Kzi-sI-ahn" customClass="DataCell" customModule="CloudCards" customModuleProvider="target">
+                                <rect key="frame" x="20" y="55.5" width="374" height="55"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Kzi-sI-ahn" id="oDV-30-7gY">
+                                    <rect key="frame" x="0.0" y="0.0" width="374" height="55"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="заголовок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laF-hR-eji">
+                                            <rect key="frame" x="20" y="7" width="334" height="17"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="данные" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLl-Rz-enH">
+                                            <rect key="frame" x="20" y="28" width="334" height="20"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <constraints>
+                                        <constraint firstAttribute="trailing" secondItem="bLl-Rz-enH" secondAttribute="trailing" constant="20" id="3WZ-dG-gfa"/>
+                                        <constraint firstItem="laF-hR-eji" firstAttribute="top" secondItem="oDV-30-7gY" secondAttribute="top" constant="7" id="AQ4-oe-rXD"/>
+                                        <constraint firstItem="bLl-Rz-enH" firstAttribute="leading" secondItem="oDV-30-7gY" secondAttribute="leading" constant="20" id="LoA-5E-VLw"/>
+                                        <constraint firstItem="laF-hR-eji" firstAttribute="leading" secondItem="oDV-30-7gY" secondAttribute="leading" constant="20" id="WLM-9I-2fS"/>
+                                        <constraint firstAttribute="trailing" secondItem="laF-hR-eji" secondAttribute="trailing" constant="20" id="eHb-ra-8Oe"/>
+                                        <constraint firstAttribute="bottom" secondItem="bLl-Rz-enH" secondAttribute="bottom" constant="7" id="lky-xh-bui"/>
+                                        <constraint firstItem="bLl-Rz-enH" firstAttribute="top" secondItem="laF-hR-eji" secondAttribute="bottom" constant="4" id="omd-B0-uoD"/>
+                                    </constraints>
+                                </tableViewCellContentView>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <connections>
+                                    <outlet property="dataLabel" destination="bLl-Rz-enH" id="SlX-4r-39G"/>
+                                    <outlet property="titleLabel" destination="laF-hR-eji" id="xZA-qn-LiO"/>
+                                </connections>
+                            </tableViewCell>
+                        </prototypes>
+                        <connections>
+                            <outlet property="dataSource" destination="eLg-DT-9jT" id="ULO-uI-AYc"/>
+                            <outlet property="delegate" destination="eLg-DT-9jT" id="ruZ-48-a7u"/>
+                        </connections>
+                    </tableView>
+                    <connections>
+                        <outlet property="cardDataTable" destination="ew9-d5-4jU" id="3Wf-5D-5QL"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jrV-SD-6q0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-36" y="1955"/>
         </scene>
         <!--Мои визитки-->
         <scene sceneID="LWa-yX-pjN">

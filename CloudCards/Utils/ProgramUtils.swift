@@ -3,7 +3,7 @@ import UIKit
 import CoreLocation
 import Contacts
 
-func showSimpleAlert(controller : UIViewController, title : String, message : String) {
+func showSimpleAlert(controller: UIViewController, title: String, message: String) {
     let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
     ac.addAction(UIAlertAction(title: "OK", style: .default))
     controller.present(ac, animated: true)
@@ -17,7 +17,7 @@ func showShareController(with link: String, in controller: UIViewController) {
     controller.present(shareController, animated: true, completion: nil)
 }
 
-func generateQR(userLink : String) -> UIImage? {
+func generateQR(with userLink: String) -> UIImage? {
     let data = userLink.data(using: String.Encoding.utf8)
     guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
     qrFilter.setValue(data, forKey: "inputMessage")
@@ -42,8 +42,7 @@ func setLargeNavigationBar(for controller: UIViewController) {
     controller.navigationController!.navigationBar.scrollEdgeAppearance = appearance
 }
 
-func performActionWithField(title : String, description : String, controller : UIViewController) {
-    
+func performActionWithField(title: String, description: String, controller: UIViewController) {
     switch title {
     case MOBILE,
          MOBILE_OTHER:
@@ -72,8 +71,7 @@ func performActionWithField(title : String, description : String, controller : U
     }
 }
 
-func exportToContacts(user : User, photo : UIImage?, controller : UIViewController) {
-    
+func exportToContacts(user: User, photo: UIImage?, controller: UIViewController) {
     var contactExists = false
     
     let contactStore = CNContactStore()
@@ -87,8 +85,8 @@ func exportToContacts(user : User, photo : UIImage?, controller : UIViewControll
         try contactStore.enumerateContacts(with: request) { (contact, stop) in contacts.append(contact)
             for phoneNumber in contact.phoneNumbers {
                 if let number = phoneNumber.value as? CNPhoneNumber {
-                    if cleanPhoneNumber(number: user.mobile) == cleanPhoneNumber(number: number.stringValue) ||
-                        cleanPhoneNumber(number: user.mobileSecond) == cleanPhoneNumber(number: number.stringValue) {
+                    if cleanPhoneNumber(user.mobile) == cleanPhoneNumber(number.stringValue) ||
+                        cleanPhoneNumber(user.mobileSecond) == cleanPhoneNumber(number.stringValue) {
                         contactExists = true
                     }
                     //print(cleanPhoneNumber(number: number.stringValue))
@@ -213,7 +211,7 @@ func exportToContacts(user : User, photo : UIImage?, controller : UIViewControll
 
 }
 
-private func openApp(site : String, userLink : String) {
+private func openApp(site: String, userLink: String) {
     let hooks = getHooksAndUrl(site: site)[0]
     let siteUrl = getHooksAndUrl(site: site)[1]
     let appUrl = NSURL(string: hooks)
@@ -224,7 +222,7 @@ private func openApp(site : String, userLink : String) {
     }
 }
 
-private func openMaps(address : String) {
+private func openMaps(address: String) {
     let geocoder = CLGeocoder()
     geocoder.geocodeAddressString(address) { (placemarksOptional, error) -> Void in
       
@@ -249,7 +247,7 @@ private func openMaps(address : String) {
     }
 }
 
-private func getHooksAndUrl(site : String) -> [String] {
+private func getHooksAndUrl(site: String) -> [String] {
     var data: Array<String> = Array(repeating: "", count: 2)
     if site == "instagram" {
         data[0] = "instagram://user?username="
@@ -267,7 +265,7 @@ private func getHooksAndUrl(site : String) -> [String] {
     return data
 }
 
-private func showAlert(title : String, controller : UIViewController) {
+private func showAlert(title: String, controller: UIViewController) {
     let alert = UIAlertController(title: "", message: "Данные поля \"\(title)\" успешно скопированы!", preferredStyle: .alert)
     controller.present(alert, animated: true, completion: nil)
 
@@ -277,7 +275,7 @@ private func showAlert(title : String, controller : UIViewController) {
     }
 }
 
-private func cleanPhoneNumber(number : String) -> String {
+private func cleanPhoneNumber(_ number: String) -> String {
     if number != "" {
         var cleanNumber = number
             .replacingOccurrences(of: "+", with: "", options: NSString.CompareOptions.literal, range: nil)

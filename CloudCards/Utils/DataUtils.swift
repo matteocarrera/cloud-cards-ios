@@ -1,6 +1,6 @@
 import Foundation
 
-func setDataToList(user : User) -> [DataItem]{
+func setDataToList(from user: User) -> [DataItem]{
     var data = [DataItem]()
     if (user.surname != "") { data.append(DataItem(title: SURNAME, data: user.surname)) }
     if (user.name != "") { data.append(DataItem(title: NAME, data: user.name)) }
@@ -25,7 +25,7 @@ func setDataToList(user : User) -> [DataItem]{
     return data
 }
 
-func parseDataToUserBoolean(data : [DataItem]) -> UserBoolean {
+func parseDataToUserBoolean(from data: [DataItem]) -> UserBoolean {
     let user = UserBoolean()
     for elem in data {
         if elem.title == SURNAME { user.surname = true }
@@ -52,7 +52,7 @@ func parseDataToUserBoolean(data : [DataItem]) -> UserBoolean {
     return user
 }
 
-func parseDataToUser(data : [DataItem]) -> User {
+func parseDataToUser(from data: [DataItem]) -> User {
     let user = User()
     for elem in data {
         if elem.title == SURNAME { user.surname = elem.data }
@@ -79,7 +79,7 @@ func parseDataToUser(data : [DataItem]) -> User {
     return user
 }
 
-func generatedUsersEqual(firstUser : UserBoolean, secondUser : UserBoolean) -> Bool {
+func generatedUsersEqual(firstUser: UserBoolean, secondUser: UserBoolean) -> Bool {
     return firstUser.name == secondUser.name &&
         firstUser.surname == secondUser.surname &&
         firstUser.patronymic == secondUser.patronymic &&
@@ -102,7 +102,7 @@ func generatedUsersEqual(firstUser : UserBoolean, secondUser : UserBoolean) -> B
         firstUser.notes == secondUser.notes
 }
 
-func getUserFromTemplate(user : User, userBoolean : UserBoolean) -> User {
+func getUserFromTemplate(user: User, userBoolean: UserBoolean) -> User {
     let currentUser = User()
     currentUser.parentId = userBoolean.parentId
     currentUser.uuid = userBoolean.uuid
@@ -130,7 +130,7 @@ func getUserFromTemplate(user : User, userBoolean : UserBoolean) -> User {
     return currentUser
 }
 
-private func checkField(field : String, isSelected : Bool) -> String {
+private func checkField(field: String, isSelected: Bool) -> String {
     if isSelected {
         return field
     } else {

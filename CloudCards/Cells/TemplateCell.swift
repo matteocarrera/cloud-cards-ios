@@ -52,14 +52,6 @@ class TemplateCell : UICollectionViewCell {
             self.shareCard()
         }
         
-        // Оставлю на будущее для другого окна
-        /*let changeColor = UIAction(
-            title: "Изменить цвет",
-            image: UIImage(systemName: "paintbrush.pointed")
-        ) { (_) in
-            self.changeCardColor()
-        }*/
-        
         let delete = UIAction(
             title: "Удалить",
             image: UIImage(systemName: "trash"),
@@ -75,13 +67,15 @@ class TemplateCell : UICollectionViewCell {
     }
     
     private func openCard() {
-        let templateUser = self.realm.objects(UserBoolean.self).filter("uuid = \"\(userId)\"")[0]
-        let parentUser = self.realm.objects(User.self)[0]
+        let templateUser = realm.objects(UserBoolean.self).filter("uuid = \"\(userId)\"")[0]
+        let parentUser = realm.objects(User.self)[0]
         let generatedUser = getUserFromTemplate(user: parentUser, userBoolean: templateUser)
+        let currentCard = realm.objects(Card.self).filter("id == \(cardId)")[0]
         
-        let cardViewController = controller.storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
-        cardViewController.currentUser = generatedUser
-        let nav = UINavigationController(rootViewController: cardViewController)
+        let myCardViewController = controller.storyboard?.instantiateViewController(withIdentifier: "MyCardViewController") as! MyCardViewController
+        myCardViewController.currentUser = generatedUser
+        myCardViewController.currentCard = currentCard
+        let nav = UINavigationController(rootViewController: myCardViewController)
         controller.navigationController?.showDetailViewController(nav, sender: nil)
     }
     
@@ -89,7 +83,7 @@ class TemplateCell : UICollectionViewCell {
         let owner = realm.objects(User.self)[0]
         let userLink = "\(owner.uuid)|\(userId)"
 
-        if let image = generateQR(userLink: userLink) {
+        if let image = generateQR(with: userLink) {
             let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
             controller.present(vc, animated: true)
         }

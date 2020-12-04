@@ -12,6 +12,8 @@
 		E7062D68250505F4006723EB /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7062D66250505F4006723EB /* MainInterface.storyboard */; };
 		E7062D6C250505F4006723EB /* Share.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E7062D62250505F4006723EB /* Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		E7062D722508C913006723EB /* DatabaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7062D712508C913006723EB /* DatabaseUtils.swift */; };
+		E70C89CE257A5290002491F3 /* MyCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C89CD257A5290002491F3 /* MyCardViewController.swift */; };
+		E70C89D2257A6633002491F3 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C89D1257A6633002491F3 /* UIImage.swift */; };
 		E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25324705D5000BB3F05 /* AppDelegate.swift */; };
 		E714B25624705D5000BB3F05 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25524705D5000BB3F05 /* SceneDelegate.swift */; };
 		E714B25A24705D5000BB3F05 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25924705D5000BB3F05 /* CameraController.swift */; };
@@ -86,6 +88,8 @@
 		E7062D69250505F4006723EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7062D70250505FA006723EB /* Share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Share.entitlements; sourceTree = "<group>"; };
 		E7062D712508C913006723EB /* DatabaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUtils.swift; sourceTree = "<group>"; };
+		E70C89CD257A5290002491F3 /* MyCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCardViewController.swift; sourceTree = "<group>"; };
+		E70C89D1257A6633002491F3 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		E714B25024705D5000BB3F05 /* CloudCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E714B25324705D5000BB3F05 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E714B25524705D5000BB3F05 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -253,6 +257,7 @@
 				E7F2D448253D8ABD00C38227 /* String.swift */,
 				E7179FBD25517C800082DEDA /* UITableView.swift */,
 				E71D4E33256AC6E4003FC189 /* ControllerExtensions.swift */,
+				E70C89D1257A6633002491F3 /* UIImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -282,6 +287,7 @@
 				E7A8275A24D171F00024F414 /* ContactsController.swift */,
 				E7F939FE254C1A7900F9B77B /* SettingsController.swift */,
 				E78BB3342566C3370023BFC9 /* TemplatesController.swift */,
+				E70C89CD257A5290002491F3 /* MyCardViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -485,6 +491,7 @@
 			files = (
 				E78BB3352566C3370023BFC9 /* TemplatesController.swift in Sources */,
 				E7F939FF254C1A7900F9B77B /* SettingsController.swift in Sources */,
+				E70C89CE257A5290002491F3 /* MyCardViewController.swift in Sources */,
 				E760A2702482D3D500009919 /* NavigationController.swift in Sources */,
 				E7E4E637248BA19C00C6E2A0 /* CreateCardController.swift in Sources */,
 				E7F2D449253D8ABD00C38227 /* String.swift in Sources */,
@@ -515,6 +522,7 @@
 				E7DA719624C31A19009DD08E /* UserBoolean.swift in Sources */,
 				E737940424CD6DA400440FF4 /* UIColor.swift in Sources */,
 				E73FD3B4256BC41F00E97226 /* DataCell.swift in Sources */,
+				E70C89D2257A6633002491F3 /* UIImage.swift in Sources */,
 				E786836B2488E77000844DD4 /* EditProfileController.swift in Sources */,
 				E714B25624705D5000BB3F05 /* SceneDelegate.swift in Sources */,
 			);

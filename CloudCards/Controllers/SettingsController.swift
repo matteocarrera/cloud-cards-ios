@@ -12,10 +12,10 @@ class SettingsController: UIViewController {
     @IBOutlet var settingsTable: UITableView!
     
     private let settingsRows = [
-        ["Конфиденциальность", "Privacy", "lock.circle.fill"],
-        ["Пользовательское соглашение", "TermsOfUse", "doc.circle.fill"],
-        ["Помощь", "Help", "questionmark.circle.fill"],
-        ["О приложении", "AboutApp", "info.circle.fill"]
+        ["Конфиденциальность", "Privacy"],
+        ["Пользовательское соглашение", "TermsOfUse"],
+        ["Помощь", "Help"],
+        ["О приложении", "AboutApp"]
     ]
     private let realm = RealmInstance.getInstance()
     
@@ -42,7 +42,6 @@ class SettingsController: UIViewController {
     public func getProfileInfo() {
         let userDictionary = realm.objects(User.self)
         if userDictionary.count != 0 {
-            
             let owner = userDictionary[0]
             
             nameLabel.text = "\(owner.name) \(owner.surname)"
@@ -75,8 +74,6 @@ extension SettingsController : UITableViewDataSource {
         setColorToSelectedRow(tableCell: cell)
         
         cell.textLabel?.text = settingsRows[indexPath.row][0]
-        cell.imageView?.image = UIImage(systemName: settingsRows[indexPath.row][2])
-        cell.imageView?.tintColor = PRIMARY
         
         return cell
     }

@@ -37,7 +37,7 @@ class CreateCardController: UIViewController {
         let userDictionary = realm.objects(User.self)
         if userDictionary.count != 0 {
             let owner = userDictionary[0]
-            data = setDataToList(user: owner)
+            data = setDataToList(from: owner)
             createProfileNotification.isHidden = true
         } else {
             data = [DataItem]()
@@ -122,9 +122,9 @@ extension CreateCardController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "Свойста визитки"
+            return "СВОЙСТВА ВИЗИТКИ"
         } else if section == 1 {
-            return "Данные визитки"
+            return "ДАННЫЕ ВИЗИТКИ"
         }
         return nil
     }
