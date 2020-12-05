@@ -999,8 +999,8 @@
         <!--О приложении-->
         <scene sceneID="ezM-bX-Jo0">
             <objects>
-                <tableViewController storyboardIdentifier="AboutApp" title="О приложении" useStoryboardIdentifierAsRestorationIdentifier="YES" id="s29-ZV-UUZ" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="4kz-Ot-ghk">
+                <tableViewController storyboardIdentifier="AboutApp" title="О приложении" useStoryboardIdentifierAsRestorationIdentifier="YES" id="s29-ZV-UUZ" customClass="AboutAppController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="4kz-Ot-ghk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="Light Gray"/>
@@ -1010,7 +1010,7 @@
                         <sections>
                             <tableViewSection id="fVD-ea-sEj">
                                 <cells>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="LWn-vj-oGH" detailTextLabel="EEV-wz-oQ0" rowHeight="43" style="IBUITableViewCellStyleValue1" id="hI9-dB-tTd">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="LWn-vj-oGH" detailTextLabel="EEV-wz-oQ0" rowHeight="43" style="IBUITableViewCellStyleValue1" id="hI9-dB-tTd">
                                         <rect key="frame" x="0.0" y="18" width="414" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="hI9-dB-tTd" id="gAg-VN-PgQ">
@@ -1034,7 +1034,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="8gw-9o-COG" detailTextLabel="xov-d7-Btz" rowHeight="43" style="IBUITableViewCellStyleValue1" id="1Nc-Eo-PDI">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="8gw-9o-COG" detailTextLabel="xov-d7-Btz" rowHeight="43" style="IBUITableViewCellStyleValue1" id="1Nc-Eo-PDI">
                                         <rect key="frame" x="0.0" y="61" width="414" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1Nc-Eo-PDI" id="u4T-NN-MoD">
@@ -1082,7 +1082,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Zny-2b-i25" detailTextLabel="jQ8-x2-KYu" rowHeight="43" style="IBUITableViewCellStyleValue1" id="a7G-oL-07V">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Zny-2b-i25" detailTextLabel="jQ8-x2-KYu" rowHeight="43" style="IBUITableViewCellStyleValue1" id="a7G-oL-07V">
                                         <rect key="frame" x="0.0" y="147" width="414" height="43"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="a7G-oL-07V" id="OXD-EL-DpR">

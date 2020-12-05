@@ -153,7 +153,6 @@ extension CreateCardController: UITableViewDataSource {
             tableView.deselectRow(at: indexPath, animated: false)
             if indexPath.row == 1 {
                 selectedColor = COLORS[Int.random(in: 0..<COLORS.count)]
-                print(selectedColor)
                 cell.imageView?.tintColor = UIColor.init(hexString: selectedColor)
                 return
             }

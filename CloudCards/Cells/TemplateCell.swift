@@ -89,21 +89,6 @@ class TemplateCell : UICollectionViewCell {
         }
     }
     
-    private func changeCardColor() {
-        try! realm.write {
-            let card = realm.objects(Card.self).filter("id == \(cardId)")[0]
-            
-            var color = card.color
-            while color == card.color {
-                color = COLORS[Int.random(in: 0..<COLORS.count)]
-            }
-            card.color = color
-            self.contentView.backgroundColor = UIColor.init(hexString: color)
-            
-            realm.add(card, update: .all)
-        }
-    }
-    
     private func deleteCard() {
         // Удаляем карту из массива карт в родительском контроллере
         let card = self.realm.objects(Card.self).filter("id == \(self.cardId)")[0]

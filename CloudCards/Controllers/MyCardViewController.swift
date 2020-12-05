@@ -34,6 +34,8 @@ class MyCardViewController: UITableViewController {
     }
     
     @objc func closeWindow(_ sender: Any) {
+        // Получение TemplatesController (Nav -> Tab -> Nav -> Cards)
+        self.navigationController?.presentingViewController?.children.first?.children.first?.viewWillAppear(true)
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
 
@@ -82,22 +84,83 @@ class MyCardViewController: UITableViewController {
         let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
         
         let rename = UIAlertAction.init(title: "Переименовать", style: .default, handler: { (_) in
-            
+            self.showEnterCardNameAlert()
         })
         alert.addAction(rename)
         
         let changeColor = UIAlertAction.init(title: "Изменить цвет", style: .default, handler: { (_) in
-            
+            self.changeCardColor()
         })
         alert.addAction(changeColor)
         
         let delete = UIAlertAction.init(title: "Удалить визитку", style: .destructive, handler: { (_) in
-            
+            self.deleteCard()
         })
         alert.addAction(delete)
         
         alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
             
         self.present(alert, animated: true)
+    }
+    
+    private func showEnterCardNameAlert() {
+        let alert = UIAlertController(title: "Имя визитки", message: "Введите имя визитки", preferredStyle: .alert)
+        let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+        
+        alert.addTextField { (textField) in
+            textField.autocapitalizationType = .sentences
+            textField.clearButtonMode = .whileEditing
+            textField.text = cell?.textLabel?.text
+        }
+
+        alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: { [weak alert] (_) in
+            guard let cardName = alert?.textFields![0].text else { return }
+            if cardName == String() {
+                showSimpleAlert(controller: self, title: "Ошибка", message: "Имя визитки не может быть пустым!")
+                return
+            }
+            cell?.textLabel?.text = cardName
+            
+            try! self.realm.write {
+                self.currentCard.title = cardName
+                
+                self.realm.add(self.currentCard, update: .all)
+            }
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+
+        self.present(alert, animated: true, completion: nil)
+    }
+    
+    private func changeCardColor() {
+        var color = currentCard.color
+        while color == currentCard.color {
+            color = COLORS[Int.random(in: 0..<COLORS.count)]
+        }
+        
+        let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+        cell?.imageView?.image = cell?.imageView?.image?.withTintColor(UIColor.init(hexString: color))
+        
+        try! realm.write {
+            currentCard.color = color
+            
+            realm.add(currentCard, update: .all)
+        }
+    }
+    
+    private func deleteCard() {
+        let alert = UIAlertController(title: "Удаление визитки", message: "Вы действительно хотите удалить визитку?", preferredStyle: .alert)
+
+        alert.addAction(UIAlertAction(title: "Удалить", style: .destructive, handler: { (_) in
+            try! self.realm.write {
+                self.realm.delete(self.currentCard)
+            }
+            self.closeWindow(self)
+        }))
+        
+        alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
+
+        self.present(alert, animated: true, completion: nil)
     }
 }

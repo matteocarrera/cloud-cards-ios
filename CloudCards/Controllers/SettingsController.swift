@@ -23,20 +23,16 @@ class SettingsController: UIViewController {
         super.viewDidLoad()
         configureTableView(table: settingsTable, controller: self)
         
+        getProfileInfo()
+        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileViewTapped))
         profileView.isUserInteractionEnabled = true
         profileView.addGestureRecognizer(tapGestureRecognizer)
         
         profilePhoto.layer.cornerRadius = profilePhoto.frame.height/2
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
+        
         setTopSeparator(table: settingsTable)
         setBottomSeparator(table: settingsTable)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        getProfileInfo()
     }
     
     public func getProfileInfo() {
@@ -70,9 +66,7 @@ extension SettingsController : UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath)
-        
-        setColorToSelectedRow(tableCell: cell)
-        
+
         cell.textLabel?.text = settingsRows[indexPath.row][0]
         
         return cell
