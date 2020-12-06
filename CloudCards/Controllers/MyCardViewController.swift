@@ -116,7 +116,11 @@ class MyCardViewController: UITableViewController {
         alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: { [weak alert] (_) in
             guard let cardName = alert?.textFields![0].text else { return }
             if cardName == String() {
-                showSimpleAlert(controller: self, title: "Ошибка", message: "Имя визитки не может быть пустым!")
+                showSimpleAlert(
+                    withTitle: "Ошибка",
+                    withMessage: "Имя визитки не может быть пустым",
+                    inController: self
+                )
                 return
             }
             cell?.textLabel?.text = cardName

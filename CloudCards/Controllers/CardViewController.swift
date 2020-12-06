@@ -1,6 +1,8 @@
 import UIKit
 import MessageUI
 
+private let reuseIdentifier = "DataCell"
+
 class CardViewController: UIViewController {
 
     @IBOutlet weak var cardDataTable: UITableView!
@@ -88,11 +90,11 @@ class CardViewController: UIViewController {
 extension CardViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = cardDataTable.dequeueReusableCell(withIdentifier: "CardDataCell", for: indexPath) as! CardDataCell
+        let cell = cardDataTable.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DataCell
         
         let dataCell = data[indexPath.row]
-        cell.itemTitle.text = dataCell.title
-        cell.itemDescription.text = dataCell.data
+        cell.titleLabel.text = dataCell.title
+        cell.dataLabel.text = dataCell.data
         
         return cell
     }
@@ -118,18 +120,3 @@ extension CardViewController: UITableViewDelegate {
 }
 
 extension CardViewController: MFMailComposeViewControllerDelegate {}
-
-class CardDataCell : UITableViewCell {
-    
-    @IBOutlet var itemTitle: UILabel!
-    @IBOutlet var itemDescription: UILabel!
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        setColorToSelectedRow(tableCell: self)
-    }
-    
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-    }
-}

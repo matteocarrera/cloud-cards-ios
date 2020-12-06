@@ -17,7 +17,12 @@ class AboutAppController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectSelectedRows(animated: true)
         if indexPath.section == 0 && indexPath.row == 2 {
-            showDevelopersAlert()
+            showTimeAlert(
+                withTitle: "Владимир Макаров\nАнна Кислых",
+                withMessage: String(),
+                showForSeconds: 2,
+                inController: self
+            )
             return
         }
         if indexPath.section == 1 {
@@ -32,15 +37,5 @@ class AboutAppController: UITableViewController {
             return CGFloat.leastNonzeroMagnitude
         }
         return UITableView.automaticDimension
-    }
-    
-    private func showDevelopersAlert() {
-        let alert = UIAlertController(title: "Владимир Макаров\nАнна Кислых", message: "", preferredStyle: .alert)
-        present(alert, animated: true, completion: nil)
-        
-        let when = DispatchTime.now() + 2
-        DispatchQueue.main.asyncAfter(deadline: when){
-          alert.dismiss(animated: true, completion: nil)
-        }
     }
 }

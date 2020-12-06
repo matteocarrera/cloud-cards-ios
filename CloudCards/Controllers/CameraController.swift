@@ -71,9 +71,9 @@ class CameraController: UIViewController {
 
     private func failed() {
         showSimpleAlert(
-            controller: self,
-            title: "Сканирование не поддерживается",
-            message: "Ваше устройство не поддерживает функцию сканирования."
+            withTitle: "Сканирование не поддерживается",
+            withMessage: "Ваше устройство не поддерживает функцию сканирования!",
+            inController: self
         )
         captureSession = nil
     }

@@ -52,9 +52,9 @@ class CreateCardController: UIViewController {
         
         if selectedItems.count == 0 {
             showSimpleAlert(
-                controller: self,
-                title: "Данные не выбраны",
-                message: "Вы не выбрали ни одного поля!"
+                withTitle: "Данные не выбраны",
+                withMessage: "Вы не выбрали ни одного поля!",
+                inController: self
             )
             return
         }
@@ -62,18 +62,18 @@ class CreateCardController: UIViewController {
         if !selectedItems.contains(where: { $0.title == "фамилия" }) ||
             !selectedItems.contains(where: { $0.title == "имя" }) {
             showSimpleAlert(
-                controller: self,
-                title: "Данные не выбраны",
-                message: "Визитка обязательно должна содержать Ваши имя и фамилию!"
+                withTitle: "Данные не выбраны",
+                withMessage: "Визитка обязательно должна содержать Ваши имя и фамилию!",
+                inController: self
             )
             return
         }
         
         if title == cardParameters[0] {
             showSimpleAlert(
-                controller: self,
-                title: "Название не указано",
-                message: "Введите название визитки!"
+                withTitle: "Название не указано",
+                withMessage: "Введите название визитки!",
+                inController: self
             )
             return
         }

@@ -1195,41 +1195,41 @@
                                 <rect key="frame" x="0.0" y="214" width="414" height="648"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="CardDataCell" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="CardDataCell" rowHeight="55" id="qhz-Sf-6SA" customClass="CardDataCell" customModule="CloudCards" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DataCell" rowHeight="55" id="fDs-JD-F4s" customClass="DataCell" customModule="CloudCards" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="55"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qhz-Sf-6SA" id="BF0-Li-oKU">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="fDs-JD-F4s" id="TXH-nG-dKu">
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="55"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="заголовок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SAM-kh-pzM">
-                                                    <rect key="frame" x="20" y="28" width="374" height="20"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="описание" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3di-cb-Zur">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="заголовок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ueg-W9-53w">
                                                     <rect key="frame" x="20" y="7" width="374" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                     <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="данные" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUm-8L-chJ">
+                                                    <rect key="frame" x="20" y="28" width="374" height="20"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="3di-cb-Zur" secondAttribute="trailing" constant="20" id="Pdx-Dm-kSy"/>
-                                                <constraint firstItem="SAM-kh-pzM" firstAttribute="leading" secondItem="BF0-Li-oKU" secondAttribute="leading" constant="20" id="ZCc-UT-mT9"/>
-                                                <constraint firstAttribute="bottom" secondItem="SAM-kh-pzM" secondAttribute="bottom" constant="7" id="ZL8-Iy-MGf"/>
-                                                <constraint firstItem="SAM-kh-pzM" firstAttribute="top" secondItem="3di-cb-Zur" secondAttribute="bottom" constant="4" id="c5s-EM-Q07"/>
-                                                <constraint firstAttribute="trailing" secondItem="SAM-kh-pzM" secondAttribute="trailing" constant="20" id="dUc-N9-Mt2"/>
-                                                <constraint firstItem="3di-cb-Zur" firstAttribute="top" secondItem="BF0-Li-oKU" secondAttribute="top" constant="7" id="iIF-7w-OQT"/>
-                                                <constraint firstItem="3di-cb-Zur" firstAttribute="leading" secondItem="BF0-Li-oKU" secondAttribute="leading" constant="20" id="v6P-os-h3H"/>
+                                                <constraint firstAttribute="bottom" secondItem="fUm-8L-chJ" secondAttribute="bottom" constant="7" id="APM-5k-ftV"/>
+                                                <constraint firstAttribute="trailing" secondItem="fUm-8L-chJ" secondAttribute="trailing" constant="20" id="BlS-5X-W77"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ueg-W9-53w" secondAttribute="trailing" constant="20" id="MYe-nU-aC2"/>
+                                                <constraint firstItem="Ueg-W9-53w" firstAttribute="top" secondItem="TXH-nG-dKu" secondAttribute="top" constant="7" id="aeS-ch-5qT"/>
+                                                <constraint firstItem="Ueg-W9-53w" firstAttribute="leading" secondItem="TXH-nG-dKu" secondAttribute="leading" constant="20" id="jWP-gx-cRU"/>
+                                                <constraint firstItem="fUm-8L-chJ" firstAttribute="leading" secondItem="TXH-nG-dKu" secondAttribute="leading" constant="20" id="uhG-b7-GI1"/>
+                                                <constraint firstItem="fUm-8L-chJ" firstAttribute="top" secondItem="Ueg-W9-53w" secondAttribute="bottom" constant="4" id="wyj-E5-las"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
-                                            <outlet property="itemDescription" destination="SAM-kh-pzM" id="sSe-kO-R0Q"/>
-                                            <outlet property="itemTitle" destination="3di-cb-Zur" id="5Gl-Z1-KJq"/>
+                                            <outlet property="dataLabel" destination="fUm-8L-chJ" id="89e-38-egZ"/>
+                                            <outlet property="titleLabel" destination="Ueg-W9-53w" id="PA5-VS-co1"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

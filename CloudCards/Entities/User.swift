@@ -5,7 +5,7 @@ import RealmSwift
     Основной класс Пользователя
  */
 
-class User : Object, Codable {
+public class User : Object, Codable {
     // UUID родительского пользователя
     @objc dynamic var parentId : String = ""
     
@@ -34,7 +34,7 @@ class User : Object, Codable {
     @objc dynamic var twitter : String = ""
     @objc dynamic var notes : String = ""
     
-    override class func primaryKey() -> String? {
+    public override class func primaryKey() -> String? {
         return "uuid"
     }
 }

@@ -3,13 +3,44 @@ import UIKit
 import CoreLocation
 import Contacts
 
-func showSimpleAlert(controller: UIViewController, title: String, message: String) {
+/*
+    Простой Alert, содержащий в себе заголовок и текст
+ */
+
+public func showSimpleAlert(
+    withTitle title: String,
+    withMessage message: String,
+    inController controller: UIViewController
+) {
     let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
     ac.addAction(UIAlertAction(title: "OK", style: .default))
     controller.present(ac, animated: true)
 }
 
-func showShareController(with link: String, in controller: UIViewController) {
+/*
+    Alert без кнопки, но появляющийся на определенное количество секунд
+ */
+
+public func showTimeAlert(
+    withTitle title: String,
+    withMessage message: String,
+    showForSeconds seconds: Double,
+    inController controller: UIViewController
+) {
+    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    controller.present(alert, animated: true, completion: nil)
+
+    let when = DispatchTime.now() + seconds
+    DispatchQueue.main.asyncAfter(deadline: when){
+      alert.dismiss(animated: true, completion: nil)
+    }
+}
+
+/*
+    Нижняя шторка - контроллер Поделиться
+ */
+
+public func showShareController(with link: String, in controller: UIViewController) {
     let shareController = ShareController()
     shareController.modalPresentationStyle = .custom
     shareController.transitioningDelegate = controller as? UIViewControllerTransitioningDelegate
@@ -17,7 +48,11 @@ func showShareController(with link: String, in controller: UIViewController) {
     controller.present(shareController, animated: true, completion: nil)
 }
 
-func generateQR(with userLink: String) -> UIImage? {
+/*
+    Генерация QR-кода с предоставленным текстом
+ */
+
+public func generateQR(with userLink: String) -> UIImage? {
     let data = userLink.data(using: String.Encoding.utf8)
     guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
     qrFilter.setValue(data, forKey: "inputMessage")
@@ -28,7 +63,11 @@ func generateQR(with userLink: String) -> UIImage? {
     return UIImage.init(ciImage: scaledQrImage)
 }
 
-func setLargeNavigationBar(for controller: UIViewController) {
+/*
+    Большой NavigationBar для контроллера
+ */
+
+public func setLargeNavigationBar(for controller: UIViewController) {
     controller.navigationController!.navigationBar.prefersLargeTitles = true
     controller.navigationController?.view.backgroundColor = LIGHT_GRAY
     
@@ -42,7 +81,11 @@ func setLargeNavigationBar(for controller: UIViewController) {
     controller.navigationController!.navigationBar.scrollEdgeAppearance = appearance
 }
 
-func performActionWithField(title: String, description: String, controller: UIViewController) {
+/*
+    Выполнение определенного действия, зависящего от предоставленных параметров
+ */
+
+public func performActionWithField(title: String, description: String, controller: UIViewController) {
     switch title {
     case MOBILE,
          MOBILE_OTHER:
@@ -67,11 +110,21 @@ func performActionWithField(title: String, description: String, controller: UIVi
         openApp(site: title, userLink: description)
     default:
         UIPasteboard.general.string = description
-        showAlert(title: title, controller: controller)
+        showTimeAlert(
+            withTitle: String(),
+            withMessage: "Данные поля \"\(title)\" успешно скопированы!",
+            showForSeconds: 1,
+            inController: controller
+        )
     }
 }
 
-func exportToContacts(user: User, photo: UIImage?, controller: UIViewController) {
+
+/*
+    Экспорт контакта в контактную книжку телефона пользователя
+ */
+
+public func exportToContacts(user: User, photo: UIImage?, controller: UIViewController) {
     var contactExists = false
     
     let contactStore = CNContactStore()
@@ -98,7 +151,11 @@ func exportToContacts(user: User, photo: UIImage?, controller: UIViewController)
     }
     
     if contactExists {
-        showSimpleAlert(controller: controller, title: "Контакт существует!", message: "Такой контакт уже существует!")
+        showSimpleAlert(
+            withTitle: "Контакт существует!",
+            withMessage: "Такой контакт уже существует!",
+            inController: controller
+        )
         return
     }
     
@@ -211,6 +268,10 @@ func exportToContacts(user: User, photo: UIImage?, controller: UIViewController)
 
 }
 
+/*
+    Функция открытия приложения с предоставленными параметрами
+ */
+
 private func openApp(site: String, userLink: String) {
     let hooks = getHooksAndUrl(site: site)[0]
     let siteUrl = getHooksAndUrl(site: site)[1]
@@ -221,6 +282,10 @@ private func openApp(site: String, userLink: String) {
         UIApplication.shared.open(NSURL(string: siteUrl + userLink)! as URL, options: .init(), completionHandler: nil)
     }
 }
+
+/*
+    Открытие карт с указанным адресом
+ */
 
 private func openMaps(address: String) {
     let geocoder = CLGeocoder()
@@ -247,6 +312,10 @@ private func openMaps(address: String) {
     }
 }
 
+/*
+    Функция, возвращающая параметры приложения для его открытия
+ */
+
 private func getHooksAndUrl(site: String) -> [String] {
     var data: Array<String> = Array(repeating: "", count: 2)
     if site == "instagram" {
@@ -263,16 +332,6 @@ private func getHooksAndUrl(site: String) -> [String] {
         data[1] = "http://vk.com/"
     }
     return data
-}
-
-private func showAlert(title: String, controller: UIViewController) {
-    let alert = UIAlertController(title: "", message: "Данные поля \"\(title)\" успешно скопированы!", preferredStyle: .alert)
-    controller.present(alert, animated: true, completion: nil)
-
-    let when = DispatchTime.now() + 1
-    DispatchQueue.main.asyncAfter(deadline: when){
-      alert.dismiss(animated: true, completion: nil)
-    }
 }
 
 private func cleanPhoneNumber(_ number: String) -> String {

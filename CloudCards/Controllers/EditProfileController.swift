@@ -132,9 +132,9 @@ class EditProfileController: UIViewController {
             mobileNumberField.text!.isEmpty ||
             emailField.text!.isEmpty {
             showSimpleAlert(
-                controller: self,
-                title: "Поля не заполнены",
-                message: "Обязательные поля: имя, фамилия, мобильный номер и email - не заполнены!"
+                withTitle: "Поля не заполнены",
+                withMessage: "Обязательные поля: имя, фамилия, мобильный номер и email - не заполнены!",
+                inController: self
             )
             return
         }
