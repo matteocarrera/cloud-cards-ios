@@ -25,7 +25,7 @@ class ShareController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        imageView.image = generateQR(userLink: userLink)
+        imageView.image = generateQR(with: userLink)
     }
     
     override func viewDidLayoutSubviews() {

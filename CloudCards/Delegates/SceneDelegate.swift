@@ -22,6 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     @available(iOS 13.0, *)
     func sceneDidBecomeActive(_ scene: UIScene) {
+        getImportedCard()
         // Called when the scene has moved from an inactive state to an active state.
         // Use this method to restart any tasks that were paused (or not yet started) when the scene was inactive.
     }
@@ -45,6 +46,20 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // to restore the scene back to its current state.
     }
 
+    /*
+        Получение импортированных визиток в приложение и их обработка и сохранение
+     */
+    
+    private func getImportedCard() {
+        let defaults = UserDefaults(suiteName: "group.com.mksdevelopmentgroup.cloudcards")
+        let link = String((defaults?.string(forKey: "link") ?? ""))
 
+        guard let controller = window?.rootViewController else { return }
+        if link.contains("|") {
+            getUserFromQR(from: controller, with: link)
+        }
+
+        defaults?.removeObject(forKey: "link")
+    }
 }
 

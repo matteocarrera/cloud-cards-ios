@@ -51,7 +51,7 @@ public func saveCard(withTitle title: String?, withColor selectedColor: String, 
     let realm = RealmInstance.getInstance()
     let ownerUser = realm.objects(User.self)[0]
     
-    let newUser = parseDataToUserBoolean(data: selectedItems)
+    let newUser = parseDataToUserBoolean(from: selectedItems)
     newUser.parentId = ownerUser.parentId
     
     let userDictionary = realm.objects(UserBoolean.self)
@@ -104,7 +104,7 @@ public func saveCard(withTitle title: String?, withColor selectedColor: String, 
     }
 }
 
-public func getPhotoFromDatabase(photoUuid : String) -> UIImage? {
+public func getPhotoFromDatabase(photoUuid: String) -> UIImage? {
     let url = URL(string: getPhotoLink(uuid: photoUuid))
     let data = try? Data(contentsOf: url!)
     
@@ -115,6 +115,6 @@ public func getPhotoFromDatabase(photoUuid : String) -> UIImage? {
     return nil
 }
 
-private func getPhotoLink(uuid : String) -> String {
+private func getPhotoLink(uuid: String) -> String {
     return "https://firebasestorage.googleapis.com/v0/b/cloudcardsmobile.appspot.com/o/\(uuid)?alt=media"
 }

@@ -5,7 +5,7 @@ import RealmSwift
     Класс Пользователя, сгенерированного на основе родительского Пользователя
  */
 
-class UserBoolean : Object, Codable {
+public class UserBoolean : Object, Codable {
     @objc dynamic var parentId : String = ""
     @objc dynamic var uuid : String = ""
     @objc dynamic var name : Bool = false
@@ -29,7 +29,7 @@ class UserBoolean : Object, Codable {
     @objc dynamic var twitter : Bool = false
     @objc dynamic var notes : Bool = false
     
-    override class func primaryKey() -> String? {
+    public override class func primaryKey() -> String? {
         return "uuid"
     }
 }

@@ -23,29 +23,12 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
         templates = Array(realm.objects(Card.self))
 
         collectionView.reloadData()
-        
-        getImportedCard()
     }
     
     @objc func openCreateTemplateWindow() {
         let viewController = storyboard?.instantiateViewController(withIdentifier: "CreateCardController") as! CreateCardController
         let nav = UINavigationController(rootViewController: viewController)
         self.navigationController?.showDetailViewController(nav, sender: nil)
-    }
-    
-    /*
-        Получение импортированных визиток в приложение и их обработка и сохранение
-     */
-    
-    private func getImportedCard() {
-        let defaults = UserDefaults(suiteName: "group.com.mksdevelopmentgroup.cloudcards")
-        let link = String((defaults?.string(forKey: "link") ?? ""))
-        
-        if link.contains("|") {
-            getUserFromQR(from: self, with: link)
-        }
-
-        defaults?.removeObject(forKey: "link")
     }
     
     private func setAddTemplateButton() {

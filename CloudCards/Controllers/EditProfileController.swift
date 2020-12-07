@@ -132,9 +132,9 @@ class EditProfileController: UIViewController {
             mobileNumberField.text!.isEmpty ||
             emailField.text!.isEmpty {
             showSimpleAlert(
-                controller: self,
-                title: "Поля не заполнены",
-                message: "Обязательные поля: имя, фамилия, мобильный номер и email - не заполнены!"
+                withTitle: "Поля не заполнены",
+                withMessage: "Обязательные поля: имя, фамилия, мобильный номер и email - не заполнены!",
+                inController: self
             )
             return
         }
@@ -155,12 +155,12 @@ class EditProfileController: UIViewController {
                 storageRef = Storage.storage().reference().child(photoUuid!)
 
                 storageRef.delete { error in
-                  if let error = error {
-                    print("Ошибка во время удаления фотографии пользователя")
-                    print(error)
-                  } else {
-                    print("Фотография успешно удалена")
-                  }
+                    if let error = error {
+                        print("Ошибка во время удаления фотографии пользователя")
+                        print(error)
+                    } else {
+                        print("Фотография успешно удалена")
+                    }
                 }
             }
             

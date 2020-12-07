@@ -37,7 +37,7 @@ class CreateCardController: UIViewController {
         let userDictionary = realm.objects(User.self)
         if userDictionary.count != 0 {
             let owner = userDictionary[0]
-            data = setDataToList(user: owner)
+            data = setDataToList(from: owner)
             createProfileNotification.isHidden = true
         } else {
             data = [DataItem]()
@@ -52,9 +52,9 @@ class CreateCardController: UIViewController {
         
         if selectedItems.count == 0 {
             showSimpleAlert(
-                controller: self,
-                title: "Данные не выбраны",
-                message: "Вы не выбрали ни одного поля!"
+                withTitle: "Данные не выбраны",
+                withMessage: "Вы не выбрали ни одного поля!",
+                inController: self
             )
             return
         }
@@ -62,18 +62,18 @@ class CreateCardController: UIViewController {
         if !selectedItems.contains(where: { $0.title == "фамилия" }) ||
             !selectedItems.contains(where: { $0.title == "имя" }) {
             showSimpleAlert(
-                controller: self,
-                title: "Данные не выбраны",
-                message: "Визитка обязательно должна содержать Ваши имя и фамилию!"
+                withTitle: "Данные не выбраны",
+                withMessage: "Визитка обязательно должна содержать Ваши имя и фамилию!",
+                inController: self
             )
             return
         }
         
         if title == cardParameters[0] {
             showSimpleAlert(
-                controller: self,
-                title: "Название не указано",
-                message: "Введите название визитки!"
+                withTitle: "Название не указано",
+                withMessage: "Введите название визитки!",
+                inController: self
             )
             return
         }
@@ -122,9 +122,9 @@ extension CreateCardController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
-            return "Свойста визитки"
+            return "СВОЙСТВА ВИЗИТКИ"
         } else if section == 1 {
-            return "Данные визитки"
+            return "ДАННЫЕ ВИЗИТКИ"
         }
         return nil
     }
@@ -153,7 +153,6 @@ extension CreateCardController: UITableViewDataSource {
             tableView.deselectRow(at: indexPath, animated: false)
             if indexPath.row == 1 {
                 selectedColor = COLORS[Int.random(in: 0..<COLORS.count)]
-                print(selectedColor)
                 cell.imageView?.tintColor = UIColor.init(hexString: selectedColor)
                 return
             }

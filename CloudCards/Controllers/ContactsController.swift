@@ -56,7 +56,7 @@ class ContactsController: UIViewController {
     @objc func shareContacts(_ sender: Any) {
         var images = [UIImage]()
         for contactLink in selectedContactsUuid {
-            guard let image = generateQR(userLink: contactLink) else { return }
+            guard let image = generateQR(with: contactLink) else { return }
             images.append(image)
         }
         
@@ -374,7 +374,7 @@ extension ContactsController {
 
             let contactUuids = "\(contact.parentId)|\(contact.uuid)"
 
-            if let image = generateQR(userLink: contactUuids) {
+            if let image = generateQR(with: contactUuids) {
                 let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
                 self.present(vc, animated: true)
             }
