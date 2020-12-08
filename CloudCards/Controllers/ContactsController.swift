@@ -36,7 +36,7 @@ class ContactsController: UIViewController {
 
     @objc func deleteContacts(_ sender: Any) {
         for uuid in selectedContactsUuid {
-            let userUuid = uuid.split(separator: "|")[1]
+            let userUuid = uuid.split(separator: ID_SEPARATOR.character(at: 0) ?? "&")[1]
             
             let contact = self.realm.objects(UserBoolean.self)
                 .filter("uuid = \"\(userUuid)\"")[0]
@@ -78,14 +78,14 @@ class ContactsController: UIViewController {
         } else {
             contactsTable.setEditing(true, animated: true)
             let cancelButton : UIBarButtonItem = UIBarButtonItem(
-                title: "Отменить",
+                title: "Готово",
                 style: UIBarButtonItem.Style.plain,
                 target: self,
                 action: #selector(selectMultiple(_:))
             )
             cancelButton.tintColor = PRIMARY
 
-            self.navigationItem.rightBarButtonItem = cancelButton
+            self.navigationItem.leftBarButtonItem = cancelButton
         }
     }
     
@@ -194,14 +194,14 @@ class ContactsController: UIViewController {
     
     private func setSelectButton() {
         let select : UIBarButtonItem = UIBarButtonItem(
-            image: selectMultipleButton.image,
+            title: "Изм.",
             style: UIBarButtonItem.Style.plain,
             target: self,
             action: #selector(selectMultiple(_:))
         )
         select.tintColor = PRIMARY
 
-        self.navigationItem.rightBarButtonItem = select
+        self.navigationItem.leftBarButtonItem = select
     }
     
     /*
@@ -295,7 +295,7 @@ extension ContactsController: UITableViewDelegate {
         
         let contact = getUserFromRow(with: indexPath)
         
-        let uuid = "\(contact.parentId)|\(contact.uuid)"
+        let uuid = "\(contact.parentId)\(ID_SEPARATOR)\(contact.uuid)"
         
         if contactsTable.isEditing {
             selectedContactsUuid.append(uuid)
@@ -326,7 +326,7 @@ extension ContactsController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let contact = getUserFromRow(with: indexPath)
-        let uuid = "\(contact.parentId)|\(contact.uuid)"
+        let uuid = "\(contact.parentId)\(ID_SEPARATOR)\(contact.uuid)"
         
         selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: uuid)!)
         
@@ -359,8 +359,7 @@ extension ContactsController {
     func showQR(at indexPath: IndexPath) -> UIContextualAction {
         let contact = getUserFromRow(with: indexPath)
         let action = UIContextualAction(style: .normal, title: "ShowQR") { (action, view, completion) in
-            let userLink = "\(contact.parentId)|\(contact.uuid)"
-            showShareController(with: userLink, in: self)
+            showShareController(with: contact, in: self)
             completion(true)
         }
         action.image = UIImage(systemName: "qrcode")
@@ -371,14 +370,7 @@ extension ContactsController {
     func shareContact(at indexPath: IndexPath) -> UIContextualAction {
         let contact = getUserFromRow(with: indexPath)
         let action = UIContextualAction(style: .normal, title: "Share") { (action, view, completion) in
-
-            let contactUuids = "\(contact.parentId)|\(contact.uuid)"
-
-            if let image = generateQR(with: contactUuids) {
-                let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
-                self.present(vc, animated: true)
-            }
-            
+            showShareLinkController(with: contact, in: self)
             completion(true)
         }
         action.image = UIImage(systemName: "square.and.arrow.up")

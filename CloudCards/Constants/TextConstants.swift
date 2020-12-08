@@ -1,4 +1,4 @@
-import Foundation
+public let ID_SEPARATOR = "&"
 
 public let NAME = "имя"
 public let SURNAME = "фамилия"
