@@ -55,7 +55,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let link = String((defaults?.string(forKey: "link") ?? ""))
 
         guard let controller = window?.rootViewController else { return }
-        if link.contains("|") {
+        if link.contains(ID_SEPARATOR) {
             getUserFromQR(from: controller, with: link)
         }
 

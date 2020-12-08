@@ -37,14 +37,26 @@ public func showTimeAlert(
 }
 
 /*
+    Вызов контроллера Поделиться, содержащего в себе ссылку на визитку пользователя на сайте
+ */
+
+public func showShareLinkController(with user: User, in controller: UIViewController) {
+    guard let siteLink = URL(string: "http://www.cloudcards.h1n.ru/#\(user.parentId)&\(user.uuid)") else { return }
+    let shareInfo = "\(user.name) \(user.surname) отправил(а) Вам свою визитку! Просмотрите её по ссылке:"
+    
+    let vc = UIActivityViewController(activityItems: [shareInfo, siteLink], applicationActivities: [])
+    controller.present(vc, animated: true)
+}
+
+/*
     Нижняя шторка - контроллер Поделиться
  */
 
-public func showShareController(with link: String, in controller: UIViewController) {
+public func showShareController(with user: User, in controller: UIViewController) {
     let shareController = ShareController()
     shareController.modalPresentationStyle = .custom
     shareController.transitioningDelegate = controller as? UIViewControllerTransitioningDelegate
-    shareController.userLink = link
+    shareController.user = user
     controller.present(shareController, animated: true, completion: nil)
 }
 

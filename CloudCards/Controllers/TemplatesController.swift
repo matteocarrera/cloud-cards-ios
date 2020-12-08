@@ -51,9 +51,8 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
         let templateUser = realm.objects(UserBoolean.self).filter("uuid = \"\(templates[indexPath.row].userId)\"")[0]
         let parentUser = realm.objects(User.self)[0]
         let generatedUser = getUserFromTemplate(user: parentUser, userBoolean: templateUser)
-        let userLink = "\(generatedUser.parentId)|\(generatedUser.uuid)"
         
-        showShareController(with: userLink, in: self)
+        showShareController(with: generatedUser, in: self)
     }
 }
 

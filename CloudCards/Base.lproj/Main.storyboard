@@ -1568,14 +1568,14 @@
                         <barButtonItem key="backBarButtonItem" title="Назад" id="EpP-XI-MhX">
                             <color key="tintColor" name="Primary"/>
                         </barButtonItem>
-                        <barButtonItem key="leftBarButtonItem" title="Камера" image="camera" catalog="system" id="ga9-0p-79b">
+                        <barButtonItem key="leftBarButtonItem" title="Изм." id="noE-rW-dK7">
+                            <color key="tintColor" name="Primary"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Камера" image="camera" catalog="system" id="ga9-0p-79b">
                             <color key="tintColor" name="Primary"/>
                             <connections>
                                 <segue destination="8rJ-Kc-sve" kind="show" id="u0M-4g-hSp"/>
                             </connections>
-                        </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" image="checkmark.circle" catalog="system" id="noE-rW-dK7">
-                            <color key="tintColor" name="Primary"/>
                         </barButtonItem>
                     </navigationItem>
                     <connections>
@@ -1593,7 +1593,6 @@
     <resources>
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="camera.fill" catalog="system" width="128" height="94"/>
-        <image name="checkmark.circle" catalog="system" width="128" height="121"/>
         <image name="ellipsis.circle.fill" catalog="system" width="128" height="121"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>

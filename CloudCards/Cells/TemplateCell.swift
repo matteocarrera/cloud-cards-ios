@@ -67,26 +67,19 @@ class TemplateCell : UICollectionViewCell {
     }
     
     private func openCard() {
-        let templateUser = realm.objects(UserBoolean.self).filter("uuid = \"\(userId)\"")[0]
-        let parentUser = realm.objects(User.self)[0]
-        let generatedUser = getUserFromTemplate(user: parentUser, userBoolean: templateUser)
+        let currentUser = getCurrentCardUser()
         let currentCard = realm.objects(Card.self).filter("id == \(cardId)")[0]
         
         let myCardViewController = controller.storyboard?.instantiateViewController(withIdentifier: "MyCardViewController") as! MyCardViewController
-        myCardViewController.currentUser = generatedUser
+        myCardViewController.currentUser = currentUser
         myCardViewController.currentCard = currentCard
         let nav = UINavigationController(rootViewController: myCardViewController)
         controller.navigationController?.showDetailViewController(nav, sender: nil)
     }
     
     private func shareCard() {
-        let owner = realm.objects(User.self)[0]
-        let userLink = "\(owner.uuid)|\(userId)"
-
-        if let image = generateQR(with: userLink) {
-            let vc = UIActivityViewController(activityItems: [image], applicationActivities: [])
-            controller.present(vc, animated: true)
-        }
+        let currentUser = getCurrentCardUser()
+        showShareLinkController(with: currentUser, in: controller)
     }
     
     private func deleteCard() {
@@ -105,5 +98,11 @@ class TemplateCell : UICollectionViewCell {
             let card = realm.objects(Card.self).filter("id == \(cardId)")[0]
             realm.delete(card)
         }
+    }
+    
+    private func getCurrentCardUser() -> User {
+        let parentUser = realm.objects(User.self)[0]
+        let templateUser = realm.objects(UserBoolean.self).filter("uuid = \"\(userId)\"")[0]
+        return getUserFromTemplate(user: parentUser, userBoolean: templateUser)
     }
 }

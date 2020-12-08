@@ -2,8 +2,9 @@ import Foundation
 import UIKit
 
 public func getUserFromQR(from controller: UIViewController, with link: String) {
-    let parentId = String(link.split(separator: "|")[0])
-    let uuid = String(link.split(separator: "|")[1])
+    let ids = link.split(separator: ID_SEPARATOR.character(at: 0) ?? "&")
+    let parentId = String(ids[0])
+    let uuid = String(ids[1])
     
     let db = FirestoreInstance.getInstance()
     db.collection(FirestoreInstance.USERS)
