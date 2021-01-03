@@ -33,7 +33,7 @@ public func getUserFromQR(from controller: UIViewController, with link: String) 
                 let alert = UIAlertController(title: "Успешно", message: "Контакт успешно считан!", preferredStyle: .alert)
                 alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
                     controller.navigationController?.popViewController(animated: true)
-                    controller.parent?.viewWillAppear(true)
+                    controller.parent?.viewDidLoad()
                 }))
                 controller.present(alert, animated: true, completion: nil)
                 
@@ -64,7 +64,7 @@ public func saveCard(withTitle title: String?, withColor selectedColor: String, 
     var userExists = false
     
     for user in userDictionary {
-        if generatedUsersEqual(firstUser: newUser, secondUser: user) {
+        if newUser.isEqual(user) {
             newUser.uuid = user.uuid
             userExists = true
         }

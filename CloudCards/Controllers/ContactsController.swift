@@ -28,6 +28,10 @@ class ContactsController: UIViewController {
         
         loadData()
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        hidesBottomBarWhenPushed = false
+    }
 
     override func viewWillDisappear(_ animated: Bool) {
         cancelSelection()

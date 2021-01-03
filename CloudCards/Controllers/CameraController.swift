@@ -54,19 +54,20 @@ class CameraController: UIViewController {
 
         captureSession.startRunning()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         captureSession.startRunning()
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
-        hidesBottomBarWhenPushed = false
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        captureSession.stopRunning()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.captureSession.stopRunning()
+        }
     }
 
     private func failed() {
