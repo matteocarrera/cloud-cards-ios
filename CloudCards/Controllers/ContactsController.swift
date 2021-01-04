@@ -41,7 +41,6 @@ class ContactsController: UIViewController {
     
     @objc func refresh(_ sender: Any) {
         loadData()
-        contactsTable.reloadData()
         refreshControl.endRefreshing()
     }
 
@@ -106,9 +105,7 @@ class ContactsController: UIViewController {
         let userDictionary = realm.objects(User.self)
         let ownerUuid = userDictionary.count > 0 ? userDictionary[0].uuid : String()
         usersBoolean = Array(realm.objects(UserBoolean.self).filter("parentId != \"\(ownerUuid)\""))
-        usersBoolean.forEach { (user) in
-            getUserFromDatabase(userBoolean: user)
-        }
+        usersBoolean.forEach { getUserFromDatabase(userBoolean: $0) }
         if usersBoolean.count == 0 {
             loadingIndicator.stopAnimating()
             self.importFirstContactNotification.isHidden = false
@@ -206,6 +203,7 @@ class ContactsController: UIViewController {
                     let contactKey = String(currentUser.surname.prefix(1))
                     if var contactValues = self.contactsDictionary[contactKey] {
                         contactValues.append(currentUser)
+                        contactValues.sort(by: {$0.surname < $1.surname})
                         self.contactsDictionary[contactKey] = contactValues
                     } else {
                         self.contactsDictionary[contactKey] = [currentUser]
