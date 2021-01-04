@@ -54,19 +54,20 @@ class CameraController: UIViewController {
 
         captureSession.startRunning()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         captureSession.startRunning()
     }
-
+    
     override func viewWillDisappear(_ animated: Bool) {
-        hidesBottomBarWhenPushed = false
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
-    
+
     override func viewDidDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        captureSession.stopRunning()
+        DispatchQueue.global(qos: .userInitiated).async {
+            self.captureSession.stopRunning()
+        }
     }
 
     private func failed() {
@@ -107,7 +108,8 @@ extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
     // Проверка данных, полученных с QR. Если есть "|", то сохраняем, иначе данные некорректны
     private func saveUserIfDataIsCorrect(data: String) {
         if data.contains(ID_SEPARATOR) {
-            getUserFromQR(from: self, with: data)
+            guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else { return }
+            getUserFromQR(from: rootViewController, with: data)
             return
         }
         showUnableToReadQRAlert()

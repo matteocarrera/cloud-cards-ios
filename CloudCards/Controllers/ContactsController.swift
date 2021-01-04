@@ -13,6 +13,7 @@ class ContactsController: UIViewController {
     
     private let realm = RealmInstance.getInstance()
     private let search = UISearchController(searchResultsController: nil)
+    private let refreshControl = UIRefreshControl()
     private var contactsDictionary = [String:[User]]()
     private var contactsSectionTitles = [String]()
     private var filteredContacts = [User]()
@@ -21,10 +22,14 @@ class ContactsController: UIViewController {
         super.viewDidLoad()
         
         configureTableView(table: contactsTable, controller: self)
-        setLargeNavigationBar()
+
+        setLargeNavigationBar(for: self)
         setSearchBar()
         setSelectButton()
         setToolbar()
+        
+        refreshControl.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        contactsTable.addSubview(refreshControl)
         
         loadData()
     }
@@ -33,19 +38,17 @@ class ContactsController: UIViewController {
         cancelSelection()
         contactsTable.reloadData()
     }
+    
+    @objc func refresh(_ sender: Any) {
+        loadData()
+        refreshControl.endRefreshing()
+    }
 
     @objc func deleteContacts(_ sender: Any) {
-        for uuid in selectedContactsUuid {
-            let userUuid = uuid.split(separator: ID_SEPARATOR.character(at: 0) ?? "&")[1]
-            
-            let contact = self.realm.objects(UserBoolean.self)
-                .filter("uuid = \"\(userUuid)\"")[0]
-            
-            try! self.realm.write {
-                self.realm.delete(contact)
-            }
+        let indexPaths = contactsTable.indexPathsForSelectedRows!
+        for indexPath in indexPaths.reversed() {
+            deleteContact(at: indexPath)
         }
-        contactsTable.reloadData()
         cancelSelection()
     }
     
@@ -102,36 +105,11 @@ class ContactsController: UIViewController {
         let userDictionary = realm.objects(User.self)
         let ownerUuid = userDictionary.count > 0 ? userDictionary[0].uuid : String()
         usersBoolean = Array(realm.objects(UserBoolean.self).filter("parentId != \"\(ownerUuid)\""))
-        usersBoolean.forEach { (user) in
-            getUserFromDatabase(userBoolean: user)
-        }
+        usersBoolean.forEach { getUserFromDatabase(userBoolean: $0) }
         if usersBoolean.count == 0 {
             loadingIndicator.stopAnimating()
             self.importFirstContactNotification.isHidden = false
         }
-    }
-    
-    /*
-        Добавляет стиль для большого варианта NavBar
-     */
-
-    private func setLargeNavigationBar() {
-        let navigationBar = self.navigationController!.navigationBar
-        
-        navigationBar.prefersLargeTitles = true
-        self.navigationItem.title = "Контакты"
-        self.navigationItem.largeTitleDisplayMode = .always
-        
-        self.navigationController?.view.backgroundColor = LIGHT_GRAY
-        
-        let appearance = UINavigationBarAppearance()
-        appearance.backgroundColor = LIGHT_GRAY
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-        appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
-
-        navigationBar.compactAppearance = appearance
-        navigationBar.standardAppearance = appearance
-        navigationBar.scrollEdgeAppearance = appearance
     }
     
     /*
@@ -225,6 +203,7 @@ class ContactsController: UIViewController {
                     let contactKey = String(currentUser.surname.prefix(1))
                     if var contactValues = self.contactsDictionary[contactKey] {
                         contactValues.append(currentUser)
+                        contactValues.sort(by: {$0.surname < $1.surname})
                         self.contactsDictionary[contactKey] = contactValues
                     } else {
                         self.contactsDictionary[contactKey] = [currentUser]
@@ -336,9 +315,9 @@ extension ContactsController: UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let qr = showQR(at: indexPath)
-        let share = shareContact(at: indexPath)
-        let delete = deleteContact(at: indexPath)
+        let qr = showQRAction(at: indexPath)
+        let share = shareAction(at: indexPath)
+        let delete = deleteAction(at: indexPath)
         return UISwipeActionsConfiguration(actions: [delete, share, qr])
     }
     
@@ -356,7 +335,7 @@ extension ContactsController: UITableViewDelegate {
 
 extension ContactsController {
     
-    func showQR(at indexPath: IndexPath) -> UIContextualAction {
+    func showQRAction(at indexPath: IndexPath) -> UIContextualAction {
         let contact = getUserFromRow(with: indexPath)
         let action = UIContextualAction(style: .normal, title: "ShowQR") { (action, view, completion) in
             showShareController(with: contact, in: self)
@@ -367,7 +346,7 @@ extension ContactsController {
         return action
     }
     
-    func shareContact(at indexPath: IndexPath) -> UIContextualAction {
+    func shareAction(at indexPath: IndexPath) -> UIContextualAction {
         let contact = getUserFromRow(with: indexPath)
         let action = UIContextualAction(style: .normal, title: "Share") { (action, view, completion) in
             showShareLinkController(with: contact, in: self)
@@ -378,35 +357,38 @@ extension ContactsController {
         return action
     }
     
-    func deleteContact(at indexPath: IndexPath) -> UIContextualAction {
-        let contact = getUserFromRow(with: indexPath)
+    func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
         let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
-            
-            try! self.realm.write {
-                self.realm.delete(self.realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\""))
-            }
-
-            // Удаляем контакт из словаря контактов
-            let contactKey = self.contactsSectionTitles[indexPath.section]
-            self.contactsDictionary[contactKey]?.removeAll(where: { $0.uuid == contact.uuid })
-            
-            // Удаляем ячейку таблицы с данным контактом
-            self.contactsTable.deleteRows(at: [indexPath], with: .automatic)
-            
-            // Если на первую букву фамилии никого больше нет, то удаляем сначала букву из списка,
-            // а уже после удаляем секцию в самой таблице, отображаемой на экране
-            if !self.contactsDictionary[contactKey]!.contains(where: { $0.surname.prefix(1) == contact.surname.prefix(1) }) {
-                self.contactsSectionTitles.removeAll(where: { $0 == String(contact.surname.prefix(1)) })
-                let indexSet = IndexSet(arrayLiteral: indexPath.section)
-                self.contactsTable.deleteSections(indexSet, with: .automatic)
-            }
-            
-            self.importFirstContactNotification.isHidden = self.contactsSectionTitles.count != 0
-
+            self.deleteContact(at: indexPath)
             completion(true)
         }
         action.image = UIImage(systemName: "trash")
         return action
+    }
+    
+    private func deleteContact(at indexPath: IndexPath) {
+        let contact = getUserFromRow(with: indexPath)
+        
+        try! self.realm.write {
+            self.realm.delete(self.realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\""))
+        }
+
+        // Удаляем контакт из словаря контактов
+        let contactKey = self.contactsSectionTitles[indexPath.section]
+        self.contactsDictionary[contactKey]?.removeAll(where: { $0.uuid == contact.uuid })
+        
+        // Удаляем ячейку таблицы с данным контактом
+        self.contactsTable.deleteRows(at: [indexPath], with: .automatic)
+        
+        // Если на первую букву фамилии никого больше нет, то удаляем сначала букву из списка,
+        // а уже после удаляем секцию в самой таблице, отображаемой на экране
+        if !self.contactsDictionary[contactKey]!.contains(where: { $0.surname.prefix(1) == contact.surname.prefix(1) }) {
+            self.contactsSectionTitles.removeAll(where: { $0 == String(contact.surname.prefix(1)) })
+            let indexSet = IndexSet(arrayLiteral: indexPath.section)
+            self.contactsTable.deleteSections(indexSet, with: .automatic)
+        }
+        
+        self.importFirstContactNotification.isHidden = self.contactsSectionTitles.count != 0
     }
 }
 

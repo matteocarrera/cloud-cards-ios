@@ -79,29 +79,6 @@ public func parseDataToUser(from data: [DataItem]) -> User {
     return user
 }
 
-public func generatedUsersEqual(firstUser: UserBoolean, secondUser: UserBoolean) -> Bool {
-    return firstUser.name == secondUser.name &&
-        firstUser.surname == secondUser.surname &&
-        firstUser.patronymic == secondUser.patronymic &&
-        firstUser.company == secondUser.company &&
-        firstUser.jobTitle == secondUser.jobTitle &&
-        firstUser.mobile == secondUser.mobile &&
-        firstUser.mobileSecond == secondUser.mobileSecond &&
-        firstUser.email == secondUser.email &&
-        firstUser.emailSecond == secondUser.emailSecond &&
-        firstUser.address == secondUser.address &&
-        firstUser.addressSecond == secondUser.addressSecond &&
-        firstUser.cardNumber == secondUser.cardNumber &&
-        firstUser.cardNumberSecond == secondUser.cardNumberSecond &&
-        firstUser.website == secondUser.website &&
-        firstUser.vk == secondUser.vk &&
-        firstUser.telegram == secondUser.telegram &&
-        firstUser.facebook == secondUser.facebook &&
-        firstUser.instagram == secondUser.instagram &&
-        firstUser.twitter == secondUser.twitter &&
-        firstUser.notes == secondUser.notes
-}
-
 public func getUserFromTemplate(user: User, userBoolean: UserBoolean) -> User {
     let currentUser = User()
     currentUser.parentId = userBoolean.parentId

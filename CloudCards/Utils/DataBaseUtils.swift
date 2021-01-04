@@ -25,15 +25,14 @@ public func getUserFromQR(from controller: UIViewController, with link: String) 
                 
                 try! realm.write {
                     realm.add(userBoolean)
-                    print("Пользователь успешно добавлен!")
                 }
                 
                 realm.refresh()
                 
                 let alert = UIAlertController(title: "Успешно", message: "Контакт успешно считан!", preferredStyle: .alert)
                 alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
-                    controller.navigationController?.popViewController(animated: true)
-                    controller.parent?.viewWillAppear(true)
+                    let contactsController = controller.children[1].children.first as! ContactsController
+                    contactsController.refresh(contactsController)
                 }))
                 controller.present(alert, animated: true, completion: nil)
                 
@@ -64,7 +63,7 @@ public func saveCard(withTitle title: String?, withColor selectedColor: String, 
     var userExists = false
     
     for user in userDictionary {
-        if generatedUsersEqual(firstUser: newUser, secondUser: user) {
+        if newUser.isEqual(user) {
             newUser.uuid = user.uuid
             userExists = true
         }
