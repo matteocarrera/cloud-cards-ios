@@ -30,7 +30,7 @@ class CardViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.navigationItem.title = "Визитка"
+        navigationItem.title = "Визитка"
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -40,7 +40,7 @@ class CardViewController: UIViewController {
     }
     
     @objc func closeWindow(_ sender: Any) {
-        self.navigationController?.dismiss(animated: true, completion: nil)
+        navigationController?.dismiss(animated: true, completion: nil)
     }
     
     @objc func exportContact(_ sender: Any) {
@@ -53,8 +53,7 @@ class CardViewController: UIViewController {
             exportToContacts(user: parseDataToUser(from: self.data), photo: self.cardPhoto.image, controller: self)
         }))
         alert.addAction(UIAlertAction.init(title: "Нет", style: .cancel))
-        self.present(alert, animated: true, completion: nil)
-        
+        present(alert, animated: true, completion: nil)
     }
     
     private func loadUserData() {
@@ -83,7 +82,7 @@ class CardViewController: UIViewController {
         )
         exportButton.tintColor = PRIMARY
         
-        self.navigationItem.rightBarButtonItem = exportButton
+        navigationItem.rightBarButtonItem = exportButton
     }
 }
 

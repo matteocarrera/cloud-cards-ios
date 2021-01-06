@@ -65,7 +65,7 @@ class EditProfileController: UIViewController {
         
         profileImage.layer.cornerRadius = profileImage.frame.height/2
         
-        self.navigationItem.rightBarButtonItem = rightBarButtonItem
+        navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -95,12 +95,12 @@ class EditProfileController: UIViewController {
      */
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-        if self.imagePickerController != nil {
-            self.imagePickerController?.delegate = nil
-            self.imagePickerController = nil
+        if imagePickerController != nil {
+            imagePickerController?.delegate = nil
+            imagePickerController = nil
         }
         
-        self.imagePickerController = UIImagePickerController.init()
+        imagePickerController = UIImagePickerController.init()
         
         let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
         
@@ -123,7 +123,7 @@ class EditProfileController: UIViewController {
         
         alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
             
-        self.present(alert, animated: true)
+        present(alert, animated: true)
     }
 
     @objc func saveUser() {
@@ -191,7 +191,7 @@ class EditProfileController: UIViewController {
             } else {
                 photoUuid = ""
                 settingsController?.getProfileInfo()
-                self.navigationController?.popViewController(animated: true)
+                navigationController?.popViewController(animated: true)
             }
         }
         
@@ -233,7 +233,7 @@ class EditProfileController: UIViewController {
         
         if !photoWasChanged {
             settingsController?.getProfileInfo()
-            self.navigationController?.popViewController(animated: true)
+            navigationController?.popViewController(animated: true)
         }
     }
     
@@ -286,7 +286,7 @@ class EditProfileController: UIViewController {
     func presentImagePicker(controller : UIImagePickerController, source : UIImagePickerController.SourceType) {
         controller.delegate = self
         controller.sourceType = source
-        self.present(controller, animated: true)
+        present(controller, animated: true)
     }
 }
 
@@ -296,9 +296,9 @@ class EditProfileController: UIViewController {
 extension EditProfileController: UIImagePickerControllerDelegate {
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
-            return self.imagePickerControllerDidCancel(picker)
+            return imagePickerControllerDidCancel(picker)
         }
-        self.profileImage.image = image
+        profileImage.image = image
         photoWasChanged = true
         picker.dismiss(animated: true) {
             picker.delegate = nil

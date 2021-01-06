@@ -31,7 +31,7 @@ class ShareController: UIViewController {
     override func viewDidLayoutSubviews() {
         if !hasSetPointOrigin {
             hasSetPointOrigin = true
-            pointOrigin = self.view.frame.origin
+            pointOrigin = view.frame.origin
         }
     }
     
@@ -46,12 +46,12 @@ class ShareController: UIViewController {
         guard translation.y >= 0 else { return }
         
         // Задаем возможность пользователю двигать окно только вверх/вниз
-        view.frame.origin = CGPoint(x: 0, y: self.pointOrigin!.y + translation.y)
+        view.frame.origin = CGPoint(x: 0, y: pointOrigin!.y + translation.y)
         
         if sender.state == .ended {
             let dragVelocity = sender.velocity(in: view)
             if dragVelocity.y >= 1300 {
-                self.dismiss(animated: true, completion: nil)
+                dismiss(animated: true, completion: nil)
             } else {
                 // Задаем начальное значение контроллера
                 UIView.animate(withDuration: 0.3) {

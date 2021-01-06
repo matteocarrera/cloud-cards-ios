@@ -1,4 +1,5 @@
 public let ID_SEPARATOR = "&"
+public let CLOUDCARDS_WEBSITE = "cloudcards.h1n.ru"
 
 public let NAME = "имя"
 public let SURNAME = "фамилия"
