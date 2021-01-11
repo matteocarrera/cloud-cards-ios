@@ -8,6 +8,6 @@ class NavigationController: UINavigationController {
         let statusBarView = UIView()
         let statusBarColor = LIGHT_GRAY
         statusBarView.backgroundColor = statusBarColor
-        self.view.addSubview(statusBarView)
+        view.addSubview(statusBarView)
     }
 }

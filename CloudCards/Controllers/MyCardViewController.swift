@@ -35,8 +35,8 @@ class MyCardViewController: UITableViewController {
     
     @objc func closeWindow(_ sender: Any) {
         // Получение TemplatesController (Nav -> Tab -> Nav -> Cards)
-        self.navigationController?.presentingViewController?.children.first?.children.first?.viewWillAppear(true)
-        self.navigationController?.dismiss(animated: true, completion: nil)
+        navigationController?.presentingViewController?.children.first?.children.first?.viewWillAppear(true)
+        navigationController?.dismiss(animated: true, completion: nil)
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -100,12 +100,12 @@ class MyCardViewController: UITableViewController {
         
         alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
             
-        self.present(alert, animated: true)
+        present(alert, animated: true)
     }
     
     private func showEnterCardNameAlert() {
         let alert = UIAlertController(title: "Имя визитки", message: "Введите имя визитки", preferredStyle: .alert)
-        let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0))
+        let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
         
         alert.addTextField { (textField) in
             textField.autocapitalizationType = .sentences
@@ -134,7 +134,7 @@ class MyCardViewController: UITableViewController {
         
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
 
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
     
     private func changeCardColor() {
@@ -165,6 +165,6 @@ class MyCardViewController: UITableViewController {
         
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
 
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }

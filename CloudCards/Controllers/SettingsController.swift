@@ -53,12 +53,12 @@ class SettingsController: UIViewController {
     
     @IBAction func openEditProfileWindow(_ sender: Any) {
         let viewController = storyboard?.instantiateViewController(withIdentifier: "EditProfileController") as! EditProfileController
-        self.navigationController?.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(viewController, animated: true)
     }
     
     @objc func profileViewTapped() {
         let viewController = storyboard?.instantiateViewController(withIdentifier: "ProfileController") as! ProfileController
-        self.navigationController?.pushViewController(viewController, animated: true)
+        navigationController?.pushViewController(viewController, animated: true)
     }
 }
 
@@ -75,7 +75,7 @@ extension SettingsController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewControllerName = settingsRows[indexPath.row][1]
         let viewController = storyboard?.instantiateViewController(withIdentifier: viewControllerName)
-        self.navigationController?.pushViewController(viewController!, animated: true)
+        navigationController?.pushViewController(viewController!, animated: true)
         
         settingsTable.reloadData()
     }

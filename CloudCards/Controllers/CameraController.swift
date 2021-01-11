@@ -107,6 +107,11 @@ extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
     
     // Проверка данных, полученных с QR. Если есть "|", то сохраняем, иначе данные некорректны
     private func saveUserIfDataIsCorrect(data: String) {
+        if data.contains(CLOUDCARDS_WEBSITE) {
+            guard let url = URL(string: data) else { return }
+            UIApplication.shared.open(url as URL, options: .init(), completionHandler: nil)
+            return
+        }
         if data.contains(ID_SEPARATOR) {
             guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else { return }
             getUserFromQR(from: rootViewController, with: data)
@@ -122,6 +127,6 @@ extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
         alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
             self.navigationController?.popViewController(animated: true)
         }))
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }

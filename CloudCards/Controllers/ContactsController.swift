@@ -133,7 +133,7 @@ class ContactsController: UIViewController {
         let trashButton = UIBarButtonItem(
             barButtonSystemItem: .trash,
             target: self,
-            action: #selector(self.deleteContacts(_:))
+            action: #selector(deleteContacts(_:))
         )
         trashButton.tintColor = PRIMARY
         
@@ -146,13 +146,13 @@ class ContactsController: UIViewController {
         let shareButton = UIBarButtonItem(
             barButtonSystemItem: .action,
             target: self,
-            action: #selector(self.shareContacts(_:))
+            action: #selector(shareContacts(_:))
         )
         shareButton.tintColor = PRIMARY
         
-        self.navigationController?.toolbar.setItems([trashButton, space, shareButton], animated: true)
-        self.navigationController?.toolbar.barTintColor = LIGHT_GRAY
-        self.navigationController?.toolbar.isTranslucent = false
+        navigationController?.toolbar.setItems([trashButton, space, shareButton], animated: true)
+        navigationController?.toolbar.barTintColor = LIGHT_GRAY
+        navigationController?.toolbar.isTranslucent = false
     }
     
     /*
@@ -162,7 +162,7 @@ class ContactsController: UIViewController {
     private func cancelSelection() {
         setSelectButton()
         selectedContactsUuid.removeAll()
-        self.navigationController?.isToolbarHidden = true
+        navigationController?.isToolbarHidden = true
         contactsTable.setEditing(false, animated: true)
     }
     
@@ -281,15 +281,15 @@ extension ContactsController: UITableViewDelegate {
 
             cell.tintColor = PRIMARY
             
-            if self.navigationController?.isToolbarHidden == true {
-                self.navigationController?.isToolbarHidden = false
+            if navigationController?.isToolbarHidden == true {
+                navigationController?.isToolbarHidden = false
                 setToolbar()
             }
         } else {
             let cardViewController = self.storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
             cardViewController.currentUser = contact
             let nav = UINavigationController(rootViewController: cardViewController)
-            self.navigationController?.showDetailViewController(nav, sender: nil)
+            navigationController?.showDetailViewController(nav, sender: nil)
             contactsTable.deselectSelectedRows(animated: true)
         }
     }
@@ -298,7 +298,7 @@ extension ContactsController: UITableViewDelegate {
         if let lastVisibleIndexPath = tableView.indexPathsForVisibleRows?.last {
             if indexPath == lastVisibleIndexPath {
                 loadingIndicator.stopAnimating()
-                self.importFirstContactNotification.isHidden = self.contactsSectionTitles.count != 0
+                importFirstContactNotification.isHidden = self.contactsSectionTitles.count != 0
             }
         }
     }
@@ -310,7 +310,7 @@ extension ContactsController: UITableViewDelegate {
         selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: uuid)!)
         
         if selectedContactsUuid.count == 0 {
-            self.navigationController?.isToolbarHidden = true
+            navigationController?.isToolbarHidden = true
         }
     }
     
@@ -369,26 +369,26 @@ extension ContactsController {
     private func deleteContact(at indexPath: IndexPath) {
         let contact = getUserFromRow(with: indexPath)
         
-        try! self.realm.write {
-            self.realm.delete(self.realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\""))
+        try! realm.write {
+            realm.delete(realm.objects(UserBoolean.self).filter("uuid = \"\(contact.uuid)\""))
         }
 
         // Удаляем контакт из словаря контактов
-        let contactKey = self.contactsSectionTitles[indexPath.section]
-        self.contactsDictionary[contactKey]?.removeAll(where: { $0.uuid == contact.uuid })
+        let contactKey = contactsSectionTitles[indexPath.section]
+        contactsDictionary[contactKey]?.removeAll(where: { $0.uuid == contact.uuid })
         
         // Удаляем ячейку таблицы с данным контактом
-        self.contactsTable.deleteRows(at: [indexPath], with: .automatic)
+        contactsTable.deleteRows(at: [indexPath], with: .automatic)
         
         // Если на первую букву фамилии никого больше нет, то удаляем сначала букву из списка,
         // а уже после удаляем секцию в самой таблице, отображаемой на экране
-        if !self.contactsDictionary[contactKey]!.contains(where: { $0.surname.prefix(1) == contact.surname.prefix(1) }) {
-            self.contactsSectionTitles.removeAll(where: { $0 == String(contact.surname.prefix(1)) })
+        if !contactsDictionary[contactKey]!.contains(where: { $0.surname.prefix(1) == contact.surname.prefix(1) }) {
+            contactsSectionTitles.removeAll(where: { $0 == String(contact.surname.prefix(1)) })
             let indexSet = IndexSet(arrayLiteral: indexPath.section)
-            self.contactsTable.deleteSections(indexSet, with: .automatic)
+            contactsTable.deleteSections(indexSet, with: .automatic)
         }
         
-        self.importFirstContactNotification.isHidden = self.contactsSectionTitles.count != 0
+        importFirstContactNotification.isHidden = contactsSectionTitles.count != 0
     }
 }
 

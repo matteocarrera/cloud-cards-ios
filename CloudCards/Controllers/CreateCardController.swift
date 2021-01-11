@@ -84,12 +84,12 @@ class CreateCardController: UIViewController {
             withUserData: selectedItems
         )
         // Получение TemplatesController (Nav -> Tab -> Nav -> Cards)
-        self.navigationController?.presentingViewController?.children.first?.children.first?.viewWillAppear(true)
-        self.navigationController?.dismiss(animated: true, completion: nil)
+        navigationController?.presentingViewController?.children.first?.children.first?.viewWillAppear(true)
+        navigationController?.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func closeWindow(_ sender: Any) {
-        self.navigationController?.dismiss(animated: true, completion: nil)
+        navigationController?.dismiss(animated: true, completion: nil)
     }
     
     private func showEnterCardNameAlert() {
@@ -114,7 +114,7 @@ class CreateCardController: UIViewController {
         
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
 
-        self.present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: nil)
     }
 }
 

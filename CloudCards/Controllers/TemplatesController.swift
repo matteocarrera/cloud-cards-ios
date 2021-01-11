@@ -28,7 +28,7 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
     @objc func openCreateTemplateWindow() {
         let viewController = storyboard?.instantiateViewController(withIdentifier: "CreateCardController") as! CreateCardController
         let nav = UINavigationController(rootViewController: viewController)
-        self.navigationController?.showDetailViewController(nav, sender: nil)
+        navigationController?.showDetailViewController(nav, sender: nil)
     }
     
     private func setAddTemplateButton() {
@@ -39,7 +39,7 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             action: #selector(openCreateTemplateWindow)
         )
         addTemplate.tintColor = PRIMARY
-        self.navigationItem.leftBarButtonItem = addTemplate
+        navigationItem.leftBarButtonItem = addTemplate
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
