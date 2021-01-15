@@ -19,7 +19,7 @@ public func getUserFromQR(from controller: UIViewController, with link: String) 
 
             let realm = RealmInstance.getInstance()
             
-            let existingUserDict = realm.objects(UserBoolean.self).filter("uuid = \"\(userBoolean.uuid)\"")
+            let existingUserDict = realm.objects(UserBoolean.self).filter("parentId = \"\(userBoolean.parentId)\"")
             
             if existingUserDict.count == 0 {
                 
