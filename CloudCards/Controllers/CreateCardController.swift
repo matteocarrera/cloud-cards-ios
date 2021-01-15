@@ -10,6 +10,7 @@ class CreateCardController: UIViewController {
     
     private let realm = RealmInstance.getInstance()
     private let cardParameters = ["Название визитки", "ЦВЕТ"]
+    private var cardTitle = String()
     // Массив данных пользователя: 1 элемент - 1 вид данных
     private var data = [DataItem]()
     // Массив выбранных данных пользователя для создания визитки
@@ -18,6 +19,7 @@ class CreateCardController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        isModalInPresentation = true
         configureTableView(table: tableView, controller: self)
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifierCardParameters)
         tableView.setEditing(true, animated: true)
@@ -27,7 +29,8 @@ class CreateCardController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
 
-        selectedColor = String()
+        cardTitle = String()
+        selectedColor = COLORS[0]
         selectedItems.removeAll()
         
         /*
@@ -79,7 +82,7 @@ class CreateCardController: UIViewController {
         }
         
         saveCard(
-            withTitle: title,
+            withTitle: cardTitle,
             withColor: selectedColor,
             withUserData: selectedItems
         )
@@ -110,6 +113,7 @@ class CreateCardController: UIViewController {
                 cell?.textLabel?.textColor = .lightGray
             }
             cell?.textLabel?.text = cardName
+            self.cardTitle = cardName!
         }))
         
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
@@ -181,12 +185,15 @@ extension CreateCardController: UITableViewDataSource {
     
     private func setCardParametersCell(for indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifierCardParameters, for: indexPath)
-        cell.textLabel?.text = cardParameters[indexPath.row]
-        cell.textLabel?.textColor = .lightGray
+        cell.textLabel?.text = cardTitle
+        if cardTitle.isEmpty {
+            cell.textLabel?.text = cardParameters[indexPath.row]
+            cell.textLabel?.textColor = .lightGray
+        }
         cell.selectionStyle = .none
         if indexPath.row == 1 {
+            cell.textLabel?.text = cardParameters[indexPath.row]
             cell.accessoryType = .disclosureIndicator
-            selectedColor = COLORS[0]
             cell.imageView?.image = UIImage.init(systemName: "square.fill")
             cell.imageView?.tintColor = UIColor.init(hexString: selectedColor)
         } else {
