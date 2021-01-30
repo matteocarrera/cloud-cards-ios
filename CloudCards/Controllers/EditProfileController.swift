@@ -24,22 +24,24 @@ class EditProfileController: UIViewController {
     @IBOutlet weak var instagramField: UITextField!
     @IBOutlet weak var twitterField: UITextField!
     @IBOutlet weak var notesField: UITextField!
+    @IBOutlet var scrollView: UIScrollView!
+    @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     
-    // Объект Realm, позволяющий осуществлять операции с локальной БД
     private let realm = RealmInstance.getInstance()
+    private let firebaseClient = FirebaseClientInstance.getInstance()
     
-    // Контроллер, отвечающий за работу выбора фотографии пользователя для его профиля
     private var imagePickerController : UIImagePickerController?
+    private var rightBarButtonItem: UIBarButtonItem?
+    private var settingsController: SettingsController?
     // Пользователь, являюемся основным для приложения
     private var ownerUser : User?
     // Флаг, позволяющий отследить, изменялась ли фотография пользователя в процессе редактирования профиля или нет
     private var photoWasChanged = false
-    // Правая кнопка навигации
-    private var rightBarButtonItem: UIBarButtonItem?
-    private var settingsController: SettingsController?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.title = "Изменить профиль"
         
         settingsController = (self.parent?.children.first as! SettingsController)
         
@@ -70,22 +72,47 @@ class EditProfileController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        scrollView.isHidden = true
+        loadingIndicator.startAnimating()
         
-        photoWasChanged = false
-        
-        /*
-            Получение основного пользователя приложения
-         */
-        
-        let userDictionary = realm.objects(User.self)
-        if userDictionary.count != 0 {
-            ownerUser = userDictionary[0]
-            setUserDataToFields(user: ownerUser!)
+        DispatchQueue.main.async {
+            self.photoWasChanged = false
             
-            profileImage.image = getPhotoFromDatabase(photoUuid: ownerUser!.photo)
+            /*
+                Получение основного пользователя приложения
+             */
+            
+            let userDictionary = self.realm.objects(User.self)
+            if userDictionary.count != 0 {
+                self.ownerUser = userDictionary[0]
+                self.setUserDataToFields(user: self.ownerUser!)
+                
+                if self.ownerUser?.photo != "" {
+                    self.firebaseClient.getPhoto(with: self.ownerUser!.photo) { result in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success(let image):
+                                self.profileImage.image = image
+                                self.showView()
+                            case .failure(let error):
+                                print(error)
+                            }
+                        }
+                    }
+                } else {
+                    self.showView()
+                }
+            } else {
+                self.showView()
+            }
         }
     }
     
+    private func showView() {
+        loadingIndicator.stopAnimating()
+        scrollView.isHidden = false
+    }
+
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -95,35 +122,37 @@ class EditProfileController: UIViewController {
      */
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-        if imagePickerController != nil {
-            imagePickerController?.delegate = nil
-            imagePickerController = nil
-        }
-        
-        imagePickerController = UIImagePickerController.init()
-        
-        let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
-        
-        if UIImagePickerController.isSourceTypeAvailable(.camera) {
-            alert.addAction(UIAlertAction.init(title: "Сделать снимок", style: .default, handler: { (_) in
-                self.presentImagePicker(controller: self.imagePickerController!, source: .camera)
-            }))
-        }
-        
-        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
-            alert.addAction(UIAlertAction.init(title: "Выбрать из библиотеки", style: .default, handler: { (_) in
-                self.presentImagePicker(controller: self.imagePickerController!, source: .photoLibrary)
-            }))
-        }
-        
-        alert.addAction(UIAlertAction.init(title: "Удалить фото", style: .destructive, handler: { (_) in
-            self.profileImage.image = nil
-            self.photoWasChanged = true
-        }))
-        
-        alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
+        DispatchQueue.main.async {
+            if self.imagePickerController != nil {
+                self.imagePickerController?.delegate = nil
+                self.imagePickerController = nil
+            }
             
-        present(alert, animated: true)
+            self.imagePickerController = UIImagePickerController.init()
+            
+            let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
+            
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                alert.addAction(UIAlertAction.init(title: "Сделать снимок", style: .default, handler: { (_) in
+                    self.presentImagePicker(controller: self.imagePickerController!, source: .camera)
+                }))
+            }
+            
+            if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+                alert.addAction(UIAlertAction.init(title: "Выбрать из библиотеки", style: .default, handler: { (_) in
+                    self.presentImagePicker(controller: self.imagePickerController!, source: .photoLibrary)
+                }))
+            }
+            
+            alert.addAction(UIAlertAction.init(title: "Удалить фото", style: .destructive, handler: { (_) in
+                self.profileImage.image = nil
+                self.photoWasChanged = true
+            }))
+            
+            alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
+                
+            self.present(alert, animated: true)
+        }
     }
 
     @objc func saveUser() {
@@ -180,7 +209,7 @@ class EditProfileController: UIViewController {
                 storageRef.putData(photoData, metadata: md) { (metadata, error) in
                     if error == nil {
                         storageRef.downloadURL(completion: { (url, error) in
-                            print("Done, url is \(String(describing: url))")
+                            //print("Done, url is \(String(describing: url))")
                         })
                     } else {
                         print("error \(String(describing: error))")

@@ -51,7 +51,7 @@ class CreateCardController: UIViewController {
     }
 
     @IBAction func saveCardToTemplates(_ sender: Any) {
-        let title = tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.textLabel?.text
+        let title = tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.textLabel?.text?.trimmingCharacters(in: .whitespacesAndNewlines)
         
         if selectedItems.count == 0 {
             showSimpleAlert(
@@ -80,6 +80,23 @@ class CreateCardController: UIViewController {
             )
             return
         }
+        
+        let cards = Array(realm.objects(Card.self))
+        var titleForCardAlreadyExists = false
+        cards.forEach { card in
+            if card.title == title {
+                titleForCardAlreadyExists = true
+            }
+        }
+        if titleForCardAlreadyExists {
+            showSimpleAlert(
+                withTitle: "Название занято",
+                withMessage: "Визитка с таким названием уже существует!",
+                inController: self
+            )
+            return
+        }
+        
         
         saveCard(
             withTitle: cardTitle,

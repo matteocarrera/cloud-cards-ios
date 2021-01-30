@@ -13,6 +13,7 @@ class CardViewController: UIViewController {
     public var currentUser = User()
     
     private let realm = RealmInstance.getInstance()
+    private let firebaseClient = FirebaseClientInstance.getInstance()
     // Массив данных пользователя из выбранной визитки
     private var data = [DataItem]()
     
@@ -60,7 +61,16 @@ class CardViewController: UIViewController {
         data = setDataToList(from: currentUser)
         
         if currentUser.photo != "" {
-            cardPhoto.image = getPhotoFromDatabase(photoUuid: currentUser.photo)
+            firebaseClient.getPhoto(with: currentUser.photo) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let image):
+                        self.cardPhoto.image = image
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
             userInitialsLabel.isHidden = true
         } else {
             userInitialsLabel.text = String(currentUser.name.character(at: 0)!) + String(currentUser.surname.character(at: 0)!)

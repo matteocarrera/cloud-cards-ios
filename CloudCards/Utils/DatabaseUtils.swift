@@ -2,46 +2,49 @@ import Foundation
 import UIKit
 
 public func getUserFromQR(from controller: UIViewController, with link: String) {
-    let ids = link.split(separator: ID_SEPARATOR.character(at: 0) ?? "&")
+    if !link.contains(CLOUDCARDS_WEBSITE) {
+        return
+    }
+    let idsString = link.split(separator: "#")[1]
+    let ids = idsString.split(separator: ID_SEPARATOR.character(at: 0) ?? "&")
     let parentId = String(ids[0])
     let uuid = String(ids[1])
     
-    let db = FirestoreInstance.getInstance()
-    db.collection(FirestoreInstance.USERS)
-        .document(parentId)
-        .collection(FirestoreInstance.CARDS)
-        .document(uuid)
-        .getDocument { (document, error) in
-        if let document = document, document.exists {
-            let dataDescription = document.data()
-            
-            let userBoolean = convertFromDictionary(dictionary: dataDescription!, type: UserBoolean.self)
-
-            let realm = RealmInstance.getInstance()
-            
-            let existingUserDict = realm.objects(UserBoolean.self).filter("parentId = \"\(userBoolean.parentId)\"")
-            
-            if existingUserDict.count == 0 {
+    let firebaseClient = FirebaseClientInstance.getInstance()
+    firebaseClient.getUser(firstKey: parentId, secondKey: uuid) { result in
+        DispatchQueue.main.async {
+            switch result {
+            case .success(let data):
+                let userBoolean = convertFromDictionary(dictionary: data, type: UserBoolean.self)
                 
-                try! realm.write {
-                    realm.add(userBoolean)
+                let realm = RealmInstance.getInstance()
+                
+                let existingUserDict = realm.objects(UserBoolean.self).filter("parentId = \"\(userBoolean.parentId)\"")
+                
+                if existingUserDict.count == 0 {
+                    
+                    try! realm.write {
+                        realm.add(userBoolean)
+                    }
+                    
+                    realm.refresh()
+                    
+                    let alert = UIAlertController(title: "Успешно", message: "Контакт успешно считан!", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
+                        let contactsController = controller.children[1].children.first as! ContactsController
+                        contactsController.refresh(contactsController)
+                    }))
+                    controller.present(alert, animated: true, completion: nil)
+                    
+                } else {
+                    
+                    let alert = UIAlertController(title: "Ошибка", message: "Такой пользователь уже существует!", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel))
+                    controller.present(alert, animated: true, completion: nil)
+                    
                 }
-                
-                realm.refresh()
-                
-                let alert = UIAlertController(title: "Успешно", message: "Контакт успешно считан!", preferredStyle: .alert)
-                alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
-                    let contactsController = controller.children[1].children.first as! ContactsController
-                    contactsController.refresh(contactsController)
-                }))
-                controller.present(alert, animated: true, completion: nil)
-                
-            } else {
-                
-                let alert = UIAlertController(title: "Ошибка", message: "Такой пользователь уже существует!", preferredStyle: .alert)
-                alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel))
-                controller.present(alert, animated: true, completion: nil)
-                
+            case .failure(let error):
+                print(error)
             }
         }
     }
@@ -102,19 +105,4 @@ public func saveCard(withTitle title: String?, withColor selectedColor: String, 
     try! realm.write {
         realm.add(card)
     }
-}
-
-public func getPhotoFromDatabase(photoUuid: String) -> UIImage? {
-    let url = URL(string: getPhotoLink(uuid: photoUuid))
-    let data = try? Data(contentsOf: url!)
-    
-    if let imageData = data {
-        return UIImage(data: imageData)
-    }
-    
-    return nil
-}
-
-private func getPhotoLink(uuid: String) -> String {
-    return "https://firebasestorage.googleapis.com/v0/b/cloudcardsmobile.appspot.com/o/\(uuid)?alt=media"
 }

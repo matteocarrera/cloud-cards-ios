@@ -9,6 +9,7 @@ class ProfileController: UIViewController {
     @IBOutlet var createProfileNotification: UILabel!
     
     private let realm = RealmInstance.getInstance()
+    private let firebaseClient = FirebaseClientInstance.getInstance()
     
     // Массив данных пользователя
     private var data = [DataItem]()
@@ -32,7 +33,16 @@ class ProfileController: UIViewController {
             let owner = userDictionary[0]
             
             userPhoto.isHidden = false
-            userPhoto.image = getPhotoFromDatabase(photoUuid: owner.photo)
+            firebaseClient.getPhoto(with: owner.photo) { result in
+                DispatchQueue.main.async {
+                    switch result {
+                    case .success(let image):
+                        self.userPhoto.image = image
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+            }
             
             data = setDataToList(from: owner)
         } else {

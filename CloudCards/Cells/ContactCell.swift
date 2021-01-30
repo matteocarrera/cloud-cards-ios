@@ -8,13 +8,21 @@ class ContactCell: UITableViewCell {
     @IBOutlet var contactCompany: UILabel!
     @IBOutlet var contactJobTitle: UILabel!
     @IBOutlet var contactInitials: UILabel!
+    private let firebaseClient = FirebaseClientInstance.getInstance()
     
     public func update(with user: User) {
-        contactPhoto.image = getPhotoFromDatabase(photoUuid: user.photo)
-        contactInitials.isHidden = true
-        if contactPhoto.image == nil {
-            contactInitials.isHidden = false
-            contactInitials.text = String(user.name.character(at: 0)!) + String(user.surname.character(at: 0)!)
+        firebaseClient.getPhoto(with: user.photo) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let image):
+                    self.contactPhoto.image = image
+                    self.contactInitials.isHidden = true
+                case .failure(let error):
+                    print(error)
+                    self.contactInitials.isHidden = false
+                    self.contactInitials.text = String(user.name.character(at: 0)!) + String(user.surname.character(at: 0)!)
+                }
+            }
         }
         contactPhoto.layer.cornerRadius = contactPhoto.frame.height/2
           

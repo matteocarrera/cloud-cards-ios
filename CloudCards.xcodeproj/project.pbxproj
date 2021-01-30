@@ -41,6 +41,8 @@
 		E78B37212528EAA40001C3B9 /* TextConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78B37202528EAA40001C3B9 /* TextConstants.swift */; };
 		E78BB3312566C28D0023BFC9 /* TemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78BB3302566C28D0023BFC9 /* TemplateCell.swift */; };
 		E78BB3352566C3370023BFC9 /* TemplatesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78BB3342566C3370023BFC9 /* TemplatesController.swift */; };
+		E79499F025C440A400ED8181 /* FirebaseClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79499EF25C440A400ED8181 /* FirebaseClient.swift */; };
+		E79499F625C5744900ED8181 /* FirebaseClientInstance.swift in Sources */ = {isa = PBXBuildFile; fileRef = E79499F525C5744900ED8181 /* FirebaseClientInstance.swift */; };
 		E7A8275B24D171F00024F414 /* ContactsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A8275A24D171F00024F414 /* ContactsController.swift */; };
 		E7BC527B257BFB9500A55AA8 /* AboutAppController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BC527A257BFB9500A55AA8 /* AboutAppController.swift */; };
 		E7DA719624C31A19009DD08E /* UserBoolean.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7DA719524C31A19009DD08E /* UserBoolean.swift */; };
@@ -120,6 +122,8 @@
 		E78B37202528EAA40001C3B9 /* TextConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConstants.swift; sourceTree = "<group>"; };
 		E78BB3302566C28D0023BFC9 /* TemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCell.swift; sourceTree = "<group>"; };
 		E78BB3342566C3370023BFC9 /* TemplatesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesController.swift; sourceTree = "<group>"; };
+		E79499EF25C440A400ED8181 /* FirebaseClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClient.swift; sourceTree = "<group>"; };
+		E79499F525C5744900ED8181 /* FirebaseClientInstance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseClientInstance.swift; sourceTree = "<group>"; };
 		E7A8275A24D171F00024F414 /* ContactsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsController.swift; sourceTree = "<group>"; };
 		E7BC527A257BFB9500A55AA8 /* AboutAppController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutAppController.swift; sourceTree = "<group>"; };
 		E7DA719524C31A19009DD08E /* UserBoolean.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserBoolean.swift; sourceTree = "<group>"; };
@@ -217,6 +221,7 @@
 		E714B25224705D5000BB3F05 /* CloudCards */ = {
 			isa = PBXGroup;
 			children = (
+				E79499F925C57B7300ED8181 /* Client */,
 				E71D4E56256AD265003FC189 /* Xibs */,
 				E71D4E55256AD252003FC189 /* Delegates */,
 				E78BB32F2566C27D0023BFC9 /* Cells */,
@@ -327,11 +332,20 @@
 			path = Cells;
 			sourceTree = "<group>";
 		};
+		E79499F925C57B7300ED8181 /* Client */ = {
+			isa = PBXGroup;
+			children = (
+				E79499EF25C440A400ED8181 /* FirebaseClient.swift */,
+			);
+			path = Client;
+			sourceTree = "<group>";
+		};
 		E7E282142563DBE90088A0D5 /* Instances */ = {
 			isa = PBXGroup;
 			children = (
 				E7EB2858253F0BC20004D4E7 /* FirestoreInstance.swift */,
 				E7EB285E253F0FE60004D4E7 /* RealmInstance.swift */,
+				E79499F525C5744900ED8181 /* FirebaseClientInstance.swift */,
 			);
 			path = Instances;
 			sourceTree = "<group>";
@@ -504,6 +518,7 @@
 				E71728212526222E00704371 /* JsonUtils.swift in Sources */,
 				E714B25A24705D5000BB3F05 /* CameraController.swift in Sources */,
 				E74A4848247159B50004B5B5 /* DataItem.swift in Sources */,
+				E79499F625C5744900ED8181 /* FirebaseClientInstance.swift in Sources */,
 				E74A4845247158E50004B5B5 /* Card.swift in Sources */,
 				E78B37212528EAA40001C3B9 /* TextConstants.swift in Sources */,
 				E7BC527B257BFB9500A55AA8 /* AboutAppController.swift in Sources */,
@@ -523,6 +538,7 @@
 				E71D4E34256AC6E4003FC189 /* ControllerExtensions.swift in Sources */,
 				E7EB2859253F0BC20004D4E7 /* FirestoreInstance.swift in Sources */,
 				E74A48432471560C0004B5B5 /* User.swift in Sources */,
+				E79499F025C440A400ED8181 /* FirebaseClient.swift in Sources */,
 				E7DA719624C31A19009DD08E /* UserBoolean.swift in Sources */,
 				E737940424CD6DA400440FF4 /* UIColor.swift in Sources */,
 				E73FD3B4256BC41F00E97226 /* DataCell.swift in Sources */,
@@ -747,7 +763,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards;
 				PRODUCT_NAME = CloudCards;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -775,7 +791,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 1.0.1;
+				MARKETING_VERSION = 1.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards;
 				PRODUCT_NAME = CloudCards;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
