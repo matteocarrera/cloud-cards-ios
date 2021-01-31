@@ -10,6 +10,7 @@ class SettingsController: UIViewController {
     @IBOutlet var mobileLabel: UILabel!
     @IBOutlet var emailLabel: UILabel!
     @IBOutlet var settingsTable: UITableView!
+    @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     
     private let settingsRows = [
         ["Конфиденциальность", "Privacy"],
@@ -18,10 +19,12 @@ class SettingsController: UIViewController {
         ["О приложении", "AboutApp"]
     ]
     private let realm = RealmInstance.getInstance()
+    private let firebaseClient = FirebaseClientInstance.getInstance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView(table: settingsTable, controller: self)
+        setLargeNavigationBar(for: self)
         
         getProfileInfo()
         
@@ -30,25 +33,45 @@ class SettingsController: UIViewController {
         profileView.addGestureRecognizer(tapGestureRecognizer)
         
         profilePhoto.layer.cornerRadius = profilePhoto.frame.height/2
-        
-        setTopSeparator(table: settingsTable)
-        setBottomSeparator(table: settingsTable)
     }
     
     public func getProfileInfo() {
-        let userDictionary = realm.objects(User.self)
-        if userDictionary.count != 0 {
-            let owner = userDictionary[0]
-            
-            nameLabel.text = "\(owner.name) \(owner.surname)"
-            mobileLabel.text = owner.mobile
-            emailLabel.text = owner.email
-            profilePhoto.image = getPhotoFromDatabase(photoUuid: owner.photo)
-        } else {
-            nameLabel.text = "Пользователь не найден"
-            mobileLabel.text = "Телефон не найден"
-            emailLabel.text = "Email не найден"
+        DispatchQueue.main.async {
+            let userDictionary = self.realm.objects(User.self)
+            if userDictionary.count != 0 {
+                let owner = userDictionary[0]
+                
+                self.nameLabel.text = "\(owner.name) \(owner.surname)"
+                self.mobileLabel.text = owner.mobile
+                self.emailLabel.text = owner.email
+                if owner.photo != "" {
+                    self.firebaseClient.getPhoto(with: owner.photo) { result in
+                        DispatchQueue.main.async {
+                            switch result {
+                            case .success(let image):
+                                self.profilePhoto.image = image
+                                self.showProfileView()
+                            case .failure(let error):
+                                print(error)
+                            }
+                        }
+                    }
+                } else {
+                    self.profilePhoto.image = nil
+                    self.showProfileView()
+                }
+            } else {
+                self.nameLabel.text = "Пользователь не найден"
+                self.mobileLabel.text = "Телефон не найден"
+                self.emailLabel.text = "Email не найден"
+                self.showProfileView()
+            }
         }
+    }
+    
+    private func showProfileView() {
+        profileView.isHidden = false
+        loadingIndicator.stopAnimating()
     }
     
     @IBAction func openEditProfileWindow(_ sender: Any) {
@@ -89,5 +112,9 @@ extension SettingsController : UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return settingsRows.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return CGFloat.leastNormalMagnitude
     }
 }

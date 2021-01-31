@@ -9,7 +9,7 @@ class ContactsController: UIViewController {
     @IBOutlet var selectMultipleButton: UIBarButtonItem!
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     
-    public var selectedContactsUuid = [String]()
+    public var selectedContacts = [User]()
     
     private let realm = RealmInstance.getInstance()
     private let search = UISearchController(searchResultsController: nil)
@@ -17,6 +17,7 @@ class ContactsController: UIViewController {
     private var contactsDictionary = [String:[User]]()
     private var contactsSectionTitles = [String]()
     private var filteredContacts = [User]()
+    private var usersBoolean = [UserBoolean]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -35,8 +36,10 @@ class ContactsController: UIViewController {
     }
 
     override func viewWillDisappear(_ animated: Bool) {
-        cancelSelection()
-        contactsTable.reloadData()
+        DispatchQueue.main.async {
+            self.cancelSelection()
+            self.contactsTable.reloadData()
+        }
     }
     
     @objc func refresh(_ sender: Any) {
@@ -52,22 +55,21 @@ class ContactsController: UIViewController {
         cancelSelection()
     }
     
-    /*
-        TODO("Сделать отправку ссылок на визитку пользователя, не QR кода")
-     */
-    
     @objc func shareContacts(_ sender: Any) {
-        var images = [UIImage]()
-        for contactLink in selectedContactsUuid {
-            guard let image = generateQR(with: contactLink) else { return }
-            images.append(image)
+        DispatchQueue.main.async {
+            var contactsInfo = [Any]()
+            for contact in self.selectedContacts {
+                guard let siteLink = URL(string: "http://www.cloudcards.h1n.ru/#\(contact.parentId)\(ID_SEPARATOR)\(contact.uuid)") else { return }
+                let shareInfo = "\(contact.name) \(contact.surname) отправил(а) Вам свою визитку! Просмотрите её по ссылке:"
+                contactsInfo.append(shareInfo)
+                contactsInfo.append(siteLink)
+            }
+            
+            let shareController = UIActivityViewController(activityItems: contactsInfo, applicationActivities: [])
+            self.present(shareController, animated: true)
+            
+            self.cancelSelection()
         }
-        
-        let shareController = UIActivityViewController(activityItems: images, applicationActivities: [])
-        self.present(shareController, animated: true)
-        
-        contactsTable.reloadData()
-        cancelSelection()
     }
     
     /*
@@ -99,9 +101,8 @@ class ContactsController: UIViewController {
     private func loadData() {
         contactsDictionary.removeAll()
         contactsSectionTitles.removeAll()
-        selectedContactsUuid.removeAll()
+        selectedContacts.removeAll()
         
-        var usersBoolean = [UserBoolean]()
         let userDictionary = realm.objects(User.self)
         let ownerUuid = userDictionary.count > 0 ? userDictionary[0].uuid : String()
         usersBoolean = Array(realm.objects(UserBoolean.self).filter("parentId != \"\(ownerUuid)\""))
@@ -121,6 +122,7 @@ class ContactsController: UIViewController {
         search.searchBar.placeholder = "Поиск"
         search.searchBar.setValue("Отмена", forKey: "cancelButtonText")
         search.dimsBackgroundDuringPresentation = false
+        search.searchBar.scopeButtonTitles = ["Имя", "Фамилия", "Компания"]
         definesPresentationContext = true
         self.navigationItem.searchController = search
     }
@@ -161,7 +163,7 @@ class ContactsController: UIViewController {
     
     private func cancelSelection() {
         setSelectButton()
-        selectedContactsUuid.removeAll()
+        selectedContacts.removeAll()
         navigationController?.isToolbarHidden = true
         contactsTable.setEditing(false, animated: true)
     }
@@ -187,17 +189,12 @@ class ContactsController: UIViewController {
      */
 
     private func getUserFromDatabase(userBoolean: UserBoolean) {
-        let db = FirestoreInstance.getInstance()
-        db.collection(FirestoreInstance.USERS)
-            .document(userBoolean.parentId)
-            .collection(FirestoreInstance.DATA)
-            .document(userBoolean.parentId)
-            .getDocument { (document, error) in
-                if let document = document, document.exists {
-                    guard let dataDescription = document.data() else { return }
-                    
-                    let parentUser = convertFromDictionary(dictionary: dataDescription, type: User.self)
-                      
+        let firebaseClient = FirebaseClientInstance.getInstance()
+        firebaseClient.getUser(firstKey: userBoolean.parentId, secondKey: userBoolean.parentId) { result in
+            DispatchQueue.main.async {
+                switch result {
+                case .success(let data):
+                    let parentUser = convertFromDictionary(dictionary: data, type: User.self)
                     let currentUser = getUserFromTemplate(user: parentUser, userBoolean: userBoolean)
 
                     let contactKey = String(currentUser.surname.prefix(1))
@@ -209,14 +206,17 @@ class ContactsController: UIViewController {
                         self.contactsDictionary[contactKey] = [currentUser]
                     }
 
-                    DispatchQueue.main.async {
-                        self.contactsSectionTitles = [String](self.contactsDictionary.keys)
-                        self.contactsSectionTitles = self.contactsSectionTitles.sorted(by: {$0 < $1})
-                        
+                    self.contactsSectionTitles = [String](self.contactsDictionary.keys)
+                    self.contactsSectionTitles = self.contactsSectionTitles.sorted(by: {$0 < $1})
+                    
+                    if self.contactsDictionary.values.count == self.usersBoolean.count {
                         self.contactsTable.reloadData()
                     }
+                case .failure(let error):
+                    print(error)
                 }
             }
+        }
     }
 }
 
@@ -273,11 +273,9 @@ extension ContactsController: UITableViewDelegate {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
         
         let contact = getUserFromRow(with: indexPath)
-        
-        let uuid = "\(contact.parentId)\(ID_SEPARATOR)\(contact.uuid)"
-        
+
         if contactsTable.isEditing {
-            selectedContactsUuid.append(uuid)
+            selectedContacts.append(contact)
 
             cell.tintColor = PRIMARY
             
@@ -305,11 +303,10 @@ extension ContactsController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let contact = getUserFromRow(with: indexPath)
-        let uuid = "\(contact.parentId)\(ID_SEPARATOR)\(contact.uuid)"
         
-        selectedContactsUuid.remove(at: selectedContactsUuid.firstIndex(of: uuid)!)
+        selectedContacts.remove(at: selectedContacts.firstIndex(of: contact)!)
         
-        if selectedContactsUuid.count == 0 {
+        if selectedContacts.count == 0 {
             navigationController?.isToolbarHidden = true
         }
     }
@@ -400,25 +397,40 @@ extension ContactsController: UISearchResultsUpdating {
         let contactsArrays = contactsDictionary.values
         var contacts = [User]()
         
-        contactsArrays.forEach { (users) in
+        contactsArrays.forEach { users in
             contacts.append(contentsOf: users)
         }
         
         filteredContacts.removeAll()
         
-        contacts.forEach { (contact) in
-            if contact.name.lowercased().contains(searchText.lowercased()) ||
-                contact.surname.lowercased().contains(searchText.lowercased()) ||
-                contact.company.lowercased().contains(searchText.lowercased()) {
-                filteredContacts.append(contact)
+        switch search.searchBar.selectedScopeButtonIndex {
+        case 1:
+            contacts.forEach { contact in
+                if contact.surname.lowercased().contains(searchText.lowercased()) {
+                    filteredContacts.append(contact)
+                }
+            }
+        case 2:
+            contacts.forEach { contact in
+                if contact.company.lowercased().contains(searchText.lowercased()) {
+                    filteredContacts.append(contact)
+                }
+            }
+        default:
+            contacts.forEach { contact in
+                if contact.name.lowercased().contains(searchText.lowercased()) {
+                    filteredContacts.append(contact)
+                }
             }
         }
     }
     
     func updateSearchResults(for searchController: UISearchController) {
-        filterContacts(for: searchController.searchBar.text ?? String())
-        
-        contactsTable.reloadData()
+        DispatchQueue.main.async {
+            self.filterContacts(for: searchController.searchBar.text ?? String())
+            
+            self.contactsTable.reloadData()
+        }
     }
     
     func searchIsActivated() -> Bool {
@@ -440,7 +452,13 @@ extension ContactsController: UISearchBarDelegate {
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.resignFirstResponder()
-        contactsTable.reloadData()
+        DispatchQueue.main.async {
+            searchBar.resignFirstResponder()
+            self.contactsTable.reloadData()
+        }
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
+        updateSearchResults(for: search)
     }
 }
