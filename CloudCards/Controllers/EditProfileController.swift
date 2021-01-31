@@ -33,7 +33,7 @@ class EditProfileController: UIViewController {
     private var imagePickerController : UIImagePickerController?
     private var rightBarButtonItem: UIBarButtonItem?
     private var settingsController: SettingsController?
-    // Пользователь, являюемся основным для приложения
+    // Пользователь, является основным для приложения
     private var ownerUser : User?
     // Флаг, позволяющий отследить, изменялась ли фотография пользователя в процессе редактирования профиля или нет
     private var photoWasChanged = false
