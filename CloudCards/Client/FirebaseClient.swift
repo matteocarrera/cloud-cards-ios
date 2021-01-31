@@ -12,19 +12,20 @@ import UIKit
 enum FirebaseError: Error {
     case invalidUrl
     case invalidData
+    case invalidDocument
 }
 
 protocol FirebaseClient {
-    func getUser(firstKey: String, secondKey: String, completion: @escaping (Result<[String: Any], Error>) -> ())
+    func getUser(firstKey: String, secondKey: String, firstKeyPath: String, secondKeyPath: String, completion: @escaping (Result<[String: Any], Error>) -> ())
     func getPhoto(with photoId: String, completion: @escaping (Result<UIImage, Error>) -> ())
 }
 
 class FirebaseClientImpl: FirebaseClient {
-    func getUser(firstKey: String, secondKey: String, completion: @escaping (Result<[String: Any], Error>) -> ()) {
+    func getUser(firstKey: String, secondKey: String, firstKeyPath: String, secondKeyPath: String, completion: @escaping (Result<[String: Any], Error>) -> ()) {
         let db = FirestoreInstance.getInstance()
-        db.collection(FirestoreInstance.USERS)
+        db.collection(firstKeyPath)
             .document(firstKey)
-            .collection(FirestoreInstance.DATA)
+            .collection(secondKeyPath)
             .document(secondKey)
             .getDocument { (document, error) in
                 if let document = document, document.exists {
@@ -36,7 +37,7 @@ class FirebaseClientImpl: FirebaseClient {
                     completion(.success(data))
                     return
                 }
-                completion(.failure(error!))
+                completion(.failure(FirebaseError.invalidDocument))
                 return
             }
     }

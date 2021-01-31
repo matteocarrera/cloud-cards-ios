@@ -11,7 +11,7 @@ public func getUserFromQR(from controller: UIViewController, with link: String) 
     let uuid = String(ids[1])
     
     let firebaseClient = FirebaseClientInstance.getInstance()
-    firebaseClient.getUser(firstKey: parentId, secondKey: uuid) { result in
+    firebaseClient.getUser(firstKey: parentId, secondKey: uuid, firstKeyPath: FirestoreInstance.USERS, secondKeyPath: FirestoreInstance.CARDS) { result in
         DispatchQueue.main.async {
             switch result {
             case .success(let data):
@@ -32,7 +32,7 @@ public func getUserFromQR(from controller: UIViewController, with link: String) 
                     let alert = UIAlertController(title: "Успешно", message: "Контакт успешно считан!", preferredStyle: .alert)
                     alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
                         let contactsController = controller.children[1].children.first as! ContactsController
-                        contactsController.refresh(contactsController)
+                        contactsController.refresh(contactsController.self)
                     }))
                     controller.present(alert, animated: true, completion: nil)
                     
