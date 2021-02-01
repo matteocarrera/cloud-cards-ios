@@ -41,8 +41,8 @@ public func showTimeAlert(
  */
 
 public func showShareLinkController(with user: User, in controller: UIViewController) {
-    guard let siteLink = URL(string: "http://www.cloudcards.h1n.ru/#\(user.parentId)\(ID_SEPARATOR)\(user.uuid)") else { return }
     let shareInfo = "\(user.name) \(user.surname) отправил(а) Вам свою визитку! Просмотрите её по ссылке:"
+    guard let siteLink = generateSiteLink(with: user) else { return }
     
     let vc = UIActivityViewController(activityItems: [shareInfo, siteLink], applicationActivities: [])
     controller.present(vc, animated: true)
@@ -74,6 +74,15 @@ public func generateQR(with userLink: String) -> UIImage? {
     let scaledQrImage = qrImage.transformed(by: transform)
     
     return UIImage.init(ciImage: scaledQrImage)
+}
+
+/*
+    Генерация ссылки на визитку контакта
+ */
+
+public func generateSiteLink(with user: User) -> URL? {
+    let link = "http://www.cloudcards.h1n.ru/#\(user.parentId)\(ID_SEPARATOR)\(user.uuid)"
+    return URL(string: link) ?? nil
 }
 
 /*

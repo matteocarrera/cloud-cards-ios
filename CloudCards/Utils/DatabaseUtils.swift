@@ -2,9 +2,6 @@ import Foundation
 import UIKit
 
 public func getUserFromQR(from controller: UIViewController, with link: String) {
-    if !link.contains(CLOUDCARDS_WEBSITE) {
-        return
-    }
     let idsString = link.split(separator: "#")[1]
     let ids = idsString.split(separator: ID_SEPARATOR.character(at: 0) ?? "&")
     let parentId = String(ids[0])

@@ -58,10 +58,17 @@ class ContactsController: UIViewController {
     @objc func shareContacts(_ sender: Any) {
         DispatchQueue.main.async {
             var contactsInfo = [Any]()
+            
+            let userDictionary = self.realm.objects(User.self)
+            if userDictionary.count != 0 {
+                let owner = userDictionary[0]
+                contactsInfo.append("\(owner.name) \(owner.surname) отправил(а) Вам несколько контактов:")
+            } else {
+                contactsInfo.append("Пользователь CloudCards отправил Вам несколько контактов:")
+            }
+            
             for contact in self.selectedContacts {
-                guard let siteLink = URL(string: "http://www.cloudcards.h1n.ru/#\(contact.parentId)\(ID_SEPARATOR)\(contact.uuid)") else { return }
-                let shareInfo = "\(contact.name) \(contact.surname) отправил(а) Вам свою визитку! Просмотрите её по ссылке:"
-                contactsInfo.append(shareInfo)
+                guard let siteLink = generateSiteLink(with: contact) else { return }
                 contactsInfo.append(siteLink)
             }
             

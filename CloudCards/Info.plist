@@ -24,12 +24,15 @@
 	<array>
 		<dict>
 			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
+			<string>Viewer</string>
+			<key>CFBundleURLName</key>
+			<string>com.mksdevelopmentgroup.cloudcards</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>Alfa-Bank-QR</string>
+				<string>cloudcards</string>
 			</array>
 		</dict>
+		<dict/>
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1</string>
