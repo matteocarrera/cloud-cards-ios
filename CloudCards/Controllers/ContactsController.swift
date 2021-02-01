@@ -190,7 +190,7 @@ class ContactsController: UIViewController {
 
     private func getUserFromDatabase(userBoolean: UserBoolean) {
         let firebaseClient = FirebaseClientInstance.getInstance()
-        firebaseClient.getUser(firstKey: userBoolean.parentId, secondKey: userBoolean.parentId) { result in
+        firebaseClient.getUser(firstKey: userBoolean.parentId, secondKey: userBoolean.parentId, firstKeyPath: FirestoreInstance.USERS, secondKeyPath: FirestoreInstance.DATA) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let data):
