@@ -36,6 +36,10 @@
 		E74A4845247158E50004B5B5 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4844247158E50004B5B5 /* Card.swift */; };
 		E74A4848247159B50004B5B5 /* DataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4847247159B50004B5B5 /* DataItem.swift */; };
 		E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A484F2471707C0004B5B5 /* ProfileController.swift */; };
+		E74EEC4E25C9894F0090F060 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74EEC4D25C9894F0090F060 /* Contact.swift */; };
+		E74EEC5225C9A07D0090F060 /* AlertUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74EEC5125C9A07D0090F060 /* AlertUtils.swift */; };
+		E74EEC5625C9A0AC0090F060 /* ShareUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74EEC5525C9A0AC0090F060 /* ShareUtils.swift */; };
+		E74EEC5A25C9A0DE0090F060 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74EEC5925C9A0DE0090F060 /* UIUtils.swift */; };
 		E760A2702482D3D500009919 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E760A26F2482D3D500009919 /* NavigationController.swift */; };
 		E786836B2488E77000844DD4 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786836A2488E77000844DD4 /* EditProfileController.swift */; };
 		E78B37212528EAA40001C3B9 /* TextConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78B37202528EAA40001C3B9 /* TextConstants.swift */; };
@@ -117,6 +121,10 @@
 		E74A4844247158E50004B5B5 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		E74A4847247159B50004B5B5 /* DataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataItem.swift; sourceTree = "<group>"; };
 		E74A484F2471707C0004B5B5 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		E74EEC4D25C9894F0090F060 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		E74EEC5125C9A07D0090F060 /* AlertUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtils.swift; sourceTree = "<group>"; };
+		E74EEC5525C9A0AC0090F060 /* ShareUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareUtils.swift; sourceTree = "<group>"; };
+		E74EEC5925C9A0DE0090F060 /* UIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
 		E760A26F2482D3D500009919 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		E786836A2488E77000844DD4 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		E78B37202528EAA40001C3B9 /* TextConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConstants.swift; sourceTree = "<group>"; };
@@ -276,6 +284,7 @@
 				E74A4844247158E50004B5B5 /* Card.swift */,
 				E74A4847247159B50004B5B5 /* DataItem.swift */,
 				E7DA719524C31A19009DD08E /* UserBoolean.swift */,
+				E74EEC4D25C9894F0090F060 /* Contact.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -308,7 +317,9 @@
 				E734F6F324D40069008EC9D9 /* TableUtils.swift */,
 				E7062D712508C913006723EB /* DatabaseUtils.swift */,
 				E71728202526222E00704371 /* JsonUtils.swift */,
-				E7F2D444253D867200C38227 /* Reachability.swift */,
+				E74EEC5125C9A07D0090F060 /* AlertUtils.swift */,
+				E74EEC5525C9A0AC0090F060 /* ShareUtils.swift */,
+				E74EEC5925C9A0DE0090F060 /* UIUtils.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -335,6 +346,7 @@
 		E79499F925C57B7300ED8181 /* Client */ = {
 			isa = PBXGroup;
 			children = (
+				E7F2D444253D867200C38227 /* Reachability.swift */,
 				E79499EF25C440A400ED8181 /* FirebaseClient.swift */,
 			);
 			path = Client;
@@ -517,7 +529,10 @@
 				E78BB3312566C28D0023BFC9 /* TemplateCell.swift in Sources */,
 				E71728212526222E00704371 /* JsonUtils.swift in Sources */,
 				E714B25A24705D5000BB3F05 /* CameraController.swift in Sources */,
+				E74EEC5625C9A0AC0090F060 /* ShareUtils.swift in Sources */,
+				E74EEC5A25C9A0DE0090F060 /* UIUtils.swift in Sources */,
 				E74A4848247159B50004B5B5 /* DataItem.swift in Sources */,
+				E74EEC4E25C9894F0090F060 /* Contact.swift in Sources */,
 				E79499F625C5744900ED8181 /* FirebaseClientInstance.swift in Sources */,
 				E74A4845247158E50004B5B5 /* Card.swift in Sources */,
 				E78B37212528EAA40001C3B9 /* TextConstants.swift in Sources */,
@@ -531,6 +546,7 @@
 				E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */,
 				E7EB285F253F0FE60004D4E7 /* RealmInstance.swift in Sources */,
 				E7062D722508C913006723EB /* DatabaseUtils.swift in Sources */,
+				E74EEC5225C9A07D0090F060 /* AlertUtils.swift in Sources */,
 				E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */,
 				E734F6F224D3F45A008EC9D9 /* ProgramUtils.swift in Sources */,
 				E71D4E27256AC317003FC189 /* PresentationController.swift in Sources */,
@@ -763,7 +779,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards;
 				PRODUCT_NAME = CloudCards;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -791,7 +807,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 1.1.2;
+				MARKETING_VERSION = 1.1.3;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards;
 				PRODUCT_NAME = CloudCards;
 				SWIFT_OBJC_BRIDGING_HEADER = "";

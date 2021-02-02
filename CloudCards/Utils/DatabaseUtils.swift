@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 
 public func getUserFromQR(from controller: UIViewController, with link: String) {
@@ -8,7 +7,12 @@ public func getUserFromQR(from controller: UIViewController, with link: String) 
     let uuid = String(ids[1])
     
     let firebaseClient = FirebaseClientInstance.getInstance()
-    firebaseClient.getUser(firstKey: parentId, secondKey: uuid, firstKeyPath: FirestoreInstance.USERS, secondKeyPath: FirestoreInstance.CARDS) { result in
+    firebaseClient.getUser(
+        firstKey: parentId,
+        secondKey: uuid,
+        firstKeyPath: FirestoreInstance.USERS,
+        secondKeyPath: FirestoreInstance.CARDS
+    ) { result in
         DispatchQueue.main.async {
             switch result {
             case .success(let data):
@@ -29,16 +33,16 @@ public func getUserFromQR(from controller: UIViewController, with link: String) 
                     let alert = UIAlertController(title: "Успешно", message: "Контакт успешно считан!", preferredStyle: .alert)
                     alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
                         let contactsController = controller.children[1].children.first as! ContactsController
-                        contactsController.refresh(contactsController.self)
+                        contactsController.refreshTable(contactsController.self)
                     }))
                     controller.present(alert, animated: true, completion: nil)
                     
                 } else {
-                    
-                    let alert = UIAlertController(title: "Ошибка", message: "Такой пользователь уже существует!", preferredStyle: .alert)
-                    alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel))
-                    controller.present(alert, animated: true, completion: nil)
-                    
+                    showSimpleAlert(
+                        withTitle: "Ошибка",
+                        withMessage: "Такой пользователь уже существует!",
+                        inController: controller
+                    )
                 }
             case .failure(let error):
                 print(error)
