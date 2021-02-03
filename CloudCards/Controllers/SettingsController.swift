@@ -18,8 +18,6 @@ class SettingsController: UIViewController {
         ["Помощь", "Help"],
         ["О приложении", "AboutApp"]
     ]
-    private let realm = RealmInstance.getInstance()
-    private let firebaseClient = FirebaseClientInstance.getInstance()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +35,7 @@ class SettingsController: UIViewController {
     
     public func getProfileInfo() {
         DispatchQueue.main.async {
-            let userDictionary = self.realm.objects(User.self)
+            let userDictionary = RealmInstance.getInstance().objects(User.self)
             if userDictionary.count != 0 {
                 let owner = userDictionary[0]
                 
@@ -45,10 +43,11 @@ class SettingsController: UIViewController {
                 self.mobileLabel.text = owner.mobile
                 self.emailLabel.text = owner.email
                 if owner.photo != "" {
-                    self.firebaseClient.getPhoto(with: owner.photo) { result in
+                    FirebaseClientInstance.getInstance().getPhoto(with: owner.photo) { result in
                         DispatchQueue.main.async {
                             switch result {
-                            case .success(let image):
+                            case .success(var image):
+                                image = image.resizeWithPercent(percentage: 0.5)!
                                 self.profilePhoto.image = image
                                 self.showProfileView()
                             case .failure(let error):

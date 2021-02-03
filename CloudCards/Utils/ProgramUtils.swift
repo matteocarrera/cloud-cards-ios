@@ -4,63 +4,6 @@ import CoreLocation
 import Contacts
 
 /*
-    Простой Alert, содержащий в себе заголовок и текст
- */
-
-public func showSimpleAlert(
-    withTitle title: String,
-    withMessage message: String,
-    inController controller: UIViewController
-) {
-    let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    ac.addAction(UIAlertAction(title: "OK", style: .default))
-    controller.present(ac, animated: true)
-}
-
-/*
-    Alert без кнопки, но появляющийся на определенное количество секунд
- */
-
-public func showTimeAlert(
-    withTitle title: String,
-    withMessage message: String,
-    showForSeconds seconds: Double,
-    inController controller: UIViewController
-) {
-    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    controller.present(alert, animated: true, completion: nil)
-
-    let when = DispatchTime.now() + seconds
-    DispatchQueue.main.asyncAfter(deadline: when){
-      alert.dismiss(animated: true, completion: nil)
-    }
-}
-
-/*
-    Вызов контроллера Поделиться, содержащего в себе ссылку на визитку пользователя на сайте
- */
-
-public func showShareLinkController(with user: User, in controller: UIViewController) {
-    let shareInfo = "\(user.name) \(user.surname) отправил(а) Вам свою визитку! Просмотрите её по ссылке:"
-    guard let siteLink = generateSiteLink(with: user) else { return }
-    
-    let vc = UIActivityViewController(activityItems: [shareInfo, siteLink], applicationActivities: [])
-    controller.present(vc, animated: true)
-}
-
-/*
-    Нижняя шторка - контроллер Поделиться
- */
-
-public func showShareController(with user: User, in controller: UIViewController) {
-    let shareController = ShareController()
-    shareController.modalPresentationStyle = .custom
-    shareController.transitioningDelegate = controller as? UIViewControllerTransitioningDelegate
-    shareController.user = user
-    controller.present(shareController, animated: true, completion: nil)
-}
-
-/*
     Генерация QR-кода с предоставленным текстом
  */
 
@@ -83,24 +26,6 @@ public func generateQR(with userLink: String) -> UIImage? {
 public func generateSiteLink(with user: User) -> URL? {
     let link = "http://www.cloudcards.h1n.ru/#\(user.parentId)\(ID_SEPARATOR)\(user.uuid)"
     return URL(string: link) ?? nil
-}
-
-/*
-    Большой NavigationBar для контроллера
- */
-
-public func setLargeNavigationBar(for controller: UIViewController) {
-    controller.navigationController!.navigationBar.prefersLargeTitles = true
-    controller.navigationController?.view.backgroundColor = LIGHT_GRAY
-    
-    let appearance = UINavigationBarAppearance()
-    appearance.backgroundColor = LIGHT_GRAY
-    appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-    appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
-
-    controller.navigationController!.navigationBar.compactAppearance = appearance
-    controller.navigationController!.navigationBar.standardAppearance = appearance
-    controller.navigationController!.navigationBar.scrollEdgeAppearance = appearance
 }
 
 /*
@@ -140,7 +65,6 @@ public func performActionWithField(title: String, description: String, controlle
         )
     }
 }
-
 
 /*
     Экспорт контакта в контактную книжку телефона пользователя
