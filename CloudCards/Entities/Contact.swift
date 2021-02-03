@@ -2,7 +2,7 @@ import UIKit
 
 class Contact: NSObject {
     let user: User
-    var image: UIImage?
+    let image: UIImage?
     
     init(user: User, image: UIImage?) {
         self.user = user

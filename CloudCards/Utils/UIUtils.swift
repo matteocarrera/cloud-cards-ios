@@ -21,6 +21,7 @@ public func setLargeNavigationBar(for controller: UIViewController) {
 
 /*
     Добавляет строку поиска в NavBar
+    Используется только в ContactsController
  */
 
 public func setSearchBar(for controller: UIViewController) {

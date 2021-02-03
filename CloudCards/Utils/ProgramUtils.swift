@@ -66,7 +66,6 @@ public func performActionWithField(title: String, description: String, controlle
     }
 }
 
-
 /*
     Экспорт контакта в контактную книжку телефона пользователя
  */

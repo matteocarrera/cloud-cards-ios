@@ -9,27 +9,24 @@ class ContactsController: UIViewController {
     @IBOutlet var selectMultipleButton: UIBarButtonItem!
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     
-    public var selectedContacts = [Contact]()
-    
     private let realm = RealmInstance.getInstance()
-    private let refreshControl = UIRefreshControl()
     private var contactsSectionTitles = [String]()
     private var contactsDictionary = [String:[Contact]]()
     private var filteredContacts = [Contact]()
+    private var selectedContacts = [Contact]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        setLargeNavigationBar(for: self)
+        setSearchBar(for: self)
+        setToolbar(for: self)
+        setMultipleSelectionButton()
+        configureTableView(table: contactsTable, controller: self)
+        
+        contactsTable.refreshControl = UIRefreshControl()
+        contactsTable.refreshControl?.addTarget(self, action: #selector(refreshTable(_:)), for: .valueChanged)
+        
         DispatchQueue.main.async {
-            setLargeNavigationBar(for: self)
-            setSearchBar(for: self)
-            setToolbar(for: self)
-            self.setMultipleSelectionButton()
-            configureTableView(table: self.contactsTable, controller: self)
-            
-            self.refreshControl.addTarget(self, action: #selector(self.refreshTable(_:)), for: .valueChanged)
-            self.contactsTable.addSubview(self.refreshControl)
-            
             self.loadContacts()
         }
     }
@@ -41,8 +38,10 @@ class ContactsController: UIViewController {
     }
     
     @objc func refreshTable(_ sender: Any) {
-        loadContacts()
-        refreshControl.endRefreshing()
+        DispatchQueue.main.async {
+            self.loadContacts()
+            self.contactsTable.refreshControl?.endRefreshing()
+        }
     }
 
     @objc func onDeleteContactsButtonTap(_ sender: Any) {
@@ -101,7 +100,6 @@ class ContactsController: UIViewController {
         selectedContacts.removeAll()
         
         contactsTable.reloadData()
-        loadingIndicator.startAnimating()
         
         let userDictionary = realm.objects(User.self)
         let ownerUuid = userDictionary.count > 0 ? userDictionary[0].uuid : String()
