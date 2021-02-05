@@ -33,8 +33,10 @@ public func getUserFromQR(from controller: UIViewController, with link: String) 
                     let alert = UIAlertController(title: "Успешно", message: "Контакт успешно считан!", preferredStyle: .alert)
                     alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
                         let contactsController = controller.children[1].children.first as! ContactsController
-                        contactsController.loadingIndicator.startAnimating()
-                        contactsController.refreshTable(contactsController.self)
+                        if contactsController.isViewLoaded {
+                            contactsController.loadingIndicator.startAnimating()
+                            contactsController.refreshTable(contactsController.self)
+                        }
                     }))
                     controller.present(alert, animated: true, completion: nil)
                     

@@ -28,10 +28,8 @@ class EditProfileController: UIViewController {
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     
     private let realm = RealmInstance.getInstance()
-    private let firebaseClient = FirebaseClientInstance.getInstance()
     
     private var imagePickerController : UIImagePickerController?
-    private var rightBarButtonItem: UIBarButtonItem?
     private var settingsController: SettingsController?
     // Пользователь, является основным для приложения
     private var ownerUser : User?
@@ -40,6 +38,11 @@ class EditProfileController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setupToolbarForNumberKeyboard()
+        subscribeToNotification(UIResponder.keyboardWillShowNotification, selector: #selector(keyboardWillShowOrHide))
+        subscribeToNotification(UIResponder.keyboardWillHideNotification, selector: #selector(keyboardWillShowOrHide))
+        initializeHideKeyboard()
         
         navigationItem.title = "Изменить профиль"
         
@@ -48,26 +51,11 @@ class EditProfileController: UIViewController {
         /*
             TapGestureRecognizer позволяет добавить функционал нажатия на фотографию пользователя
          */
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(self.dismissKeyboard))
-        tap.cancelsTouchesInView = false
-        view.addGestureRecognizer(tap)
-        
+                
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
         profileImage.isUserInteractionEnabled = true
         profileImage.addGestureRecognizer(tapGestureRecognizer)
-        
-        rightBarButtonItem = UIBarButtonItem(
-            title: "Готово",
-            style: .plain,
-            target: self,
-            action: #selector(saveUser)
-        )
-        rightBarButtonItem?.tintColor = PRIMARY
-        
         profileImage.layer.cornerRadius = profileImage.frame.height/2
-        
-        navigationItem.rightBarButtonItem = rightBarButtonItem
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -88,7 +76,7 @@ class EditProfileController: UIViewController {
                 self.setUserDataToFields(user: self.ownerUser!)
                 
                 if self.ownerUser?.photo != "" {
-                    self.firebaseClient.getPhoto(with: self.ownerUser!.photo) { result in
+                    FirebaseClientInstance.getInstance().getPhoto(with: self.ownerUser!.photo) { result in
                         DispatchQueue.main.async {
                             switch result {
                             case .success(let image):
@@ -108,15 +96,16 @@ class EditProfileController: UIViewController {
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        unsubscribeFromAllNotifications()
+    }
+    
     private func showView() {
         loadingIndicator.stopAnimating()
         scrollView.isHidden = false
     }
 
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
-    
     /*
         Создание меню, появляющегося при нажатии на добавление фотографии
      */
@@ -155,7 +144,7 @@ class EditProfileController: UIViewController {
         }
     }
 
-    @objc func saveUser() {
+    @IBAction func onSaveUserButtonTap(_ sender: Any) {
         if nameField.text!.isEmpty ||
             surnameField.text!.isEmpty ||
             mobileNumberField.text!.isEmpty ||
@@ -168,7 +157,6 @@ class EditProfileController: UIViewController {
             return
         }
         
-        rightBarButtonItem?.isEnabled = false
         var photoUuid = ownerUser?.photo
         
         if photoUuid == nil {
@@ -322,7 +310,7 @@ class EditProfileController: UIViewController {
 /*
     Расширение класса для использования библиотеки и камеры
  */
-extension EditProfileController: UIImagePickerControllerDelegate {
+extension EditProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
             return imagePickerControllerDidCancel(picker)
@@ -343,4 +331,70 @@ extension EditProfileController: UIImagePickerControllerDelegate {
     }
 }
 
-extension EditProfileController: UINavigationControllerDelegate {}
+/*
+    2 расширения класса для верной работы с UITextField и клавиатурой
+ */
+extension EditProfileController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return false
+   }
+}
+
+extension EditProfileController {
+    func initializeHideKeyboard() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(
+            target: self,
+            action: #selector(dismissMyKeyboard))
+        
+        view.addGestureRecognizer(tap)
+    }
+    
+    func subscribeToNotification(_ notification: NSNotification.Name, selector: Selector) {
+        NotificationCenter.default.addObserver(self, selector: selector, name: notification, object: nil)
+    }
+        
+    func unsubscribeFromAllNotifications() {
+        NotificationCenter.default.removeObserver(self)
+    }
+    
+    @objc func keyboardWillShowOrHide(notification: NSNotification) {
+        if let scrollView = scrollView,
+           let userInfo = notification.userInfo,
+           let endValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey],
+           let durationValue = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey],
+           let curveValue = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] {
+            
+            let endRect = view.convert((endValue as AnyObject).cgRectValue, from: view.window)
+
+            let keyboardOverlap = scrollView.frame.maxY - endRect.origin.y
+
+            scrollView.contentInset.bottom = keyboardOverlap
+            scrollView.scrollIndicatorInsets.bottom = keyboardOverlap
+            
+            let duration = (durationValue as AnyObject).doubleValue
+            let options = UIView.AnimationOptions(rawValue: UInt((curveValue as AnyObject).integerValue << 16))
+            UIView.animate(withDuration: duration!, delay: 0, options: options, animations: {
+                self.view.layoutIfNeeded()
+            }, completion: nil)
+        }
+    }
+    
+    @objc func dismissMyKeyboard() {
+        view.endEditing(true)
+    }
+    
+    func setupToolbarForNumberKeyboard(){
+        let bar = UIToolbar()
+        let doneBtn = UIBarButtonItem(title: "Готово", style: .plain, target: self, action: #selector(dismissMyKeyboard))
+        let flexSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
+    
+        bar.items = [flexSpace, flexSpace, doneBtn]
+        bar.sizeToFit()
+        
+        mobileNumberField.inputAccessoryView = bar
+        mobileNumberSecondField.inputAccessoryView = bar
+        cardNumberField.inputAccessoryView = bar
+        cardNumberSecondField.inputAccessoryView = bar
+    }
+}
