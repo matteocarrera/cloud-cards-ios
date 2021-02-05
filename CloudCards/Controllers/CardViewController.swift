@@ -20,7 +20,7 @@ class CardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let backButton = UIBarButtonItem(title: "Назад", style: .done, target: self, action: #selector(closeWindow(_:)))
+        let backButton = UIBarButtonItem(title: "Назад", style: .plain, target: self, action: #selector(closeWindow(_:)))
         backButton.tintColor = PRIMARY
         navigationItem.leftBarButtonItem = backButton
         
