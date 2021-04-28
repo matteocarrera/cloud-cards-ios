@@ -1,16 +1,12 @@
-# Uncomment the next line to define a global platform for your project
 platform :ios, '12.0'
 
 target 'CloudCards' do
-  # Comment the next line if you don't want to use dynamic frameworks
+  plugin 'cocoapods-binary'
   use_frameworks!
 
-  # Pods for CloudCards
-
-  pod 'RealmSwift'
-
-  pod 'Firebase/Storage'
-  pod 'Firebase/Firestore'
-  pod 'FirebaseFirestoreSwift'
+  pod 'RealmSwift', :binary => true
+  pod 'Firebase/Storage', :binary => true
+  pod 'Firebase/Firestore', :binary => true
+  pod 'FirebaseFirestoreSwift', :binary => true
 
 end

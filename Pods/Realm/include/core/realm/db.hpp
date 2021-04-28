@@ -33,6 +33,7 @@
 #include <realm/replication.hpp>
 #include <realm/version_id.hpp>
 #include <realm/db_options.hpp>
+#include <realm/util/logger.hpp>
 
 namespace realm {
 
@@ -565,7 +566,7 @@ public:
     void end_read();
 
     // Live transactions state changes, often taking an observer functor:
-    DB::version_type commit_and_continue_as_read();
+    VersionID commit_and_continue_as_read();
     template <class O>
     void rollback_and_continue_as_read(O* observer);
     void rollback_and_continue_as_read()
@@ -598,9 +599,12 @@ public:
     Obj import_copy_of(const Obj& original);
     TableRef import_copy_of(const ConstTableRef original);
     LnkLst import_copy_of(const LnkLst& original);
+    LnkSet import_copy_of(const LnkSet& original);
     LstBasePtr import_copy_of(const LstBase& original);
+    SetBasePtr import_copy_of(const SetBase& original);
     CollectionBasePtr import_copy_of(const CollectionBase& original);
     LnkLstPtr import_copy_of(const LnkLstPtr& original);
+    LnkSetPtr import_copy_of(const LnkSetPtr& original);
 
     // handover of the heavier Query and TableView
     std::unique_ptr<Query> import_copy_of(Query&, PayloadPolicy);
@@ -877,6 +881,7 @@ inline bool Transaction::promote_to_write(O* observer, bool nonblocking)
 
         REALM_ASSERT(repl); // Presence of `repl` follows from the presence of `hist`
         DB::version_type current_version = m_read_lock.m_version;
+        m_alloc.init_mapping_management(current_version);
         repl->initiate_transact(*this, current_version, history_updated); // Throws
 
         // If the group has no top array (top_ref == 0), create a new node

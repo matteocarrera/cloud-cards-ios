@@ -154,12 +154,10 @@ extension CreateCardController: UITableViewDataSource {
         if indexPath.section == 0 {
             return setCardParametersCell(for: indexPath)
         }
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DataCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DataCell
         
-        let dataCell = data[indexPath.row]
-        cell.titleLabel?.text = dataCell.title
-        cell.dataLabel?.text = dataCell.data
-        
+        cell = cell.update(with: data[indexPath.row])
+
         let view = UIView()
         view.backgroundColor = .clear
         cell.selectedBackgroundView = view

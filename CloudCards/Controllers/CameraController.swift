@@ -105,7 +105,7 @@ extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
         }
     }
     
-    // Проверка данных, полученных с QR. Если есть "|", то сохраняем, иначе данные некорректны
+    // Проверка данных, полученных с QR. Если есть "&", то сохраняем, иначе данные некорректны
     private func saveUserIfDataIsCorrect(data: String) {
         if data.contains(CLOUDCARDS_WEBSITE) && data.contains(ID_SEPARATOR) {
             guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else { return }

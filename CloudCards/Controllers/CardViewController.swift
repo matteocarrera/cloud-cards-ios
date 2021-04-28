@@ -14,7 +14,6 @@ class CardViewController: UIViewController {
     
     private let realm = RealmInstance.getInstance()
     private let firebaseClient = FirebaseClientInstance.getInstance()
-    // Массив данных пользователя из выбранной визитки
     private var data = [DataItem]()
     
     override func viewDidLoad() {
@@ -82,9 +81,7 @@ class CardViewController: UIViewController {
     }
     
     private func setExportButton() {
-        let exportButton : UIBarButtonItem
-        
-        exportButton = UIBarButtonItem(
+        let exportButton = UIBarButtonItem(
             image: UIImage.init(systemName: "square.and.arrow.up"),
             style: UIBarButtonItem.Style.plain,
             target: self,
@@ -100,12 +97,8 @@ extension CardViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = cardDataTable.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DataCell
-        
-        let dataCell = data[indexPath.row]
-        cell.titleLabel.text = dataCell.title
-        cell.dataLabel.text = dataCell.data
-        
-        return cell
+
+        return cell.update(with: data[indexPath.row])
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
