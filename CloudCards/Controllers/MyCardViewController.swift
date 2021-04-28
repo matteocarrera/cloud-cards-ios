@@ -64,11 +64,8 @@ class MyCardViewController: UITableViewController {
             return cell
         }
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DataCell
-
-        let dataCell = data[indexPath.row]
-        cell.titleLabel.text = dataCell.title
-        cell.dataLabel.text = dataCell.data
+        var cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DataCell
+        cell = cell.update(with: data[indexPath.row])
         cell.selectionStyle = .none
 
         return cell

@@ -10,8 +10,6 @@ class ProfileController: UIViewController {
     
     private let realm = RealmInstance.getInstance()
     private let firebaseClient = FirebaseClientInstance.getInstance()
-    
-    // Массив данных пользователя
     private var data = [DataItem]()
     
     override func viewDidLoad() {
@@ -61,12 +59,8 @@ extension ProfileController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DataCell
-        
-        let dataCell = data[indexPath.row]
-        cell.titleLabel?.text = dataCell.title
-        cell.dataLabel?.text = dataCell.data
-        
-        return cell
+
+        return cell.update(with: data[indexPath.row])
     }
 }
 

@@ -6,6 +6,7 @@ class SettingsController: UIViewController {
 
     @IBOutlet var profileView: UIView!
     @IBOutlet var profilePhoto: UIImageView!
+    @IBOutlet var initialsLabel: UILabel!
     @IBOutlet var nameLabel: UILabel!
     @IBOutlet var mobileLabel: UILabel!
     @IBOutlet var emailLabel: UILabel!
@@ -26,6 +27,15 @@ class SettingsController: UIViewController {
         
         getProfileInfo()
         
+        if !Reachability.isConnectedToNetwork() {
+            navigationItem.rightBarButtonItem?.isEnabled = false
+            showSimpleAlert(
+                withTitle: "Предупреждение",
+                withMessage: "При отсутствии интернета Вы не можете создавать/редактировать профиль!",
+                inController: self
+            )
+        }
+        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileViewTapped))
         profileView.isUserInteractionEnabled = true
         profileView.addGestureRecognizer(tapGestureRecognizer)
@@ -42,29 +52,25 @@ class SettingsController: UIViewController {
                 self.nameLabel.text = "\(owner.name) \(owner.surname)"
                 self.mobileLabel.text = owner.mobile
                 self.emailLabel.text = owner.email
+                self.profilePhoto.image = nil
+                self.initialsLabel.isHidden = false
+                self.initialsLabel.text = String(owner.name.character(at: 0)!) + String(owner.surname.character(at: 0)!)
                 if owner.photo != "" {
                     FirebaseClientInstance.getInstance().getPhoto(with: owner.photo) { result in
                         DispatchQueue.main.async {
                             switch result {
                             case .success(var image):
+                                self.initialsLabel.isHidden = true
                                 image = image.resizeWithPercent(percentage: 0.5)!
                                 self.profilePhoto.image = image
-                                self.showProfileView()
                             case .failure(let error):
                                 print(error)
                             }
                         }
                     }
-                } else {
-                    self.profilePhoto.image = nil
-                    self.showProfileView()
                 }
-            } else {
-                self.nameLabel.text = "Пользователь не найден"
-                self.mobileLabel.text = "Телефон не найден"
-                self.emailLabel.text = "Email не найден"
-                self.showProfileView()
             }
+            self.showProfileView()
         }
     }
     
@@ -97,7 +103,18 @@ extension SettingsController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let viewControllerName = settingsRows[indexPath.row][1]
         let viewController = storyboard?.instantiateViewController(withIdentifier: viewControllerName)
-        navigationController?.pushViewController(viewController!, animated: true)
+        
+        #warning("Временная заглушка")
+        if indexPath.row == 3 {
+            navigationController?.pushViewController(viewController!, animated: true)
+        } else {
+            showTimeAlert(
+                withTitle: "Недоступно",
+                withMessage: "Данный раздел времено недоступен",
+                showForSeconds: 1.5,
+                inController: self
+            )
+        }
         
         settingsTable.reloadData()
     }
