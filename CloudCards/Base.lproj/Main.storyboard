@@ -23,7 +23,8 @@
                                 <rect key="frame" x="132" y="54" width="150" height="150"/>
                                 <color key="backgroundColor" name="Primary"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="6lj-pY-IbV"/>
+                                    <constraint firstAttribute="height" constant="150" id="IMP-oI-iJx"/>
+                                    <constraint firstAttribute="width" constant="150" id="rZy-nC-3MK"/>
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="G9Y-y7-3Ql">
@@ -83,15 +84,14 @@
                         <viewLayoutGuide key="safeArea" id="wNT-mM-3QC"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="G9Y-y7-3Ql" firstAttribute="top" secondItem="zYD-dd-dTd" secondAttribute="bottom" constant="10" id="EAQ-2K-VXt"/>
-                            <constraint firstItem="zYD-dd-dTd" firstAttribute="top" secondItem="wNT-mM-3QC" secondAttribute="top" constant="10" id="EO8-SK-aod"/>
+                            <constraint firstItem="zYD-dd-dTd" firstAttribute="top" secondItem="wNT-mM-3QC" secondAttribute="top" constant="10" id="7yK-pY-2Sw"/>
                             <constraint firstItem="G9Y-y7-3Ql" firstAttribute="bottom" secondItem="wNT-mM-3QC" secondAttribute="bottom" id="F1N-hK-Lvf"/>
                             <constraint firstItem="zUn-PE-w3O" firstAttribute="leading" secondItem="wNT-mM-3QC" secondAttribute="leading" constant="20" id="Nhu-L3-JkJ"/>
                             <constraint firstItem="G9Y-y7-3Ql" firstAttribute="centerX" secondItem="iwm-MT-cqn" secondAttribute="centerX" id="NvF-hb-T8n"/>
                             <constraint firstItem="wNT-mM-3QC" firstAttribute="trailing" secondItem="zUn-PE-w3O" secondAttribute="trailing" constant="20" id="P2b-UY-P5z"/>
-                            <constraint firstItem="zYD-dd-dTd" firstAttribute="leading" secondItem="wNT-mM-3QC" secondAttribute="leading" constant="132" id="Prh-40-bOy"/>
+                            <constraint firstItem="zYD-dd-dTd" firstAttribute="centerX" secondItem="iwm-MT-cqn" secondAttribute="centerX" id="Uwb-oL-wvd"/>
                             <constraint firstItem="G9Y-y7-3Ql" firstAttribute="trailing" secondItem="wNT-mM-3QC" secondAttribute="trailing" id="pRR-5B-JkF"/>
-                            <constraint firstItem="zYD-dd-dTd" firstAttribute="centerX" secondItem="iwm-MT-cqn" secondAttribute="centerX" id="pZe-7i-fxd"/>
+                            <constraint firstItem="G9Y-y7-3Ql" firstAttribute="top" secondItem="zYD-dd-dTd" secondAttribute="bottom" constant="10" id="rhY-VS-Oth"/>
                             <constraint firstItem="G9Y-y7-3Ql" firstAttribute="leading" secondItem="wNT-mM-3QC" secondAttribute="leading" id="sLk-tI-Q8A"/>
                             <constraint firstItem="zUn-PE-w3O" firstAttribute="centerY" secondItem="iwm-MT-cqn" secondAttribute="centerY" id="x86-bL-BiJ"/>
                         </constraints>
@@ -644,7 +644,7 @@
             <objects>
                 <viewController title="Настройки" id="Ken-jf-WGs" customClass="SettingsController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mdx-tv-Sb5">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OpU-dp-l2E">
@@ -1075,8 +1075,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="1.0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xov-d7-Btz">
-                                                    <rect key="frame" x="359" y="12" width="35" height="20.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="1.1.4" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xov-d7-Btz">
+                                                    <rect key="frame" x="361" y="12" width="33" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1123,8 +1123,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="2020" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jQ8-x2-KYu">
-                                                    <rect key="frame" x="353.5" y="12" width="40.5" height="20.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="2020 - 2021" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="jQ8-x2-KYu">
+                                                    <rect key="frame" x="300" y="12" width="94" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1371,7 +1371,7 @@
             <objects>
                 <collectionViewController id="ryJ-N3-Zw2" customClass="TemplatesController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="8Q0-gB-3E7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BKr-fV-Adq">
@@ -1475,7 +1475,7 @@
             <objects>
                 <viewController storyboardIdentifier="ContactsController" title="Контакты" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KNG-E6-V2A" customClass="ContactsController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="egb-Gz-od7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n8F-GY-4C7">

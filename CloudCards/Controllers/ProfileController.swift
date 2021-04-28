@@ -15,6 +15,7 @@ class ProfileController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         configureTableView(table: tableView, controller: self)
+        userPhoto.layer.cornerRadius = userPhoto.frame.height/2
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -48,8 +49,6 @@ class ProfileController: UIViewController {
             userPhoto.isHidden = true
             data = [DataItem]()
         }
-        
-        userPhoto.layer.cornerRadius = userPhoto.frame.height/2
     
         tableView.reloadData()
     }
