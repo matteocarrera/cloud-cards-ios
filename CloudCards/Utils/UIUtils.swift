@@ -6,12 +6,12 @@ import UIKit
 
 public func setLargeNavigationBar(for controller: UIViewController) {
     controller.navigationController!.navigationBar.prefersLargeTitles = true
-    controller.navigationController?.view.backgroundColor = LIGHT_GRAY
+    controller.navigationController?.view.backgroundColor = UIColor(named: "NavigationBarColor")
     
     let appearance = UINavigationBarAppearance()
-    appearance.backgroundColor = LIGHT_GRAY
-    appearance.titleTextAttributes = [.foregroundColor: UIColor.black]
-    appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.black]
+    appearance.backgroundColor = UIColor(named: "NavigationBarColor")
+    appearance.titleTextAttributes = [.foregroundColor: UIColor.label]
+    appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.label]
 
     controller.navigationController!.navigationBar.compactAppearance = appearance
     controller.navigationController!.navigationBar.standardAppearance = appearance
@@ -49,7 +49,7 @@ public func setToolbar(for controller: UIViewController) {
         target: controller,
         action: #selector(controller.onDeleteContactsButtonTap(_:))
     )
-    trashButton.tintColor = PRIMARY
+    trashButton.tintColor = UIColor(named: "Primary")
     
     let space = UIBarButtonItem(
         barButtonSystemItem: .flexibleSpace,
@@ -62,9 +62,9 @@ public func setToolbar(for controller: UIViewController) {
         target: controller,
         action: #selector(controller.onShareContactsButtonTap(_:))
     )
-    shareButton.tintColor = PRIMARY
+    shareButton.tintColor = UIColor(named: "Primary")
     
     controller.navigationController?.toolbar.setItems([trashButton, space, shareButton], animated: true)
-    controller.navigationController?.toolbar.barTintColor = LIGHT_GRAY
+    controller.navigationController?.toolbar.barTintColor = UIColor(named: "NavigationBarColor")
     controller.navigationController?.toolbar.isTranslucent = false
 }

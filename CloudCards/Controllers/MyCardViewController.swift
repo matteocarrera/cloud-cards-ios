@@ -22,7 +22,7 @@ class MyCardViewController: UITableViewController {
             target: self,
             action: #selector(closeWindow(_:))
         )
-        backButton.tintColor = PRIMARY
+        backButton.tintColor = UIColor(named: "Primary")
         navigationItem.rightBarButtonItem = backButton
         
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifierCardParameters)

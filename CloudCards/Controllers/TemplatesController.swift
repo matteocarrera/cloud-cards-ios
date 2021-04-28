@@ -38,7 +38,7 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             target: self,
             action: #selector(openCreateTemplateWindow)
         )
-        addTemplate.tintColor = PRIMARY
+        addTemplate.tintColor = UIColor(named: "Primary")
         navigationItem.leftBarButtonItem = addTemplate
     }
     

@@ -124,10 +124,10 @@ class CreateCardController: UIViewController {
 
         alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: { [weak alert] (_) in
             var cardName = alert?.textFields![0].text
-            cell?.textLabel?.textColor = .black
+            cell?.textLabel?.textColor = .label
             if cardName == String() {
                 cardName = self.cardParameters[0]
-                cell?.textLabel?.textColor = .lightGray
+                cell?.textLabel?.textColor = .secondaryLabel
             }
             cell?.textLabel?.text = cardName
             self.cardTitle = cardName!
@@ -181,7 +181,7 @@ extension CreateCardController: UITableViewDataSource {
     
         let dataCell = data[indexPath.row]
     
-        cell.tintColor = PRIMARY
+        cell.tintColor = UIColor(named: "Primary")
         
         selectedItems.append(DataItem(title: dataCell.title, data: dataCell.data))
     }
@@ -203,7 +203,8 @@ extension CreateCardController: UITableViewDataSource {
         cell.textLabel?.text = cardTitle
         if cardTitle.isEmpty {
             cell.textLabel?.text = cardParameters[indexPath.row]
-            cell.textLabel?.textColor = .lightGray
+            cell.textLabel?.textColor = .secondaryLabel
+            cell.backgroundColor = UIColor(named: "DataCellColor")
         }
         cell.selectionStyle = .none
         if indexPath.row == 1 {

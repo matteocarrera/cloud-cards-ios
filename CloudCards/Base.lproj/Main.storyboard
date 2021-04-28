@@ -23,8 +23,8 @@
                                 <rect key="frame" x="132" y="54" width="150" height="150"/>
                                 <color key="backgroundColor" name="Primary"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="150" id="IMP-oI-iJx"/>
-                                    <constraint firstAttribute="width" constant="150" id="rZy-nC-3MK"/>
+                                    <constraint firstAttribute="height" constant="150" id="kGF-oF-0xf"/>
+                                    <constraint firstAttribute="width" constant="150" id="uIk-UM-jJp"/>
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="G9Y-y7-3Ql">
@@ -41,13 +41,12 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="данные" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SFQ-fa-o4t">
                                                     <rect key="frame" x="20" y="28" width="374" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="заголовок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VcH-P7-Xzc">
                                                     <rect key="frame" x="20" y="7" width="374" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -77,21 +76,29 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Создайте профиль, чтобы просматривать его в этом окне" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zUn-PE-w3O">
                                 <rect key="frame" x="20" y="426.5" width="374" height="43"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ФИ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="gBZ-0c-nfh">
+                                <rect key="frame" x="179.5" y="108" width="55" height="42"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="35"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wNT-mM-3QC"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="ViewColor"/>
                         <constraints>
-                            <constraint firstItem="zYD-dd-dTd" firstAttribute="top" secondItem="wNT-mM-3QC" secondAttribute="top" constant="10" id="7yK-pY-2Sw"/>
+                            <constraint firstItem="gBZ-0c-nfh" firstAttribute="top" secondItem="wNT-mM-3QC" secondAttribute="top" constant="64" id="9rA-5G-Rqt"/>
                             <constraint firstItem="G9Y-y7-3Ql" firstAttribute="bottom" secondItem="wNT-mM-3QC" secondAttribute="bottom" id="F1N-hK-Lvf"/>
                             <constraint firstItem="zUn-PE-w3O" firstAttribute="leading" secondItem="wNT-mM-3QC" secondAttribute="leading" constant="20" id="Nhu-L3-JkJ"/>
                             <constraint firstItem="G9Y-y7-3Ql" firstAttribute="centerX" secondItem="iwm-MT-cqn" secondAttribute="centerX" id="NvF-hb-T8n"/>
                             <constraint firstItem="wNT-mM-3QC" firstAttribute="trailing" secondItem="zUn-PE-w3O" secondAttribute="trailing" constant="20" id="P2b-UY-P5z"/>
-                            <constraint firstItem="zYD-dd-dTd" firstAttribute="centerX" secondItem="iwm-MT-cqn" secondAttribute="centerX" id="Uwb-oL-wvd"/>
+                            <constraint firstItem="zYD-dd-dTd" firstAttribute="centerX" secondItem="iwm-MT-cqn" secondAttribute="centerX" id="TRs-eB-i31"/>
+                            <constraint firstItem="zYD-dd-dTd" firstAttribute="top" secondItem="wNT-mM-3QC" secondAttribute="top" constant="10" id="dL0-mg-5rb"/>
+                            <constraint firstItem="G9Y-y7-3Ql" firstAttribute="top" secondItem="gBZ-0c-nfh" secondAttribute="bottom" constant="64" id="laa-ou-s5o"/>
                             <constraint firstItem="G9Y-y7-3Ql" firstAttribute="trailing" secondItem="wNT-mM-3QC" secondAttribute="trailing" id="pRR-5B-JkF"/>
-                            <constraint firstItem="G9Y-y7-3Ql" firstAttribute="top" secondItem="zYD-dd-dTd" secondAttribute="bottom" constant="10" id="rhY-VS-Oth"/>
+                            <constraint firstItem="G9Y-y7-3Ql" firstAttribute="top" secondItem="zYD-dd-dTd" secondAttribute="bottom" constant="10" id="pfV-HO-3QF"/>
+                            <constraint firstItem="gBZ-0c-nfh" firstAttribute="centerX" secondItem="iwm-MT-cqn" secondAttribute="centerX" id="sFd-lP-P7b"/>
                             <constraint firstItem="G9Y-y7-3Ql" firstAttribute="leading" secondItem="wNT-mM-3QC" secondAttribute="leading" id="sLk-tI-Q8A"/>
                             <constraint firstItem="zUn-PE-w3O" firstAttribute="centerY" secondItem="iwm-MT-cqn" secondAttribute="centerY" id="x86-bL-BiJ"/>
                         </constraints>
@@ -100,6 +107,7 @@
                     <navigationItem key="navigationItem" title="Профиль" id="wkK-z7-uuG"/>
                     <connections>
                         <outlet property="createProfileNotification" destination="zUn-PE-w3O" id="nYW-Le-bdA"/>
+                        <outlet property="initialsLabel" destination="gBZ-0c-nfh" id="6L9-Ri-NFS"/>
                         <outlet property="tableView" destination="G9Y-y7-3Ql" id="efW-8H-EW8"/>
                         <outlet property="userPhoto" destination="zYD-dd-dTd" id="RdI-Id-AIZ"/>
                     </connections>
@@ -132,13 +140,12 @@
                                             </imageView>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Фамилия" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fng-UD-M0Q">
                                                 <rect key="frame" x="20" y="220" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="family-name"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -147,13 +154,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Имя" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YEA-hm-4ZP">
                                                 <rect key="frame" x="20" y="264" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="name"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -162,13 +168,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Отчество" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hJN-r0-Eb8">
                                                 <rect key="frame" x="20" y="308" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="additional-name"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -177,13 +182,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Компания" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pvy-uW-Bxa">
                                                 <rect key="frame" x="20" y="352" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="organization"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -192,13 +196,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Должность" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zbq-10-FKo">
                                                 <rect key="frame" x="20" y="396" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="organization-title"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -207,13 +210,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Мобильный номер" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yno-Os-r4g">
                                                 <rect key="frame" x="20" y="440" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -222,13 +224,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Мобильный номер (другой)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rKB-T8-jLX">
                                                 <rect key="frame" x="20" y="484" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -237,13 +238,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a9q-TN-q2Q">
                                                 <rect key="frame" x="20" y="528" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -252,13 +252,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email (другой)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ggV-dq-yoa">
                                                 <rect key="frame" x="20" y="572" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -267,13 +266,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Адрес" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZTj-lC-RPS">
                                                 <rect key="frame" x="20" y="616" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="location"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -282,13 +280,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Адрес (другой)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z1Q-GB-qA7">
                                                 <rect key="frame" x="20" y="660" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="location"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -297,13 +294,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Номер карты 1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p7q-AB-gOB">
                                                 <rect key="frame" x="20" y="704" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="cc-number"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -312,13 +308,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Номер карты 2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tab-0Y-LMR">
                                                 <rect key="frame" x="20" y="748" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="cc-number"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -327,13 +322,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Сайт (example.com)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Aym-o6-i4g">
                                                 <rect key="frame" x="20" y="792" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="URL" textContentType="url"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -342,13 +336,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="VK (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="67F-au-m79">
                                                 <rect key="frame" x="20" y="836" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -357,13 +350,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Telegram (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uzS-0S-qB4">
                                                 <rect key="frame" x="20" y="880" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -372,13 +364,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Facebook (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ps3-mw-6Wd">
                                                 <rect key="frame" x="20" y="924" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -387,13 +378,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Instagram (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qWF-Pp-QRd">
                                                 <rect key="frame" x="20" y="968" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -402,13 +392,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Twitter (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TuK-gG-9ao">
                                                 <rect key="frame" x="20" y="1012" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -417,13 +406,12 @@
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Заметки" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JHS-4b-3t7">
                                                 <rect key="frame" x="20" y="1056" width="374" height="34"/>
-                                                <color key="backgroundColor" red="0.043137254899999998" green="0.1215686275" blue="0.20784313730000001" alpha="0.040000000000000001" colorSpace="custom" customColorSpace="sRGB"/>
-                                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
                                                     <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="value" systemColor="placeholderTextColor"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                                 <connections>
@@ -431,7 +419,7 @@
                                                 </connections>
                                             </textField>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Yno-Os-r4g" secondAttribute="trailing" constant="20" id="1MQ-WF-uuc"/>
                                             <constraint firstItem="p7q-AB-gOB" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="22g-o0-Nnz"/>
@@ -499,6 +487,7 @@
                                         </constraints>
                                     </view>
                                 </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstItem="dHb-ds-loP" firstAttribute="top" secondItem="YMe-Ks-Rle" secondAttribute="top" id="M5d-Ap-hZW"/>
                                     <constraint firstItem="dHb-ds-loP" firstAttribute="height" secondItem="YMe-Ks-Rle" secondAttribute="height" priority="250" id="Mj4-s7-NP3"/>
@@ -515,7 +504,7 @@
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="XS0-64-fpj"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="ViewColor"/>
                         <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="Por-K8-C8q" firstAttribute="leading" secondItem="XS0-64-fpj" secondAttribute="leading" id="5wI-9O-2QL"/>
@@ -661,7 +650,6 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пользователь не найден" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zLP-2Q-8LL">
                                         <rect key="frame" x="8" y="116" width="398" height="24"/>
                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
-                                        <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ФИ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vkE-uZ-150">
@@ -673,13 +661,13 @@
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Телефон не найден" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Vol-97-Umh">
                                         <rect key="frame" x="8" y="142" width="398" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" name="Graphite"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email не найден" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="z02-Wr-k6I">
                                         <rect key="frame" x="8" y="162" width="398" height="18"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                        <color key="textColor" name="Graphite"/>
+                                        <color key="textColor" systemColor="secondaryLabelColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -734,7 +722,7 @@
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="0rd-mJ-LgY"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="ViewColor"/>
                         <color key="tintColor" name="Primary"/>
                         <constraints>
                             <constraint firstItem="8hA-rt-Nnx" firstAttribute="top" secondItem="OpU-dp-l2E" secondAttribute="bottom" constant="8" id="6Iu-DW-10v"/>
@@ -890,13 +878,12 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="заголовок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xg5-ID-VLk">
                                                     <rect key="frame" x="20" y="7" width="334" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="данные" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xue-by-XKh">
                                                     <rect key="frame" x="20" y="28" width="334" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -911,7 +898,7 @@
                                                 <constraint firstAttribute="bottom" secondItem="Xue-by-XKh" secondAttribute="bottom" constant="7" id="ls3-Nh-Gp3"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" name="DataCellColor"/>
                                         <connections>
                                             <outlet property="dataLabel" destination="Xue-by-XKh" id="Q0u-pr-GQf"/>
                                             <outlet property="titleLabel" destination="xg5-ID-VLk" id="Z6h-sj-ZzF"/>
@@ -927,12 +914,11 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Создайте профиль, чтобы открыть доступ к данному окну" textAlignment="center" lineBreakMode="middleTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pXe-1D-cmU">
                                 <rect key="frame" x="20" y="426.5" width="374" height="43"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="m10-nU-jhS"/>
-                        <color key="backgroundColor" name="Light Gray"/>
+                        <color key="backgroundColor" name="NavigationBarColor"/>
                         <constraints>
                             <constraint firstItem="pXe-1D-cmU" firstAttribute="leading" secondItem="9Tb-l8-0Sn" secondAttribute="leading" constant="20" id="0QC-w1-CEG"/>
                             <constraint firstAttribute="trailing" secondItem="pXe-1D-cmU" secondAttribute="trailing" constant="20" id="0R5-E4-hvq"/>
@@ -977,9 +963,9 @@
                     <tabBar key="tabBar" contentMode="scaleToFill" translucent="NO" id="W28-zg-YXA">
                         <rect key="frame" x="0.0" y="975" width="768" height="49"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
-                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="NavigationBarColor"/>
                         <color key="tintColor" name="Primary"/>
-                        <color key="barTintColor" red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" name="NavigationBarColor"/>
                         <color key="selectedImageTintColor" name="Primary"/>
                     </tabBar>
                     <connections>
@@ -1030,7 +1016,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="4kz-Ot-ghk">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="Light Gray"/>
+                        <color key="backgroundColor" name="NavigationBarColor"/>
                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <color key="sectionIndexTrackingBackgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1060,6 +1046,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="8gw-9o-COG" detailTextLabel="xov-d7-Btz" rowHeight="43" style="IBUITableViewCellStyleValue1" id="1Nc-Eo-PDI">
                                         <rect key="frame" x="0.0" y="61" width="414" height="43"/>
@@ -1084,6 +1071,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" accessoryType="disclosureIndicator" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="MxA-oc-RVt" detailTextLabel="c1K-Ef-8jt" rowHeight="43" style="IBUITableViewCellStyleValue1" id="UTn-xE-K4j">
                                         <rect key="frame" x="0.0" y="104" width="414" height="43"/>
@@ -1108,6 +1096,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="none" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Zny-2b-i25" detailTextLabel="jQ8-x2-KYu" rowHeight="43" style="IBUITableViewCellStyleValue1" id="a7G-oL-07V">
                                         <rect key="frame" x="0.0" y="147" width="414" height="43"/>
@@ -1132,6 +1121,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1160,6 +1150,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1188,6 +1179,7 @@
                                                 </label>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
                                     </tableViewCell>
                                 </cells>
                             </tableViewSection>
@@ -1214,8 +1206,8 @@
                                 <rect key="frame" x="132" y="54" width="150" height="150"/>
                                 <color key="backgroundColor" name="Primary"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="150" id="Nmf-f3-95y"/>
-                                    <constraint firstAttribute="height" constant="150" id="m3b-De-4vA"/>
+                                    <constraint firstAttribute="height" constant="150" id="B8O-CV-OBK"/>
+                                    <constraint firstAttribute="width" constant="150" id="MqV-Gc-ZMr"/>
                                 </constraints>
                             </imageView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n6L-fe-ymz">
@@ -1232,13 +1224,12 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="заголовок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ueg-W9-53w">
                                                     <rect key="frame" x="20" y="7" width="374" height="17"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="данные" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fUm-8L-chJ">
                                                     <rect key="frame" x="20" y="28" width="374" height="20"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
@@ -1253,7 +1244,7 @@
                                                 <constraint firstItem="fUm-8L-chJ" firstAttribute="top" secondItem="Ueg-W9-53w" secondAttribute="bottom" constant="4" id="wyj-E5-las"/>
                                             </constraints>
                                         </tableViewCellContentView>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <connections>
                                             <outlet property="dataLabel" destination="fUm-8L-chJ" id="89e-38-egZ"/>
                                             <outlet property="titleLabel" destination="Ueg-W9-53w" id="PA5-VS-co1"/>
@@ -1267,7 +1258,7 @@
                                 </connections>
                             </tableView>
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ФИ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="S0B-e6-6Qs">
-                                <rect key="frame" x="177" y="116" width="60" height="26"/>
+                                <rect key="frame" x="180" y="116" width="54.5" height="26"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="35"/>
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
@@ -1278,21 +1269,19 @@
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="B2U-BJ-5bq"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="ViewColor"/>
                         <constraints>
+                            <constraint firstItem="S0B-e6-6Qs" firstAttribute="centerX" secondItem="REv-9D-dg0" secondAttribute="centerX" id="1Zg-XV-M3I"/>
+                            <constraint firstItem="dhQ-6q-tRs" firstAttribute="top" secondItem="B2U-BJ-5bq" secondAttribute="top" constant="10" id="2Rs-fR-Fr4"/>
                             <constraint firstItem="n6L-fe-ymz" firstAttribute="trailing" secondItem="B2U-BJ-5bq" secondAttribute="trailing" id="3gd-a7-xAw"/>
-                            <constraint firstItem="n6L-fe-ymz" firstAttribute="top" secondItem="dhQ-6q-tRs" secondAttribute="bottom" constant="10" id="537-yC-2Ur"/>
-                            <constraint firstItem="B2U-BJ-5bq" firstAttribute="trailing" secondItem="S0B-e6-6Qs" secondAttribute="trailing" constant="177" id="D9S-BR-ojv"/>
                             <constraint firstItem="n6L-fe-ymz" firstAttribute="top" secondItem="S0B-e6-6Qs" secondAttribute="bottom" constant="72" id="GJu-zj-3pX"/>
+                            <constraint firstItem="dhQ-6q-tRs" firstAttribute="centerX" secondItem="REv-9D-dg0" secondAttribute="centerX" id="HTG-fb-hTa"/>
                             <constraint firstItem="n6L-fe-ymz" firstAttribute="bottom" secondItem="B2U-BJ-5bq" secondAttribute="bottom" id="IA0-vN-CPr"/>
                             <constraint firstItem="n6L-fe-ymz" firstAttribute="leading" secondItem="B2U-BJ-5bq" secondAttribute="leading" id="ISG-9C-yU6"/>
                             <constraint firstItem="S6A-ym-6Cq" firstAttribute="centerY" secondItem="REv-9D-dg0" secondAttribute="centerY" id="NPp-3c-4sI"/>
-                            <constraint firstItem="S0B-e6-6Qs" firstAttribute="leading" secondItem="B2U-BJ-5bq" secondAttribute="leading" constant="177" id="SiV-0J-2d3"/>
-                            <constraint firstItem="B2U-BJ-5bq" firstAttribute="trailing" secondItem="dhQ-6q-tRs" secondAttribute="trailing" constant="132" id="dnv-dI-96k"/>
                             <constraint firstItem="S0B-e6-6Qs" firstAttribute="top" secondItem="B2U-BJ-5bq" secondAttribute="top" constant="72" id="lEX-8U-7g5"/>
-                            <constraint firstItem="dhQ-6q-tRs" firstAttribute="leading" secondItem="B2U-BJ-5bq" secondAttribute="leading" constant="132" id="oDv-H8-VQc"/>
                             <constraint firstItem="S6A-ym-6Cq" firstAttribute="centerX" secondItem="REv-9D-dg0" secondAttribute="centerX" id="oW6-dk-ICJ"/>
-                            <constraint firstItem="dhQ-6q-tRs" firstAttribute="top" secondItem="B2U-BJ-5bq" secondAttribute="top" constant="10" id="x9V-e6-NL9"/>
+                            <constraint firstItem="n6L-fe-ymz" firstAttribute="top" secondItem="dhQ-6q-tRs" secondAttribute="bottom" constant="10" id="xsW-FM-eSy"/>
                         </constraints>
                     </view>
                     <connections>
@@ -1313,7 +1302,7 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="ew9-d5-4jU">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" name="Light Gray"/>
+                        <color key="backgroundColor" name="NavigationBarColor"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="DataCell" rowHeight="55" id="Kzi-sI-ahn" customClass="DataCell" customModule="CloudCards" customModuleProvider="target">
                                 <rect key="frame" x="20" y="49.5" width="374" height="55"/>
@@ -1325,17 +1314,15 @@
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="заголовок" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="laF-hR-eji">
                                             <rect key="frame" x="20" y="7" width="334" height="17"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                            <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="textColor" systemColor="secondaryLabelColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="данные" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bLl-Rz-enH">
                                             <rect key="frame" x="20" y="28" width="334" height="20"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
-                                            <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                     </subviews>
-                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="bLl-Rz-enH" secondAttribute="trailing" constant="20" id="3WZ-dG-gfa"/>
                                         <constraint firstItem="laF-hR-eji" firstAttribute="top" secondItem="oDV-30-7gY" secondAttribute="top" constant="7" id="AQ4-oe-rXD"/>
@@ -1346,7 +1333,6 @@
                                         <constraint firstItem="bLl-Rz-enH" firstAttribute="top" secondItem="laF-hR-eji" secondAttribute="bottom" constant="4" id="omd-B0-uoD"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <connections>
                                     <outlet property="dataLabel" destination="bLl-Rz-enH" id="SlX-4r-39G"/>
                                     <outlet property="titleLabel" destination="laF-hR-eji" id="xZA-qn-LiO"/>
@@ -1373,7 +1359,7 @@
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="8Q0-gB-3E7">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" name="ViewColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BKr-fV-Adq">
                             <size key="itemSize" width="128" height="128"/>
                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1390,6 +1376,7 @@
                                     <subviews>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Название" lineBreakMode="wordWrap" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Se-dF-JtI">
                                             <rect key="frame" x="15" y="87.5" width="105" height="25.5"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <fontDescription key="fontDescription" type="boldSystem" pointSize="21"/>
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
@@ -1406,7 +1393,7 @@
                                                 <constraint firstAttribute="width" constant="30" id="S0e-XW-fuR"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                            <color key="tintColor" white="1" alpha="0.75" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                            <color key="tintColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <state key="normal">
                                                 <imageReference key="image" image="ellipsis" catalog="system" symbolScale="large"/>
                                             </state>
@@ -1482,7 +1469,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <color key="sectionIndexColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="sectionIndexColor" systemColor="labelColor"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ContactCell" rowHeight="80" id="ThT-7d-i11" customClass="ContactCell" customModule="CloudCards" customModuleProvider="target">
@@ -1503,13 +1490,13 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="должность не указана" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vJO-Ik-xfK">
                                                     <rect key="frame" x="91" y="52" width="303" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="компания не указана" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZC9-39-smG">
                                                     <rect key="frame" x="91" y="30" width="303" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                    <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <color key="textColor" systemColor="secondaryLabelColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="имя фамилия" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6S0-kZ-HJS">
@@ -1518,7 +1505,6 @@
                                                         <constraint firstAttribute="height" constant="21" id="TJk-YY-EZM"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                                    <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ИФ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbm-qc-rBA">
@@ -1564,7 +1550,6 @@
                             <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Отсканируйте первый контакт камерой или импортируйте его с помощью ссылки" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BYa-5E-HBo">
                                 <rect key="frame" x="20" y="281.5" width="374" height="338"/>
                                 <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="gOx-3W-7An">
@@ -1574,7 +1559,7 @@
                             </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="DGY-RD-oPb"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="ViewColor"/>
                         <constraints>
                             <constraint firstItem="gOx-3W-7An" firstAttribute="leading" secondItem="DGY-RD-oPb" secondAttribute="leading" constant="189" id="IUO-cs-C3l"/>
                             <constraint firstItem="BYa-5E-HBo" firstAttribute="top" secondItem="DGY-RD-oPb" secondAttribute="top" constant="193.5" id="Ie9-ga-N2G"/>
@@ -1630,17 +1615,29 @@
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="rectangle.stack.fill" catalog="system" width="128" height="122"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
-        <namedColor name="Graphite">
-            <color red="0.28627450980392155" green="0.30588235294117649" blue="0.35294117647058826" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        <namedColor name="DataCellColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Light Gray">
+            <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="NavigationBarColor">
             <color red="0.96470588235294119" green="0.96470588235294119" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <namedColor name="Primary">
             <color red="0.20784313725490197" green="0.55686274509803924" blue="0.73725490196078436" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
-        <systemColor name="systemBackgroundColor">
-            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        <namedColor name="ViewColor">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
