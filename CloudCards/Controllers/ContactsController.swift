@@ -88,7 +88,7 @@ class ContactsController: UIViewController {
                 target: self,
                 action: #selector(onMultipleSelectionButtonTap(_:))
             )
-            cancelButton.tintColor = PRIMARY
+            cancelButton.tintColor = UIColor(named: "Primary")
 
             self.navigationItem.leftBarButtonItem = cancelButton
         }
@@ -127,7 +127,7 @@ class ContactsController: UIViewController {
             target: self,
             action: #selector(onMultipleSelectionButtonTap(_:))
         )
-        select.tintColor = PRIMARY
+        select.tintColor = UIColor(named: "Primary")
 
         self.navigationItem.leftBarButtonItem = select
     }
@@ -242,7 +242,7 @@ extension ContactsController: UITableViewDelegate {
         if contactsTable.isEditing {
             selectedContacts.append(contact)
 
-            cell.tintColor = PRIMARY
+            cell.tintColor = UIColor(named: "Primary")
             
             if navigationController?.isToolbarHidden == true {
                 navigationController?.isToolbarHidden = false
@@ -295,7 +295,7 @@ extension ContactsController {
             completion(true)
         }
         action.image = UIImage(systemName: "qrcode")
-        action.backgroundColor = PRIMARY
+        action.backgroundColor = UIColor(named: "Primary")
         return action
     }
     
@@ -306,7 +306,7 @@ extension ContactsController {
             completion(true)
         }
         action.image = UIImage(systemName: "square.and.arrow.up")
-        action.backgroundColor = GRAPHITE
+        action.backgroundColor = UIColor.darkGray
         return action
     }
     

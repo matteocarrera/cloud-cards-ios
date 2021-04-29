@@ -21,10 +21,10 @@ class TemplateCell : UICollectionViewCell {
         
         if card == nil {
             title.text = "Создать визитку"
-            title.textColor = PRIMARY
+            title.textColor = UIColor(named: "Primary")
             plusImage.isHidden = false
             moreButton.isHidden = true
-            contentView.backgroundColor = PRIMARY_10
+            contentView.backgroundColor = UIColor(named: "CreateTemplateColor")
             return
         }
         

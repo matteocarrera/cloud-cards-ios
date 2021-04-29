@@ -20,7 +20,7 @@ class CardViewController: UIViewController {
         super.viewDidLoad()
         
         let backButton = UIBarButtonItem(title: "Назад", style: .plain, target: self, action: #selector(closeWindow(_:)))
-        backButton.tintColor = PRIMARY
+        backButton.tintColor = UIColor(named: "Primary")
         navigationItem.leftBarButtonItem = backButton
         
         configureTableView(table: cardDataTable, controller: self)
@@ -58,26 +58,24 @@ class CardViewController: UIViewController {
     
     private func loadUserData() {
         data = setDataToList(from: currentUser)
-        
+        userInitialsLabel.text = String(currentUser.name.character(at: 0)!) + String(currentUser.surname.character(at: 0)!)
+        userInitialsLabel.isHidden = false
         if currentUser.photo != "" {
             firebaseClient.getPhoto(with: currentUser.photo) { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let image):
+                        self.userInitialsLabel.isHidden = true
                         self.cardPhoto.image = image
                     case .failure(let error):
                         print(error)
                     }
                 }
             }
-            userInitialsLabel.isHidden = true
-        } else {
-            userInitialsLabel.text = String(currentUser.name.character(at: 0)!) + String(currentUser.surname.character(at: 0)!)
-            userInitialsLabel.isHidden = false
         }
-        cardPhoto.isHidden = false
         
         cardDataTable.reloadData()
+        cardPhoto.isHidden = false
     }
     
     private func setExportButton() {
@@ -87,7 +85,7 @@ class CardViewController: UIViewController {
             target: self,
             action: #selector(exportContact(_:))
         )
-        exportButton.tintColor = PRIMARY
+        exportButton.tintColor = UIColor(named: "Primary")
         
         navigationItem.rightBarButtonItem = exportButton
     }

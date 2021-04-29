@@ -5,6 +5,7 @@ private let reuseIdentifier = "DataCell"
 class ProfileController: UIViewController {
 
     @IBOutlet var userPhoto: UIImageView!
+    @IBOutlet var initialsLabel: UILabel!
     @IBOutlet var tableView: UITableView!
     @IBOutlet var createProfileNotification: UILabel!
     
@@ -30,12 +31,13 @@ class ProfileController: UIViewController {
             createProfileNotification.isHidden = true
             
             let owner = userDictionary[0]
-            
-            userPhoto.isHidden = false
+            initialsLabel.isHidden = false
+            initialsLabel.text = String(owner.name.character(at: 0)!) + String(owner.surname.character(at: 0)!)
             firebaseClient.getPhoto(with: owner.photo) { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let image):
+                        self.initialsLabel.isHidden = true
                         self.userPhoto.image = image
                     case .failure(let error):
                         print(error)

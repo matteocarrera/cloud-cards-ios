@@ -16,7 +16,13 @@ public func generateQR(with userLink: String) -> UIImage? {
     let transform = CGAffineTransform(scaleX: 10, y: 10)
     let scaledQrImage = qrImage.transformed(by: transform)
     
-    return UIImage.init(ciImage: scaledQrImage)
+    let colorParameters = [
+        "inputColor0": CIColor(color: UITraitCollection.current.userInterfaceStyle == .dark ? UIColor.white : UIColor.black), // Foreground
+        "inputColor1": CIColor(color: UIColor.clear) // Background
+    ]
+    let coloredQrImage = scaledQrImage.applyingFilter("CIFalseColor", parameters: colorParameters)
+    
+    return UIImage.init(ciImage: coloredQrImage)
 }
 
 /*
