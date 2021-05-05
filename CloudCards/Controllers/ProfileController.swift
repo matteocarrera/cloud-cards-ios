@@ -36,8 +36,9 @@ class ProfileController: UIViewController {
             firebaseClient.getPhoto(with: owner.photo) { result in
                 DispatchQueue.main.async {
                     switch result {
-                    case .success(let image):
+                    case .success(var image):
                         self.initialsLabel.isHidden = true
+                        image = image.resizeWithPercent(percentage: 0.5)!
                         self.userPhoto.image = image
                     case .failure(let error):
                         print(error)

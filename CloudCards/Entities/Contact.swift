@@ -1,6 +1,10 @@
 import UIKit
 
-class Contact: NSObject {
+/*
+    Класс, хранящий в себе данные пользователя и его фотографию
+ */
+
+public class Contact: NSObject {
     let user: User
     let image: UIImage?
     

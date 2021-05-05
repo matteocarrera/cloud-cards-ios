@@ -26,6 +26,8 @@
 		E71D4E2C256AC3C1003FC189 /* ShareController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E71D4E2B256AC3C1003FC189 /* ShareController.xib */; };
 		E71D4E30256AC5A6003FC189 /* ShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D4E2F256AC5A6003FC189 /* ShareController.swift */; };
 		E71D4E34256AC6E4003FC189 /* ControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D4E33256AC6E4003FC189 /* ControllerExtensions.swift */; };
+		E73432FB2642897E00BCE575 /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73432FA2642897E00BCE575 /* Field.swift */; };
+		E73432FD264296E400BCE575 /* ButtonChecked.swift in Sources */ = {isa = PBXBuildFile; fileRef = E73432FC264296E400BCE575 /* ButtonChecked.swift */; };
 		E734F6F224D3F45A008EC9D9 /* ProgramUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734F6F124D3F45A008EC9D9 /* ProgramUtils.swift */; };
 		E734F6F424D40069008EC9D9 /* TableUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E734F6F324D40069008EC9D9 /* TableUtils.swift */; };
 		E737940424CD6DA400440FF4 /* UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E737940324CD6DA400440FF4 /* UIColor.swift */; };
@@ -111,6 +113,8 @@
 		E71D4E2B256AC3C1003FC189 /* ShareController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareController.xib; sourceTree = "<group>"; };
 		E71D4E2F256AC5A6003FC189 /* ShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareController.swift; sourceTree = "<group>"; };
 		E71D4E33256AC6E4003FC189 /* ControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerExtensions.swift; sourceTree = "<group>"; };
+		E73432FA2642897E00BCE575 /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
+		E73432FC264296E400BCE575 /* ButtonChecked.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonChecked.swift; sourceTree = "<group>"; };
 		E734F6F124D3F45A008EC9D9 /* ProgramUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgramUtils.swift; sourceTree = "<group>"; };
 		E734F6F324D40069008EC9D9 /* TableUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableUtils.swift; sourceTree = "<group>"; };
 		E737940324CD6DA400440FF4 /* UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIColor.swift; sourceTree = "<group>"; };
@@ -285,6 +289,8 @@
 				E74A4847247159B50004B5B5 /* DataItem.swift */,
 				E7DA719524C31A19009DD08E /* UserBoolean.swift */,
 				E74EEC4D25C9894F0090F060 /* Contact.swift */,
+				E73432FA2642897E00BCE575 /* Field.swift */,
+				E73432FC264296E400BCE575 /* ButtonChecked.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -528,6 +534,7 @@
 				E734F6F424D40069008EC9D9 /* TableUtils.swift in Sources */,
 				E78BB3312566C28D0023BFC9 /* TemplateCell.swift in Sources */,
 				E71728212526222E00704371 /* JsonUtils.swift in Sources */,
+				E73432FB2642897E00BCE575 /* Field.swift in Sources */,
 				E714B25A24705D5000BB3F05 /* CameraController.swift in Sources */,
 				E74EEC5625C9A0AC0090F060 /* ShareUtils.swift in Sources */,
 				E74EEC5A25C9A0DE0090F060 /* UIUtils.swift in Sources */,
@@ -535,6 +542,7 @@
 				E74EEC4E25C9894F0090F060 /* Contact.swift in Sources */,
 				E79499F625C5744900ED8181 /* FirebaseClientInstance.swift in Sources */,
 				E74A4845247158E50004B5B5 /* Card.swift in Sources */,
+				E73432FD264296E400BCE575 /* ButtonChecked.swift in Sources */,
 				E78B37212528EAA40001C3B9 /* TextConstants.swift in Sources */,
 				E7BC527B257BFB9500A55AA8 /* AboutAppController.swift in Sources */,
 				E73FD3A8256BBE9B00E97226 /* ContactCell.swift in Sources */,

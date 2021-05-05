@@ -79,8 +79,9 @@ class EditProfileController: UIViewController {
                     FirebaseClientInstance.getInstance().getPhoto(with: self.ownerUser!.photo) { result in
                         DispatchQueue.main.async {
                             switch result {
-                            case .success(let image):
+                            case .success(var image):
                                 self.profileImage.image = image
+                                image = image.resizeWithPercent(percentage: 0.5)!
                                 self.showView()
                             case .failure(let error):
                                 print(error)

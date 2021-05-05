@@ -9,11 +9,12 @@ class ContactsController: UIViewController {
     @IBOutlet var selectMultipleButton: UIBarButtonItem!
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     
+    public var contactsSectionTitles = [String]()
+    public var contactsDictionary = [String:[Contact]]()
     private let realm = RealmInstance.getInstance()
-    private var contactsSectionTitles = [String]()
-    private var contactsDictionary = [String:[Contact]]()
     private var filteredContacts = [Contact]()
     private var selectedContacts = [Contact]()
+    private var buttonChecked = ButtonChecked.second
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,21 +96,19 @@ class ContactsController: UIViewController {
     }
     
     private func loadContacts() {
-        contactsDictionary.removeAll()
-        contactsSectionTitles.removeAll()
-        selectedContacts.removeAll()
-        
-        contactsTable.reloadData()
+        // Устанавливаем здесь, поскольку при обновлении списка контактов сортировка устанавливается по фамилии
+        buttonChecked = .second
+        setSortContactsButton()
         
         let userDictionary = realm.objects(User.self)
         let ownerUuid = userDictionary.count > 0 ? userDictionary[0].uuid : String()
-        let usersBoolean = Array(realm.objects(UserBoolean.self).filter("parentId != \"\(ownerUuid)\""))
-        if usersBoolean.count == 0 {
+        let userBooleanList = Array(realm.objects(UserBoolean.self).filter("parentId != \"\(ownerUuid)\""))
+        if userBooleanList.count == 0 {
             loadingIndicator.stopAnimating()
             self.importFirstContactNotification.isHidden = false
         } else {
             self.importFirstContactNotification.isHidden = true
-            getContactsFromDatabase(usersBoolean)
+            getContactsFromDatabase(userBooleanList)
         }
     }
 
@@ -129,11 +128,56 @@ class ContactsController: UIViewController {
         )
         select.tintColor = UIColor(named: "Primary")
 
-        self.navigationItem.leftBarButtonItem = select
+        navigationItem.leftBarButtonItem = select
     }
 
-    private func getContactsFromDatabase(_ usersBoolean: [UserBoolean]) {
-        usersBoolean.forEach { userBoolean in
+    private func setSortContactsButton() {
+        let sortByNameAction = UIAction(title: "По имени") { (_) in
+            sortContacts(in: self, by: .name)
+            self.buttonChecked = .first
+            self.setSortContactsButton()
+        }
+        
+        let sortBySurnameAction = UIAction(title: "По фамилии") { (_) in
+            sortContacts(in: self, by: .surname)
+            self.buttonChecked = .second
+            self.setSortContactsButton()
+        }
+        
+        let sortByCompanyAction = UIAction(title: "По компании") { (_) in
+            sortContacts(in: self, by: .company)
+            self.buttonChecked = .third
+            self.setSortContactsButton()
+        }
+        
+        let sortByJobTitleAction = UIAction(title: "По должности") { (_) in
+            sortContacts(in: self, by: .jobTitle)
+            self.buttonChecked = .fourth
+            self.setSortContactsButton()
+        }
+        
+        switch buttonChecked {
+        case .first:
+            sortByNameAction.setValue(UIImage(systemName: "checkmark"), forKey: "image")
+        case .second:
+            sortBySurnameAction.setValue(UIImage(systemName: "checkmark"), forKey: "image")
+        case .third:
+            sortByCompanyAction.setValue(UIImage(systemName: "checkmark"), forKey: "image")
+        case .fourth:
+            sortByJobTitleAction.setValue(UIImage(systemName: "checkmark"), forKey: "image")
+        }
+        
+        let menu = UIMenu(title: "Сортировать:", children: [sortByNameAction, sortBySurnameAction, sortByCompanyAction, sortByJobTitleAction])
+        
+        navigationItem.rightBarButtonItems?[1] = UIBarButtonItem(
+            image: UIImage(systemName: "ellipsis.circle"),
+            menu: menu
+        )
+    }
+    
+    private func getContactsFromDatabase(_ userBooleanList: [UserBoolean]) {
+        var contacts = [Contact]()
+        userBooleanList.forEach { userBoolean in
             // Получение пользователя для структуры Контакт
             FirebaseClientInstance.getInstance().getUser(
                 firstKey: userBoolean.parentId,
@@ -158,22 +202,10 @@ class ContactsController: UIViewController {
                             }
                         }
 
-                        // Добавление контакта в словарь, одновременно сортируя каждую секцию
-                        let contactKey = String(currentUser.surname.prefix(1))
-                        if var contactValues = self.contactsDictionary[contactKey] {
-                            contactValues.append(contact)
-                            contactValues.sort(by: {$0.user.surname < $1.user.surname})
-                            self.contactsDictionary[contactKey] = contactValues
-                        } else {
-                            self.contactsDictionary[contactKey] = [contact]
-                        }
-
-                        // Создание массива букв для секций таблицы, сортировка
-                        self.contactsSectionTitles = [String](self.contactsDictionary.keys)
-                        self.contactsSectionTitles = self.contactsSectionTitles.sorted(by: {$0 < $1})
+                        contacts.append(contact)
                         
-                        if self.contactsDictionary.values.count == usersBoolean.count {
-                            self.contactsTable.reloadData()
+                        if contacts.count == userBooleanList.count {
+                            sortContacts(in: self, with: contacts, by: .surname)
                             self.loadingIndicator.stopAnimating()
                         }
                     case .failure(let error):

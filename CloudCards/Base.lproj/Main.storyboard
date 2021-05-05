@@ -519,7 +519,7 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Zf7-Ok-T5s">
-                        <barButtonItem key="rightBarButtonItem" title="Готово" style="plain" id="WTT-HG-laI">
+                        <barButtonItem key="rightBarButtonItem" title="Готово" id="WTT-HG-laI">
                             <color key="tintColor" name="Primary"/>
                             <connections>
                                 <action selector="onSaveUserButtonTap:" destination="wht-5e-vHw" id="xkx-O3-hhF"/>
@@ -560,7 +560,7 @@
         <!--Камера-->
         <scene sceneID="wg7-f3-ORb">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="8rJ-Kc-sve" customClass="CameraController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CameraController" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="8rJ-Kc-sve" customClass="CameraController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="QS5-Rx-YEW">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -633,7 +633,7 @@
             <objects>
                 <viewController title="Настройки" id="Ken-jf-WGs" customClass="SettingsController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Mdx-tv-Sb5">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view hidden="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="OpU-dp-l2E">
@@ -1357,7 +1357,7 @@
             <objects>
                 <collectionViewController id="ryJ-N3-Zw2" customClass="TemplatesController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="8Q0-gB-3E7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" name="ViewColor"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="BKr-fV-Adq">
@@ -1389,7 +1389,6 @@
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fwI-8F-KQI">
                                             <rect key="frame" x="88" y="8" width="30" height="30"/>
                                             <constraints>
-                                                <constraint firstAttribute="height" constant="30" id="F6e-OA-QPz"/>
                                                 <constraint firstAttribute="width" constant="30" id="S0e-XW-fuR"/>
                                             </constraints>
                                             <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -1402,9 +1401,8 @@
                                     <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <constraints>
                                         <constraint firstAttribute="trailing" secondItem="9Se-dF-JtI" secondAttribute="trailing" constant="8" id="8bL-2R-TKb"/>
+                                        <constraint firstItem="fwI-8F-KQI" firstAttribute="top" secondItem="VBJ-qb-RfD" secondAttribute="top" constant="8" id="Cap-22-ZZF"/>
                                         <constraint firstItem="9Se-dF-JtI" firstAttribute="leading" secondItem="VBJ-qb-RfD" secondAttribute="leading" constant="15" id="NPA-m9-9Vo"/>
-                                        <constraint firstItem="fwI-8F-KQI" firstAttribute="top" secondItem="VBJ-qb-RfD" secondAttribute="top" constant="8" id="W2X-yH-h4I"/>
-                                        <constraint firstItem="fwI-8F-KQI" firstAttribute="top" secondItem="VBJ-qb-RfD" secondAttribute="top" constant="8" id="WK4-3r-wBu"/>
                                         <constraint firstAttribute="trailing" secondItem="fwI-8F-KQI" secondAttribute="trailing" constant="10" id="bFU-Qp-V3M"/>
                                         <constraint firstAttribute="bottom" secondItem="9Se-dF-JtI" secondAttribute="bottom" constant="15" id="mPE-KY-LVf"/>
                                         <constraint firstItem="fwI-8F-KQI" firstAttribute="centerY" secondItem="C1t-cD-K2j" secondAttribute="centerY" id="w6q-F1-iDU"/>
@@ -1462,7 +1460,7 @@
             <objects>
                 <viewController storyboardIdentifier="ContactsController" title="Контакты" useStoryboardIdentifierAsRestorationIdentifier="YES" id="KNG-E6-V2A" customClass="ContactsController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="egb-Gz-od7">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="813"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" allowsSelectionDuringEditing="YES" allowsMultipleSelection="YES" allowsMultipleSelectionDuringEditing="YES" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="n8F-GY-4C7">
@@ -1585,12 +1583,17 @@
                         <barButtonItem key="leftBarButtonItem" title="Изм." id="noE-rW-dK7">
                             <color key="tintColor" name="Primary"/>
                         </barButtonItem>
-                        <barButtonItem key="rightBarButtonItem" title="Камера" image="camera" catalog="system" id="ga9-0p-79b">
-                            <color key="tintColor" name="Primary"/>
-                            <connections>
-                                <segue destination="8rJ-Kc-sve" kind="show" id="u0M-4g-hSp"/>
-                            </connections>
-                        </barButtonItem>
+                        <rightBarButtonItems>
+                            <barButtonItem title="Camera" image="camera" catalog="system" id="oVC-mE-ZrV">
+                                <color key="tintColor" name="Primary"/>
+                                <connections>
+                                    <segue destination="8rJ-Kc-sve" kind="show" id="N10-KU-chu"/>
+                                </connections>
+                            </barButtonItem>
+                            <barButtonItem title="Sort" image="ellipsis.circle" catalog="system" id="nZ4-cJ-M46">
+                                <color key="tintColor" name="Primary"/>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="contactsTable" destination="n8F-GY-4C7" id="brw-x4-c6B"/>
@@ -1608,6 +1611,7 @@
         <image name="camera" catalog="system" width="128" height="94"/>
         <image name="camera.fill" catalog="system" width="128" height="94"/>
         <image name="ellipsis" catalog="system" width="128" height="37"/>
+        <image name="ellipsis.circle" catalog="system" width="128" height="121"/>
         <image name="gearshape.fill" catalog="system" width="128" height="121"/>
         <image name="person.2.fill" catalog="system" width="128" height="80"/>
         <image name="person.fill" catalog="system" width="128" height="120"/>
