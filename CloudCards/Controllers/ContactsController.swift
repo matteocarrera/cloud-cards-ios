@@ -14,7 +14,7 @@ class ContactsController: UIViewController {
     private let realm = RealmInstance.getInstance()
     private var filteredContacts = [Contact]()
     private var selectedContacts = [Contact]()
-    private var buttonChecked = ButtonChecked.second
+    private var field = Field.surname
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -97,7 +97,7 @@ class ContactsController: UIViewController {
     
     private func loadContacts() {
         // Устанавливаем здесь, поскольку при обновлении списка контактов сортировка устанавливается по фамилии
-        buttonChecked = .second
+        field = .surname
         setSortContactsButton()
         
         let userDictionary = realm.objects(User.self)
@@ -134,37 +134,37 @@ class ContactsController: UIViewController {
     private func setSortContactsButton() {
         let sortByNameAction = UIAction(title: "По имени") { (_) in
             sortContacts(in: self, by: .name)
-            self.buttonChecked = .first
+            self.field = .name
             self.setSortContactsButton()
         }
         
         let sortBySurnameAction = UIAction(title: "По фамилии") { (_) in
             sortContacts(in: self, by: .surname)
-            self.buttonChecked = .second
+            self.field = .surname
             self.setSortContactsButton()
         }
         
         let sortByCompanyAction = UIAction(title: "По компании") { (_) in
             sortContacts(in: self, by: .company)
-            self.buttonChecked = .third
+            self.field = .company
             self.setSortContactsButton()
         }
         
         let sortByJobTitleAction = UIAction(title: "По должности") { (_) in
             sortContacts(in: self, by: .jobTitle)
-            self.buttonChecked = .fourth
+            self.field = .jobTitle
             self.setSortContactsButton()
         }
         
-        switch buttonChecked {
-        case .first:
-            sortByNameAction.setValue(UIImage(systemName: "checkmark"), forKey: "image")
-        case .second:
-            sortBySurnameAction.setValue(UIImage(systemName: "checkmark"), forKey: "image")
-        case .third:
-            sortByCompanyAction.setValue(UIImage(systemName: "checkmark"), forKey: "image")
-        case .fourth:
-            sortByJobTitleAction.setValue(UIImage(systemName: "checkmark"), forKey: "image")
+        switch field {
+        case .name:
+            setCheckmarkForAction(action: sortByNameAction)
+        case .surname:
+            setCheckmarkForAction(action: sortBySurnameAction)
+        case .company:
+            setCheckmarkForAction(action: sortByCompanyAction)
+        case .jobTitle:
+            setCheckmarkForAction(action: sortByJobTitleAction)
         }
         
         let menu = UIMenu(title: "Сортировать:", children: [sortByNameAction, sortBySurnameAction, sortByCompanyAction, sortByJobTitleAction])
@@ -173,6 +173,10 @@ class ContactsController: UIViewController {
             image: UIImage(systemName: "ellipsis.circle"),
             menu: menu
         )
+    }
+    
+    private func setCheckmarkForAction(action: UIAction) {
+        action.setValue(UIImage(systemName: "checkmark"), forKey: "image")
     }
     
     private func getContactsFromDatabase(_ userBooleanList: [UserBoolean]) {
