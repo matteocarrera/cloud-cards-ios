@@ -1,4 +1,5 @@
 import Foundation
+import UIKit
 
 public func setDataToList(from user: User) -> [DataItem]{
     var data = [DataItem]()
@@ -105,6 +106,65 @@ public func getUserFromTemplate(user: User, userBoolean: UserBoolean) -> User {
     currentUser.twitter = checkField(field: user.twitter, isSelected: userBoolean.twitter)
     currentUser.notes = checkField(field: user.notes, isSelected: userBoolean.notes)
     return currentUser
+}
+
+public func sortContacts(in viewController: UIViewController, with contactsOptional: [Contact]? = nil, by field: Field) {
+    let controller = viewController as! ContactsController
+    var contacts = [Contact]()
+    
+    // Если в аргументы не передали список контактов, то словарь изначально имеет в себе значения, иначе значения только загружались из Firebase
+    if contactsOptional == nil {
+        controller.contactsDictionary.values.forEach { users in
+            contacts.append(contentsOf: users)
+        }
+    } else {
+        contacts = contactsOptional!
+    }
+    
+    controller.contactsDictionary.removeAll()
+    
+    // Добавление контакта в словарь
+    contacts.forEach { contact in
+        let contactKey: String
+        
+        switch field {
+        case .name:
+            contactKey = String(contact.user.name.prefix(1))
+        case .surname:
+            contactKey = String(contact.user.surname.prefix(1))
+        case .company:
+            contactKey = String(contact.user.company.prefix(1))
+        case .jobTitle:
+            contactKey = String(contact.user.jobTitle.prefix(1))
+        }
+        
+        if var contactValues = controller.contactsDictionary[contactKey] {
+            contactValues.append(contact)
+            controller.contactsDictionary[contactKey] = contactValues
+        } else {
+            controller.contactsDictionary[contactKey] = [contact]
+        }
+    }
+    
+    // Сортировка каждого массива контактов по секциям
+    for key in controller.contactsDictionary.keys {
+        switch field {
+        case .name:
+            controller.contactsDictionary[key]?.sort(by: {$0.user.name < $1.user.name})
+        case .surname:
+            controller.contactsDictionary[key]?.sort(by: {$0.user.surname < $1.user.surname})
+        case .company:
+            controller.contactsDictionary[key]?.sort(by: {$0.user.company < $1.user.company})
+        case .jobTitle:
+            controller.contactsDictionary[key]?.sort(by: {$0.user.jobTitle < $1.user.jobTitle})
+        }
+    }
+    
+    // Создание массива букв для секций таблицы, сортировка
+    controller.contactsSectionTitles = [String](controller.contactsDictionary.keys)
+    controller.contactsSectionTitles = controller.contactsSectionTitles.sorted(by: {$0 < $1})
+    
+    controller.contactsTable.reloadData()
 }
 
 private func checkField(field: String, isSelected: Bool) -> String {

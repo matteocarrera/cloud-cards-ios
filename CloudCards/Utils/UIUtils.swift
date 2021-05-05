@@ -29,7 +29,7 @@ public func setSearchBar(for controller: UIViewController) {
     search.searchBar.delegate = controller as? UISearchBarDelegate
     search.searchBar.placeholder = "Поиск"
     search.searchBar.setValue("Отмена", forKey: "cancelButtonText")
-    search.dimsBackgroundDuringPresentation = false
+    search.obscuresBackgroundDuringPresentation = false
     search.searchBar.scopeButtonTitles = ["Имя", "Фамилия", "Компания"]
     controller.definesPresentationContext = true
     controller.navigationItem.searchController = search

@@ -32,19 +32,53 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
     }
     
     private func setAddTemplateButton() {
+        let createPersonalCardAction = UIAction(
+            title: "Личная визитка",
+            image: UIImage(systemName: "person")
+        ) { (_) in
+            self.openCreateTemplateWindow()
+        }
+        
+        let createCompanyCardAction = UIAction(
+            title: "Визитка компании",
+            image: UIImage(systemName: "building.2")
+        ) { (_) in
+            showTimeAlert(withTitle: "Недоступно", withMessage: "Данный раздел временно недоступен", showForSeconds: 1.5, inController: self)
+        }
+        
+        let menu = UIMenu(title: String(), children: [createPersonalCardAction, createCompanyCardAction])
+        
         let addTemplate: UIBarButtonItem = UIBarButtonItem(
             image: addTemplateButton.image,
-            style: UIBarButtonItem.Style.plain,
-            target: self,
-            action: #selector(openCreateTemplateWindow)
+            menu: menu
         )
         addTemplate.tintColor = UIColor(named: "Primary")
         navigationItem.leftBarButtonItem = addTemplate
     }
     
+    private func openCreateCardSelectionMenu() {
+        let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
+        
+        let createPersonalCardAction = UIAlertAction.init(title: "Личная визитка", style: .default, handler: { (_) in
+            self.openCreateTemplateWindow()
+        })
+        createPersonalCardAction.setValue(UIImage(systemName: "person"), forKey: "image")
+
+        let createCompanyCardAction = UIAlertAction.init(title: "Визитка компании", style: .default, handler: { (_) in
+            showTimeAlert(withTitle: "Недоступно", withMessage: "Данный раздел временно недоступен", showForSeconds: 1.5, inController: self)
+        })
+        createCompanyCardAction.setValue(UIImage(systemName: "building.2"), forKey: "image")
+        
+        alert.addAction(createPersonalCardAction)
+        alert.addAction(createCompanyCardAction)
+        alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
+            
+        present(alert, animated: true)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == templates.count {
-            openCreateTemplateWindow()
+            openCreateCardSelectionMenu()
             return
         }
         

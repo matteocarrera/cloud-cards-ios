@@ -79,8 +79,9 @@ class EditProfileController: UIViewController {
                     FirebaseClientInstance.getInstance().getPhoto(with: self.ownerUser!.photo) { result in
                         DispatchQueue.main.async {
                             switch result {
-                            case .success(let image):
+                            case .success(var image):
                                 self.profileImage.image = image
+                                image = image.resizeWithPercent(percentage: 0.5)!
                                 self.showView()
                             case .failure(let error):
                                 print(error)
@@ -370,7 +371,7 @@ extension EditProfileController {
             let keyboardOverlap = scrollView.frame.maxY - endRect.origin.y
 
             scrollView.contentInset.bottom = keyboardOverlap
-            scrollView.scrollIndicatorInsets.bottom = keyboardOverlap
+            scrollView.verticalScrollIndicatorInsets.bottom = keyboardOverlap
             
             let duration = (durationValue as AnyObject).doubleValue
             let options = UIView.AnimationOptions(rawValue: UInt((curveValue as AnyObject).integerValue << 16))

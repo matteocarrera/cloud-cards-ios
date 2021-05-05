@@ -1,5 +1,9 @@
 import Foundation
 
+/*
+    Класс элемента таблицы формата "описание поля/данные поля"
+ */
+
 public class DataItem {
     var title : String = ""
     var data : String = ""

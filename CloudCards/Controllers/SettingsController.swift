@@ -110,7 +110,7 @@ extension SettingsController : UITableViewDataSource {
         } else {
             showTimeAlert(
                 withTitle: "Недоступно",
-                withMessage: "Данный раздел времено недоступен",
+                withMessage: "Данный раздел временно недоступен",
                 showForSeconds: 1.5,
                 inController: self
             )

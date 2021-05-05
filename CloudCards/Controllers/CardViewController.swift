@@ -64,8 +64,9 @@ class CardViewController: UIViewController {
             firebaseClient.getPhoto(with: currentUser.photo) { result in
                 DispatchQueue.main.async {
                     switch result {
-                    case .success(let image):
+                    case .success(var image):
                         self.userInitialsLabel.isHidden = true
+                        image = image.resizeWithPercent(percentage: 0.5)!
                         self.cardPhoto.image = image
                     case .failure(let error):
                         print(error)
