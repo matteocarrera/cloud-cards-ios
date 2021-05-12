@@ -7,10 +7,12 @@ class TemplateCell : UICollectionViewCell {
     @IBOutlet var plusImage: UIImageView!
     @IBOutlet var moreButton: UIButton!
     
+    public var templateUser = UserBoolean()
+    
     private var controller = TemplatesController()
     private var userId = String()
     private var cardId = 0
-    
+    private var parentUser = User()
     private let realm = RealmInstance.getInstance()
     
     public func update(with card: Card?, in parentController: TemplatesController) {
@@ -35,6 +37,7 @@ class TemplateCell : UICollectionViewCell {
         contentView.backgroundColor = UIColor.init(hexString: card!.color)
         plusImage.isHidden = true
         moreButton.isHidden = false
+        getCurrentCardUser()
     }
     
     private func setMenu() {
@@ -67,7 +70,7 @@ class TemplateCell : UICollectionViewCell {
     }
     
     private func openCard() {
-        let currentUser = getCurrentCardUser()
+        let currentUser = getUserFromTemplate(user: parentUser, userBoolean: templateUser)
         let currentCard = realm.objects(Card.self).filter("id == \(cardId)")[0]
         
         let myCardViewController = controller.storyboard?.instantiateViewController(withIdentifier: "MyCardViewController") as! MyCardViewController
@@ -78,7 +81,7 @@ class TemplateCell : UICollectionViewCell {
     }
     
     private func shareCard() {
-        let currentUser = getCurrentCardUser()
+        let currentUser = getUserFromTemplate(user: parentUser, userBoolean: templateUser)
         showShareLinkController(with: currentUser, in: controller)
     }
     
@@ -100,9 +103,21 @@ class TemplateCell : UICollectionViewCell {
         }
     }
     
-    private func getCurrentCardUser() -> User {
-        let parentUser = realm.objects(User.self)[0]
-        let templateUser = realm.objects(UserBoolean.self).filter("uuid = \"\(userId)\"")[0]
-        return getUserFromTemplate(user: parentUser, userBoolean: templateUser)
+    private func getCurrentCardUser() {
+        parentUser = realm.objects(User.self)[0]
+        let idPair = realm.objects(IdPair.self).filter("uuid = \"\(userId)\"")[0]
+        FirebaseClientInstance.getInstance().getUser(
+            firstKey: idPair.parentUuid,
+            secondKey: idPair.uuid,
+            firstKeyPath: FirestoreInstance.USERS,
+            secondKeyPath: FirestoreInstance.CARDS
+        ) { result in
+            switch result {
+            case .success(let data):
+                self.templateUser = JsonUtils.convertFromDictionary(dictionary: data, type: UserBoolean.self)
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
 }

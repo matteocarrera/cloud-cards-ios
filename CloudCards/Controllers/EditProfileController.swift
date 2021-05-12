@@ -240,7 +240,7 @@ class EditProfileController: UIViewController {
         /*
             Сохранение пользователя в Firebase
          */
-        let userData = convertToDictionary(someUser: ownerUser!)
+        let userData = JsonUtils.convertToDictionary(object: ownerUser!)
 
         let db = FirestoreInstance.getInstance()
         db.collection(FirestoreInstance.USERS)

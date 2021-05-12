@@ -14,6 +14,7 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
         super.viewDidLoad()
         setLargeNavigationBar(for: self)
         setAddTemplateButton()
+        migrateContactsToIdPairs()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -29,6 +30,23 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
         let viewController = storyboard?.instantiateViewController(withIdentifier: "CreateCardController") as! CreateCardController
         let nav = UINavigationController(rootViewController: viewController)
         navigationController?.showDetailViewController(nav, sender: nil)
+    }
+    
+    /*
+        Миграция контактов в пары ID, доступно с версии 1.3.1
+     */
+
+    private func migrateContactsToIdPairs() {
+        let userBooleanList = Array(realm.objects(UserBoolean.self))
+        if !userBooleanList.isEmpty {
+            userBooleanList.forEach {user in
+                let idPair = IdPair(parentUuid: user.parentId, uuid: user.uuid)
+                try! realm.write {
+                    realm.add(idPair)
+                    realm.delete(user)
+                }
+            }
+        }
     }
     
     private func setAddTemplateButton() {
@@ -82,9 +100,9 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             return
         }
         
-        let templateUser = realm.objects(UserBoolean.self).filter("uuid = \"\(templates[indexPath.row].userId)\"")[0]
         let parentUser = realm.objects(User.self)[0]
-        let generatedUser = getUserFromTemplate(user: parentUser, userBoolean: templateUser)
+        let cell = collectionView.cellForItem(at: indexPath) as! TemplateCell
+        let generatedUser = getUserFromTemplate(user: parentUser, userBoolean: cell.templateUser)
         
         showShareController(with: generatedUser, in: self)
     }

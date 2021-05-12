@@ -141,6 +141,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Фамилия" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="fng-UD-M0Q">
                                                 <rect key="frame" x="20" y="220" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="family-name"/>
                                                 <userDefinedRuntimeAttributes>
@@ -155,6 +156,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Имя" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="YEA-hm-4ZP">
                                                 <rect key="frame" x="20" y="264" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="name"/>
                                                 <userDefinedRuntimeAttributes>
@@ -169,6 +171,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Отчество" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="hJN-r0-Eb8">
                                                 <rect key="frame" x="20" y="308" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="words" textContentType="additional-name"/>
                                                 <userDefinedRuntimeAttributes>
@@ -183,6 +186,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Компания" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="pvy-uW-Bxa">
                                                 <rect key="frame" x="20" y="352" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="organization"/>
                                                 <userDefinedRuntimeAttributes>
@@ -197,6 +201,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Должность" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Zbq-10-FKo">
                                                 <rect key="frame" x="20" y="396" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" textContentType="organization-title"/>
                                                 <userDefinedRuntimeAttributes>
@@ -211,6 +216,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Мобильный номер" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Yno-Os-r4g">
                                                 <rect key="frame" x="20" y="440" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
                                                 <userDefinedRuntimeAttributes>
@@ -225,6 +231,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Мобильный номер (другой)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="rKB-T8-jLX">
                                                 <rect key="frame" x="20" y="484" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
                                                 <userDefinedRuntimeAttributes>
@@ -239,6 +246,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="a9q-TN-q2Q">
                                                 <rect key="frame" x="20" y="528" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
@@ -253,6 +261,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="email (другой)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ggV-dq-yoa">
                                                 <rect key="frame" x="20" y="572" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
@@ -267,6 +276,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Адрес" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ZTj-lC-RPS">
                                                 <rect key="frame" x="20" y="616" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="location"/>
                                                 <userDefinedRuntimeAttributes>
@@ -281,6 +291,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Адрес (другой)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="z1Q-GB-qA7">
                                                 <rect key="frame" x="20" y="660" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="location"/>
                                                 <userDefinedRuntimeAttributes>
@@ -295,6 +306,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Номер карты 1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p7q-AB-gOB">
                                                 <rect key="frame" x="20" y="704" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="cc-number"/>
                                                 <userDefinedRuntimeAttributes>
@@ -309,6 +321,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Номер карты 2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tab-0Y-LMR">
                                                 <rect key="frame" x="20" y="748" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="cc-number"/>
                                                 <userDefinedRuntimeAttributes>
@@ -323,6 +336,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Сайт (example.com)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Aym-o6-i4g">
                                                 <rect key="frame" x="20" y="792" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" keyboardType="URL" textContentType="url"/>
                                                 <userDefinedRuntimeAttributes>
@@ -337,6 +351,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="VK (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="67F-au-m79">
                                                 <rect key="frame" x="20" y="836" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
@@ -351,6 +366,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Telegram (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uzS-0S-qB4">
                                                 <rect key="frame" x="20" y="880" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
@@ -365,6 +381,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Facebook (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ps3-mw-6Wd">
                                                 <rect key="frame" x="20" y="924" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
@@ -379,6 +396,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Instagram (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qWF-Pp-QRd">
                                                 <rect key="frame" x="20" y="968" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
@@ -393,6 +411,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Twitter (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TuK-gG-9ao">
                                                 <rect key="frame" x="20" y="1012" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
@@ -407,6 +426,7 @@
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Заметки" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JHS-4b-3t7">
                                                 <rect key="frame" x="20" y="1056" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
+                                                <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                 <textInputTraits key="textInputTraits" textContentType="email"/>
                                                 <userDefinedRuntimeAttributes>
