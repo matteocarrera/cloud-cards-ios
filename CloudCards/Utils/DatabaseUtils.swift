@@ -63,7 +63,7 @@ public func saveCard(
         let uuid = UUID().uuidString
         newUser.uuid = uuid
         
-        let userData = JsonUtils.convertToDictionary(object: newUser)
+        let userData = JsonUtils.convertToDictionary(object: newUser, dictType: [String: Any]())
         
         let db = FirestoreInstance.getInstance()
         db.collection(FirestoreInstance.USERS)
