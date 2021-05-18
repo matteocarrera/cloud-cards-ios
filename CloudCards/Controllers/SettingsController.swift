@@ -27,15 +27,6 @@ class SettingsController: UIViewController {
         
         getProfileInfo()
         
-        if !Reachability.isConnectedToNetwork() {
-            navigationItem.rightBarButtonItem?.isEnabled = false
-            showSimpleAlert(
-                withTitle: "Предупреждение",
-                withMessage: "При отсутствии интернета Вы не можете создавать/редактировать профиль!",
-                inController: self
-            )
-        }
-        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileViewTapped))
         profileView.isUserInteractionEnabled = true
         profileView.addGestureRecognizer(tapGestureRecognizer)
