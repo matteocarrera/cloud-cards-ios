@@ -15,15 +15,12 @@ class EditProfileController: UIViewController {
     @IBOutlet weak var emailSecondField: UITextField!
     @IBOutlet weak var addressField: UITextField!
     @IBOutlet weak var addressSecondField: UITextField!
-    @IBOutlet weak var cardNumberField: UITextField!
-    @IBOutlet weak var cardNumberSecondField: UITextField!
     @IBOutlet weak var websiteField: UITextField!
     @IBOutlet weak var vkField: UITextField!
     @IBOutlet weak var telegramField: UITextField!
     @IBOutlet weak var facebookField: UITextField!
     @IBOutlet weak var instagramField: UITextField!
     @IBOutlet weak var twitterField: UITextField!
-    @IBOutlet weak var notesField: UITextField!
     @IBOutlet var scrollView: UIScrollView!
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     
@@ -389,7 +386,5 @@ extension EditProfileController {
         
         mobileNumberField.inputAccessoryView = bar
         mobileNumberSecondField.inputAccessoryView = bar
-        cardNumberField.inputAccessoryView = bar
-        cardNumberSecondField.inputAccessoryView = bar
     }
 }

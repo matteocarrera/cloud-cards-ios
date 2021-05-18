@@ -60,12 +60,15 @@ class CreateCardCompanyController: UITableViewController {
     @IBAction func saveCard(_ sender: Any) {
         let realm = RealmInstance.getInstance()
         
-        if cardNameField.text == String() {
+        let cardTitle = cardNameField.text
+        
+        if cardTitle == String() {
             showSimpleAlert(withTitle: "Название не указано", withMessage: "Введите название визитки!", inController: self)
             return
         }
-        let cardTitleList = Array(realm.objects(Card.self)).map { $0.title }
-        if cardTitleList.contains(cardNameField.text!) {
+        
+        let cardTitleList = realm.objects(Card.self).map { $0.title }
+        if cardTitle != templateCard?.title && cardTitleList.contains(cardTitle!) {
             showSimpleAlert(
                 withTitle: "Название занято",
                 withMessage: "Визитка с таким названием уже существует!",

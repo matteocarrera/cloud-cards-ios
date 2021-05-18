@@ -121,14 +121,14 @@
             <objects>
                 <viewController storyboardIdentifier="EditProfileController" title="Редактирование" hidesBottomBarWhenPushed="YES" useStoryboardIdentifierAsRestorationIdentifier="YES" id="wht-5e-vHw" customClass="EditProfileController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3bv-17-UTx">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="1150"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="1034"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YMe-Ks-Rle">
-                                <rect key="frame" x="0.0" y="44" width="414" height="1084"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="968"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dHb-ds-loP">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="1110"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="968"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Mfl-4O-1XL">
                                                 <rect key="frame" x="107" y="10" width="200" height="200"/>
@@ -303,38 +303,8 @@
                                                     <outlet property="delegate" destination="wht-5e-vHw" id="iN4-mA-UT3"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Номер карты 1" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="p7q-AB-gOB">
-                                                <rect key="frame" x="20" y="704" width="374" height="34"/>
-                                                <color key="backgroundColor" name="NavigationBarColor"/>
-                                                <color key="tintColor" name="Primary"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="cc-number"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" systemColor="placeholderTextColor"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <outlet property="delegate" destination="wht-5e-vHw" id="mXs-EC-Rz3"/>
-                                                </connections>
-                                            </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Номер карты 2" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tab-0Y-LMR">
-                                                <rect key="frame" x="20" y="748" width="374" height="34"/>
-                                                <color key="backgroundColor" name="NavigationBarColor"/>
-                                                <color key="tintColor" name="Primary"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" keyboardType="numberPad" textContentType="cc-number"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" systemColor="placeholderTextColor"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <outlet property="delegate" destination="wht-5e-vHw" id="8cQ-v2-09f"/>
-                                                </connections>
-                                            </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Сайт (example.com)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Aym-o6-i4g">
-                                                <rect key="frame" x="20" y="792" width="374" height="34"/>
+                                                <rect key="frame" x="20" y="704" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -349,7 +319,7 @@
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="VK (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="67F-au-m79">
-                                                <rect key="frame" x="20" y="836" width="374" height="34"/>
+                                                <rect key="frame" x="20" y="748" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -364,7 +334,7 @@
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Telegram (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="uzS-0S-qB4">
-                                                <rect key="frame" x="20" y="880" width="374" height="34"/>
+                                                <rect key="frame" x="20" y="792" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -379,7 +349,7 @@
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Facebook (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ps3-mw-6Wd">
-                                                <rect key="frame" x="20" y="924" width="374" height="34"/>
+                                                <rect key="frame" x="20" y="836" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -394,7 +364,7 @@
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Instagram (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="qWF-Pp-QRd">
-                                                <rect key="frame" x="20" y="968" width="374" height="34"/>
+                                                <rect key="frame" x="20" y="880" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -409,7 +379,7 @@
                                                 </connections>
                                             </textField>
                                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Twitter (имя пользователя)" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="TuK-gG-9ao">
-                                                <rect key="frame" x="20" y="1012" width="374" height="34"/>
+                                                <rect key="frame" x="20" y="924" width="374" height="34"/>
                                                 <color key="backgroundColor" name="NavigationBarColor"/>
                                                 <color key="tintColor" name="Primary"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -423,39 +393,20 @@
                                                     <outlet property="delegate" destination="wht-5e-vHw" id="6Lz-2Q-Ws2"/>
                                                 </connections>
                                             </textField>
-                                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Заметки" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="JHS-4b-3t7">
-                                                <rect key="frame" x="20" y="1056" width="374" height="34"/>
-                                                <color key="backgroundColor" name="NavigationBarColor"/>
-                                                <color key="tintColor" name="Primary"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                <textInputTraits key="textInputTraits" textContentType="email"/>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="color" keyPath="placeholderLabel.textColor">
-                                                        <color key="value" systemColor="placeholderTextColor"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
-                                                <connections>
-                                                    <outlet property="delegate" destination="wht-5e-vHw" id="WEW-pl-GcH"/>
-                                                </connections>
-                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="Yno-Os-r4g" secondAttribute="trailing" constant="20" id="1MQ-WF-uuc"/>
-                                            <constraint firstItem="p7q-AB-gOB" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="22g-o0-Nnz"/>
                                             <constraint firstAttribute="trailing" secondItem="fng-UD-M0Q" secondAttribute="trailing" constant="20" id="2Rj-Kf-nSq"/>
                                             <constraint firstAttribute="trailing" secondItem="uzS-0S-qB4" secondAttribute="trailing" constant="20" id="36a-a3-Z7g"/>
                                             <constraint firstAttribute="trailing" secondItem="rKB-T8-jLX" secondAttribute="trailing" constant="20" id="6TW-iQ-mTi"/>
                                             <constraint firstItem="uzS-0S-qB4" firstAttribute="top" secondItem="67F-au-m79" secondAttribute="bottom" constant="10" id="71t-7g-J7z"/>
-                                            <constraint firstAttribute="trailing" secondItem="JHS-4b-3t7" secondAttribute="trailing" constant="20" id="7Vt-IX-SVk"/>
                                             <constraint firstItem="a9q-TN-q2Q" firstAttribute="top" secondItem="rKB-T8-jLX" secondAttribute="bottom" constant="10" id="7he-Ep-Ksw"/>
                                             <constraint firstItem="uzS-0S-qB4" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="7vG-HY-fSz"/>
-                                            <constraint firstItem="Aym-o6-i4g" firstAttribute="top" secondItem="tab-0Y-LMR" secondAttribute="bottom" constant="10" id="80R-HI-cCw"/>
                                             <constraint firstAttribute="trailing" secondItem="ZTj-lC-RPS" secondAttribute="trailing" constant="20" id="9sc-4a-pkq"/>
                                             <constraint firstItem="ggV-dq-yoa" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="AkI-tJ-5Ku"/>
                                             <constraint firstItem="Aym-o6-i4g" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="CUI-sg-Tm6"/>
                                             <constraint firstItem="rKB-T8-jLX" firstAttribute="top" secondItem="Yno-Os-r4g" secondAttribute="bottom" constant="10" id="D2t-b5-08R"/>
-                                            <constraint firstItem="p7q-AB-gOB" firstAttribute="top" secondItem="z1Q-GB-qA7" secondAttribute="bottom" constant="10" id="D8B-ZW-Osq"/>
                                             <constraint firstItem="pvy-uW-Bxa" firstAttribute="top" secondItem="hJN-r0-Eb8" secondAttribute="bottom" constant="10" id="En9-C2-NR1"/>
                                             <constraint firstAttribute="trailing" secondItem="TuK-gG-9ao" secondAttribute="trailing" constant="20" id="F45-8a-xRi"/>
                                             <constraint firstAttribute="trailing" secondItem="z1Q-GB-qA7" secondAttribute="trailing" constant="20" id="FP6-fv-gAp"/>
@@ -474,9 +425,7 @@
                                             <constraint firstItem="qWF-Pp-QRd" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="Zgw-Du-BIL"/>
                                             <constraint firstAttribute="trailing" secondItem="67F-au-m79" secondAttribute="trailing" constant="20" id="aNm-GH-eg1"/>
                                             <constraint firstItem="hJN-r0-Eb8" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="aew-WI-vXd"/>
-                                            <constraint firstItem="JHS-4b-3t7" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="cun-C3-lNw"/>
                                             <constraint firstItem="rKB-T8-jLX" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="eMt-Sh-RCf"/>
-                                            <constraint firstAttribute="bottom" secondItem="JHS-4b-3t7" secondAttribute="bottom" constant="20" id="epm-Wy-l3e"/>
                                             <constraint firstItem="fng-UD-M0Q" firstAttribute="top" secondItem="Mfl-4O-1XL" secondAttribute="bottom" constant="10" id="fBs-9c-Zmk"/>
                                             <constraint firstItem="a9q-TN-q2Q" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="g1A-Ch-80c"/>
                                             <constraint firstItem="Mfl-4O-1XL" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="107" id="hcA-LY-vaH"/>
@@ -486,9 +435,9 @@
                                             <constraint firstAttribute="trailing" secondItem="hJN-r0-Eb8" secondAttribute="trailing" constant="20" id="jar-Lk-KSf"/>
                                             <constraint firstAttribute="trailing" secondItem="pvy-uW-Bxa" secondAttribute="trailing" constant="20" id="jh9-nP-Pry"/>
                                             <constraint firstItem="67F-au-m79" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="jyJ-fh-Y8Z"/>
-                                            <constraint firstItem="tab-0Y-LMR" firstAttribute="top" secondItem="p7q-AB-gOB" secondAttribute="bottom" constant="10" id="k2O-If-tfn"/>
-                                            <constraint firstItem="tab-0Y-LMR" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="k6U-vS-XW4"/>
+                                            <constraint firstAttribute="bottom" secondItem="TuK-gG-9ao" secondAttribute="bottom" constant="10" id="kIR-3M-Tyh"/>
                                             <constraint firstItem="z1Q-GB-qA7" firstAttribute="top" secondItem="ZTj-lC-RPS" secondAttribute="bottom" constant="10" id="kas-Hr-Bfg"/>
+                                            <constraint firstItem="Aym-o6-i4g" firstAttribute="top" secondItem="z1Q-GB-qA7" secondAttribute="bottom" constant="10" id="kwv-2t-qEE"/>
                                             <constraint firstItem="Ps3-mw-6Wd" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="kx5-ui-a3y"/>
                                             <constraint firstItem="Ps3-mw-6Wd" firstAttribute="top" secondItem="uzS-0S-qB4" secondAttribute="bottom" constant="10" id="nEn-hg-cJF"/>
                                             <constraint firstItem="z1Q-GB-qA7" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="oFD-ti-OVJ"/>
@@ -496,12 +445,9 @@
                                             <constraint firstItem="Mfl-4O-1XL" firstAttribute="top" secondItem="dHb-ds-loP" secondAttribute="top" constant="10" id="qWr-6b-5cY"/>
                                             <constraint firstItem="Zbq-10-FKo" firstAttribute="top" secondItem="pvy-uW-Bxa" secondAttribute="bottom" constant="10" id="qgW-wL-zfc"/>
                                             <constraint firstAttribute="trailing" secondItem="Ps3-mw-6Wd" secondAttribute="trailing" constant="20" id="sm1-l9-mba"/>
-                                            <constraint firstAttribute="trailing" secondItem="p7q-AB-gOB" secondAttribute="trailing" constant="20" id="t1O-DL-GA4"/>
-                                            <constraint firstItem="JHS-4b-3t7" firstAttribute="top" secondItem="TuK-gG-9ao" secondAttribute="bottom" constant="10" id="tOf-gf-nT9"/>
                                             <constraint firstAttribute="trailing" secondItem="Aym-o6-i4g" secondAttribute="trailing" constant="20" id="tRe-2B-tvq"/>
                                             <constraint firstAttribute="trailing" secondItem="ggV-dq-yoa" secondAttribute="trailing" constant="20" id="uqM-LC-Lkx"/>
                                             <constraint firstItem="Zbq-10-FKo" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="vRO-j9-qbC"/>
-                                            <constraint firstAttribute="trailing" secondItem="tab-0Y-LMR" secondAttribute="trailing" constant="20" id="xFz-RM-N8V"/>
                                             <constraint firstItem="Yno-Os-r4g" firstAttribute="leading" secondItem="dHb-ds-loP" secondAttribute="leading" constant="20" id="xTm-Uu-vZs"/>
                                             <constraint firstItem="YEA-hm-4ZP" firstAttribute="top" secondItem="fng-UD-M0Q" secondAttribute="bottom" constant="10" id="yHw-pC-aJ4"/>
                                         </constraints>
@@ -518,7 +464,7 @@
                                 </constraints>
                             </scrollView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="Por-K8-C8q">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="1150"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="1034"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="color" name="Primary"/>
                             </activityIndicatorView>
@@ -546,12 +492,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <size key="freeformSize" width="414" height="1150"/>
+                    <size key="freeformSize" width="414" height="1034"/>
                     <connections>
                         <outlet property="addressField" destination="ZTj-lC-RPS" id="80B-Gy-W9n"/>
                         <outlet property="addressSecondField" destination="z1Q-GB-qA7" id="AeU-H0-5eM"/>
-                        <outlet property="cardNumberField" destination="p7q-AB-gOB" id="J4y-b6-bf0"/>
-                        <outlet property="cardNumberSecondField" destination="tab-0Y-LMR" id="hqA-xQ-NFb"/>
                         <outlet property="companyField" destination="pvy-uW-Bxa" id="O3J-Re-Qak"/>
                         <outlet property="emailField" destination="a9q-TN-q2Q" id="Wv7-ZL-0Kb"/>
                         <outlet property="emailSecondField" destination="ggV-dq-yoa" id="ibA-Jg-7hI"/>
@@ -562,7 +506,6 @@
                         <outlet property="mobileNumberField" destination="Yno-Os-r4g" id="bXb-ua-SL1"/>
                         <outlet property="mobileNumberSecondField" destination="rKB-T8-jLX" id="LRR-8A-Jer"/>
                         <outlet property="nameField" destination="YEA-hm-4ZP" id="DGH-5b-48q"/>
-                        <outlet property="notesField" destination="JHS-4b-3t7" id="bMd-2u-LJy"/>
                         <outlet property="patronymicField" destination="hJN-r0-Eb8" id="jQG-eG-ENJ"/>
                         <outlet property="profileImage" destination="Mfl-4O-1XL" id="643-59-BYv"/>
                         <outlet property="scrollView" destination="YMe-Ks-Rle" id="WvL-oC-nEd"/>
@@ -1082,8 +1025,8 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="1.2" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xov-d7-Btz">
-                                                    <rect key="frame" x="372.5" y="12" width="21.5" height="20.5"/>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="xov-d7-Btz">
+                                                    <rect key="frame" x="350" y="12" width="44" height="20.5"/>
                                                     <autoresizingMask key="autoresizingMask"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
@@ -1209,6 +1152,9 @@
                             <outlet property="delegate" destination="s29-ZV-UUZ" id="zhS-ru-bwG"/>
                         </connections>
                     </tableView>
+                    <connections>
+                        <outlet property="appVersionLabel" destination="xov-d7-Btz" id="wbX-4l-zEx"/>
+                    </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AVU-i9-paL" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
