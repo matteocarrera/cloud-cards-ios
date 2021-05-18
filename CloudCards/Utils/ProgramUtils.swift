@@ -29,8 +29,8 @@ public func generateQR(with userLink: String) -> UIImage? {
     Генерация ссылки на визитку контакта
  */
 
-public func generateSiteLink(with user: User) -> URL? {
-    let link = "http://www.cloudcards.h1n.ru/#\(user.parentId)\(ID_SEPARATOR)\(user.uuid)"
+public func generateSiteLink(with idPair: String) -> URL? {
+    let link = "http://www.cloudcards.h1n.ru/#\(idPair)"
     return URL(string: link) ?? nil
 }
 
@@ -198,10 +198,6 @@ public func exportToContacts(user: User, photo: UIImage?, controller: UIViewCont
     }
     
     // Пропущен инстаграм и телеграм
-    
-    if user.notes != "" {
-        contact.note = user.notes
-    }
 
     let store = CNContactStore()
     let saveRequest = CNSaveRequest()

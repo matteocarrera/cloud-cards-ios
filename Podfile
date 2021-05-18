@@ -1,12 +1,11 @@
 platform :ios, '12.0'
 
 target 'CloudCards' do
-  plugin 'cocoapods-binary'
+
   use_frameworks!
 
-  pod 'RealmSwift', :binary => true
-  pod 'Firebase/Storage', :binary => true
-  pod 'Firebase/Firestore', :binary => true
-  pod 'FirebaseFirestoreSwift', :binary => true
-
+  pod 'RealmSwift'
+  pod 'Firebase/Storage'
+  pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift'
 end

@@ -16,6 +16,7 @@ class CreateCardController: UIViewController {
     // Массив выбранных данных пользователя для создания визитки
     private var selectedItems = [DataItem]()
     private var selectedColor = String()
+    private var templateUserList = [UserBoolean]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,6 +33,7 @@ class CreateCardController: UIViewController {
         cardTitle = String()
         selectedColor = COLORS[0]
         selectedItems.removeAll()
+        getAllTemplateUsers()
         
         /*
             Получение данных пользователя
@@ -81,14 +83,8 @@ class CreateCardController: UIViewController {
             return
         }
         
-        let cards = Array(realm.objects(Card.self))
-        var titleForCardAlreadyExists = false
-        cards.forEach { card in
-            if card.title == title {
-                titleForCardAlreadyExists = true
-            }
-        }
-        if titleForCardAlreadyExists {
+        let cardTitleList = Array(realm.objects(Card.self)).map { $0.title }
+        if cardTitleList.contains(title!) {
             showSimpleAlert(
                 withTitle: "Название занято",
                 withMessage: "Визитка с таким названием уже существует!",
@@ -97,11 +93,11 @@ class CreateCardController: UIViewController {
             return
         }
         
-        
         saveCard(
             withTitle: cardTitle,
             withColor: selectedColor,
-            withUserData: selectedItems
+            withUserData: selectedItems,
+            withTemplateUserList: templateUserList
         )
         // Получение TemplatesController (Nav -> Tab -> Nav -> Cards)
         navigationController?.presentingViewController?.children.first?.children.first?.viewWillAppear(true)
@@ -136,6 +132,37 @@ class CreateCardController: UIViewController {
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
 
         present(alert, animated: true, completion: nil)
+    }
+    
+    private func getAllTemplateUsers() {
+        let ownerUser = realm.objects(User.self)[0]
+        let idPairList = realm.objects(IdPair.self).filter("parentUuid == \"\(ownerUser.parentId)\"")
+
+        for idPair in idPairList {
+            FirebaseClientInstance.getInstance().getUser(
+                firstKey: idPair.parentUuid,
+                secondKey: idPair.uuid,
+                firstKeyPath: FirestoreInstance.USERS,
+                secondKeyPath: FirestoreInstance.CARDS
+            ) { result in
+                switch result {
+                case .success(let data):
+                    let cardType = CardType(rawValue: data["type"] as? String ?? String())
+                    switch cardType {
+                    case .personal:
+                        let businessCard = JsonUtils.convertFromDictionary(dictionary: data, type: BusinessCard<UserBoolean>.self)
+                        self.templateUserList.append(businessCard.data)
+                    case .company:
+                        break
+                    default:
+                        let templateUser = JsonUtils.convertFromDictionary(dictionary: data, type: UserBoolean.self)
+                        self.templateUserList.append(templateUser)
+                    }
+                case .failure(let error):
+                    print(error)
+                }
+            }
+        }
     }
 }
 

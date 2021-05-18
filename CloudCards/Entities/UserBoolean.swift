@@ -19,15 +19,12 @@ public class UserBoolean : Object, Codable {
     @objc dynamic var emailSecond : Bool = false
     @objc dynamic var address : Bool = false
     @objc dynamic var addressSecond : Bool = false
-    @objc dynamic var cardNumber : Bool = false
-    @objc dynamic var cardNumberSecond : Bool = false
     @objc dynamic var website : Bool = false
     @objc dynamic var vk : Bool = false
     @objc dynamic var telegram : Bool = false
     @objc dynamic var facebook : Bool = false
     @objc dynamic var instagram : Bool = false
     @objc dynamic var twitter : Bool = false
-    @objc dynamic var notes : Bool = false
     
     public override class func primaryKey() -> String? {
         return "uuid"
@@ -46,14 +43,11 @@ public class UserBoolean : Object, Codable {
             self.emailSecond == secondUser.emailSecond &&
             self.address == secondUser.address &&
             self.addressSecond == secondUser.addressSecond &&
-            self.cardNumber == secondUser.cardNumber &&
-            self.cardNumberSecond == secondUser.cardNumberSecond &&
             self.website == secondUser.website &&
             self.vk == secondUser.vk &&
             self.telegram == secondUser.telegram &&
             self.facebook == secondUser.facebook &&
             self.instagram == secondUser.instagram &&
-            self.twitter == secondUser.twitter &&
-            self.notes == secondUser.notes
+            self.twitter == secondUser.twitter
     }
 }

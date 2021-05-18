@@ -11,8 +11,7 @@ class CardViewController: UIViewController {
     @IBOutlet var userInitialsLabel: UILabel!
     
     public var currentUser = User()
-    
-    private let realm = RealmInstance.getInstance()
+
     private let firebaseClient = FirebaseClientInstance.getInstance()
     private var data = [DataItem]()
     

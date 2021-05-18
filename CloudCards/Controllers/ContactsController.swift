@@ -57,16 +57,11 @@ class ContactsController: UIViewController {
         DispatchQueue.main.async {
             var contactsInfo = [Any]()
             
-            let userDictionary = self.realm.objects(User.self)
-            if userDictionary.count != 0 {
-                let owner = userDictionary[0]
-                contactsInfo.append("\(owner.name) \(owner.surname) отправил(а) Вам несколько контактов:")
-            } else {
-                contactsInfo.append("Пользователь CloudCards отправил Вам несколько контактов:")
-            }
+            contactsInfo.append("Пользователь CloudCards отправил Вам несколько контактов:")
             
             for contact in self.selectedContacts {
-                guard let siteLink = generateSiteLink(with: contact.user) else { return }
+                let idPair = "\(contact.user.parentId)\(ID_SEPARATOR)\(contact.user.uuid)"
+                guard let siteLink = generateSiteLink(with: idPair) else { return }
                 contactsInfo.append(siteLink)
             }
             
@@ -102,13 +97,13 @@ class ContactsController: UIViewController {
         
         let userDictionary = realm.objects(User.self)
         let ownerUuid = userDictionary.count > 0 ? userDictionary[0].uuid : String()
-        let userBooleanList = Array(realm.objects(UserBoolean.self).filter("parentId != \"\(ownerUuid)\""))
-        if userBooleanList.count == 0 {
+        let idPairList = Array(realm.objects(IdPair.self).filter("parentUuid != \"\(ownerUuid)\""))
+        if idPairList.count == 0 {
             loadingIndicator.stopAnimating()
             self.importFirstContactNotification.isHidden = false
         } else {
             self.importFirstContactNotification.isHidden = true
-            getContactsFromDatabase(userBooleanList)
+            getContactsFromDatabase(idPairList)
         }
     }
 
@@ -179,38 +174,53 @@ class ContactsController: UIViewController {
         action.setValue(UIImage(systemName: "checkmark"), forKey: "image")
     }
     
-    private func getContactsFromDatabase(_ userBooleanList: [UserBoolean]) {
+    private func getContactsFromDatabase(_ idPairList: [IdPair]) {
         var contacts = [Contact]()
-        userBooleanList.forEach { userBoolean in
-            // Получение пользователя для структуры Контакт
+        // Получение визитки с выбранными полями для каждой пары ID
+        idPairList.forEach { idPair in
             FirebaseClientInstance.getInstance().getUser(
-                firstKey: userBoolean.parentId,
-                secondKey: userBoolean.parentId,
+                firstKey: idPair.parentUuid,
+                secondKey: idPair.uuid,
                 firstKeyPath: FirestoreInstance.USERS,
-                secondKeyPath: FirestoreInstance.DATA
+                secondKeyPath: FirestoreInstance.CARDS
             ) { result in
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let data):
-                        let parentUser = convertFromDictionary(dictionary: data, type: User.self)
-                        let currentUser = getUserFromTemplate(user: parentUser, userBoolean: userBoolean)
-                        var contact = Contact(user: currentUser, image: nil)
-                        
-                        // Получение фотографии пользователя для структуры Контакт
-                        FirebaseClientInstance.getInstance().getPhoto(with: currentUser.photo) { result in
+                        let userBoolean = JsonUtils.convertFromDictionary(dictionary: data, type: UserBoolean.self)
+                        // Получение пользователя для структуры Контакт
+                        FirebaseClientInstance.getInstance().getUser(
+                            firstKey: idPair.parentUuid,
+                            secondKey: idPair.parentUuid,
+                            firstKeyPath: FirestoreInstance.USERS,
+                            secondKeyPath: FirestoreInstance.DATA
+                        ) { result in
                             switch result {
-                            case .success(let image):
-                                contact = Contact(user: currentUser, image: image)
+                            case .success(let data):
+                                // Генерация конечного контакта для отображения
+                                let parentUser = JsonUtils.convertFromDictionary(dictionary: data, type: User.self)
+                                let currentUser = getUserFromTemplate(user: parentUser, userBoolean: userBoolean)
+                                var contact = Contact(user: currentUser, image: nil)
+                                
+                                // Получение фотографии пользователя для структуры Контакт
+                                FirebaseClientInstance.getInstance().getPhoto(with: currentUser.photo) { result in
+                                    switch result {
+                                    case .success(let image):
+                                        contact = Contact(user: currentUser, image: image)
+                                    case .failure(let error):
+                                        print(error)
+                                    }
+                                }
+
+                                contacts.append(contact)
+                                
+                                if contacts.count == idPairList.count {
+                                    sortContacts(in: self, with: contacts, by: .surname)
+                                    self.loadingIndicator.stopAnimating()
+                                }
                             case .failure(let error):
                                 print(error)
                             }
-                        }
-
-                        contacts.append(contact)
-                        
-                        if contacts.count == userBooleanList.count {
-                            sortContacts(in: self, with: contacts, by: .surname)
-                            self.loadingIndicator.stopAnimating()
                         }
                     case .failure(let error):
                         print(error)
@@ -327,7 +337,8 @@ extension ContactsController {
     func showQRAction(at indexPath: IndexPath) -> UIContextualAction {
         let contact = getUserFromRow(with: indexPath)
         let action = UIContextualAction(style: .normal, title: "ShowQR") { (action, view, completion) in
-            showShareController(with: contact.user, in: self)
+            let idPair = "\(contact.user.parentId)\(ID_SEPARATOR)\(contact.user.uuid)"
+            showShareController(with: idPair, in: self)
             completion(true)
         }
         action.image = UIImage(systemName: "qrcode")
@@ -338,7 +349,8 @@ extension ContactsController {
     func shareAction(at indexPath: IndexPath) -> UIContextualAction {
         let contact = getUserFromRow(with: indexPath)
         let action = UIContextualAction(style: .normal, title: "Share") { (action, view, completion) in
-            showShareLinkController(with: contact.user, in: self)
+            let idPair = "\(contact.user.parentId)\(ID_SEPARATOR)\(contact.user.uuid)"
+            showShareLinkController(with: idPair, in: self)
             completion(true)
         }
         action.image = UIImage(systemName: "square.and.arrow.up")
@@ -359,7 +371,7 @@ extension ContactsController {
         let contact = getUserFromRow(with: indexPath)
         
         try! realm.write {
-            realm.delete(realm.objects(UserBoolean.self).filter("uuid = \"\(contact.user.uuid)\""))
+            realm.delete(realm.objects(IdPair.self).filter("uuid = \"\(contact.user.uuid)\""))
         }
 
         // Удаляем контакт из словаря контактов

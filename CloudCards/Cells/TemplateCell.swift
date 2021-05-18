@@ -7,33 +7,39 @@ class TemplateCell : UICollectionViewCell {
     @IBOutlet var plusImage: UIImageView!
     @IBOutlet var moreButton: UIButton!
     
-    private var controller = TemplatesController()
-    private var userId = String()
-    private var cardId = 0
+    public var parentUser = User()
+    public var templateCard = Card()
     
+    private var controller = TemplatesController()
     private let realm = RealmInstance.getInstance()
     
     public func update(with card: Card?, in parentController: TemplatesController) {
         setMenu()
         controller = parentController
+        parentUser = realm.objects(User.self)[0]
 
         layer.cornerRadius = 15
         
         if card == nil {
             title.text = "Создать визитку"
             title.textColor = UIColor(named: "Primary")
-            plusImage.isHidden = false
+            plusImage.image = UIImage(systemName: "plus.circle.fill")
+            plusImage.tintColor = UIColor(named: "Primary")
             moreButton.isHidden = true
             contentView.backgroundColor = UIColor(named: "CreateTemplateColor")
             return
         }
         
+        templateCard = card!
         title.text = card?.title
         title.textColor = .white
-        userId = card!.userId
-        cardId = card!.id
         contentView.backgroundColor = UIColor.init(hexString: card!.color)
-        plusImage.isHidden = true
+        plusImage.tintColor = .white
+        if templateCard.type == CardType.company.rawValue {
+            plusImage.image = UIImage(systemName: "building.2.crop.circle")
+        } else {
+            plusImage.image = UIImage(systemName: "person.crop.circle")
+        }
         moreButton.isHidden = false
     }
     
@@ -49,6 +55,16 @@ class TemplateCell : UICollectionViewCell {
             title: "Поделиться",
             image: UIImage(systemName: "square.and.arrow.up")
         ) { (_) in
+            #warning("Временная заглушка")
+            if self.templateCard.type == CardType.company.rawValue {
+                showTimeAlert(
+                    withTitle: "Недоступно",
+                    withMessage: "Вы не можете поделиться визиткой компании",
+                    showForSeconds: 1.5,
+                    inController: self.controller
+                )
+                return
+            }
             self.shareCard()
         }
         
@@ -57,6 +73,18 @@ class TemplateCell : UICollectionViewCell {
             image: UIImage(systemName: "trash"),
             attributes: .destructive
         ) { (_) in
+            if self.templateCard.type == CardType.company.rawValue {
+                let alert = UIAlertController(
+                    title: "Удаление компании",
+                    message: "Удаляя визитку компании, Вы полностью теряете к ней доступ! Люди, имеющие визитку с Вашей компанией, смогут продолжить её использование.",
+                    preferredStyle: .alert)
+                alert.addAction(UIAlertAction.init(title: "Удалить", style: .destructive, handler: { (_) in
+                    self.deleteCard()
+                }))
+                alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
+                self.controller.present(alert, animated: true, completion: nil)
+                return
+            }
             self.deleteCard()
         }
         
@@ -67,25 +95,20 @@ class TemplateCell : UICollectionViewCell {
     }
     
     private func openCard() {
-        let currentUser = getCurrentCardUser()
-        let currentCard = realm.objects(Card.self).filter("id == \(cardId)")[0]
-        
         let myCardViewController = controller.storyboard?.instantiateViewController(withIdentifier: "MyCardViewController") as! MyCardViewController
-        myCardViewController.currentUser = currentUser
-        myCardViewController.currentCard = currentCard
+        myCardViewController.currentCard = templateCard
         let nav = UINavigationController(rootViewController: myCardViewController)
         controller.navigationController?.showDetailViewController(nav, sender: nil)
     }
     
     private func shareCard() {
-        let currentUser = getCurrentCardUser()
-        showShareLinkController(with: currentUser, in: controller)
+        let idPair = "\(parentUser.uuid)\(ID_SEPARATOR)\(templateCard.cardUuid)"
+        showShareLinkController(with: idPair, in: controller)
     }
     
     private func deleteCard() {
         // Удаляем карту из массива карт в родительском контроллере
-        let card = self.realm.objects(Card.self).filter("id == \(self.cardId)")[0]
-        let cardIndex = self.controller.templates.firstIndex(of: card)!
+        let cardIndex = self.controller.templates.firstIndex(of: templateCard)!
         self.controller.templates.remove(at: cardIndex)
         
         // Удаляем плитку карты в CollectionView
@@ -95,14 +118,7 @@ class TemplateCell : UICollectionViewCell {
 
         // Удаляем карту из БД
         try! realm.write {
-            let card = realm.objects(Card.self).filter("id == \(cardId)")[0]
-            realm.delete(card)
+            realm.delete(templateCard)
         }
-    }
-    
-    private func getCurrentCardUser() -> User {
-        let parentUser = realm.objects(User.self)[0]
-        let templateUser = realm.objects(UserBoolean.self).filter("uuid = \"\(userId)\"")[0]
-        return getUserFromTemplate(user: parentUser, userBoolean: templateUser)
     }
 }

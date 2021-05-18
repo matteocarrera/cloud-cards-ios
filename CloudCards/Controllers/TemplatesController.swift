@@ -14,6 +14,7 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
         super.viewDidLoad()
         setLargeNavigationBar(for: self)
         setAddTemplateButton()
+        migrateContactsToIdPairs()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -25,10 +26,33 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
         collectionView.reloadData()
     }
     
-    @objc func openCreateTemplateWindow() {
+    func openCreateTemplateWindow() {
         let viewController = storyboard?.instantiateViewController(withIdentifier: "CreateCardController") as! CreateCardController
         let nav = UINavigationController(rootViewController: viewController)
         navigationController?.showDetailViewController(nav, sender: nil)
+    }
+    
+    func openCreateCompanyCardWindow() {
+        let viewController = storyboard?.instantiateViewController(withIdentifier: "CreateCardCompanyController")
+        let nav = UINavigationController(rootViewController: viewController!)
+        navigationController?.showDetailViewController(nav, sender: nil)
+    }
+    
+    /*
+        Миграция контактов в пары ID, доступно с версии 1.4
+     */
+
+    private func migrateContactsToIdPairs() {
+        let userBooleanList = Array(realm.objects(UserBoolean.self))
+        if !userBooleanList.isEmpty {
+            userBooleanList.forEach {user in
+                let idPair = IdPair(parentUuid: user.parentId, uuid: user.uuid)
+                try! realm.write {
+                    realm.add(idPair)
+                    realm.delete(user)
+                }
+            }
+        }
     }
     
     private func setAddTemplateButton() {
@@ -43,7 +67,7 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             title: "Визитка компании",
             image: UIImage(systemName: "building.2")
         ) { (_) in
-            showTimeAlert(withTitle: "Недоступно", withMessage: "Данный раздел временно недоступен", showForSeconds: 1.5, inController: self)
+            self.openCreateCompanyCardWindow()
         }
         
         let menu = UIMenu(title: String(), children: [createPersonalCardAction, createCompanyCardAction])
@@ -65,7 +89,7 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
         createPersonalCardAction.setValue(UIImage(systemName: "person"), forKey: "image")
 
         let createCompanyCardAction = UIAlertAction.init(title: "Визитка компании", style: .default, handler: { (_) in
-            showTimeAlert(withTitle: "Недоступно", withMessage: "Данный раздел временно недоступен", showForSeconds: 1.5, inController: self)
+            self.openCreateCompanyCardWindow()
         })
         createCompanyCardAction.setValue(UIImage(systemName: "building.2"), forKey: "image")
         
@@ -82,11 +106,20 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             return
         }
         
-        let templateUser = realm.objects(UserBoolean.self).filter("uuid = \"\(templates[indexPath.row].userId)\"")[0]
-        let parentUser = realm.objects(User.self)[0]
-        let generatedUser = getUserFromTemplate(user: parentUser, userBoolean: templateUser)
+        let cell = collectionView.cellForItem(at: indexPath) as! TemplateCell
+        let idPair = "\(cell.parentUser.uuid)\(ID_SEPARATOR)\(cell.templateCard.cardUuid)"
         
-        showShareController(with: generatedUser, in: self)
+        #warning("Временная заглушка")
+        if cell.templateCard.type == CardType.company.rawValue {
+            showTimeAlert(
+                withTitle: "Недоступно",
+                withMessage: "Вы не можете поделиться визиткой компании",
+                showForSeconds: 1.5,
+                inController: self
+            )
+            return
+        }
+        showShareController(with: idPair, in: self)
     }
 }
 
