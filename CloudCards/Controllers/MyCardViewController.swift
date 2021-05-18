@@ -112,6 +112,18 @@ class MyCardViewController: UITableViewController {
         }
         
         let delete = UIAlertAction.init(title: "Удалить визитку", style: .destructive, handler: { (_) in
+            if self.currentCard.type == CardType.company.rawValue {
+                let alert = UIAlertController(
+                    title: "Удаление компании",
+                    message: "Удаляя визитку компании, Вы полностью теряете к ней доступ! Люди, имеющие визитку с Вашей компанией, смогут продолжить её использование.",
+                    preferredStyle: .alert)
+                alert.addAction(UIAlertAction.init(title: "Удалить", style: .destructive, handler: { (_) in
+                    self.deleteCard()
+                }))
+                alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
             self.deleteCard()
         })
         alert.addAction(delete)
@@ -142,6 +154,16 @@ class MyCardViewController: UITableViewController {
                 return
             }
             cell?.textLabel?.text = cardName
+            
+            let cardNameList = self.realm.objects(Card.self).map { $0.title }
+            if cardName != self.currentCard.title && cardNameList.contains(cardName) {
+                showSimpleAlert(
+                    withTitle: "Название занято",
+                    withMessage: "Визитка с таким названием уже существует!",
+                    inController: self
+                )
+                return
+            }
             
             try! self.realm.write {
                 self.currentCard.title = cardName
