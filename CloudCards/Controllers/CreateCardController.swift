@@ -83,14 +83,8 @@ class CreateCardController: UIViewController {
             return
         }
         
-        let cards = Array(realm.objects(Card.self))
-        var titleForCardAlreadyExists = false
-        cards.forEach { card in
-            if card.title == title {
-                titleForCardAlreadyExists = true
-            }
-        }
-        if titleForCardAlreadyExists {
+        let cardTitleList = Array(realm.objects(Card.self)).map { $0.title }
+        if cardTitleList.contains(title!) {
             showSimpleAlert(
                 withTitle: "Название занято",
                 withMessage: "Визитка с таким названием уже существует!",
@@ -153,8 +147,17 @@ class CreateCardController: UIViewController {
             ) { result in
                 switch result {
                 case .success(let data):
-                    let templateUser = JsonUtils.convertFromDictionary(dictionary: data, type: UserBoolean.self)
-                    self.templateUserList.append(templateUser)
+                    let cardType = CardType(rawValue: data["type"] as? String ?? String())
+                    switch cardType {
+                    case .personal:
+                        let businessCard = JsonUtils.convertFromDictionary(dictionary: data, type: BusinessCard<UserBoolean>.self)
+                        self.templateUserList.append(businessCard.data)
+                    case .company:
+                        break
+                    default:
+                        let templateUser = JsonUtils.convertFromDictionary(dictionary: data, type: UserBoolean.self)
+                        self.templateUserList.append(templateUser)
+                    }
                 case .failure(let error):
                     print(error)
                 }

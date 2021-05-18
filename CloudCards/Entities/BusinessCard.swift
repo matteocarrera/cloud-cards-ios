@@ -2,11 +2,15 @@
     Класс визитки, содержащий в себе тип и сами данные контакта (персональная или компания)
  */
 
-public class BusinessCard: Codable {
+public class BusinessCard<T: Codable>: Codable {
+    
+    // Тип визитной карточки
     var type: CardType
-    var data: [String: String]
+    
+    // Данные в формате словаря
+    var data: T
 
-    init(type: CardType, data: [String: String]) {
+    init(type: CardType, data: T) {
         self.type = type
         self.data = data
     }

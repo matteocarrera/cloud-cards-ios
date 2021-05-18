@@ -3,6 +3,6 @@
  */
 
 public enum CardType: String, Codable {
-    case personal
-    case company
+    case personal = "personal"
+    case company = "company"
 }

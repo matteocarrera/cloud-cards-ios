@@ -240,7 +240,7 @@ class EditProfileController: UIViewController {
         /*
             Сохранение пользователя в Firebase
          */
-        let userData = JsonUtils.convertToDictionary(object: ownerUser!, dictType: [String: Any]())
+        let userData = JsonUtils.convertToDictionary(object: ownerUser!)
 
         let db = FirestoreInstance.getInstance()
         db.collection(FirestoreInstance.USERS)
@@ -267,15 +267,12 @@ class EditProfileController: UIViewController {
         emailSecondField.text = user.emailSecond
         addressField.text = user.address
         addressSecondField.text = user.addressSecond
-        cardNumberField.text = user.cardNumber
-        cardNumberSecondField.text = user.cardNumberSecond
         websiteField.text = user.website
         vkField.text = user.vk
         telegramField.text = user.telegram
         facebookField.text = user.facebook
         instagramField.text = user.instagram
         twitterField.text = user.twitter
-        notesField.text = user.notes
     }
     
     private func updateUserData(ownerUser : User) {
@@ -290,15 +287,12 @@ class EditProfileController: UIViewController {
         ownerUser.emailSecond = emailSecondField.text!
         ownerUser.address = addressField.text!
         ownerUser.addressSecond = addressSecondField.text!
-        ownerUser.cardNumber = cardNumberField.text!
-        ownerUser.cardNumberSecond = cardNumberSecondField.text!
         ownerUser.website = websiteField.text!
         ownerUser.vk = vkField.text!
         ownerUser.telegram = telegramField.text!
         ownerUser.facebook = facebookField.text!
         ownerUser.instagram = instagramField.text!
         ownerUser.twitter = twitterField.text!
-        ownerUser.notes = notesField.text!
     }
     
     func presentImagePicker(controller : UIImagePickerController, source : UIImagePickerController.SourceType) {

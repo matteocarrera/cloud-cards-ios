@@ -1364,6 +1364,17 @@
                             <outlet property="delegate" destination="eLg-DT-9jT" id="ruZ-48-a7u"/>
                         </connections>
                     </tableView>
+                    <navigationItem key="navigationItem" title="Визитка" id="9Yo-Jq-rzp">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="Ysf-e1-lDu">
+                            <color key="tintColor" name="Primary"/>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Готово" style="done" id="gha-SF-UqU">
+                            <color key="tintColor" name="Primary"/>
+                            <connections>
+                                <action selector="onReadyButtonTap:" destination="eLg-DT-9jT" id="s7U-1H-wCz"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="cardDataTable" destination="ew9-d5-4jU" id="3Wf-5D-5QL"/>
                     </connections>
@@ -1371,6 +1382,294 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jrV-SD-6q0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-36" y="1955"/>
+        </scene>
+        <!--Новая визитка компании-->
+        <scene sceneID="lug-zN-ikc">
+            <objects>
+                <tableViewController storyboardIdentifier="CreateCardCompanyController" title="Новая визитка компании" useStoryboardIdentifierAsRestorationIdentifier="YES" id="d5A-Ry-JvP" customClass="CreateCardCompanyController" customModule="CloudCards" customModuleProvider="target" sceneMemberID="viewController">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="insetGrouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" sectionFooterHeight="18" id="WX3-ms-Xcx">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" name="NavigationBarColor"/>
+                        <inset key="separatorInset" minX="20" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        <sections>
+                            <tableViewSection id="NB1-fS-sxG">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="55" id="3ho-73-LPR">
+                                        <rect key="frame" x="20" y="18" width="374" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3ho-73-LPR" id="rr7-Pz-vRj">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Название визитки" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="BN5-GS-Yhe">
+                                                    <rect key="frame" x="20" y="0.0" width="334" height="55"/>
+                                                    <color key="tintColor" name="Primary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="22"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="d5A-Ry-JvP" id="Hj3-P9-44b"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="BN5-GS-Yhe" firstAttribute="top" secondItem="rr7-Pz-vRj" secondAttribute="top" id="OVj-Nr-RJn"/>
+                                                <constraint firstAttribute="bottom" secondItem="BN5-GS-Yhe" secondAttribute="bottom" id="Zpb-ZB-exM"/>
+                                                <constraint firstAttribute="trailing" secondItem="BN5-GS-Yhe" secondAttribute="trailing" constant="20" id="iAj-qV-BuU"/>
+                                                <constraint firstItem="BN5-GS-Yhe" firstAttribute="leading" secondItem="rr7-Pz-vRj" secondAttribute="leading" constant="20" id="wgU-Bt-igj"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" textLabel="yL0-ht-pwE" imageView="ndD-eh-lxf" rowHeight="43" style="IBUITableViewCellStyleDefault" id="GOP-dF-ky0">
+                                        <rect key="frame" x="20" y="73" width="374" height="43"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="GOP-dF-ky0" id="9au-4s-gtY">
+                                            <rect key="frame" x="0.0" y="0.0" width="344.5" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="ЦВЕТ" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yL0-ht-pwE">
+                                                    <rect key="frame" x="57.25" y="0.0" width="279.25" height="43"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" systemColor="placeholderTextColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ndD-eh-lxf">
+                                                    <rect key="frame" x="18.25" y="10.5" width="24" height="22"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <imageReference key="image" image="square.fill" catalog="system" symbolScale="large"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="tintColor" name="Primary"/>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                            <tableViewSection id="8Aq-Zq-TCe">
+                                <cells>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="55" id="ddr-tv-Cit">
+                                        <rect key="frame" x="20" y="152" width="374" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ddr-tv-Cit" id="GXQ-C6-j0s">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Наименование" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="upf-cD-e9e">
+                                                    <rect key="frame" x="20" y="0.0" width="334" height="55"/>
+                                                    <color key="tintColor" name="Primary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="d5A-Ry-JvP" id="KRV-dC-sFn"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="upf-cD-e9e" secondAttribute="trailing" constant="20" id="G9t-um-N39"/>
+                                                <constraint firstItem="upf-cD-e9e" firstAttribute="top" secondItem="GXQ-C6-j0s" secondAttribute="top" id="TjW-MB-rd6"/>
+                                                <constraint firstAttribute="bottom" secondItem="upf-cD-e9e" secondAttribute="bottom" id="vIT-tz-RQA"/>
+                                                <constraint firstItem="upf-cD-e9e" firstAttribute="leading" secondItem="GXQ-C6-j0s" secondAttribute="leading" constant="20" id="yy9-4c-EgW"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="55" id="5up-Li-TJC">
+                                        <rect key="frame" x="20" y="207" width="374" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="5up-Li-TJC" id="1gk-or-iqe">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Ответственное лицо" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gKW-s3-6HX">
+                                                    <rect key="frame" x="20" y="0.0" width="334" height="55"/>
+                                                    <color key="tintColor" name="Primary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="words"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="d5A-Ry-JvP" id="NEw-5r-P8h"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="gKW-s3-6HX" firstAttribute="leading" secondItem="1gk-or-iqe" secondAttribute="leading" constant="20" id="3Pe-wf-qbz"/>
+                                                <constraint firstItem="gKW-s3-6HX" firstAttribute="top" secondItem="1gk-or-iqe" secondAttribute="top" id="Ot9-Xe-1CC"/>
+                                                <constraint firstAttribute="trailing" secondItem="gKW-s3-6HX" secondAttribute="trailing" constant="20" id="kw9-RH-MoG"/>
+                                                <constraint firstAttribute="bottom" secondItem="gKW-s3-6HX" secondAttribute="bottom" id="lxi-hF-CQz"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="55" id="zHF-T1-55G">
+                                        <rect key="frame" x="20" y="262" width="374" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="zHF-T1-55G" id="iId-Ta-ipW">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Должность ответственного лица" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2O3-iT-XV0">
+                                                    <rect key="frame" x="20" y="0.0" width="334" height="55"/>
+                                                    <color key="tintColor" name="Primary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="d5A-Ry-JvP" id="nGa-UW-Fhl"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="2O3-iT-XV0" secondAttribute="bottom" id="RXg-ZS-fEX"/>
+                                                <constraint firstItem="2O3-iT-XV0" firstAttribute="leading" secondItem="iId-Ta-ipW" secondAttribute="leading" constant="20" id="cuF-j3-xIb"/>
+                                                <constraint firstItem="2O3-iT-XV0" firstAttribute="top" secondItem="iId-Ta-ipW" secondAttribute="top" id="n53-yf-Bc1"/>
+                                                <constraint firstAttribute="trailing" secondItem="2O3-iT-XV0" secondAttribute="trailing" constant="20" id="pA9-Pk-OwF"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="55" id="2Ps-fp-mVR">
+                                        <rect key="frame" x="20" y="317" width="374" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="2Ps-fp-mVR" id="4Mc-nW-zHP">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Адрес" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="2Rr-fe-Dtz">
+                                                    <rect key="frame" x="20" y="0.0" width="334" height="55"/>
+                                                    <color key="tintColor" name="Primary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="d5A-Ry-JvP" id="Za8-Hy-nWq"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="2Rr-fe-Dtz" secondAttribute="trailing" constant="20" id="16C-yh-FIn"/>
+                                                <constraint firstItem="2Rr-fe-Dtz" firstAttribute="leading" secondItem="4Mc-nW-zHP" secondAttribute="leading" constant="20" id="HVX-UV-Zce"/>
+                                                <constraint firstItem="2Rr-fe-Dtz" firstAttribute="top" secondItem="4Mc-nW-zHP" secondAttribute="top" id="gxP-Kp-sgr"/>
+                                                <constraint firstAttribute="bottom" secondItem="2Rr-fe-Dtz" secondAttribute="bottom" id="sqq-Io-7hd"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="55" id="vNh-Up-c8Z">
+                                        <rect key="frame" x="20" y="372" width="374" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="vNh-Up-c8Z" id="MA2-Eq-aly">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Телефон" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="gkd-dk-3jY">
+                                                    <rect key="frame" x="20" y="0.0" width="334" height="55"/>
+                                                    <color key="tintColor" name="Primary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="phonePad" textContentType="tel"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="d5A-Ry-JvP" id="tBx-zy-Pyo"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="gkd-dk-3jY" secondAttribute="bottom" id="9XT-49-s0N"/>
+                                                <constraint firstAttribute="trailing" secondItem="gkd-dk-3jY" secondAttribute="trailing" constant="20" id="jdc-Jo-kxK"/>
+                                                <constraint firstItem="gkd-dk-3jY" firstAttribute="leading" secondItem="MA2-Eq-aly" secondAttribute="leading" constant="20" id="swH-dA-TJ8"/>
+                                                <constraint firstItem="gkd-dk-3jY" firstAttribute="top" secondItem="MA2-Eq-aly" secondAttribute="top" id="uf4-Cx-fbX"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="55" id="Dg9-o9-CnQ">
+                                        <rect key="frame" x="20" y="427" width="374" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Dg9-o9-CnQ" id="dEU-P8-UsZ">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Электронная почта" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Iqr-pq-Nj8">
+                                                    <rect key="frame" x="20" y="0.0" width="334" height="55"/>
+                                                    <color key="tintColor" name="Primary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="emailAddress" textContentType="email"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="d5A-Ry-JvP" id="Wna-Hv-OKe"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="Iqr-pq-Nj8" secondAttribute="trailing" constant="20" id="DyT-3D-wgC"/>
+                                                <constraint firstItem="Iqr-pq-Nj8" firstAttribute="leading" secondItem="dEU-P8-UsZ" secondAttribute="leading" constant="20" id="h6t-VB-YIl"/>
+                                                <constraint firstItem="Iqr-pq-Nj8" firstAttribute="top" secondItem="dEU-P8-UsZ" secondAttribute="top" id="qW0-LM-q3b"/>
+                                                <constraint firstAttribute="bottom" secondItem="Iqr-pq-Nj8" secondAttribute="bottom" id="sfj-LI-rsF"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="55" id="MXk-Jo-Bzu">
+                                        <rect key="frame" x="20" y="482" width="374" height="55"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="MXk-Jo-Bzu" id="eWy-0T-Nof">
+                                            <rect key="frame" x="0.0" y="0.0" width="374" height="55"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <textField opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Сайт" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="eJK-bA-T73">
+                                                    <rect key="frame" x="20" y="0.0" width="334" height="55"/>
+                                                    <color key="tintColor" name="Primary"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <textInputTraits key="textInputTraits" keyboardType="URL" textContentType="url"/>
+                                                    <connections>
+                                                        <outlet property="delegate" destination="d5A-Ry-JvP" id="ibr-1c-wIM"/>
+                                                    </connections>
+                                                </textField>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailing" secondItem="eJK-bA-T73" secondAttribute="trailing" constant="20" id="abf-8u-T4k"/>
+                                                <constraint firstItem="eJK-bA-T73" firstAttribute="leading" secondItem="eWy-0T-Nof" secondAttribute="leading" constant="20" id="adv-BB-Div"/>
+                                                <constraint firstAttribute="bottom" secondItem="eJK-bA-T73" secondAttribute="bottom" id="cDV-EX-jNe"/>
+                                                <constraint firstItem="eJK-bA-T73" firstAttribute="top" secondItem="eWy-0T-Nof" secondAttribute="top" id="oRO-is-mAq"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <color key="backgroundColor" name="DataCellColor"/>
+                                    </tableViewCell>
+                                </cells>
+                            </tableViewSection>
+                        </sections>
+                        <connections>
+                            <outlet property="dataSource" destination="d5A-Ry-JvP" id="RIn-VE-9jU"/>
+                            <outlet property="delegate" destination="d5A-Ry-JvP" id="TwT-tQ-Jrd"/>
+                        </connections>
+                    </tableView>
+                    <navigationItem key="navigationItem" title="Новая визитка" id="nMe-ql-6fN">
+                        <barButtonItem key="backBarButtonItem" title="Назад" id="GCe-ZG-IfB">
+                            <color key="tintColor" name="Primary"/>
+                        </barButtonItem>
+                        <barButtonItem key="leftBarButtonItem" title="Отменить" id="kMX-SL-bZY">
+                            <color key="tintColor" name="Primary"/>
+                            <connections>
+                                <action selector="closeWindow:" destination="d5A-Ry-JvP" id="I6e-PH-acs"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" title="Сохранить" id="Yeg-lZ-2Ye">
+                            <color key="tintColor" name="Primary"/>
+                            <connections>
+                                <action selector="saveCard:" destination="d5A-Ry-JvP" id="eZx-Nd-5cj"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="cardNameField" destination="BN5-GS-Yhe" id="WZe-WK-z0n"/>
+                        <outlet property="companyAddressField" destination="2Rr-fe-Dtz" id="lVn-PF-WyI"/>
+                        <outlet property="companyEmailField" destination="Iqr-pq-Nj8" id="Rm2-wd-rdB"/>
+                        <outlet property="companyNameField" destination="upf-cD-e9e" id="snm-t9-a1F"/>
+                        <outlet property="companyPhoneField" destination="gkd-dk-3jY" id="Uq5-p1-b0Z"/>
+                        <outlet property="companySiteField" destination="eJK-bA-T73" id="Zhf-Wb-6wY"/>
+                        <outlet property="responsibleJobTitleField" destination="2O3-iT-XV0" id="1lZ-Le-2jq"/>
+                        <outlet property="responsibleNameField" destination="gKW-s3-6HX" id="Hl0-IS-ast"/>
+                    </connections>
+                </tableViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Ch-Ty-5BA" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="896" y="1955"/>
         </scene>
         <!--Мои визитки-->
         <scene sceneID="LWa-yX-pjN">
@@ -1401,7 +1700,7 @@
                                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                             <nil key="highlightedColor"/>
                                         </label>
-                                        <imageView hidden="YES" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.circle.fill" catalog="system" id="C1t-cD-K2j">
+                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus.circle.fill" catalog="system" id="C1t-cD-K2j">
                                             <rect key="frame" x="8" y="8" width="30" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="tintColor" name="Primary"/>
@@ -1638,6 +1937,7 @@
         <image name="plus" catalog="system" width="128" height="113"/>
         <image name="plus.circle.fill" catalog="system" width="128" height="121"/>
         <image name="rectangle.stack.fill" catalog="system" width="128" height="122"/>
+        <image name="square.fill" catalog="system" width="128" height="114"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
         <namedColor name="DataCellColor">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

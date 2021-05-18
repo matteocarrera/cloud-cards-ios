@@ -5,7 +5,11 @@ import UIKit
  */
 
 public class Contact: NSObject {
+    
+    // Пользователь с данными
     let user: User
+    
+    // Фотография пользователя
     let image: UIImage?
     
     init(user: User, image: UIImage?) {

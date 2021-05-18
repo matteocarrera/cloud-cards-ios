@@ -8,37 +8,50 @@ class MyCardViewController: UITableViewController {
     @IBOutlet var cardDataTable: UITableView!
     
     public var currentCard = Card()
-    public var currentUser = User()
     
     private let realm = RealmInstance.getInstance()
     private var data = [DataItem]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        let backButton = UIBarButtonItem(
-            title: "Готово",
-            style: .done,
-            target: self,
-            action: #selector(closeWindow(_:))
-        )
-        backButton.tintColor = UIColor(named: "Primary")
-        navigationItem.rightBarButtonItem = backButton
-        
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifierCardParameters)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
+        isModalInPresentation = true
         data.removeAll()
-        data = setDataToList(from: currentUser)
+        let ownerUser = realm.objects(User.self)[0]
+        FirebaseClientInstance.getInstance().getUser(
+            firstKey: ownerUser.uuid,
+            secondKey: currentCard.cardUuid,
+            firstKeyPath: FirestoreInstance.USERS,
+            secondKeyPath: FirestoreInstance.CARDS) { result in
+            switch result {
+            case .success(let data):
+                let cardType = CardType(rawValue: data["type"] as? String ?? String())
+                switch cardType {
+                case .company:
+                    let businessCard = JsonUtils.convertFromDictionary(dictionary: data, type: BusinessCard<Company>.self)
+                    self.data = setCompanyDataToList(from: businessCard.data)
+                case .personal:
+                    let businessCard = JsonUtils.convertFromDictionary(dictionary: data, type: BusinessCard<UserBoolean>.self)
+                    let currentUser = getUserFromTemplate(user: ownerUser, userBoolean: businessCard.data)
+                    self.data = setDataToList(from: currentUser)
+                default:
+                    let businessCardUser = JsonUtils.convertFromDictionary(dictionary: data, type: UserBoolean.self)
+                    let currentUser = getUserFromTemplate(user: ownerUser, userBoolean: businessCardUser)
+                    self.data = setDataToList(from: currentUser)
+                }
+                self.cardDataTable.reloadData()
+            case .failure(let error):
+                print(error)
+            }
+        }
     }
     
-    @objc func closeWindow(_ sender: Any) {
+    @IBAction func onReadyButtonTap(_ sender: Any) {
         // Получение TemplatesController (Nav -> Tab -> Nav -> Cards)
         navigationController?.presentingViewController?.children.first?.children.first?.viewWillAppear(true)
         navigationController?.dismiss(animated: true, completion: nil)
     }
-
+    
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -59,7 +72,7 @@ class MyCardViewController: UITableViewController {
             cell.imageView?.image = UIImage.init(systemName: "square.fill")!
                 .resized(toWidth: CGFloat(45))?
                 .withTintColor(UIColor.init(hexString: currentCard.color))
-            cell.selectionStyle = .none
+            cell.selectionStyle = .default
             cell.accessoryType = .disclosureIndicator
             return cell
         }
@@ -74,21 +87,29 @@ class MyCardViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             showCardMenu()
+            tableView.deselectSelectedRows(animated: true)
         }
     }
     
     private func showCardMenu() {
         let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
         
-        let rename = UIAlertAction.init(title: "Переименовать", style: .default, handler: { (_) in
-            self.showEnterCardNameAlert()
-        })
-        alert.addAction(rename)
-        
-        let changeColor = UIAlertAction.init(title: "Изменить цвет", style: .default, handler: { (_) in
-            self.changeCardColor()
-        })
-        alert.addAction(changeColor)
+        if currentCard.type == CardType.personal.rawValue {
+            let rename = UIAlertAction.init(title: "Переименовать", style: .default, handler: { (_) in
+                self.showEnterCardNameAlert()
+            })
+            alert.addAction(rename)
+            
+            let changeColor = UIAlertAction.init(title: "Изменить цвет", style: .default, handler: { (_) in
+                self.changeCardColor()
+            })
+            alert.addAction(changeColor)
+        } else {
+            let edit = UIAlertAction.init(title: "Редактировать", style: .default, handler: { (_) in
+                self.editBusinessCard()
+            })
+            alert.addAction(edit)
+        }
         
         let delete = UIAlertAction.init(title: "Удалить визитку", style: .destructive, handler: { (_) in
             self.deleteCard()
@@ -150,6 +171,13 @@ class MyCardViewController: UITableViewController {
         }
     }
     
+    private func editBusinessCard() {
+        let createCardCompanyController = storyboard?.instantiateViewController(withIdentifier: "CreateCardCompanyController") as! CreateCardCompanyController
+        createCardCompanyController.templateCard = currentCard
+        let nav = UINavigationController(rootViewController: createCardCompanyController)
+        navigationController?.showDetailViewController(nav, sender: nil)
+    }
+    
     private func deleteCard() {
         let alert = UIAlertController(title: "Удаление визитки", message: "Вы действительно хотите удалить визитку?", preferredStyle: .alert)
 
@@ -157,7 +185,7 @@ class MyCardViewController: UITableViewController {
             try! self.realm.write {
                 self.realm.delete(self.currentCard)
             }
-            self.closeWindow(self)
+            self.onReadyButtonTap(self)
         }))
         
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))

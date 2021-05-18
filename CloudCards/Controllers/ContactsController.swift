@@ -57,16 +57,11 @@ class ContactsController: UIViewController {
         DispatchQueue.main.async {
             var contactsInfo = [Any]()
             
-            let userDictionary = self.realm.objects(User.self)
-            if userDictionary.count != 0 {
-                let owner = userDictionary[0]
-                contactsInfo.append("\(owner.name) \(owner.surname) отправил(а) Вам несколько контактов:")
-            } else {
-                contactsInfo.append("Пользователь CloudCards отправил Вам несколько контактов:")
-            }
+            contactsInfo.append("Пользователь CloudCards отправил Вам несколько контактов:")
             
             for contact in self.selectedContacts {
-                guard let siteLink = generateSiteLink(with: contact.user) else { return }
+                let idPair = "\(contact.user.parentId)\(ID_SEPARATOR)\(contact.user.uuid)"
+                guard let siteLink = generateSiteLink(with: idPair) else { return }
                 contactsInfo.append(siteLink)
             }
             
@@ -342,7 +337,8 @@ extension ContactsController {
     func showQRAction(at indexPath: IndexPath) -> UIContextualAction {
         let contact = getUserFromRow(with: indexPath)
         let action = UIContextualAction(style: .normal, title: "ShowQR") { (action, view, completion) in
-            showShareController(with: contact.user, in: self)
+            let idPair = "\(contact.user.parentId)\(ID_SEPARATOR)\(contact.user.uuid)"
+            showShareController(with: idPair, in: self)
             completion(true)
         }
         action.image = UIImage(systemName: "qrcode")
@@ -353,7 +349,8 @@ extension ContactsController {
     func shareAction(at indexPath: IndexPath) -> UIContextualAction {
         let contact = getUserFromRow(with: indexPath)
         let action = UIContextualAction(style: .normal, title: "Share") { (action, view, completion) in
-            showShareLinkController(with: contact.user, in: self)
+            let idPair = "\(contact.user.parentId)\(ID_SEPARATOR)\(contact.user.uuid)"
+            showShareLinkController(with: idPair, in: self)
             completion(true)
         }
         action.image = UIImage(systemName: "square.and.arrow.up")

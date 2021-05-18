@@ -63,33 +63,27 @@ public func saveCard(
         let uuid = UUID().uuidString
         newUser.uuid = uuid
         
-        let userData = JsonUtils.convertToDictionary(object: newUser, dictType: [String: Any]())
+        let businessCard = BusinessCard<UserBoolean>(type: .personal, data: newUser)
         
         let db = FirestoreInstance.getInstance()
         db.collection(FirestoreInstance.USERS)
             .document(newUser.parentId)
             .collection(FirestoreInstance.CARDS)
             .document(newUser.uuid)
-            .setData(userData)
+            .setData(JsonUtils.convertToDictionary(object: businessCard))
 
         try! realm.write {
             realm.add(IdPair(parentUuid: newUser.parentId, uuid: newUser.uuid))
         }
     }
 
-    let card = Card()
-    card.color = selectedColor
-    card.title = title!
-    card.userId = newUser.uuid
-    
-    let maxValue = realm.objects(Card.self).max(ofProperty: "id") as Int?
-    if (maxValue != nil) {
-        card.id = maxValue! + 1
-    } else {
-        card.id = 0
-    }
+    let templateCard = Card()
+    templateCard.uuid = UUID().uuidString
+    templateCard.color = selectedColor
+    templateCard.title = title!
+    templateCard.cardUuid = newUser.uuid
     
     try! realm.write {
-        realm.add(card)
+        realm.add(templateCard)
     }
 }
