@@ -16,11 +16,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             migrationBlock: { migration, oldSchemaVersion in
                 if (oldSchemaVersion < newSchemaVersion) {
                     migration.enumerateObjects(ofType: Card.className()) { oldObject, newObject in
-                        let uuid = oldObject!["id"] as! String
                         let color = oldObject!["color"] as! String
                         let title = oldObject!["title"] as! String
                         let cardUuid = oldObject!["userId"] as! String
-                        newObject!["uuid"] = uuid
+                        newObject!["uuid"] = UUID().uuidString
                         newObject!["type"] = CardType.personal.rawValue
                         newObject!["color"] = color
                         newObject!["title"] = title
