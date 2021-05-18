@@ -153,8 +153,7 @@ class MyCardViewController: UITableViewController {
                 )
                 return
             }
-            cell?.textLabel?.text = cardName
-            
+
             let cardNameList = self.realm.objects(Card.self).map { $0.title }
             if cardName != self.currentCard.title && cardNameList.contains(cardName) {
                 showSimpleAlert(
@@ -164,6 +163,8 @@ class MyCardViewController: UITableViewController {
                 )
                 return
             }
+            
+            cell?.textLabel?.text = cardName
             
             try! self.realm.write {
                 self.currentCard.title = cardName
