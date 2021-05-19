@@ -187,7 +187,17 @@ class ContactsController: UIViewController {
                 DispatchQueue.main.async {
                     switch result {
                     case .success(let data):
-                        let userBoolean = JsonUtils.convertFromDictionary(dictionary: data, type: UserBoolean.self)
+                        var userBoolean = UserBoolean()
+                        let cardType = CardType(rawValue: data["type"] as? String ?? String())
+                        switch cardType {
+                        case .personal:
+                            let businessCard = JsonUtils.convertFromDictionary(dictionary: data, type: BusinessCard<UserBoolean>.self)
+                            userBoolean = businessCard.data
+                        case .company:
+                            break
+                        default:
+                            userBoolean = JsonUtils.convertFromDictionary(dictionary: data, type: UserBoolean.self)
+                        }
                         // Получение пользователя для структуры Контакт
                         FirebaseClientInstance.getInstance().getUser(
                             firstKey: idPair.parentUuid,
