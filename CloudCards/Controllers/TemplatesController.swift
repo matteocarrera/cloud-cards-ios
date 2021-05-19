@@ -60,6 +60,14 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             title: "Личная визитка",
             image: UIImage(systemName: "person")
         ) { (_) in
+            if self.realm.objects(User.self).count == 0 {
+                showSimpleAlert(
+                    withTitle: "Недоступно",
+                    withMessage: "Создайте профиль для доступа к этой функции",
+                    inController: self
+                )
+                return
+            }
             self.openCreateTemplateWindow()
         }
         
@@ -67,6 +75,14 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             title: "Визитка компании",
             image: UIImage(systemName: "building.2")
         ) { (_) in
+            if self.realm.objects(User.self).count == 0 {
+                showSimpleAlert(
+                    withTitle: "Недоступно",
+                    withMessage: "Создайте профиль для доступа к этой функции",
+                    inController: self
+                )
+                return
+            }
             self.openCreateCompanyCardWindow()
         }
         
@@ -102,6 +118,14 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == templates.count {
+            if realm.objects(User.self).count == 0 {
+                showSimpleAlert(
+                    withTitle: "Недоступно",
+                    withMessage: "Создайте профиль для доступа к этой функции",
+                    inController: self
+                )
+                return
+            }
             openCreateCardSelectionMenu()
             return
         }

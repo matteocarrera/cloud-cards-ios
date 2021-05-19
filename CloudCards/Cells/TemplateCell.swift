@@ -16,7 +16,9 @@ class TemplateCell : UICollectionViewCell {
     public func update(with card: Card?, in parentController: TemplatesController) {
         setMenu()
         controller = parentController
-        parentUser = realm.objects(User.self)[0]
+        if card != nil {
+            parentUser = realm.objects(User.self)[0]
+        }
 
         layer.cornerRadius = 15
         
