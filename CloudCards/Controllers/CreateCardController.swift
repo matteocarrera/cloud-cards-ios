@@ -53,8 +53,6 @@ class CreateCardController: UIViewController {
     }
 
     @IBAction func saveCardToTemplates(_ sender: Any) {
-        let title = tableView.cellForRow(at: IndexPath(row: 0, section: 0))?.textLabel?.text?.trimmingCharacters(in: .whitespacesAndNewlines)
-        
         if selectedItems.count == 0 {
             showSimpleAlert(
                 withTitle: "Данные не выбраны",
@@ -84,7 +82,7 @@ class CreateCardController: UIViewController {
         }
         
         let cardTitleList = Array(realm.objects(Card.self)).map { $0.title }
-        if cardTitleList.contains(title!) {
+        if cardTitleList.contains(cardTitle) {
             showSimpleAlert(
                 withTitle: "Название занято",
                 withMessage: "Визитка с таким названием уже существует!",

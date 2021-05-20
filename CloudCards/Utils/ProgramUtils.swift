@@ -56,6 +56,9 @@ public func performActionWithField(title: String, description: String, controlle
     case WEBSITE:
         guard let url = URL(string: "http://\(description)") else { return }
         UIApplication.shared.open(url as URL, options: .init(), completionHandler: nil)
+    case TELEGRAM:
+        guard let url = URL(string: "http://t.me/\(description)") else { return }
+        UIApplication.shared.open(url as URL, options: .init(), completionHandler: nil)
     case VK,
          FACEBOOK,
          TWITTER,
