@@ -10,7 +10,8 @@ class CardViewController: UIViewController {
     @IBOutlet var cardPhoto: UIImageView!
     @IBOutlet var userInitialsLabel: UILabel!
     
-    public var currentUser = User()
+    public var currentUser: User?
+    public var currentCompany: Company?
 
     private let firebaseClient = FirebaseClientInstance.getInstance()
     private var data = [DataItem]()
@@ -24,17 +25,20 @@ class CardViewController: UIViewController {
         
         configureTableView(table: cardDataTable, controller: self)
         cardPhoto.layer.cornerRadius = cardPhoto.frame.height/2
-        setExportButton()
+        if currentUser != nil {
+            setExportButton()
+        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.title = "Визитка"
+        navigationItem.title = currentUser != nil ? "Визитка" : "Визитка компании"
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         loadUserData()
+        loadCompanyData()
         loadingIndicator.stopAnimating()
     }
     
@@ -55,7 +59,35 @@ class CardViewController: UIViewController {
         present(alert, animated: true, completion: nil)
     }
     
+    /*
+        Метод, устанавливающий данные компании в таблицу. Необходимо переопределить Constraints
+     */
+    
+    private func loadCompanyData() {
+        guard let currentCompany = currentCompany else {
+            return
+        }
+        data = setCompanyDataToList(from: currentCompany)
+        cardPhoto.isHidden = false
+        let constraints = [
+            cardDataTable.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            cardDataTable.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            cardDataTable.widthAnchor.constraint(equalTo: view.widthAnchor),
+            cardDataTable.heightAnchor.constraint(equalTo: view.heightAnchor,
+                                                  constant: -navigationController!.navigationBar.frame.size.height)
+        ]
+        NSLayoutConstraint.activate(constraints)
+        cardDataTable.reloadData()
+    }
+    
+    /*
+        Метод, устанавливащий данные компании в таблицу
+     */
+    
     private func loadUserData() {
+        guard let currentUser = currentUser else {
+            return
+        }
         data = setDataToList(from: currentUser)
         userInitialsLabel.text = String(currentUser.name.character(at: 0)!) + String(currentUser.surname.character(at: 0)!)
         userInitialsLabel.isHidden = false
@@ -116,6 +148,10 @@ extension CardViewController: UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data.count
+    }
+    
+    func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
+        return currentCompany == nil ? CGFloat.leastNonzeroMagnitude : CGFloat(20)
     }
 }
 

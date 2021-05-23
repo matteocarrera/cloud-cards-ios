@@ -30,7 +30,7 @@ public func setCompanyDataToList(from company: Company) -> [DataItem] {
     if (company.responsibleJobTitle != "") { data.append(DataItem(title: COMPANY_RESPONSIBLE_JOB_TITLE, data: company.responsibleJobTitle)) }
     if (company.address != "") { data.append(DataItem(title: COMPANY_ADDRESS, data: company.address)) }
     if (company.phone != "") { data.append(DataItem(title: COMPANY_PHONE, data: company.phone)) }
-    if (company.email != "") { data.append(DataItem(title: EMAIL, data: company.email)) }
+    if (company.email != "") { data.append(DataItem(title: COMPANY_EMAIL, data: company.email)) }
     if (company.website != "") { data.append(DataItem(title: WEBSITE, data: company.website)) }
     return data
 }

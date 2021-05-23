@@ -133,16 +133,6 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
         let cell = collectionView.cellForItem(at: indexPath) as! TemplateCell
         let idPair = "\(cell.parentUser.uuid)\(ID_SEPARATOR)\(cell.templateCard.cardUuid)"
         
-        #warning("Временная заглушка")
-        if cell.templateCard.type == CardType.company.rawValue {
-            showTimeAlert(
-                withTitle: "Недоступно",
-                withMessage: "Вы не можете поделиться визиткой компании",
-                showForSeconds: 1.5,
-                inController: self
-            )
-            return
-        }
         showShareController(with: idPair, in: self)
     }
 }

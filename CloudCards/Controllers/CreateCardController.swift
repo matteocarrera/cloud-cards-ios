@@ -137,12 +137,7 @@ class CreateCardController: UIViewController {
         let idPairList = realm.objects(IdPair.self).filter("parentUuid == \"\(ownerUser.parentId)\"")
 
         for idPair in idPairList {
-            FirebaseClientInstance.getInstance().getUser(
-                firstKey: idPair.parentUuid,
-                secondKey: idPair.uuid,
-                firstKeyPath: FirestoreInstance.USERS,
-                secondKeyPath: FirestoreInstance.CARDS
-            ) { result in
+            FirebaseClientInstance.getInstance().getUser(idPair: idPair) { result in
                 switch result {
                 case .success(let data):
                     let cardType = CardType(rawValue: data["type"] as? String ?? String())

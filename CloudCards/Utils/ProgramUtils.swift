@@ -41,12 +41,14 @@ public func generateSiteLink(with idPair: String) -> URL? {
 public func performActionWithField(title: String, description: String, controller: UIViewController) {
     switch title {
     case MOBILE,
-         MOBILE_OTHER:
+         MOBILE_OTHER,
+         COMPANY_PHONE:
         if let url = NSURL(string: "tel://\(description)"), UIApplication.shared.canOpenURL(url as URL) {
             UIApplication.shared.open(url as URL, options: .init(), completionHandler: nil)
         }
     case EMAIL,
-         EMAIL_OTHER:
+         EMAIL_OTHER,
+         COMPANY_EMAIL:
         if let url = URL(string: "mailto:\(description)") {
             UIApplication.shared.open(url as URL, options: .init(), completionHandler: nil)
         }

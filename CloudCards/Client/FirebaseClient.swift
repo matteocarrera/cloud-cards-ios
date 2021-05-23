@@ -16,17 +16,18 @@ enum FirebaseError: Error {
 }
 
 protocol FirebaseClient {
-    func getUser(firstKey: String, secondKey: String, firstKeyPath: String, secondKeyPath: String, completion: @escaping (Result<[String: Any], Error>) -> ())
+    func getUser(idPair: IdPair, pathToData: Bool, completion: @escaping (Result<[String: Any], Error>) -> ())
     func getPhoto(with photoId: String, completion: @escaping (Result<UIImage, Error>) -> ())
 }
 
 class FirebaseClientImpl: FirebaseClient {
-    func getUser(firstKey: String, secondKey: String, firstKeyPath: String, secondKeyPath: String, completion: @escaping (Result<[String: Any], Error>) -> ()) {
+    func getUser(idPair: IdPair, pathToData: Bool = false, completion: @escaping (Result<[String: Any], Error>) -> ()) {
+        let secondKey = pathToData == true ? FirestoreInstance.DATA : FirestoreInstance.CARDS
         let db = FirestoreInstance.getInstance()
-        db.collection(firstKeyPath)
-            .document(firstKey)
-            .collection(secondKeyPath)
-            .document(secondKey)
+        db.collection(FirestoreInstance.USERS)
+            .document(idPair.parentUuid)
+            .collection(secondKey)
+            .document(idPair.uuid)
             .getDocument { (document, error) in
                 if let document = document, document.exists {
                     guard let data = document.data() else {
