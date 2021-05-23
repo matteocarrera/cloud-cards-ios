@@ -14,7 +14,7 @@ public func getUserFromQR(from controller: UIViewController, with link: String) 
     if parentId == ownerUser?.uuid {
         showSimpleAlert(
             withTitle: "Ошибка",
-            withMessage: "Вы не можете отсканировать свою же визитку!",
+            withMessage: "Вы не можете отсканировать свою визитку!",
             inController: controller
         )
         return
