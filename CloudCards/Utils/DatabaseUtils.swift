@@ -7,9 +7,21 @@ public func getUserFromQR(from controller: UIViewController, with link: String) 
     let uuid = String(ids[1])
     let realm = RealmInstance.getInstance()
     
-    let idPairList = realm.objects(IdPair.self)
+    let parentUuidList = realm.objects(IdPair.self).map({ $0.parentUuid })
+    let userList = realm.objects(User.self)
+    let ownerUser = userList.count != 0 ? userList[0] : nil
+    
+    if parentId == ownerUser?.uuid {
+        showSimpleAlert(
+            withTitle: "Ошибка",
+            withMessage: "Вы не можете отсканировать свою визитку!",
+            inController: controller
+        )
+        return
+    }
+    
     let currentIdPair = IdPair(parentUuid: parentId, uuid: uuid)
-    if !idPairList.contains(currentIdPair) {
+    if !parentUuidList.contains(currentIdPair.parentUuid) {
         let alert = UIAlertController(title: "Успешно", message: "Контакт успешно считан!", preferredStyle: .alert)
         alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
             let contactsController = controller.children[1].children.first as! ContactsController
@@ -29,7 +41,7 @@ public func getUserFromQR(from controller: UIViewController, with link: String) 
     
     showSimpleAlert(
         withTitle: "Ошибка",
-        withMessage: "Такой пользователь уже существует!",
+        withMessage: "Такая визитка уже существует!",
         inController: controller
     )
 }
