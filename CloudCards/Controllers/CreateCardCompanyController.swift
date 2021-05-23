@@ -27,11 +27,8 @@ class CreateCardCompanyController: UITableViewController {
         
         if templateCard != nil {
             let ownerUser = RealmInstance.getInstance().objects(User.self)[0]
-            FirebaseClientInstance.getInstance().getUser(
-                firstKey: ownerUser.uuid,
-                secondKey: templateCard!.cardUuid,
-                firstKeyPath: FirestoreInstance.USERS,
-                secondKeyPath: FirestoreInstance.CARDS) { result in
+            let idPair = IdPair(parentUuid: ownerUser.uuid, uuid: templateCard!.cardUuid)
+            FirebaseClientInstance.getInstance().getUser(idPair: idPair) { result in
                 switch result {
                 case .success(let data):
                     let businessCard = JsonUtils.convertFromDictionary(dictionary: data, type: BusinessCard<Company>.self)

@@ -18,11 +18,8 @@ class MyCardViewController: UITableViewController {
         isModalInPresentation = true
         data.removeAll()
         let ownerUser = realm.objects(User.self)[0]
-        FirebaseClientInstance.getInstance().getUser(
-            firstKey: ownerUser.uuid,
-            secondKey: currentCard.cardUuid,
-            firstKeyPath: FirestoreInstance.USERS,
-            secondKeyPath: FirestoreInstance.CARDS) { result in
+        let idPair = IdPair(parentUuid: ownerUser.uuid, uuid: currentCard.cardUuid)
+        FirebaseClientInstance.getInstance().getUser(idPair: idPair) { result in
             switch result {
             case .success(let data):
                 let cardType = CardType(rawValue: data["type"] as? String ?? String())

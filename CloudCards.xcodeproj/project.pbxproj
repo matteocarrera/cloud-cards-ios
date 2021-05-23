@@ -26,6 +26,7 @@
 		E71D4E2C256AC3C1003FC189 /* ShareController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E71D4E2B256AC3C1003FC189 /* ShareController.xib */; };
 		E71D4E30256AC5A6003FC189 /* ShareController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D4E2F256AC5A6003FC189 /* ShareController.swift */; };
 		E71D4E34256AC6E4003FC189 /* ControllerExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = E71D4E33256AC6E4003FC189 /* ControllerExtensions.swift */; };
+		E726AC5F2657D2E900AB7DC9 /* CompanyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E726AC5E2657D2E900AB7DC9 /* CompanyCell.swift */; };
 		E72BFF59264A7C5E00D80081 /* IdPair.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BFF58264A7C5E00D80081 /* IdPair.swift */; };
 		E72BFF5B264AE9AE00D80081 /* BusinessCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BFF5A264AE9AE00D80081 /* BusinessCard.swift */; };
 		E72BFF5D264AEDBE00D80081 /* Company.swift in Sources */ = {isa = PBXBuildFile; fileRef = E72BFF5C264AEDBE00D80081 /* Company.swift */; };
@@ -118,6 +119,7 @@
 		E71D4E2B256AC3C1003FC189 /* ShareController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ShareController.xib; sourceTree = "<group>"; };
 		E71D4E2F256AC5A6003FC189 /* ShareController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareController.swift; sourceTree = "<group>"; };
 		E71D4E33256AC6E4003FC189 /* ControllerExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControllerExtensions.swift; sourceTree = "<group>"; };
+		E726AC5E2657D2E900AB7DC9 /* CompanyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompanyCell.swift; sourceTree = "<group>"; };
 		E72BFF58264A7C5E00D80081 /* IdPair.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdPair.swift; sourceTree = "<group>"; };
 		E72BFF5A264AE9AE00D80081 /* BusinessCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BusinessCard.swift; sourceTree = "<group>"; };
 		E72BFF5C264AEDBE00D80081 /* Company.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Company.swift; sourceTree = "<group>"; };
@@ -357,6 +359,7 @@
 				E78BB3302566C28D0023BFC9 /* TemplateCell.swift */,
 				E73FD3A7256BBE9B00E97226 /* ContactCell.swift */,
 				E73FD3B3256BC41F00E97226 /* DataCell.swift */,
+				E726AC5E2657D2E900AB7DC9 /* CompanyCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -571,6 +574,7 @@
 				E74EEC5225C9A07D0090F060 /* AlertUtils.swift in Sources */,
 				E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */,
 				E734F6F224D3F45A008EC9D9 /* ProgramUtils.swift in Sources */,
+				E726AC5F2657D2E900AB7DC9 /* CompanyCell.swift in Sources */,
 				E71D4E27256AC317003FC189 /* PresentationController.swift in Sources */,
 				E7179FBE25517C800082DEDA /* UITableView.swift in Sources */,
 				E71D4E34256AC6E4003FC189 /* ControllerExtensions.swift in Sources */,
@@ -639,7 +643,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.6;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards.share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -661,7 +665,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.4.6;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards.share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -805,7 +809,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 1.4.6;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards;
 				PRODUCT_NAME = CloudCards;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -833,7 +837,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 1.4.6;
+				MARKETING_VERSION = 1.5;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards;
 				PRODUCT_NAME = CloudCards;
 				SWIFT_OBJC_BRIDGING_HEADER = "";

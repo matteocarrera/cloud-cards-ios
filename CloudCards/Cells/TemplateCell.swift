@@ -57,16 +57,6 @@ class TemplateCell : UICollectionViewCell {
             title: "Поделиться",
             image: UIImage(systemName: "square.and.arrow.up")
         ) { (_) in
-            #warning("Временная заглушка")
-            if self.templateCard.type == CardType.company.rawValue {
-                showTimeAlert(
-                    withTitle: "Недоступно",
-                    withMessage: "Вы не можете поделиться визиткой компании",
-                    showForSeconds: 1.5,
-                    inController: self.controller
-                )
-                return
-            }
             self.shareCard()
         }
         

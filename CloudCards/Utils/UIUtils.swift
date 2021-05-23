@@ -68,3 +68,19 @@ public func setToolbar(for controller: UIViewController) {
     controller.navigationController?.toolbar.barTintColor = UIColor(named: "NavigationBarColor")
     controller.navigationController?.toolbar.isTranslucent = false
 }
+
+/*
+    UISegmentedControl, используемый в ContactsController
+ */
+
+public func setSegmentedControl(for controller: UIViewController) {
+    guard let controller = controller as? ContactsController else {
+        return
+    }
+    let titles = ["Люди", "Компании"]
+    let segmentControl = UISegmentedControl(items: titles)
+    segmentControl.selectedSegmentIndex = 0
+    segmentControl.sizeToFit()
+    segmentControl.addTarget(controller, action: #selector(controller.segmentItemChanged(_:)), for: .valueChanged)
+    controller.navigationItem.titleView = segmentControl
+}
