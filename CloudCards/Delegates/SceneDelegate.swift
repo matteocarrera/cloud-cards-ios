@@ -49,7 +49,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         if let url = URLContexts.first?.url {
             guard let controller = window?.rootViewController else { return }
-            getUserFromQR(from: controller, with: url.absoluteString)
+            ImportUtils.getUserFromQR(from: controller, with: url.absoluteString)
         }
     }
 
@@ -63,7 +63,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         guard let controller = window?.rootViewController else { return }
         if link.contains(ID_SEPARATOR) {
-            getUserFromQR(from: controller, with: link)
+            ImportUtils.getUserFromQR(from: controller, with: link)
         }
 
         defaults?.removeObject(forKey: "link")

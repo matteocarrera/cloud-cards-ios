@@ -14,8 +14,8 @@ class ShareViewController: SLComposeServiceViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        //textView.isHidden = true
-        textView.text = "Рекомендовано делать импорт с полностью закрытым приложением!"
+        textView.isHidden = true
+        //textView.text = "Рекомендовано делать импорт с полностью закрытым приложением!"
         textView.tintColor = UIColor.clear
         self.navigationController?.navigationBar.topItem?.rightBarButtonItem?.title = "Импортировать"
         self.navigationController?.navigationBar.topItem?.leftBarButtonItem?.title = "Отмена"

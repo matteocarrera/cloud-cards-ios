@@ -6,7 +6,7 @@ class ShareController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var shareButton: UIView!
     
-    public var idPair = String()
+    public var url = URL(string: String())
     
     private var hasSetPointOrigin = false
     private var pointOrigin: CGPoint?
@@ -25,7 +25,7 @@ class ShareController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-        imageView.image = generateQR(with: idPair)
+        imageView.image = generateQR(with: url!)
     }
     
     override func viewDidLayoutSubviews() {
@@ -36,7 +36,7 @@ class ShareController: UIViewController {
     }
     
     @objc func shareButtonClicked() {
-        showShareLinkController(with: idPair, in: self)
+        showShareLinkController(with: url!, in: self)
     }
     
     @objc func panGestureRecognizerAction(sender: UIPanGestureRecognizer) {

@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         let color = oldObject!["color"] as! String
                         let title = oldObject!["title"] as! String
                         let cardUuid = oldObject!["userId"] as! String
-                        newObject!["uuid"] = UUID().uuidString
+                        newObject!["uuid"] = UUID().uuidString.lowercased
                         newObject!["type"] = CardType.personal.rawValue
                         newObject!["color"] = color
                         newObject!["title"] = title

@@ -1768,7 +1768,7 @@
                                                     <size key="shadowOffset" width="0.0" height="0.0"/>
                                                 </label>
                                                 <label hidden="YES" opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ИФ" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fbm-qc-rBA">
-                                                    <rect key="frame" x="36" y="29.5" width="33" height="26"/>
+                                                    <rect key="frame" x="20" y="29.5" width="65" height="26"/>
                                                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="21"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                     <nil key="highlightedColor"/>
@@ -1779,10 +1779,10 @@
                                                 <constraint firstAttribute="trailing" secondItem="6S0-kZ-HJS" secondAttribute="trailing" constant="20" id="0QW-LX-gab"/>
                                                 <constraint firstItem="vJO-Ik-xfK" firstAttribute="leading" secondItem="Hrx-lW-0tM" secondAttribute="trailing" constant="20" id="3KR-6b-dGh"/>
                                                 <constraint firstItem="Hrx-lW-0tM" firstAttribute="top" secondItem="v7M-tG-oTL" secondAttribute="top" constant="10" id="AcD-wD-6lr"/>
-                                                <constraint firstItem="ZC9-39-smG" firstAttribute="leading" secondItem="fbm-qc-rBA" secondAttribute="trailing" constant="36" id="DgC-Kd-7pa"/>
+                                                <constraint firstItem="ZC9-39-smG" firstAttribute="leading" secondItem="fbm-qc-rBA" secondAttribute="trailing" constant="20" id="DgC-Kd-7pa"/>
                                                 <constraint firstAttribute="trailing" secondItem="vJO-Ik-xfK" secondAttribute="trailing" constant="20" id="F7J-1H-Uu8"/>
                                                 <constraint firstItem="ZC9-39-smG" firstAttribute="top" secondItem="6S0-kZ-HJS" secondAttribute="bottom" constant="5" id="NHf-c9-Rzb"/>
-                                                <constraint firstItem="fbm-qc-rBA" firstAttribute="leading" secondItem="v7M-tG-oTL" secondAttribute="leadingMargin" constant="16" id="RBW-0z-hBE"/>
+                                                <constraint firstItem="fbm-qc-rBA" firstAttribute="leading" secondItem="v7M-tG-oTL" secondAttribute="leadingMargin" id="RBW-0z-hBE"/>
                                                 <constraint firstItem="Hrx-lW-0tM" firstAttribute="leading" secondItem="v7M-tG-oTL" secondAttribute="leading" constant="20" id="fwH-5t-5at"/>
                                                 <constraint firstAttribute="bottom" secondItem="Hrx-lW-0tM" secondAttribute="bottom" constant="10" id="gMv-2b-xLj"/>
                                                 <constraint firstAttribute="bottomMargin" secondItem="fbm-qc-rBA" secondAttribute="bottom" constant="18.5" id="iS7-Zx-EdV"/>

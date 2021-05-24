@@ -131,9 +131,10 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
         }
         
         let cell = collectionView.cellForItem(at: indexPath) as! TemplateCell
-        let idPair = "\(cell.parentUser.uuid)\(ID_SEPARATOR)\(cell.templateCard.cardUuid)"
+        let idPair = IdPair(parentUuid: cell.parentUser.uuid, uuid: cell.templateCard.cardUuid)
+        guard let url = generateSiteLink(with: idPair, isPersonal: cell.templateCard.type == CardType.personal.rawValue) else { return }
         
-        showShareController(with: idPair, in: self)
+        showShareController(with: url, in: self)
     }
 }
 

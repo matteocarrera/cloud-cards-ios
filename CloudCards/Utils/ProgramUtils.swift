@@ -7,11 +7,9 @@ import Contacts
     Генерация QR-кода с предоставленным текстом
  */
 
-public func generateQR(with userLink: String) -> UIImage? {
-    let qrLink = "http://www.cloudcards.h1n.ru/#\(userLink)"
-    let data = qrLink.data(using: String.Encoding.utf8)
+public func generateQR(with url: URL) -> UIImage? {
     guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
-    qrFilter.setValue(data, forKey: "inputMessage")
+    qrFilter.setValue(url.dataRepresentation, forKey: "inputMessage")
     guard let qrImage = qrFilter.outputImage else { return nil }
     let transform = CGAffineTransform(scaleX: 10, y: 10)
     let scaledQrImage = qrImage.transformed(by: transform)
@@ -29,8 +27,10 @@ public func generateQR(with userLink: String) -> UIImage? {
     Генерация ссылки на визитку контакта
  */
 
-public func generateSiteLink(with idPair: String) -> URL? {
-    let link = "http://www.cloudcards.h1n.ru/#\(idPair)"
+public func generateSiteLink(with idPair: IdPair, isPersonal: Bool) -> URL? {
+    let type = isPersonal ? CardType.personal.rawValue : CardType.company.rawValue
+    let linkBody = "\(idPair.parentUuid)\(ID_SEPARATOR)\(idPair.uuid)\(ID_SEPARATOR)\(type)"
+    let link = "http://www.cloudcards.h1n.ru/#\(linkBody)"
     return URL(string: link) ?? nil
 }
 

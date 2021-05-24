@@ -78,10 +78,18 @@ class ContactsController: UIViewController {
             
             contactsInfo.append("Пользователь CloudCards отправил Вам несколько контактов:")
             
-            for contact in self.selectedContacts {
-                let idPair = "\(contact.user.parentId)\(ID_SEPARATOR)\(contact.user.uuid)"
-                guard let siteLink = generateSiteLink(with: idPair) else { return }
-                contactsInfo.append(siteLink)
+            if self.selectedSectionIndex == 0 {
+                self.selectedContacts.forEach { contact in
+                    let idPair = IdPair(parentUuid: contact.user.parentId, uuid: contact.user.uuid)
+                    guard let siteLink = generateSiteLink(with: idPair, isPersonal: true) else { return }
+                    contactsInfo.append(siteLink)
+                }
+            } else {
+                self.selectedCompanies.forEach { company in
+                    let idPair = IdPair(parentUuid: company.parentUuid, uuid: company.uuid)
+                    guard let siteLink = generateSiteLink(with: idPair, isPersonal: false) else { return }
+                    contactsInfo.append(siteLink)
+                }
             }
             
             let shareController = UIActivityViewController(activityItems: contactsInfo, applicationActivities: [])
@@ -436,8 +444,8 @@ extension ContactsController {
         let idPair = getIdPair(with: indexPath)
         
         let action = UIContextualAction(style: .normal, title: "ShowQR") { (action, view, completion) in
-            let idPair = "\(idPair.parentUuid)\(ID_SEPARATOR)\(idPair.uuid)"
-            showShareController(with: idPair, in: self)
+            guard let url = generateSiteLink(with: idPair, isPersonal: self.isPersonalCard()) else { return }
+            showShareController(with: url, in: self)
             completion(true)
         }
         action.image = UIImage(systemName: "qrcode")
@@ -450,8 +458,8 @@ extension ContactsController {
         let idPair = getIdPair(with: indexPath)
         
         let action = UIContextualAction(style: .normal, title: "Share") { (action, view, completion) in
-            let idPair = "\(idPair.parentUuid)\(ID_SEPARATOR)\(idPair.uuid)"
-            showShareLinkController(with: idPair, in: self)
+            guard let url = generateSiteLink(with: idPair, isPersonal: self.isPersonalCard()) else { return }
+            showShareLinkController(with: url, in: self)
             completion(true)
         }
         action.image = UIImage(systemName: "square.and.arrow.up")
@@ -512,6 +520,11 @@ extension ContactsController {
             let company = getCompanyFromRow(indexPath)
             return IdPair(parentUuid: company.parentUuid, uuid: company.uuid)
         }
+    }
+    
+    // Получение информации о том, какую визитку пользователь хочет отправить
+    private func isPersonalCard() -> Bool {
+        return selectedSectionIndex == 0
     }
 }
 
