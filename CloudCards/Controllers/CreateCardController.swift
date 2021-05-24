@@ -91,12 +91,7 @@ class CreateCardController: UIViewController {
             return
         }
         
-        saveCard(
-            withTitle: cardTitle,
-            withColor: selectedColor,
-            withUserData: selectedItems,
-            withTemplateUserList: templateUserList
-        )
+        savePersonalCard()
         // Получение TemplatesController (Nav -> Tab -> Nav -> Cards)
         navigationController?.presentingViewController?.children.first?.children.first?.viewWillAppear(true)
         navigationController?.dismiss(animated: true, completion: nil)
@@ -155,6 +150,54 @@ class CreateCardController: UIViewController {
                     print(error)
                 }
             }
+        }
+    }
+    
+    private func savePersonalCard() {
+        let ownerUser = realm.objects(User.self)[0]
+        
+        let newUser = parseDataToUserBoolean(from: selectedItems)
+        newUser.parentId = ownerUser.parentId
+        
+        /*
+            Делаем проверку на то, что визитка с выбранными полями уже существует
+         */
+        
+        var userExists = false
+        
+        for templateUser in templateUserList {
+            if newUser.isEqual(templateUser) {
+                newUser.uuid = templateUser.uuid
+                userExists = true
+            }
+        }
+        
+        if !userExists {
+            let uuid = UUID().uuidString.lowercased()
+            newUser.uuid = uuid
+            
+            let businessCard = BusinessCard<UserBoolean>(type: .personal, data: newUser)
+            
+            let db = FirestoreInstance.getInstance()
+            db.collection(FirestoreInstance.USERS)
+                .document(newUser.parentId)
+                .collection(FirestoreInstance.CARDS)
+                .document(newUser.uuid)
+                .setData(JsonUtils.convertToDictionary(object: businessCard))
+
+            try! realm.write {
+                realm.add(IdPair(parentUuid: newUser.parentId, uuid: newUser.uuid))
+            }
+        }
+
+        let templateCard = Card()
+        templateCard.uuid = UUID().uuidString.lowercased()
+        templateCard.color = selectedColor
+        templateCard.title = title!
+        templateCard.cardUuid = newUser.uuid
+        
+        try! realm.write {
+            realm.add(templateCard)
         }
     }
 }

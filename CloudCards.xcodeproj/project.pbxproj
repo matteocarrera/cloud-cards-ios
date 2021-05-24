@@ -11,7 +11,7 @@
 		E7062D65250505F4006723EB /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7062D64250505F4006723EB /* ShareViewController.swift */; };
 		E7062D68250505F4006723EB /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7062D66250505F4006723EB /* MainInterface.storyboard */; };
 		E7062D6C250505F4006723EB /* Share.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E7062D62250505F4006723EB /* Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		E7062D722508C913006723EB /* DatabaseUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7062D712508C913006723EB /* DatabaseUtils.swift */; };
+		E7062D722508C913006723EB /* ImportUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7062D712508C913006723EB /* ImportUtils.swift */; };
 		E70C89CE257A5290002491F3 /* MyCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C89CD257A5290002491F3 /* MyCardViewController.swift */; };
 		E70C89D2257A6633002491F3 /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E70C89D1257A6633002491F3 /* UIImage.swift */; };
 		E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E714B25324705D5000BB3F05 /* AppDelegate.swift */; };
@@ -102,7 +102,7 @@
 		E7062D67250505F4006723EB /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/MainInterface.storyboard; sourceTree = "<group>"; };
 		E7062D69250505F4006723EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7062D70250505FA006723EB /* Share.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Share.entitlements; sourceTree = "<group>"; };
-		E7062D712508C913006723EB /* DatabaseUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseUtils.swift; sourceTree = "<group>"; };
+		E7062D712508C913006723EB /* ImportUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImportUtils.swift; sourceTree = "<group>"; };
 		E70C89CD257A5290002491F3 /* MyCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCardViewController.swift; sourceTree = "<group>"; };
 		E70C89D1257A6633002491F3 /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		E714B25024705D5000BB3F05 /* CloudCards.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CloudCards.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -335,7 +335,7 @@
 				E7DDDC1424826BDC00E8F462 /* DataUtils.swift */,
 				E734F6F124D3F45A008EC9D9 /* ProgramUtils.swift */,
 				E734F6F324D40069008EC9D9 /* TableUtils.swift */,
-				E7062D712508C913006723EB /* DatabaseUtils.swift */,
+				E7062D712508C913006723EB /* ImportUtils.swift */,
 				E71728202526222E00704371 /* JsonUtils.swift */,
 				E74EEC5125C9A07D0090F060 /* AlertUtils.swift */,
 				E74EEC5525C9A0AC0090F060 /* ShareUtils.swift */,
@@ -570,7 +570,7 @@
 				E7A8275B24D171F00024F414 /* ContactsController.swift in Sources */,
 				E7DDDC1524826BDC00E8F462 /* DataUtils.swift in Sources */,
 				E7EB285F253F0FE60004D4E7 /* RealmInstance.swift in Sources */,
-				E7062D722508C913006723EB /* DatabaseUtils.swift in Sources */,
+				E7062D722508C913006723EB /* ImportUtils.swift in Sources */,
 				E74EEC5225C9A07D0090F060 /* AlertUtils.swift in Sources */,
 				E714B25424705D5000BB3F05 /* AppDelegate.swift in Sources */,
 				E734F6F224D3F45A008EC9D9 /* ProgramUtils.swift in Sources */,
@@ -643,7 +643,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards.share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -665,7 +665,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards.share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -809,7 +809,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards;
 				PRODUCT_NAME = CloudCards;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -837,7 +837,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 1.5.1;
+				MARKETING_VERSION = 1.5.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards;
 				PRODUCT_NAME = CloudCards;
 				SWIFT_OBJC_BRIDGING_HEADER = "";

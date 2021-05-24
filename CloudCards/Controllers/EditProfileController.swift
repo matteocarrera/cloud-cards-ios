@@ -189,7 +189,7 @@ class EditProfileController: UIViewController {
                 let md = StorageMetadata()
                 md.contentType = "image/png"
 
-                photoUuid = UUID().uuidString
+                photoUuid = UUID().uuidString.lowercased()
                 storageRef = Storage.storage().reference().child(photoUuid!)
 
                 storageRef.putData(photoData, metadata: md) { (metadata, error) in
@@ -216,7 +216,7 @@ class EditProfileController: UIViewController {
         
         if ownerUser == nil {
             
-            let uuid = UUID().uuidString
+            let uuid = UUID().uuidString.lowercased()
             ownerUser = User()
             updateUserData(ownerUser: ownerUser!)
             ownerUser?.parentId = uuid

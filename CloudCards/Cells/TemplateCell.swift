@@ -94,8 +94,9 @@ class TemplateCell : UICollectionViewCell {
     }
     
     private func shareCard() {
-        let idPair = "\(parentUser.uuid)\(ID_SEPARATOR)\(templateCard.cardUuid)"
-        showShareLinkController(with: idPair, in: controller)
+        let idPair = IdPair(parentUuid: parentUser.uuid, uuid: templateCard.cardUuid)
+        guard let url = generateSiteLink(with: idPair, isPersonal: templateCard.type == CardType.personal.rawValue) else { return }
+        showShareLinkController(with: url, in: controller)
     }
     
     private func deleteCard() {

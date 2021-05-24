@@ -76,7 +76,7 @@ class CreateCardCompanyController: UITableViewController {
         
         let company = Company(
             parentUuid: RealmInstance.getInstance().objects(User.self)[0].uuid,
-            uuid: templateCard?.cardUuid ?? UUID().uuidString,
+            uuid: templateCard?.cardUuid ?? UUID().uuidString.lowercased(),
             name: companyNameField.text ?? String(),
             responsibleFullName: responsibleNameField.text ?? String(),
             responsibleJobTitle: responsibleJobTitleField.text ?? String(),
@@ -100,7 +100,7 @@ class CreateCardCompanyController: UITableViewController {
         }
         
         let card = Card()
-        card.uuid = templateCard?.uuid ?? UUID().uuidString
+        card.uuid = templateCard?.uuid ?? UUID().uuidString.lowercased()
         card.type = CardType.company.rawValue
         card.color = (tableView.cellForRow(at: IndexPath(row: 1, section: 0))?.imageView?.tintColor.toHexString())!
         card.title = cardNameField.text!

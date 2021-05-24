@@ -109,7 +109,7 @@ extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
     private func saveUserIfDataIsCorrect(data: String) {
         if data.contains(CLOUDCARDS_WEBSITE) && data.contains(ID_SEPARATOR) {
             guard let rootViewController = UIApplication.shared.windows.first?.rootViewController else { return }
-            getUserFromQR(from: rootViewController, with: data)
+            ImportUtils.getUserFromQR(from: rootViewController, with: data)
             return
         }
         showUnableToReadQRAlert()
