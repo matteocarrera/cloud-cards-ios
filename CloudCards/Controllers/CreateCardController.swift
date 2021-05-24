@@ -72,7 +72,7 @@ class CreateCardController: UIViewController {
             return
         }
         
-        if title == cardParameters[0] {
+        if cardTitle == String() {
             showSimpleAlert(
                 withTitle: "Название не указано",
                 withMessage: "Введите название визитки!",
@@ -112,14 +112,15 @@ class CreateCardController: UIViewController {
         }
 
         alert.addAction(UIAlertAction(title: "ОК", style: .default, handler: { [weak alert] (_) in
-            var cardName = alert?.textFields![0].text
+            let cardName = alert?.textFields![0].text
             cell?.textLabel?.textColor = .label
+            self.cardTitle = cardName!
             if cardName == String() {
-                cardName = self.cardParameters[0]
+                cell?.textLabel?.text = self.cardParameters[0]
                 cell?.textLabel?.textColor = .secondaryLabel
+                return
             }
             cell?.textLabel?.text = cardName
-            self.cardTitle = cardName!
         }))
         
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
@@ -193,7 +194,7 @@ class CreateCardController: UIViewController {
         let templateCard = Card()
         templateCard.uuid = UUID().uuidString.lowercased()
         templateCard.color = selectedColor
-        templateCard.title = title!
+        templateCard.title = cardTitle
         templateCard.cardUuid = newUser.uuid
         
         try! realm.write {
