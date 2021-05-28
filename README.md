@@ -3,10 +3,10 @@
 Приложение для быстрой работы с электронными визитками
 =
 
-![CloudCards](https://i.ibb.co/2N3y7YQ/templates.png)
-![CloudCards](https://i.ibb.co/C0TQ9tR/company.png)
-![CloudCards](https://i.ibb.co/YchBCVH/qr.png)
-![CloudCards](https://i.ibb.co/7n8pgJL/contacts.png) 
+![CloudCards](https://i.ibb.co/PT6XNL9/templates.png)
+![CloudCards](https://i.ibb.co/YtQ9jzx/company.png)
+![CloudCards](https://i.ibb.co/sKd4CrG/qr.png)
+![CloudCards](https://i.ibb.co/kxdpsgf/contacts.png) 
 
 ## :heavy_check_mark: Создавайте персональные визитки
 
