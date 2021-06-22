@@ -1,6 +1,9 @@
 import UIKit
 
 class DataCell: UITableViewCell {
+    
+    public static let reuseIdentifier = "DataCell"
+    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var dataLabel: UILabel!
     

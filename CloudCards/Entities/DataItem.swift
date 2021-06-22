@@ -1,5 +1,3 @@
-import Foundation
-
 /*
     Класс элемента таблицы формата "описание поля/данные поля"
  */
@@ -7,12 +5,12 @@ import Foundation
 public class DataItem {
     
     // Заголовок
-    var title : String = ""
+    var title: String
     
     // Данные ячейки
-    var data : String = ""
+    var data: String
     
-    init(title : String, data : String) {
+    init(title: String, data: String) {
         self.title = title
         self.data = data
     }

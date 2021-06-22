@@ -1,5 +1,3 @@
-import Foundation
-
 class FirebaseClientInstance {
     private static var firebaseClient : FirebaseClientImpl?
     

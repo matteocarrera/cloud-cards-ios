@@ -36,7 +36,7 @@ class ShareController: UIViewController {
     }
     
     @objc func shareButtonClicked() {
-        showShareLinkController(with: url!, in: self)
+        shareBusinessCard(with: url!, in: self)
     }
     
     @objc func panGestureRecognizerAction(sender: UIPanGestureRecognizer) {

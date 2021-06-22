@@ -1,38 +1,6 @@
-import Foundation
 import UIKit
 import CoreLocation
 import Contacts
-
-/*
-    Генерация QR-кода с предоставленным текстом
- */
-
-public func generateQR(with url: URL) -> UIImage? {
-    guard let qrFilter = CIFilter(name: "CIQRCodeGenerator") else { return nil }
-    qrFilter.setValue(url.dataRepresentation, forKey: "inputMessage")
-    guard let qrImage = qrFilter.outputImage else { return nil }
-    let transform = CGAffineTransform(scaleX: 10, y: 10)
-    let scaledQrImage = qrImage.transformed(by: transform)
-    
-    let colorParameters = [
-        "inputColor0": CIColor(color: UITraitCollection.current.userInterfaceStyle == .dark ? UIColor.white : UIColor.black), // Foreground
-        "inputColor1": CIColor(color: UIColor.clear) // Background
-    ]
-    let coloredQrImage = scaledQrImage.applyingFilter("CIFalseColor", parameters: colorParameters)
-    
-    return UIImage.init(ciImage: coloredQrImage)
-}
-
-/*
-    Генерация ссылки на визитку контакта
- */
-
-public func generateSiteLink(with idPair: IdPair, isPersonal: Bool) -> URL? {
-    let type = isPersonal ? CardType.personal.rawValue : CardType.company.rawValue
-    let linkBody = "\(idPair.parentUuid)\(ID_SEPARATOR)\(idPair.uuid)\(ID_SEPARATOR)\(type)"
-    let link = "http://www.cloudcards.h1n.ru/#\(linkBody)"
-    return URL(string: link) ?? nil
-}
 
 /*
     Выполнение определенного действия, зависящего от предоставленных параметров
@@ -47,8 +15,7 @@ public func performActionWithField(title: String, description: String, controlle
             UIApplication.shared.open(url as URL, options: .init(), completionHandler: nil)
         }
     case EMAIL,
-         EMAIL_OTHER,
-         COMPANY_EMAIL:
+         EMAIL_OTHER:
         if let url = URL(string: "mailto:\(description)") {
             UIApplication.shared.open(url as URL, options: .init(), completionHandler: nil)
         }

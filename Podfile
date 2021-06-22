@@ -8,4 +8,5 @@ target 'CloudCards' do
   pod 'Firebase/Storage'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
+  pod 'Kingfisher'
 end

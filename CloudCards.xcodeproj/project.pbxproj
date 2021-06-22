@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		17BE829043789148F9EB48C2 /* Pods_CloudCards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4EEC8F01EE8CFE04D36F21D /* Pods_CloudCards.framework */; };
+		E706143C267A29AD0063C236 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E706143B267A29AD0063C236 /* EditProfileController.swift */; };
 		E7062D65250505F4006723EB /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7062D64250505F4006723EB /* ShareViewController.swift */; };
 		E7062D68250505F4006723EB /* MainInterface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E7062D66250505F4006723EB /* MainInterface.storyboard */; };
 		E7062D6C250505F4006723EB /* Share.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = E7062D62250505F4006723EB /* Share.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -42,12 +43,10 @@
 		E74A4845247158E50004B5B5 /* Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4844247158E50004B5B5 /* Card.swift */; };
 		E74A4848247159B50004B5B5 /* DataItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A4847247159B50004B5B5 /* DataItem.swift */; };
 		E74A48502471707C0004B5B5 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74A484F2471707C0004B5B5 /* ProfileController.swift */; };
-		E74EEC4E25C9894F0090F060 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74EEC4D25C9894F0090F060 /* Contact.swift */; };
 		E74EEC5225C9A07D0090F060 /* AlertUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74EEC5125C9A07D0090F060 /* AlertUtils.swift */; };
 		E74EEC5625C9A0AC0090F060 /* ShareUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74EEC5525C9A0AC0090F060 /* ShareUtils.swift */; };
 		E74EEC5A25C9A0DE0090F060 /* UIUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74EEC5925C9A0DE0090F060 /* UIUtils.swift */; };
 		E760A2702482D3D500009919 /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E760A26F2482D3D500009919 /* NavigationController.swift */; };
-		E786836B2488E77000844DD4 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E786836A2488E77000844DD4 /* EditProfileController.swift */; };
 		E78B37212528EAA40001C3B9 /* TextConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78B37202528EAA40001C3B9 /* TextConstants.swift */; };
 		E78BB3312566C28D0023BFC9 /* TemplateCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78BB3302566C28D0023BFC9 /* TemplateCell.swift */; };
 		E78BB3352566C3370023BFC9 /* TemplatesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78BB3342566C3370023BFC9 /* TemplatesController.swift */; };
@@ -96,6 +95,7 @@
 		6BBF0DE37E4888261CEA317A /* Pods-CloudCards.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudCards.debug.xcconfig"; path = "Target Support Files/Pods-CloudCards/Pods-CloudCards.debug.xcconfig"; sourceTree = "<group>"; };
 		A4EEC8F01EE8CFE04D36F21D /* Pods_CloudCards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CloudCards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AA456A190AB292142CD06AEA /* Pods-CloudCards.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CloudCards.release.xcconfig"; path = "Target Support Files/Pods-CloudCards/Pods-CloudCards.release.xcconfig"; sourceTree = "<group>"; };
+		E706143B267A29AD0063C236 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		E7062D4A24F687F2006723EB /* CloudCards.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CloudCards.entitlements; sourceTree = "<group>"; };
 		E7062D62250505F4006723EB /* Share.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Share.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7062D64250505F4006723EB /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
@@ -135,12 +135,10 @@
 		E74A4844247158E50004B5B5 /* Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Card.swift; sourceTree = "<group>"; };
 		E74A4847247159B50004B5B5 /* DataItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataItem.swift; sourceTree = "<group>"; };
 		E74A484F2471707C0004B5B5 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
-		E74EEC4D25C9894F0090F060 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
 		E74EEC5125C9A07D0090F060 /* AlertUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtils.swift; sourceTree = "<group>"; };
 		E74EEC5525C9A0AC0090F060 /* ShareUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareUtils.swift; sourceTree = "<group>"; };
 		E74EEC5925C9A0DE0090F060 /* UIUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIUtils.swift; sourceTree = "<group>"; };
 		E760A26F2482D3D500009919 /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		E786836A2488E77000844DD4 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		E78B37202528EAA40001C3B9 /* TextConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextConstants.swift; sourceTree = "<group>"; };
 		E78BB3302566C28D0023BFC9 /* TemplateCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplateCell.swift; sourceTree = "<group>"; };
 		E78BB3342566C3370023BFC9 /* TemplatesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TemplatesController.swift; sourceTree = "<group>"; };
@@ -298,7 +296,6 @@
 				E74A4844247158E50004B5B5 /* Card.swift */,
 				E74A4847247159B50004B5B5 /* DataItem.swift */,
 				E7DA719524C31A19009DD08E /* UserBoolean.swift */,
-				E74EEC4D25C9894F0090F060 /* Contact.swift */,
 				E73432FA2642897E00BCE575 /* Field.swift */,
 				E72BFF58264A7C5E00D80081 /* IdPair.swift */,
 				E72BFF5A264AE9AE00D80081 /* BusinessCard.swift */,
@@ -316,7 +313,6 @@
 				E714B25924705D5000BB3F05 /* CameraController.swift */,
 				E74A484F2471707C0004B5B5 /* ProfileController.swift */,
 				E760A26F2482D3D500009919 /* NavigationController.swift */,
-				E786836A2488E77000844DD4 /* EditProfileController.swift */,
 				E7E4E636248BA19C00C6E2A0 /* CreateCardController.swift */,
 				E737940524CFF24000440FF4 /* CardViewController.swift */,
 				E7A8275A24D171F00024F414 /* ContactsController.swift */,
@@ -325,6 +321,7 @@
 				E70C89CD257A5290002491F3 /* MyCardViewController.swift */,
 				E7BC527A257BFB9500A55AA8 /* AboutAppController.swift */,
 				E7E90148264C035D0059415A /* CreateCardCompanyController.swift */,
+				E706143B267A29AD0063C236 /* EditProfileController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -551,13 +548,13 @@
 				E72BFF5B264AE9AE00D80081 /* BusinessCard.swift in Sources */,
 				E734F6F424D40069008EC9D9 /* TableUtils.swift in Sources */,
 				E78BB3312566C28D0023BFC9 /* TemplateCell.swift in Sources */,
+				E706143C267A29AD0063C236 /* EditProfileController.swift in Sources */,
 				E71728212526222E00704371 /* JsonUtils.swift in Sources */,
 				E73432FB2642897E00BCE575 /* Field.swift in Sources */,
 				E714B25A24705D5000BB3F05 /* CameraController.swift in Sources */,
 				E74EEC5625C9A0AC0090F060 /* ShareUtils.swift in Sources */,
 				E74EEC5A25C9A0DE0090F060 /* UIUtils.swift in Sources */,
 				E74A4848247159B50004B5B5 /* DataItem.swift in Sources */,
-				E74EEC4E25C9894F0090F060 /* Contact.swift in Sources */,
 				E79499F625C5744900ED8181 /* FirebaseClientInstance.swift in Sources */,
 				E74A4845247158E50004B5B5 /* Card.swift in Sources */,
 				E78B37212528EAA40001C3B9 /* TextConstants.swift in Sources */,
@@ -587,7 +584,6 @@
 				E73FD3B4256BC41F00E97226 /* DataCell.swift in Sources */,
 				E72BFF59264A7C5E00D80081 /* IdPair.swift in Sources */,
 				E70C89D2257A6633002491F3 /* UIImage.swift in Sources */,
-				E786836B2488E77000844DD4 /* EditProfileController.swift in Sources */,
 				E714B25624705D5000BB3F05 /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -643,7 +639,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.5.3;
+				MARKETING_VERSION = 1.5.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards.share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -665,7 +661,7 @@
 					"@executable_path/Frameworks",
 					"@executable_path/../../Frameworks",
 				);
-				MARKETING_VERSION = 1.5.3;
+				MARKETING_VERSION = 1.5.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards.share;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -809,7 +805,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 1.5.3;
+				MARKETING_VERSION = 1.5.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards;
 				PRODUCT_NAME = CloudCards;
 				SWIFT_OBJC_BRIDGING_HEADER = "";
@@ -837,7 +833,7 @@
 					"$(inherited)",
 					"$(PROJECT_DIR)",
 				);
-				MARKETING_VERSION = 1.5.3;
+				MARKETING_VERSION = 1.5.4;
 				PRODUCT_BUNDLE_IDENTIFIER = com.mksdevelopmentgroup.cloudcards;
 				PRODUCT_NAME = CloudCards;
 				SWIFT_OBJC_BRIDGING_HEADER = "";

@@ -20,6 +20,7 @@
 
 #import "RLMAnalytics.hpp"
 #import "RLMArray_Private.hpp"
+#import "RLMDictionary_Private.hpp"
 #import "RLMMigration_Private.h"
 #import "RLMObject_Private.h"
 #import "RLMObject_Private.hpp"
@@ -33,6 +34,7 @@
 #import "RLMRealmConfiguration_Private.hpp"
 #import "RLMRealmUtil.hpp"
 #import "RLMSchema_Private.hpp"
+#import "RLMSet_Private.hpp"
 #import "RLMThreadSafeReference_Private.hpp"
 #import "RLMUpdateChecker.hpp"
 #import "RLMUtil.hpp"
@@ -815,6 +817,20 @@ REALM_NOINLINE static void translateSharedGroupOpenException(NSError **error) {
             @throw RLMException(@"Cannot delete objects from RLMArray<%@>: only RLMObjects can be deleted.",
                                 RLMTypeToString(array.type));
         }
+    } else if (auto set = RLMDynamicCast<RLMSet>(objects)) {
+        if (set.type != RLMPropertyTypeObject) {
+            @throw RLMException(@"Cannot delete objects from RLMSet<%@>: only RLMObjects can be deleted.",
+                                RLMTypeToString(set.type));
+        }
+    } else if (auto dictionary = RLMDynamicCast<RLMDictionary>(objects)) {
+        if (dictionary.type != RLMPropertyTypeObject) {
+            @throw RLMException(@"Cannot delete objects from RLMDictionary of type %@: only RLMObjects can be deleted.",
+                                RLMTypeToString(dictionary.type));
+        }
+        for (RLMObject *obj in dictionary.allValues) {
+            RLMDeleteObjectFromRealm(obj, self);
+        }
+        return;
     }
     for (RLMObject *obj in objects) {
         if (![obj isKindOfClass:RLMObjectBase.class]) {

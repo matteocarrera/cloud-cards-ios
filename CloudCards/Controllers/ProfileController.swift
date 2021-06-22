@@ -1,7 +1,5 @@
 import UIKit
 
-private let reuseIdentifier = "DataCell"
-
 class ProfileController: UIViewController {
 
     @IBOutlet var userPhoto: UIImageView!
@@ -33,16 +31,13 @@ class ProfileController: UIViewController {
             let owner = userDictionary[0]
             initialsLabel.isHidden = false
             initialsLabel.text = String(owner.name.character(at: 0)!) + String(owner.surname.character(at: 0)!)
-            firebaseClient.getPhoto(with: owner.photo) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(var image):
-                        self.initialsLabel.isHidden = true
-                        image = image.resizeWithPercent(percentage: 0.5)!
-                        self.userPhoto.image = image
-                    case .failure(let error):
-                        print(error)
-                    }
+            
+            firebaseClient.getPhoto(setImageTo: userPhoto, with: owner.photo) { result in
+                switch result {
+                case .success(_):
+                    self.initialsLabel.isHidden = true
+                case .failure(let error):
+                    print(error)
                 }
             }
             
@@ -60,7 +55,7 @@ class ProfileController: UIViewController {
 extension ProfileController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DataCell
+        let cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as! DataCell
 
         return cell.update(with: data[indexPath.row])
     }

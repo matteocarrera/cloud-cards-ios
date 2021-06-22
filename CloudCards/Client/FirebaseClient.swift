@@ -1,13 +1,5 @@
-//
-//  ApiClient.swift
-//  CloudCards
-//
-//  Created by Владимир Макаров on 29.01.2021.
-//  Copyright © 2021 Vladimir Makarov. All rights reserved.
-//
-
-import Foundation
 import UIKit
+import Kingfisher
 
 enum FirebaseError: Error {
     case invalidUrl
@@ -17,7 +9,7 @@ enum FirebaseError: Error {
 
 protocol FirebaseClient {
     func getUser(idPair: IdPair, pathToData: Bool, completion: @escaping (Result<[String: Any], Error>) -> ())
-    func getPhoto(with photoId: String, completion: @escaping (Result<UIImage, Error>) -> ())
+    func getPhoto(setImageTo imageView: UIImageView, with photoId: String, completion: @escaping (Result<Void, Error>) -> ())
 }
 
 class FirebaseClientImpl: FirebaseClient {
@@ -43,22 +35,27 @@ class FirebaseClientImpl: FirebaseClient {
             }
     }
     
-    func getPhoto(with photoId: String, completion: @escaping (Result<UIImage, Error>) -> ()) {
-        let urlString = "https://firebasestorage.googleapis.com/v0/b/cloudcardsmobile.appspot.com/o/\(photoId)?alt=media"
-        guard let url = URL(string: urlString) else {
+    func getPhoto(setImageTo imageView: UIImageView, with photoId: String, completion: @escaping (Result<Void, Error>) -> ()) {
+        if photoId.isEmpty {
             completion(.failure(FirebaseError.invalidUrl))
             return
         }
         
-        let data = try? Data(contentsOf: url)
-        
-        if let data = data {
-            guard let image = UIImage(data: data) else {
-                completion(.failure(FirebaseError.invalidData))
-                return
+        let url = URL(string: "https://firebasestorage.googleapis.com/v0/b/cloudcardsmobile.appspot.com/o/\(photoId)?alt=media")
+        imageView.kf.indicatorType = .activity
+        imageView.kf.setImage(
+            with: url,
+            options: [
+                .cacheOriginalImage
+            ]
+        ) { result in
+            switch result {
+            case .success(_):
+                imageView.image = imageView.image!.resized(toWidth: imageView.frame.width * 10)
+                completion(.success(Void()))
+            case .failure(let error):
+                completion(.failure(error))
             }
-            completion(.success(image))
-            return
         }
     }
 }
