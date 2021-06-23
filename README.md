@@ -1,5 +1,5 @@
 ![CloudCards](https://github.com/matteocarrera/cloud-cards-ios/blob/master/CloudCards/Assets.xcassets/AppIcon.appiconset/logo-20@2x.png?raw=true) CloudCards
-![Version](https://img.shields.io/badge/version-1.5.3-blue) ![Pre-Release](https://img.shields.io/badge/-pre--release-orange)  
+![Version](https://img.shields.io/badge/version-1.5.4-blue) ![Pre-Release](https://img.shields.io/badge/-pre--release-orange)  
 Приложение для быстрой работы с электронными визитками
 =
 
