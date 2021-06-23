@@ -1,8 +1,5 @@
 import UIKit
 
-private let reuseIdentifier = "DataCell"
-private let reuseIdentifierCardParameters = "CardParametersCell"
-
 class MyCardViewController: UITableViewController {
     
     @IBOutlet var cardDataTable: UITableView!
@@ -14,7 +11,7 @@ class MyCardViewController: UITableViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifierCardParameters)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CardParametersCell")
         isModalInPresentation = true
         data.removeAll()
         let ownerUser = realm.objects(User.self)[0]
@@ -63,7 +60,7 @@ class MyCardViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
-            let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifierCardParameters, for: indexPath)
+            let cell = tableView.dequeueReusableCell(withIdentifier: "CardParametersCell", for: indexPath)
             cell.textLabel?.text = currentCard.title
             cell.textLabel?.font = UIFont.systemFont(ofSize: 21.0, weight: .regular)
             cell.imageView?.image = UIImage.init(systemName: "square.fill")!
@@ -74,7 +71,7 @@ class MyCardViewController: UITableViewController {
             return cell
         }
         
-        var cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DataCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as! DataCell
         cell = cell.update(with: data[indexPath.row])
         cell.selectionStyle = .none
 

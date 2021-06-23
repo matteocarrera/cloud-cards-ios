@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 
 public func configureTableView(table: UITableView, controller: UIViewController) {

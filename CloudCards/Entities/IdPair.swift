@@ -1,4 +1,3 @@
-import Foundation
 import RealmSwift
 
 /*
@@ -8,12 +7,15 @@ import RealmSwift
 public class IdPair: Object {
     
     // UUID визитки
-    @objc dynamic var uuid: String = String()
+    @objc dynamic var uuid: String
     
     // Родительский UUID визитки, по которой можно подгрузить данные
-    @objc dynamic var parentUuid: String = String()
+    @objc dynamic var parentUuid: String
 
-    override init() {}
+    override init() {
+        uuid = String()
+        parentUuid = String()
+    }
     
     init(parentUuid: String, uuid: String) {
         self.parentUuid = parentUuid

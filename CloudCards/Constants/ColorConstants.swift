@@ -1,6 +1,3 @@
-import Foundation
-import UIKit
-
 // Цвета, используемые для создания шаблона визитки основного пользователя
 public var COLORS = [
     "#7B4987",

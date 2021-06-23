@@ -79,7 +79,6 @@ class ImportUtils {
             alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
                 let contactsController = controller.children[1].children.first as! ContactsController
                 if contactsController.isViewLoaded {
-                    contactsController.loadingIndicator.startAnimating()
                     contactsController.refreshTable(contactsController.self)
                 }
             }))

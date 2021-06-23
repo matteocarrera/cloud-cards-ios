@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 
 public func setDataToList(from user: User) -> [DataItem]{
@@ -30,7 +29,7 @@ public func setCompanyDataToList(from company: Company) -> [DataItem] {
     if (company.responsibleJobTitle != "") { data.append(DataItem(title: COMPANY_RESPONSIBLE_JOB_TITLE, data: company.responsibleJobTitle)) }
     if (company.address != "") { data.append(DataItem(title: COMPANY_ADDRESS, data: company.address)) }
     if (company.phone != "") { data.append(DataItem(title: COMPANY_PHONE, data: company.phone)) }
-    if (company.email != "") { data.append(DataItem(title: COMPANY_EMAIL, data: company.email)) }
+    if (company.email != "") { data.append(DataItem(title: EMAIL, data: company.email)) }
     if (company.website != "") { data.append(DataItem(title: WEBSITE, data: company.website)) }
     return data
 }
@@ -108,9 +107,9 @@ public func getUserFromTemplate(user: User, userBoolean: UserBoolean) -> User {
     return currentUser
 }
 
-public func sortContacts(in viewController: UIViewController, with contactsOptional: [Contact]? = nil, by field: Field) {
+public func sortUsers(in viewController: UIViewController, with contactsOptional: [User]? = nil, by field: Field) {
     let controller = viewController as! ContactsController
-    var contacts = [Contact]()
+    var contacts = [User]()
     
     // Если в аргументы не передали список контактов, то словарь изначально имеет в себе значения, иначе значения только загружались из Firebase
     if contactsOptional == nil {
@@ -129,13 +128,13 @@ public func sortContacts(in viewController: UIViewController, with contactsOptio
         
         switch field {
         case .name:
-            contactKey = String(contact.user.name.prefix(1))
+            contactKey = String(contact.name.prefix(1))
         case .surname:
-            contactKey = String(contact.user.surname.prefix(1))
+            contactKey = String(contact.surname.prefix(1))
         case .company:
-            contactKey = String(contact.user.company.prefix(1))
+            contactKey = String(contact.company.prefix(1))
         case .jobTitle:
-            contactKey = String(contact.user.jobTitle.prefix(1))
+            contactKey = String(contact.jobTitle.prefix(1))
         }
         
         if var contactValues = controller.contactsDictionary[contactKey] {
@@ -150,13 +149,13 @@ public func sortContacts(in viewController: UIViewController, with contactsOptio
     for key in controller.contactsDictionary.keys {
         switch field {
         case .name:
-            controller.contactsDictionary[key]?.sort(by: {$0.user.name < $1.user.name})
+            controller.contactsDictionary[key]?.sort(by: {$0.name < $1.name})
         case .surname:
-            controller.contactsDictionary[key]?.sort(by: {$0.user.surname < $1.user.surname})
+            controller.contactsDictionary[key]?.sort(by: {$0.surname < $1.surname})
         case .company:
-            controller.contactsDictionary[key]?.sort(by: {$0.user.company < $1.user.company})
+            controller.contactsDictionary[key]?.sort(by: {$0.company < $1.company})
         case .jobTitle:
-            controller.contactsDictionary[key]?.sort(by: {$0.user.jobTitle < $1.user.jobTitle})
+            controller.contactsDictionary[key]?.sort(by: {$0.jobTitle < $1.jobTitle})
         }
     }
     

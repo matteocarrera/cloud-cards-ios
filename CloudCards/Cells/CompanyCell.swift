@@ -1,7 +1,8 @@
-import Foundation
 import UIKit
 
 class CompanyCell: UITableViewCell {
+    
+    public static let reuseIdentifier = "CompanyCell"
 
     @IBOutlet var companyNameLabel: UILabel!
     @IBOutlet var companyAddressLabel: UILabel!

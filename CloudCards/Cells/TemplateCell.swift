@@ -1,4 +1,3 @@
-import Foundation
 import UIKit
 
 class TemplateCell : UICollectionViewCell {
@@ -96,7 +95,7 @@ class TemplateCell : UICollectionViewCell {
     private func shareCard() {
         let idPair = IdPair(parentUuid: parentUser.uuid, uuid: templateCard.cardUuid)
         guard let url = generateSiteLink(with: idPair, isPersonal: templateCard.type == CardType.personal.rawValue) else { return }
-        showShareLinkController(with: url, in: controller)
+        shareBusinessCard(with: url, in: controller)
     }
     
     private func deleteCard() {

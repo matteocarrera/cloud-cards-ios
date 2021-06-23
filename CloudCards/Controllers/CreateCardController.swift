@@ -1,8 +1,5 @@
 import UIKit
 
-private let reuseIdentifier = "DataCell"
-private let reuseIdentifierCardParameters = "CardParametersCell"
-
 class CreateCardController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
@@ -22,9 +19,8 @@ class CreateCardController: UIViewController {
         super.viewDidLoad()
         isModalInPresentation = true
         configureTableView(table: tableView, controller: self)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: reuseIdentifierCardParameters)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "CardParametersCell")
         tableView.setEditing(true, animated: true)
-        setLargeNavigationBar(for: self)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -218,7 +214,7 @@ extension CreateCardController: UITableViewDataSource {
         if indexPath.section == 0 {
             return setCardParametersCell(for: indexPath)
         }
-        var cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DataCell
+        var cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as! DataCell
         
         cell = cell.update(with: data[indexPath.row])
 
@@ -263,7 +259,7 @@ extension CreateCardController: UITableViewDataSource {
     }
     
     private func setCardParametersCell(for indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifierCardParameters, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CardParametersCell", for: indexPath)
         cell.textLabel?.text = cardTitle
         if cardTitle.isEmpty {
             cell.textLabel?.text = cardParameters[indexPath.row]

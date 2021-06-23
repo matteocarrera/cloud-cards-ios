@@ -1,28 +1,32 @@
-import Foundation
 import UIKit
 
 class ContactCell: UITableViewCell {
+    
+    public static let reuseIdentifier = "ContactCell"
     
     @IBOutlet var contactPhoto: UIImageView!
     @IBOutlet var contactName: UILabel!
     @IBOutlet var contactCompany: UILabel!
     @IBOutlet var contactJobTitle: UILabel!
     @IBOutlet var contactInitials: UILabel!
-
-    public func update(with contact: Contact) {
+    
+    public func update(with user: User) {
         contactPhoto.layer.cornerRadius = contactPhoto.frame.height / 2
         
-        contactName.text = "\(contact.user.name) \(contact.user.surname)"
-        contactCompany.text = contact.user.company != String() ? contact.user.company : "Компания не указана"
-        contactJobTitle.text = contact.user.jobTitle != String() ? contact.user.jobTitle : "Должность не указана"
-
-        if contact.image != nil {
-            contactPhoto.image = contact.image
-            contactInitials.isHidden = true
-        } else {
-            contactPhoto.image = nil
-            contactInitials.isHidden = false
-            contactInitials.text = String(contact.user.name.character(at: 0)!) + String(contact.user.surname.character(at: 0)!)
+        contactName.text = "\(user.name) \(user.surname)"
+        contactCompany.text = user.company != String() ? user.company : "Компания не указана"
+        contactJobTitle.text = user.jobTitle != String() ? user.jobTitle : "Должность не указана"
+        
+        FirebaseClientInstance.getInstance().getPhoto(setImageTo: contactPhoto, with: user.photo) { result in
+            switch result {
+            case .success(_):
+                self.contactInitials.isHidden = true
+            case .failure(let error):
+                self.contactPhoto.image = nil
+                self.contactInitials.isHidden = false
+                self.contactInitials.text = String(user.name.character(at: 0)!) + String(user.surname.character(at: 0)!)
+                //print("Job failed: \(error.localizedDescription)")
+            }
         }
     }
 }

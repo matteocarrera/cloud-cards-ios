@@ -35,39 +35,32 @@ class SettingsController: UIViewController {
     }
     
     public func getProfileInfo() {
-        DispatchQueue.main.async {
-            let userDictionary = RealmInstance.getInstance().objects(User.self)
-            if userDictionary.count != 0 {
-                let owner = userDictionary[0]
-                
-                self.nameLabel.text = "\(owner.name) \(owner.surname)"
-                self.mobileLabel.text = owner.mobile
-                self.emailLabel.text = owner.email
-                self.profilePhoto.image = nil
-                self.initialsLabel.isHidden = false
-                self.initialsLabel.text = String(owner.name.character(at: 0)!) + String(owner.surname.character(at: 0)!)
-                if owner.photo != "" {
-                    FirebaseClientInstance.getInstance().getPhoto(with: owner.photo) { result in
-                        DispatchQueue.main.async {
-                            switch result {
-                            case .success(var image):
-                                self.initialsLabel.isHidden = true
-                                image = image.resizeWithPercent(percentage: 0.5)!
-                                self.profilePhoto.image = image
-                            case .failure(let error):
-                                print(error)
-                            }
-                        }
-                    }
-                }
-            }
-            self.showProfileView()
+        let userDictionary = RealmInstance.getInstance().objects(User.self)
+        if userDictionary.isEmpty {
+            return
         }
-    }
-    
-    private func showProfileView() {
-        profileView.isHidden = false
-        loadingIndicator.stopAnimating()
+        
+        let mainUser = userDictionary[0]
+        
+        nameLabel.text = "\(mainUser.name) \(mainUser.surname)"
+        mobileLabel.text = mainUser.mobile
+        emailLabel.text = mainUser.email
+        profilePhoto.image = nil
+        initialsLabel.isHidden = false
+        initialsLabel.text = "\(mainUser.name.character(at: 0)!)\(mainUser.surname.character(at: 0)!)"
+        
+        loadingIndicator.startAnimating()
+        
+        FirebaseClientInstance.getInstance().getPhoto(setImageTo: profilePhoto, with: mainUser.photo) { result in
+            switch result {
+            case .success(_):
+                self.initialsLabel.isHidden = true
+                self.loadingIndicator.stopAnimating()
+            case .failure(let error):
+                self.loadingIndicator.stopAnimating()
+                print(error)
+            }
+        }
     }
     
     @IBAction func openEditProfileWindow(_ sender: Any) {

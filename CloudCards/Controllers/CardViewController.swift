@@ -1,8 +1,6 @@
 import UIKit
 import MessageUI
 
-private let reuseIdentifier = "DataCell"
-
 class CardViewController: UIViewController {
 
     @IBOutlet weak var cardDataTable: UITableView!
@@ -15,7 +13,7 @@ class CardViewController: UIViewController {
 
     private let firebaseClient = FirebaseClientInstance.getInstance()
     private var data = [DataItem]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -69,14 +67,7 @@ class CardViewController: UIViewController {
         }
         data = setCompanyDataToList(from: currentCompany)
         cardPhoto.isHidden = false
-        let constraints = [
-            cardDataTable.centerXAnchor.constraint(equalTo: view.centerXAnchor),
-            cardDataTable.centerYAnchor.constraint(equalTo: view.centerYAnchor),
-            cardDataTable.widthAnchor.constraint(equalTo: view.widthAnchor),
-            cardDataTable.heightAnchor.constraint(equalTo: view.heightAnchor,
-                                                  constant: -navigationController!.navigationBar.frame.size.height)
-        ]
-        NSLayoutConstraint.activate(constraints)
+        cardDataTable.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -navigationController!.navigationBar.frame.size.height).isActive = true
         cardDataTable.reloadData()
     }
     
@@ -91,18 +82,13 @@ class CardViewController: UIViewController {
         data = setDataToList(from: currentUser)
         userInitialsLabel.text = String(currentUser.name.character(at: 0)!) + String(currentUser.surname.character(at: 0)!)
         userInitialsLabel.isHidden = false
-        if currentUser.photo != "" {
-            firebaseClient.getPhoto(with: currentUser.photo) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(var image):
-                        self.userInitialsLabel.isHidden = true
-                        image = image.resizeWithPercent(percentage: 0.5)!
-                        self.cardPhoto.image = image
-                    case .failure(let error):
-                        print(error)
-                    }
-                }
+        
+        firebaseClient.getPhoto(setImageTo: cardPhoto, with: currentUser.photo) { result in
+            switch result {
+            case .success(_):
+                self.userInitialsLabel.isHidden = true
+            case .failure(let error):
+                print(error)
             }
         }
         
@@ -126,7 +112,7 @@ class CardViewController: UIViewController {
 extension CardViewController: UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = cardDataTable.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! DataCell
+        let cell = cardDataTable.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as! DataCell
 
         return cell.update(with: data[indexPath.row])
     }
