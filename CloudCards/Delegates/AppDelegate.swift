@@ -16,9 +16,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             migrationBlock: { migration, oldSchemaVersion in
                 if oldSchemaVersion < newSchemaVersion {
                     migration.enumerateObjects(ofType: Card.className()) { oldObject, newObject in
-                        let color = oldObject!["color"] as! String
-                        let title = oldObject!["title"] as! String
-                        let cardUuid = oldObject!["userId"] as! String
+                        guard let color = oldObject!["color"] as? String,
+                              let title = oldObject!["title"] as? String,
+                              let cardUuid = oldObject!["userId"] as? String else {
+                            return
+                        }
                         newObject!["uuid"] = UUID().uuidString.lowercased
                         newObject!["type"] = CardType.personal.rawValue
                         newObject!["color"] = color
@@ -30,7 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         Realm.Configuration.defaultConfiguration = config
 
-        let realm = try! Realm()
+        let realm = try? Realm()
         // print(realm.configuration.fileURL)
 
         return true

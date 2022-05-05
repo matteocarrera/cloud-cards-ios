@@ -167,7 +167,9 @@ class ContactsController: UIViewController {
         }
 
         let scanBusinessCardAction = UIAction(title: "Сканировать\nвизитку", image: UIImage(systemName: "camera")) { (_) in
-            let cameraController = self.storyboard?.instantiateViewController(withIdentifier: "CameraController") as! CameraController
+            guard let cameraController = self.storyboard?.instantiateViewController(withIdentifier: "CameraController") as? CameraController else {
+                return
+            }
             self.navigationController?.show(cameraController, sender: self)
         }
 
@@ -196,7 +198,9 @@ class ContactsController: UIViewController {
 
     private func loadBusinessCards() {
         DispatchQueue.global().async {
-            let realm = try! Realm()
+            guard let realm = try? Realm() else {
+                return
+            }
             let userDictionary = realm.objects(User.self)
             let ownerUuid = !userDictionary.isEmpty ? userDictionary[0].uuid : String()
             let idPairList = Array(realm.objects(IdPair.self).filter("parentUuid != \"\(ownerUuid)\""))
@@ -252,7 +256,9 @@ extension ContactsController: UITableViewDataSource {
     // Проверка сначала на выбранный тип визиток, потом на активированную строку поиска
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if selectedSectionIndex == 0 {
-            let cell = contactsTable.dequeueReusableCell(withIdentifier: ContactCell.reuseIdentifier, for: indexPath) as! ContactCell
+            guard let cell = contactsTable.dequeueReusableCell(withIdentifier: ContactCell.reuseIdentifier, for: indexPath) as? ContactCell else {
+                return .init(style: .default, reuseIdentifier: "")
+            }
 
             if searchIsActivated() {
                 cell.update(with: selectedUsers[indexPath.row])
@@ -266,7 +272,9 @@ extension ContactsController: UITableViewDataSource {
             return cell
         }
 
-        let cell = contactsTable.dequeueReusableCell(withIdentifier: CompanyCell.reuseIdentifier, for: indexPath) as! CompanyCell
+        guard let cell = contactsTable.dequeueReusableCell(withIdentifier: CompanyCell.reuseIdentifier, for: indexPath) as? CompanyCell else {
+            return .init(style: .default, reuseIdentifier: "")
+        }
         if searchIsActivated() {
             cell.update(with: selectedCompanies[indexPath.row])
             return cell
@@ -305,8 +313,9 @@ extension ContactsController: UITableViewDelegate {
 
             cell.tintColor = UIColor(named: "Primary")
         } else {
-            let cardViewController: CardViewController
-            cardViewController = storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
+            guard let cardViewController = storyboard?.instantiateViewController(withIdentifier: "CardViewController") as? CardViewController else {
+                return
+            }
 
             if selectedSectionIndex == 0 {
                 cardViewController.currentUser = getContactFromRow(indexPath)
@@ -395,7 +404,7 @@ extension ContactsController {
     private func deleteContact(at indexPath: IndexPath) {
         let idPair = getIdPair(with: indexPath)
 
-        try! realm.write {
+        try? realm.write {
             realm.delete(realm.objects(IdPair.self).filter("uuid == \"\(idPair.uuid)\""))
         }
 

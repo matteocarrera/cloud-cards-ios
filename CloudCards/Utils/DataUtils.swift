@@ -108,7 +108,9 @@ public func getUserFromTemplate(user: User, userBoolean: UserBoolean) -> User {
 }
 
 public func sortUsers(in viewController: UIViewController, with contactsOptional: [User]? = nil, by field: Field) {
-    let controller = viewController as! ContactsController
+    guard let controller = viewController as? ContactsController else {
+        return
+    }
     var contacts = [User]()
 
     // Если в аргументы не передали список контактов, то словарь изначально имеет в себе значения, иначе значения только загружались из Firebase

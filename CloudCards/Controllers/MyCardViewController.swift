@@ -71,7 +71,9 @@ class MyCardViewController: UITableViewController {
             return cell
         }
 
-        var cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as! DataCell
+        guard var cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as? DataCell else {
+            return .init(style: .default, reuseIdentifier: "")
+        }
         cell = cell.update(with: data[indexPath.row])
         cell.selectionStyle = .none
 
@@ -160,7 +162,7 @@ class MyCardViewController: UITableViewController {
 
             cell?.textLabel?.text = cardName
 
-            try! self.realm.write {
+            try? self.realm.write {
                 self.currentCard.title = cardName
 
                 self.realm.add(self.currentCard, update: .all)
@@ -181,7 +183,7 @@ class MyCardViewController: UITableViewController {
         let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
         cell?.imageView?.image = cell?.imageView?.image?.withTintColor(UIColor.init(hexString: color))
 
-        try! realm.write {
+        try? realm.write {
             currentCard.color = color
 
             realm.add(currentCard, update: .all)
@@ -189,7 +191,9 @@ class MyCardViewController: UITableViewController {
     }
 
     private func editBusinessCard() {
-        let createCardCompanyController = storyboard?.instantiateViewController(withIdentifier: "CreateCardCompanyController") as! CreateCardCompanyController
+        guard let createCardCompanyController = storyboard?.instantiateViewController(withIdentifier: "CreateCardCompanyController") as? CreateCardCompanyController else {
+            return
+        }
         createCardCompanyController.templateCard = currentCard
         let nav = UINavigationController(rootViewController: createCardCompanyController)
         navigationController?.showDetailViewController(nav, sender: nil)
@@ -199,7 +203,7 @@ class MyCardViewController: UITableViewController {
         let alert = UIAlertController(title: "Удаление визитки", message: "Вы действительно хотите удалить визитку?", preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: "Удалить", style: .destructive, handler: { (_) in
-            try! self.realm.write {
+            try? self.realm.write {
                 self.realm.delete(self.currentCard)
             }
             self.onReadyButtonTap(self)

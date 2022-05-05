@@ -35,7 +35,9 @@ class EditProfileController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        settingsController = (self.parent?.children.first as! SettingsController)
+        if let settingsController = parent?.children.first as? SettingsController {
+            self.settingsController = settingsController
+        }
 
         /*
             TapGestureRecognizer позволяет добавить функционал нажатия на фотографию пользователя
@@ -176,11 +178,11 @@ class EditProfileController: UITableViewController {
             mainUser?.uuid = uuid
             mainUser?.photo = photoUuid!
 
-            try! realm.write {
+            try? realm.write {
                 realm.add(mainUser!)
             }
         } else {
-            try! realm.write {
+            try? realm.write {
                 updateUserData(ownerUser: mainUser!)
                 mainUser?.photo = photoUuid!
                 realm.add(mainUser!, update: .all)

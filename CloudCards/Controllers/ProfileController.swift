@@ -55,7 +55,9 @@ class ProfileController: UIViewController {
 extension ProfileController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as! DataCell
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as? DataCell else {
+            return .init(style: .default, reuseIdentifier: "")
+        }
 
         return cell.update(with: data[indexPath.row])
     }

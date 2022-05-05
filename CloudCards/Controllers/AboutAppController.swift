@@ -7,8 +7,9 @@ class AboutAppController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
-        appVersionLabel.text = appVersion
+        if let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String {
+            appVersionLabel.text = appVersion
+        }
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {

@@ -7,8 +7,9 @@ class RealmInstance {
         // print(Realm.Configuration.defaultConfiguration.fileURL)
 
         if realm == nil {
-            realm = try! Realm()
+            realm = try? Realm()
         }
+
         return realm!
     }
 }

@@ -53,7 +53,10 @@ public class UserBoolean: Object, Codable {
     }
 
     public override func isEqual(_ object: Any?) -> Bool {
-        let secondUser = object as! UserBoolean
+        guard let secondUser = object as? UserBoolean else {
+            return false
+        }
+
         return name == secondUser.name &&
             surname == secondUser.surname &&
             patronymic == secondUser.patronymic &&

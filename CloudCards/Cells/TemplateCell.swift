@@ -86,7 +86,9 @@ class TemplateCell: UICollectionViewCell {
     }
 
     private func openCard() {
-        let myCardViewController = controller.storyboard?.instantiateViewController(withIdentifier: "MyCardViewController") as! MyCardViewController
+        guard let myCardViewController = controller.storyboard?.instantiateViewController(withIdentifier: "MyCardViewController") as? MyCardViewController else {
+            return
+        }
         myCardViewController.currentCard = templateCard
         let nav = UINavigationController(rootViewController: myCardViewController)
         controller.navigationController?.showDetailViewController(nav, sender: nil)
@@ -109,7 +111,7 @@ class TemplateCell: UICollectionViewCell {
         collectionView?.deleteItems(at: [indexPath!])
 
         // Удаляем карту из БД
-        try! realm.write {
+        try? realm.write {
             realm.delete(templateCard)
         }
     }

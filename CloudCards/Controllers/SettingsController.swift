@@ -64,12 +64,16 @@ class SettingsController: UIViewController {
     }
 
     @IBAction func openEditProfileWindow(_ sender: Any) {
-        let viewController = storyboard?.instantiateViewController(withIdentifier: "EditProfileController") as! EditProfileController
+        guard let viewController = storyboard?.instantiateViewController(withIdentifier: "EditProfileController") as? EditProfileController else {
+            return
+        }
         navigationController?.pushViewController(viewController, animated: true)
     }
 
     @objc func profileViewTapped() {
-        let viewController = storyboard?.instantiateViewController(withIdentifier: "ProfileController") as! ProfileController
+        guard let viewController = storyboard?.instantiateViewController(withIdentifier: "ProfileController") as? ProfileController else {
+            return
+        }
         navigationController?.pushViewController(viewController, animated: true)
     }
 }

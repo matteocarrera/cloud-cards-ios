@@ -27,7 +27,9 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
     }
 
     func openCreateTemplateWindow() {
-        let viewController = storyboard?.instantiateViewController(withIdentifier: "CreateCardController") as! CreateCardController
+        guard let viewController = storyboard?.instantiateViewController(withIdentifier: "CreateCardController") as? CreateCardController else {
+            return
+        }
         let nav = UINavigationController(rootViewController: viewController)
         navigationController?.showDetailViewController(nav, sender: nil)
     }
@@ -47,7 +49,7 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
         if !userBooleanList.isEmpty {
             userBooleanList.forEach {user in
                 let idPair = IdPair(parentUuid: user.parentId, uuid: user.uuid)
-                try! realm.write {
+                try? realm.write {
                     realm.add(idPair)
                     realm.delete(user)
                 }
@@ -130,7 +132,9 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             return
         }
 
-        let cell = collectionView.cellForItem(at: indexPath) as! TemplateCell
+        guard let cell = collectionView.cellForItem(at: indexPath) as? TemplateCell else {
+            return
+        }
         let idPair = IdPair(parentUuid: cell.parentUser.uuid, uuid: cell.templateCard.cardUuid)
         guard let url = generateSiteLink(with: idPair, isPersonal: cell.templateCard.type == CardType.personal.rawValue) else { return }
 
@@ -162,7 +166,9 @@ extension TemplatesController {
     }
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TemplateCell
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? TemplateCell else {
+            return .init(frame: .init(x: 0, y: 0, width: 0, height: 0))
+        }
 
         if indexPath.row == templates.count {
             cell.update(with: nil, in: self)

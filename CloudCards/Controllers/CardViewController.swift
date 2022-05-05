@@ -112,7 +112,9 @@ class CardViewController: UIViewController {
 extension CardViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = cardDataTable.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as! DataCell
+        guard let cell = cardDataTable.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as? DataCell else {
+            return .init(style: .default, reuseIdentifier: "")
+        }
 
         return cell.update(with: data[indexPath.row])
     }

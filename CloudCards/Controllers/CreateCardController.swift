@@ -182,7 +182,7 @@ class CreateCardController: UIViewController {
                 .document(newUser.uuid)
                 .setData(JsonUtils.convertToDictionary(object: businessCard))
 
-            try! realm.write {
+            try? realm.write {
                 realm.add(IdPair(parentUuid: newUser.parentId, uuid: newUser.uuid))
             }
         }
@@ -193,7 +193,7 @@ class CreateCardController: UIViewController {
         templateCard.title = cardTitle
         templateCard.cardUuid = newUser.uuid
 
-        try! realm.write {
+        try? realm.write {
             realm.add(templateCard)
         }
     }
@@ -214,7 +214,10 @@ extension CreateCardController: UITableViewDataSource {
         if indexPath.section == 0 {
             return setCardParametersCell(for: indexPath)
         }
-        var cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as! DataCell
+
+        guard var cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as? DataCell else {
+            return .init(style: .default, reuseIdentifier: "")
+        }
 
         cell = cell.update(with: data[indexPath.row])
 

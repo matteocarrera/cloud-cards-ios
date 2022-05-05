@@ -48,6 +48,7 @@ public func performActionWithField(title: String, description: String, controlle
     Экспорт контакта в контактную книжку телефона пользователя
  */
 
+// swiftlint:disable:next cyclomatic_complexity
 public func exportToContacts(user: User, photo: UIImage?, controller: UIViewController) {
     var contactExists = false
 
@@ -56,7 +57,10 @@ public func exportToContacts(user: User, photo: UIImage?, controller: UIViewCont
     let keys = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
                 CNContactPhoneNumbersKey,
                 CNContactEmailAddressesKey] as [Any]
-    let request = CNContactFetchRequest(keysToFetch: keys as! [CNKeyDescriptor])
+    guard let keys = keys as? [CNKeyDescriptor] else {
+        return
+    }
+    let request = CNContactFetchRequest(keysToFetch: keys)
 
     do {
         try contactStore.enumerateContacts(with: request) { (contact, _) in contacts.append(contact)
@@ -162,11 +166,19 @@ public func exportToContacts(user: User, photo: UIImage?, controller: UIViewCont
     // Пропущен вк
 
     if user.facebook != "" {
-        contact.socialProfiles.append(CNLabeledValue(label: "Facebook", value: CNSocialProfile(urlString: "https://www.facebook.com/" + user.facebook, username: user.facebook, userIdentifier: user.facebook, service: CNSocialProfileServiceFacebook)))
+        contact.socialProfiles.append(CNLabeledValue(label: "Facebook",
+                                                     value: CNSocialProfile(urlString: "https://www.facebook.com/" + user.facebook,
+                                                                            username: user.facebook,
+                                                                            userIdentifier: user.facebook,
+                                                                            service: CNSocialProfileServiceFacebook)))
     }
 
     if user.twitter != "" {
-        contact.socialProfiles.append(CNLabeledValue(label: "Twitter", value: CNSocialProfile(urlString: "https://www.twitter.com/" + user.twitter, username: user.twitter, userIdentifier: user.twitter, service: CNSocialProfileServiceTwitter)))
+        contact.socialProfiles.append(CNLabeledValue(label: "Twitter",
+                                                     value: CNSocialProfile(urlString: "https://www.twitter.com/" + user.twitter,
+                                                                            username: user.twitter,
+                                                                            userIdentifier: user.twitter,
+                                                                            service: CNSocialProfileServiceTwitter)))
     }
 
     // Пропущен инстаграм и телеграм

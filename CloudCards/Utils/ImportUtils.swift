@@ -77,14 +77,16 @@ class ImportUtils {
         if !idPairList.contains(currentIdPair) {
             let alert = UIAlertController(title: "Успешно", message: "Визитка успешно считана!", preferredStyle: .alert)
             alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
-                let contactsController = controller.children[1].children.first as! ContactsController
+                guard let contactsController = controller.children[1].children.first as? ContactsController else {
+                    return
+                }
                 if contactsController.isViewLoaded {
                     contactsController.refreshTable(contactsController.self)
                 }
             }))
             controller.present(alert, animated: true, completion: nil)
 
-            try! realm.write {
+            try? realm.write {
                 realm.add(currentIdPair)
             }
 

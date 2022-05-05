@@ -94,7 +94,7 @@ class CreateCardCompanyController: UITableViewController {
             .setData(JsonUtils.convertToDictionary(object: businessCard))
 
         if templateCard == nil {
-            try! realm.write {
+            try? realm.write {
                 realm.add(IdPair(parentUuid: company.parentUuid, uuid: company.uuid))
             }
         }
@@ -106,7 +106,7 @@ class CreateCardCompanyController: UITableViewController {
         card.title = cardNameField.text!
         card.cardUuid = company.uuid
 
-        try! realm.write {
+        try? realm.write {
             if templateCard != nil {
                 realm.add(card, update: .all)
                 return

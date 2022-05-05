@@ -27,7 +27,10 @@ public class IdPair: Object {
     }
 
     public override func isEqual(_ object: Any?) -> Bool {
-        let idPairOther = object as! IdPair
+        guard let idPairOther = object as? IdPair else {
+            return false
+        }
+
         return self.uuid == idPairOther.uuid && self.parentUuid == idPairOther.parentUuid
     }
 }
