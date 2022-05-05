@@ -1,6 +1,0 @@
-framework module Pods_CloudCards {
-  umbrella header "Pods-CloudCards-umbrella.h"
-
-  export *
-  module * { export * }
-}
