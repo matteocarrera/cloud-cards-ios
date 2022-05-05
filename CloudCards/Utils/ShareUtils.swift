@@ -6,7 +6,7 @@ import UIKit
 
 public func shareBusinessCard(with url: URL, in controller: UIViewController) {
     let shareInfo = "Пользователь CloudCards отправил Вам визитку:"
-    
+
     let shareController = UIActivityViewController(activityItems: [shareInfo, url], applicationActivities: [])
     controller.present(shareController, animated: true)
 }
@@ -22,9 +22,9 @@ public func shareMultipleBusinessCards(
     companies selectedCompanies: [Company]
 ) {
     var contactsInfo = [Any]()
-    
+
     contactsInfo.append("Пользователь CloudCards отправил Вам несколько визиток:")
-    
+
     if selectedSectionIndex == 0 {
         selectedUsers.forEach { user in
             let idPair = IdPair(parentUuid: user.parentId, uuid: user.uuid)
@@ -38,7 +38,7 @@ public func shareMultipleBusinessCards(
             contactsInfo.append(siteLink)
         }
     }
-    
+
     let shareController = UIActivityViewController(activityItems: contactsInfo, applicationActivities: [])
     controller.present(shareController, animated: true)
 }
@@ -53,13 +53,15 @@ public func generateQR(with url: URL) -> UIImage? {
     guard let qrImage = qrFilter.outputImage else { return nil }
     let transform = CGAffineTransform(scaleX: 10, y: 10)
     let scaledQrImage = qrImage.transformed(by: transform)
-    
+
     let colorParameters = [
-        "inputColor0": CIColor(color: UITraitCollection.current.userInterfaceStyle == .dark ? UIColor.white : UIColor.black), // Foreground
+        "inputColor0": CIColor(color: UITraitCollection.current.userInterfaceStyle == .dark
+                                        ? UIColor.white
+                                        : UIColor.black), // Foreground
         "inputColor1": CIColor(color: UIColor.clear) // Background
     ]
     let coloredQrImage = scaledQrImage.applyingFilter("CIFalseColor", parameters: colorParameters)
-    
+
     return UIImage.init(ciImage: coloredQrImage)
 }
 

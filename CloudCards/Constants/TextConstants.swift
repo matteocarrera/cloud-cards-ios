@@ -1,3 +1,4 @@
+// swiftlint:disable identifier_name
 public let ID_SEPARATOR = "&"
 public let CLOUDCARDS_WEBSITE = "cloudcards.h1n.ru"
 

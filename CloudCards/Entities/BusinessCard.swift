@@ -3,10 +3,10 @@
  */
 
 public class BusinessCard<T: Codable>: Codable {
-    
+
     // Тип визитной карточки
     var type: CardType
-    
+
     // Данные в формате словаря
     var data: T
 

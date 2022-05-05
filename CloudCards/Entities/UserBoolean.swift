@@ -4,8 +4,8 @@ import RealmSwift
     Класс Пользователя, сгенерированного на основе родительского Пользователя
  */
 
-public class UserBoolean : Object, Codable {
-    
+public class UserBoolean: Object, Codable {
+
     @objc dynamic var parentId: String
     @objc dynamic var uuid: String
     @objc dynamic var name: Bool
@@ -25,7 +25,7 @@ public class UserBoolean : Object, Codable {
     @objc dynamic var facebook: Bool
     @objc dynamic var instagram: Bool
     @objc dynamic var twitter: Bool
-    
+
     public override init() {
         parentId = String()
         uuid = String()
@@ -47,13 +47,16 @@ public class UserBoolean : Object, Codable {
         instagram = false
         twitter = false
     }
-    
+
     public override class func primaryKey() -> String? {
         return "uuid"
     }
-    
+
     public override func isEqual(_ object: Any?) -> Bool {
-        let secondUser = object as! UserBoolean
+        guard let secondUser = object as? UserBoolean else {
+            return false
+        }
+
         return name == secondUser.name &&
             surname == secondUser.surname &&
             patronymic == secondUser.patronymic &&

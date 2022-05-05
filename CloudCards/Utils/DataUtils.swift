@@ -1,36 +1,41 @@
 import UIKit
 
-public func setDataToList(from user: User) -> [DataItem]{
+// swiftlint:disable cyclomatic_complexity
+public func setDataToList(from user: User) -> [DataItem] {
     var data = [DataItem]()
-    if (user.surname != "") { data.append(DataItem(title: SURNAME, data: user.surname)) }
-    if (user.name != "") { data.append(DataItem(title: NAME, data: user.name)) }
-    if (user.patronymic != "") { data.append(DataItem(title: PATRONYMIC, data: user.patronymic)) }
-    if (user.company != "") { data.append(DataItem(title: COMPANY, data: user.company)) }
-    if (user.jobTitle != "") { data.append(DataItem(title: JOB_TITLE, data: user.jobTitle)) }
-    if (user.mobile != "") { data.append(DataItem(title: MOBILE, data: user.mobile)) }
-    if (user.mobileSecond != "") { data.append(DataItem(title: MOBILE_OTHER, data: user.mobileSecond)) }
-    if (user.email != "") { data.append(DataItem(title: EMAIL, data: user.email)) }
-    if (user.emailSecond != "") { data.append(DataItem(title: EMAIL_OTHER, data: user.emailSecond)) }
-    if (user.address != "") { data.append(DataItem(title: ADDRESS, data: user.address)) }
-    if (user.addressSecond != "") { data.append(DataItem(title: ADDRESS_OTHER, data: user.addressSecond)) }
-    if (user.website != "") { data.append(DataItem(title: WEBSITE, data: user.website)) }
-    if (user.vk != "") { data.append(DataItem(title: VK, data: user.vk)) }
-    if (user.telegram != "") { data.append(DataItem(title: TELEGRAM, data: user.telegram)) }
-    if (user.facebook != "") { data.append(DataItem(title: FACEBOOK, data: user.facebook)) }
-    if (user.instagram != "") { data.append(DataItem(title: INSTAGRAM, data: user.instagram)) }
-    if (user.twitter != "") { data.append(DataItem(title: TWITTER, data: user.twitter)) }
+    if user.surname != "" { data.append(DataItem(title: SURNAME, data: user.surname)) }
+    if user.name != "" { data.append(DataItem(title: NAME, data: user.name)) }
+    if user.patronymic != "" { data.append(DataItem(title: PATRONYMIC, data: user.patronymic)) }
+    if user.company != "" { data.append(DataItem(title: COMPANY, data: user.company)) }
+    if user.jobTitle != "" { data.append(DataItem(title: JOB_TITLE, data: user.jobTitle)) }
+    if user.mobile != "" { data.append(DataItem(title: MOBILE, data: user.mobile)) }
+    if user.mobileSecond != "" { data.append(DataItem(title: MOBILE_OTHER, data: user.mobileSecond)) }
+    if user.email != "" { data.append(DataItem(title: EMAIL, data: user.email)) }
+    if user.emailSecond != "" { data.append(DataItem(title: EMAIL_OTHER, data: user.emailSecond)) }
+    if user.address != "" { data.append(DataItem(title: ADDRESS, data: user.address)) }
+    if user.addressSecond != "" { data.append(DataItem(title: ADDRESS_OTHER, data: user.addressSecond)) }
+    if user.website != "" { data.append(DataItem(title: WEBSITE, data: user.website)) }
+    if user.vk != "" { data.append(DataItem(title: VK, data: user.vk)) }
+    if user.telegram != "" { data.append(DataItem(title: TELEGRAM, data: user.telegram)) }
+    if user.facebook != "" { data.append(DataItem(title: FACEBOOK, data: user.facebook)) }
+    if user.instagram != "" { data.append(DataItem(title: INSTAGRAM, data: user.instagram)) }
+    if user.twitter != "" { data.append(DataItem(title: TWITTER, data: user.twitter)) }
     return data
 }
 
 public func setCompanyDataToList(from company: Company) -> [DataItem] {
     var data = [DataItem]()
-    if (company.name != "") { data.append(DataItem(title: COMPANY_NAME, data: company.name)) }
-    if (company.responsibleFullName != "") { data.append(DataItem(title: COMPANY_RESPONSIBLE, data: company.responsibleFullName)) }
-    if (company.responsibleJobTitle != "") { data.append(DataItem(title: COMPANY_RESPONSIBLE_JOB_TITLE, data: company.responsibleJobTitle)) }
-    if (company.address != "") { data.append(DataItem(title: COMPANY_ADDRESS, data: company.address)) }
-    if (company.phone != "") { data.append(DataItem(title: COMPANY_PHONE, data: company.phone)) }
-    if (company.email != "") { data.append(DataItem(title: EMAIL, data: company.email)) }
-    if (company.website != "") { data.append(DataItem(title: WEBSITE, data: company.website)) }
+    if company.name != "" { data.append(DataItem(title: COMPANY_NAME, data: company.name)) }
+    if company.responsibleFullName != "" {
+        data.append(DataItem(title: COMPANY_RESPONSIBLE, data: company.responsibleFullName))
+    }
+    if company.responsibleJobTitle != "" {
+        data.append(DataItem(title: COMPANY_RESPONSIBLE_JOB_TITLE, data: company.responsibleJobTitle))
+    }
+    if company.address != "" { data.append(DataItem(title: COMPANY_ADDRESS, data: company.address)) }
+    if company.phone != "" { data.append(DataItem(title: COMPANY_PHONE, data: company.phone)) }
+    if company.email != "" { data.append(DataItem(title: EMAIL, data: company.email)) }
+    if company.website != "" { data.append(DataItem(title: WEBSITE, data: company.website)) }
     return data
 }
 
@@ -108,10 +113,13 @@ public func getUserFromTemplate(user: User, userBoolean: UserBoolean) -> User {
 }
 
 public func sortUsers(in viewController: UIViewController, with contactsOptional: [User]? = nil, by field: Field) {
-    let controller = viewController as! ContactsController
+    guard let controller = viewController as? ContactsController else {
+        return
+    }
     var contacts = [User]()
-    
-    // Если в аргументы не передали список контактов, то словарь изначально имеет в себе значения, иначе значения только загружались из Firebase
+
+    // Если в аргументы не передали список контактов, то словарь изначально имеет в себе значения,
+    // иначе значения только загружались из Firebase
     if contactsOptional == nil {
         controller.contactsDictionary.values.forEach { users in
             contacts.append(contentsOf: users)
@@ -119,13 +127,13 @@ public func sortUsers(in viewController: UIViewController, with contactsOptional
     } else {
         contacts = contactsOptional!
     }
-    
+
     controller.contactsDictionary.removeAll()
-    
+
     // Добавление контакта в словарь
     contacts.forEach { contact in
         let contactKey: String
-        
+
         switch field {
         case .name:
             contactKey = String(contact.name.prefix(1))
@@ -136,7 +144,7 @@ public func sortUsers(in viewController: UIViewController, with contactsOptional
         case .jobTitle:
             contactKey = String(contact.jobTitle.prefix(1))
         }
-        
+
         if var contactValues = controller.contactsDictionary[contactKey] {
             contactValues.append(contact)
             controller.contactsDictionary[contactKey] = contactValues
@@ -144,7 +152,7 @@ public func sortUsers(in viewController: UIViewController, with contactsOptional
             controller.contactsDictionary[contactKey] = [contact]
         }
     }
-    
+
     // Сортировка каждого массива контактов по секциям
     for key in controller.contactsDictionary.keys {
         switch field {
@@ -158,11 +166,11 @@ public func sortUsers(in viewController: UIViewController, with contactsOptional
             controller.contactsDictionary[key]?.sort(by: {$0.jobTitle < $1.jobTitle})
         }
     }
-    
+
     // Создание массива букв для секций таблицы, сортировка
     controller.contactsSectionTitles = [String](controller.contactsDictionary.keys)
     controller.contactsSectionTitles = controller.contactsSectionTitles.sorted(by: {$0 < $1})
-    
+
     controller.contactsTable.reloadData()
 }
 

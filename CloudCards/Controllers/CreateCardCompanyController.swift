@@ -10,28 +10,29 @@ class CreateCardCompanyController: UITableViewController {
     @IBOutlet var companyPhoneField: UITextField!
     @IBOutlet var companyEmailField: UITextField!
     @IBOutlet var companySiteField: UITextField!
-    
-    public var templateCard: Card? = nil
-    
+
+    public var templateCard: Card?
+
     private var cardColor = COLORS[Int.random(in: 0..<COLORS.count)]
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         isModalInPresentation = true
-        
+
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(
             target: self,
             action: #selector(dismissKeyboard))
         tap.cancelsTouchesInView = false
         view.addGestureRecognizer(tap)
-        
+
         if templateCard != nil {
             let ownerUser = RealmInstance.getInstance().objects(User.self)[0]
             let idPair = IdPair(parentUuid: ownerUser.uuid, uuid: templateCard!.cardUuid)
             FirebaseClientInstance.getInstance().getUser(idPair: idPair) { result in
                 switch result {
                 case .success(let data):
-                    let businessCard = JsonUtils.convertFromDictionary(dictionary: data, type: BusinessCard<Company>.self)
+                    let businessCard = JsonUtils.convertFromDictionary(dictionary: data,
+                                                                       type: BusinessCard<Company>.self)
                     let company = businessCard.data
                     self.cardNameField.text = self.templateCard?.title
                     self.companyNameField.text = company.name
@@ -49,21 +50,23 @@ class CreateCardCompanyController: UITableViewController {
             }
         }
     }
-    
+
     @IBAction func closeWindow(_ sender: Any) {
         navigationController?.dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction func saveCard(_ sender: Any) {
         let realm = RealmInstance.getInstance()
-        
+
         let cardTitle = cardNameField.text
-        
+
         if cardTitle == String() {
-            showSimpleAlert(withTitle: "Название не указано", withMessage: "Введите название визитки!", inController: self)
+            showSimpleAlert(withTitle: "Название не указано",
+                            withMessage: "Введите название визитки!",
+                            inController: self)
             return
         }
-        
+
         let cardTitleList = realm.objects(Card.self).map { $0.title }
         if cardTitle != templateCard?.title && cardTitleList.contains(cardTitle!) {
             showSimpleAlert(
@@ -73,7 +76,7 @@ class CreateCardCompanyController: UITableViewController {
             )
             return
         }
-        
+
         let company = Company(
             parentUuid: RealmInstance.getInstance().objects(User.self)[0].uuid,
             uuid: templateCard?.cardUuid ?? UUID().uuidString.lowercased(),
@@ -86,19 +89,19 @@ class CreateCardCompanyController: UITableViewController {
             website: companySiteField.text ?? String()
         )
         let businessCard = BusinessCard<Company>(type: .company, data: company)
-        
+
         FirestoreInstance.getInstance().collection(FirestoreInstance.USERS)
             .document(company.parentUuid)
             .collection(FirestoreInstance.CARDS)
             .document(company.uuid)
             .setData(JsonUtils.convertToDictionary(object: businessCard))
-        
+
         if templateCard == nil {
-            try! realm.write {
+            try? realm.write {
                 realm.add(IdPair(parentUuid: company.parentUuid, uuid: company.uuid))
             }
         }
-        
+
         let card = Card()
         card.uuid = templateCard?.uuid ?? UUID().uuidString.lowercased()
         card.type = CardType.company.rawValue
@@ -106,16 +109,16 @@ class CreateCardCompanyController: UITableViewController {
         card.title = cardNameField.text!
         card.cardUuid = company.uuid
 
-        try! realm.write {
+        try? realm.write {
             if templateCard != nil {
                 realm.add(card, update: .all)
                 return
             }
             realm.add(card)
         }
-        
+
         closeWindow(self)
-        
+
         // Получение TemplatesController (Nav -> Tab -> Nav -> Cards)
         navigationController?.presentingViewController?.children.first?.children.first?.viewWillAppear(true)
         if templateCard != nil {
@@ -123,7 +126,7 @@ class CreateCardCompanyController: UITableViewController {
         }
         navigationController?.dismiss(animated: true, completion: nil)
     }
-    
+
     @objc func dismissKeyboard() {
         view.endEditing(true)
     }
@@ -137,11 +140,11 @@ class CreateCardCompanyController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return section == 0 ? 2 : 7
     }
-    
+
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return section == 0 ? "СВОЙСТВА ВИЗИТКИ" : "ДАННЫЕ ВИЗИТКИ"
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 && indexPath.row == 1 {
             let cell = tableView.cellForRow(at: IndexPath(row: 1, section: 0))

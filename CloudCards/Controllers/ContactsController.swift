@@ -6,16 +6,16 @@ class ContactsController: UIViewController {
     @IBOutlet var contactsTable: UITableView!
     @IBOutlet var importFirstContactNotification: UILabel!
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
-    
+
     public var contactsSectionTitles = [String]()
-    public var contactsDictionary = [String:[User]]()
+    public var contactsDictionary = [String: [User]]()
     private let realm = RealmInstance.getInstance()
     private var companyCards = [Company]()
     private var selectedUsers = [User]()
     private var selectedCompanies = [Company]()
     private var field = Field.surname
     private var selectedSectionIndex = 0
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setLargeNavigationBar(for: self)
@@ -23,13 +23,13 @@ class ContactsController: UIViewController {
         setSearchBar(for: self)
         setContactsMenu()
         configureTableView(table: contactsTable, controller: self)
-        
+
         loadingIndicator.layer.zPosition = 1
         importFirstContactNotification.layer.zPosition = 1
-        
+
         contactsTable.refreshControl = UIRefreshControl()
         contactsTable.refreshControl?.addTarget(self, action: #selector(refreshTable(_:)), for: .valueChanged)
-        
+
         loadBusinessCards()
         loadingIndicator.stopAnimating()
     }
@@ -39,16 +39,16 @@ class ContactsController: UIViewController {
         cancelMultipleSelection()
         setContactsMenu()
     }
-    
+
     /*
         Метод, позволяющий обновить содержимое таблицы
      */
-    
+
     @objc func refreshTable(_ sender: Any) {
         loadBusinessCards()
         contactsTable.refreshControl?.endRefreshing()
     }
-    
+
     /*
         Метод, определяющий поведение кнопки удаления контактов
      */
@@ -60,16 +60,19 @@ class ContactsController: UIViewController {
         }
         cancelMultipleSelection()
     }
-    
+
     /*
         Метод, определяющий поведение кнопки поделиться контактами
      */
-    
+
     @objc func onShareContactsButtonTap(_ sender: Any) {
-        shareMultipleBusinessCards(from: self, sectionIndex: selectedSectionIndex, users: selectedUsers, companies: selectedCompanies)
+        shareMultipleBusinessCards(from: self,
+                                   sectionIndex: selectedSectionIndex,
+                                   users: selectedUsers,
+                                   companies: selectedCompanies)
         cancelMultipleSelection()
     }
-    
+
     /*
         Метод, определяющий поведение кнопки множественного выбора контактов
      */
@@ -91,11 +94,11 @@ class ContactsController: UIViewController {
             self.navigationItem.rightBarButtonItem = cancelButton
         }
     }
-    
+
     /*
         Метод, определяющий поведение UISegmentedControl
      */
-    
+
     @objc func segmentItemChanged(_ segmentedControl: UISegmentedControl) {
         cancelMultipleSelection()
         selectedSectionIndex = segmentedControl.selectedSegmentIndex
@@ -107,7 +110,7 @@ class ContactsController: UIViewController {
         }
         contactsTable.reloadData()
     }
-    
+
     /*
         Метод, отменяющий действия множественного выбора
      */
@@ -119,7 +122,7 @@ class ContactsController: UIViewController {
         navigationController?.isToolbarHidden = true
         contactsTable.setEditing(false, animated: true)
     }
-    
+
     /*
         Метод, устанавливающий кнопку меню
      */
@@ -130,25 +133,25 @@ class ContactsController: UIViewController {
             self.field = .name
             self.setContactsMenu()
         }
-        
+
         let sortBySurnameAction = UIAction(title: "Фамилия") { (_) in
             sortUsers(in: self, by: .surname)
             self.field = .surname
             self.setContactsMenu()
         }
-        
+
         let sortByCompanyAction = UIAction(title: "Компания") { (_) in
             sortUsers(in: self, by: .company)
             self.field = .company
             self.setContactsMenu()
         }
-        
+
         let sortByJobTitleAction = UIAction(title: "Должность") { (_) in
             sortUsers(in: self, by: .jobTitle)
             self.field = .jobTitle
             self.setContactsMenu()
         }
-        
+
         switch field {
         case .name:
             setCheckmarkForAction(action: sortByNameAction)
@@ -159,44 +162,64 @@ class ContactsController: UIViewController {
         case .jobTitle:
             setCheckmarkForAction(action: sortByJobTitleAction)
         }
-        
+
         let selectMultipleContacts = UIAction(title: "Выбрать", image: UIImage(systemName: "checkmark.circle")) { (_) in
             self.onMultipleSelectionButtonTap(self)
             self.navigationController?.isToolbarHidden = false
             setToolbar(for: self)
         }
-        
-        let scanBusinessCardAction = UIAction(title: "Сканировать\nвизитку", image: UIImage(systemName: "camera")) { (_) in
-            let cameraController = self.storyboard?.instantiateViewController(withIdentifier: "CameraController") as! CameraController
+
+        let scanBusinessCardAction = UIAction(title: "Сканировать\nвизитку",
+                                              image: UIImage(systemName: "camera")) { (_) in
+            guard let cameraController =
+                    self.storyboard?.instantiateViewController(withIdentifier: "CameraController")
+                    as? CameraController else {
+                return
+            }
             self.navigationController?.show(cameraController, sender: self)
         }
-        
-        let actionsSubmenu = UIMenu(title: String(), options: .displayInline, children: [selectMultipleContacts, scanBusinessCardAction])
-        let sortSubmenu = UIMenu(title: String(), options: .displayInline, children: [sortByNameAction, sortBySurnameAction, sortByCompanyAction, sortByJobTitleAction])
-        
+
+        let actionsSubmenu = UIMenu(title: String(),
+                                    options: .displayInline,
+                                    children: [
+                                        selectMultipleContacts,
+                                        scanBusinessCardAction
+                                    ])
+
+        let sortSubmenu = UIMenu(title: String(),
+                                 options: .displayInline,
+                                 children: [
+                                    sortByNameAction,
+                                    sortBySurnameAction,
+                                    sortByCompanyAction,
+                                    sortByJobTitleAction
+                                 ])
+
         let menu = UIMenu(title: String(), children: [actionsSubmenu, sortSubmenu])
-        
+
         navigationItem.rightBarButtonItem = UIBarButtonItem(
             image: UIImage(systemName: "ellipsis.circle"),
             menu: menu
         )
     }
-    
+
     /*
         Метод, устанавливающий изображение галочки на выбранный тип сортировки
      */
-    
+
     private func setCheckmarkForAction(action: UIAction) {
         action.setValue(UIImage(systemName: "checkmark"), forKey: "image")
     }
-    
+
     /*
         Метод загрузки отсканированных карточек
      */
-    
+
     private func loadBusinessCards() {
         DispatchQueue.global().async {
-            let realm = try! Realm()
+            guard let realm = try? Realm() else {
+                return
+            }
             let userDictionary = realm.objects(User.self)
             let ownerUuid = !userDictionary.isEmpty ? userDictionary[0].uuid : String()
             let idPairList = Array(realm.objects(IdPair.self).filter("parentUuid != \"\(ownerUuid)\""))
@@ -207,17 +230,16 @@ class ContactsController: UIViewController {
                 }
                 return
             }
-            
+
             FirestoreInstance.getBusinessCards(idPairList) { result in
                 switch result {
                 case .success(let (users, companies)):
                     sortUsers(in: self, with: users, by: self.field)
                     self.companyCards = companies
-                    
+
                     DispatchQueue.main.async {
                         self.contactsTable.reloadData()
                     }
-                    break
                 case .failure(let error):
                     print(error)
                 }
@@ -229,12 +251,12 @@ class ContactsController: UIViewController {
 // MARK: - UITableViewDataSource
 
 extension ContactsController: UITableViewDataSource {
-    
+
     // Секции есть только в таблице с визитками людей
     func numberOfSections(in tableView: UITableView) -> Int {
         return selectedSectionIndex == 1 || searchIsActivated() ? 1 : contactsSectionTitles.count
     }
-    
+
     // Проверка сначала на выбранный тип визиток, потом на активированную строку поиска
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if selectedSectionIndex == 0 {
@@ -248,12 +270,15 @@ extension ContactsController: UITableViewDataSource {
         }
         return companyCards.count
     }
-    
+
     // Проверка сначала на выбранный тип визиток, потом на активированную строку поиска
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if selectedSectionIndex == 0 {
-            let cell = contactsTable.dequeueReusableCell(withIdentifier: ContactCell.reuseIdentifier, for: indexPath) as! ContactCell
-            
+            guard let cell = contactsTable.dequeueReusableCell(withIdentifier: ContactCell.reuseIdentifier,
+                                                               for: indexPath) as? ContactCell else {
+                return .init(style: .default, reuseIdentifier: "")
+            }
+
             if searchIsActivated() {
                 cell.update(with: selectedUsers[indexPath.row])
             } else {
@@ -262,25 +287,28 @@ extension ContactsController: UITableViewDataSource {
                     cell.update(with: contactValues[indexPath.row])
                 }
             }
-            
+
             return cell
         }
-        
-        let cell = contactsTable.dequeueReusableCell(withIdentifier: CompanyCell.reuseIdentifier, for: indexPath) as! CompanyCell
+
+        guard let cell = contactsTable.dequeueReusableCell(withIdentifier: CompanyCell.reuseIdentifier,
+                                                           for: indexPath) as? CompanyCell else {
+            return .init(style: .default, reuseIdentifier: "")
+        }
         if searchIsActivated() {
             cell.update(with: selectedCompanies[indexPath.row])
             return cell
         }
-        
+
         cell.update(with: companyCards[indexPath.row])
         return cell
     }
-    
+
     // Заголовки секций есть только в таблице с визитками людей
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return selectedSectionIndex == 1 || searchIsActivated() ? nil : contactsSectionTitles[section]
     }
-    
+
     // Оглавление секций есть только в таблице с визитками людей
     func sectionIndexTitles(for tableView: UITableView) -> [String]? {
         return selectedSectionIndex == 1 || searchIsActivated() ? nil : contactsSectionTitles
@@ -290,7 +318,7 @@ extension ContactsController: UITableViewDataSource {
 // MARK: - UITableViewDelegate
 
 extension ContactsController: UITableViewDelegate {
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
 
@@ -305,15 +333,18 @@ extension ContactsController: UITableViewDelegate {
 
             cell.tintColor = UIColor(named: "Primary")
         } else {
-            let cardViewController: CardViewController
-            cardViewController = storyboard?.instantiateViewController(withIdentifier: "CardViewController") as! CardViewController
-            
+            guard let cardViewController =
+                    storyboard?.instantiateViewController(withIdentifier: "CardViewController")
+                    as? CardViewController else {
+                return
+            }
+
             if selectedSectionIndex == 0 {
                 cardViewController.currentUser = getContactFromRow(indexPath)
             } else {
                 cardViewController.currentCompany = getCompanyFromRow(indexPath)
             }
-            
+
             let nav = UINavigationController(rootViewController: cardViewController)
             navigationController?.showDetailViewController(nav, sender: nil)
             contactsTable.deselectSelectedRows(animated: true)
@@ -322,21 +353,22 @@ extension ContactsController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let idPair = getIdPair(with: indexPath)
-        
+
         if selectedSectionIndex == 0 {
             selectedUsers.removeAll(where: { $0.uuid == idPair.uuid })
         } else {
             selectedCompanies.removeAll(where: { $0.uuid == idPair.uuid })
         }
     }
-    
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let qr = showQRAction(at: indexPath)
-        let share = shareAction(at: indexPath)
-        let delete = deleteAction(at: indexPath)
-        return UISwipeActionsConfiguration(actions: [delete, share, qr])
+
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let qrAction = showQRAction(at: indexPath)
+        let shareAction = shareAction(at: indexPath)
+        let deleteAction = deleteAction(at: indexPath)
+        return UISwipeActionsConfiguration(actions: [deleteAction, shareAction, qrAction])
     }
-    
+
     private func getContactFromRow(_ indexPath: IndexPath) -> User {
         if searchIsActivated() {
             return selectedUsers[indexPath.row]
@@ -345,7 +377,7 @@ extension ContactsController: UITableViewDelegate {
         let contactValues = contactsDictionary[contactKey]
         return contactValues![indexPath.row]
     }
-    
+
     private func getCompanyFromRow(_ indexPath: IndexPath) -> Company {
         return searchIsActivated() ? selectedCompanies[indexPath.row] : companyCards[indexPath.row]
     }
@@ -354,48 +386,48 @@ extension ContactsController: UITableViewDelegate {
 // MARK: - RowButtons
 
 extension ContactsController {
-    
+
     func showQRAction(at indexPath: IndexPath) -> UIContextualAction {
         let idPair = getIdPair(with: indexPath)
-        
-        let action = UIContextualAction(style: .normal, title: "ShowQR") { (action, view, completion) in
+
+        let action = UIContextualAction(style: .normal, title: "ShowQR") { (_, _, completion) in
             guard let url = generateSiteLink(with: idPair, isPersonal: self.isPersonalCard()) else { return }
             showShareController(with: url, in: self)
             completion(true)
         }
         action.image = UIImage(systemName: "qrcode")
         action.backgroundColor = UIColor(named: "Primary")
-        
+
         return action
     }
-    
+
     func shareAction(at indexPath: IndexPath) -> UIContextualAction {
         let idPair = getIdPair(with: indexPath)
-        
-        let action = UIContextualAction(style: .normal, title: "Share") { (action, view, completion) in
+
+        let action = UIContextualAction(style: .normal, title: "Share") { (_, _, completion) in
             guard let url = generateSiteLink(with: idPair, isPersonal: self.isPersonalCard()) else { return }
             shareBusinessCard(with: url, in: self)
             completion(true)
         }
         action.image = UIImage(systemName: "square.and.arrow.up")
         action.backgroundColor = UIColor.darkGray
-        
+
         return action
     }
-    
+
     func deleteAction(at indexPath: IndexPath) -> UIContextualAction {
-        let action = UIContextualAction(style: .destructive, title: "Delete") { (action, view, completion) in
+        let action = UIContextualAction(style: .destructive, title: "Delete") { (_, _, completion) in
             self.deleteContact(at: indexPath)
             completion(true)
         }
         action.image = UIImage(systemName: "trash")
         return action
     }
-    
+
     private func deleteContact(at indexPath: IndexPath) {
         let idPair = getIdPair(with: indexPath)
-        
-        try! realm.write {
+
+        try? realm.write {
             realm.delete(realm.objects(IdPair.self).filter("uuid == \"\(idPair.uuid)\""))
         }
 
@@ -404,10 +436,10 @@ extension ContactsController {
             let contactKey = contactsSectionTitles[indexPath.section]
             let contact = contactsDictionary[contactKey]?.first(where: { $0.uuid == idPair.uuid })
             contactsDictionary[contactKey]?.removeAll(where: { $0 == contact })
-            
+
             // Удаляем ячейку таблицы с данным контактом
             contactsTable.deleteRows(at: [indexPath], with: .automatic)
-            
+
             // Если на первую букву фамилии никого больше нет, то удаляем сначала букву из списка,
             // а уже после удаляем секцию в самой таблице, отображаемой на экране
             if !contactsDictionary[contactKey]!.contains(where: { $0.surname.prefix(1) == contact!.surname.prefix(1) }) {
@@ -418,15 +450,14 @@ extension ContactsController {
         } else {
             // Удаляем компанию из списка компаний
             companyCards.removeAll(where: { $0.uuid == idPair.uuid })
-            
+
             // Удаляем ячейку таблицы с данной компанией
             contactsTable.deleteRows(at: [indexPath], with: .automatic)
         }
-        
-        
+
         importFirstContactNotification.isHidden = contactsSectionTitles.count != 0 || companyCards.count != 0
     }
-    
+
     private func getIdPair(with indexPath: IndexPath) -> IdPair {
         if selectedSectionIndex == 0 {
             let contactUser = getContactFromRow(indexPath)
@@ -436,7 +467,7 @@ extension ContactsController {
             return IdPair(parentUuid: company.parentUuid, uuid: company.uuid)
         }
     }
-    
+
     // Получение информации о том, какую визитку пользователь хочет отправить
     private func isPersonalCard() -> Bool {
         return selectedSectionIndex == 0
@@ -446,7 +477,7 @@ extension ContactsController {
 // MARK: - UISearchBarDelegate
 
 extension ContactsController: UISearchBarDelegate {
-    
+
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         cancelMultipleSelection()
         searchBar.setShowsCancelButton(true, animated: true)
@@ -465,16 +496,17 @@ extension ContactsController: UISearchBarDelegate {
             self.contactsTable.reloadData()
         }
     }
-    
+
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         updateSearchResults(with: searchBar, searchText: searchBar.text!)
     }
-    
+
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         updateSearchResults(with: searchBar, searchText: searchText)
     }
-    
-    // Если в разделе с контактами людей, то у нас есть доп. условие, по которому ищем, в компаниях ищем только по наименованию
+
+    // Если в разделе с контактами людей, то у нас есть доп. условие, по которому ищем,
+    // в компаниях ищем только по наименованию
     func updateSearchResults(with searchBar: UISearchBar, searchText: String) {
         if selectedSectionIndex == 0 {
             var allUsers = [User]()
@@ -508,8 +540,9 @@ extension ContactsController: UISearchBarDelegate {
 
         contactsTable.reloadData()
     }
-    
+
     func searchIsActivated() -> Bool {
-        return self.navigationItem.searchController!.isActive && self.navigationItem.searchController?.searchBar.text != ""
+        return self.navigationItem.searchController!.isActive
+                && self.navigationItem.searchController?.searchBar.text != ""
     }
 }
