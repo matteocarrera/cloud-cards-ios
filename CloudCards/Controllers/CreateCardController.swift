@@ -4,7 +4,7 @@ class CreateCardController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet var createProfileNotification: UILabel!
-    
+
     private let realm = RealmInstance.getInstance()
     private let cardParameters = ["Название визитки", "ЦВЕТ"]
     private var cardTitle = String()
@@ -14,7 +14,7 @@ class CreateCardController: UIViewController {
     private var selectedItems = [DataItem]()
     private var selectedColor = String()
     private var templateUserList = [UserBoolean]()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         isModalInPresentation = true
@@ -30,11 +30,11 @@ class CreateCardController: UIViewController {
         selectedColor = COLORS[0]
         selectedItems.removeAll()
         getAllTemplateUsers()
-        
+
         /*
             Получение данных пользователя
          */
-        
+
         let userDictionary = realm.objects(User.self)
         if userDictionary.count != 0 {
             let owner = userDictionary[0]
@@ -44,7 +44,7 @@ class CreateCardController: UIViewController {
             data = [DataItem]()
             createProfileNotification.isHidden = false
         }
-        
+
         tableView.reloadData()
     }
 
@@ -57,7 +57,7 @@ class CreateCardController: UIViewController {
             )
             return
         }
-        
+
         if !selectedItems.contains(where: { $0.title == "фамилия" }) ||
             !selectedItems.contains(where: { $0.title == "имя" }) {
             showSimpleAlert(
@@ -67,7 +67,7 @@ class CreateCardController: UIViewController {
             )
             return
         }
-        
+
         if cardTitle == String() {
             showSimpleAlert(
                 withTitle: "Название не указано",
@@ -76,7 +76,7 @@ class CreateCardController: UIViewController {
             )
             return
         }
-        
+
         let cardTitleList = Array(realm.objects(Card.self)).map { $0.title }
         if cardTitleList.contains(cardTitle) {
             showSimpleAlert(
@@ -86,21 +86,21 @@ class CreateCardController: UIViewController {
             )
             return
         }
-        
+
         savePersonalCard()
         // Получение TemplatesController (Nav -> Tab -> Nav -> Cards)
         navigationController?.presentingViewController?.children.first?.children.first?.viewWillAppear(true)
         navigationController?.dismiss(animated: true, completion: nil)
     }
-    
+
     @IBAction func closeWindow(_ sender: Any) {
         navigationController?.dismiss(animated: true, completion: nil)
     }
-    
+
     private func showEnterCardNameAlert() {
         let alert = UIAlertController(title: "Имя визитки", message: "Введите имя визитки", preferredStyle: .alert)
         let cell = self.tableView.cellForRow(at: IndexPath(row: 0, section: 0))
-        
+
         alert.addTextField { (textField) in
             textField.autocapitalizationType = .sentences
             textField.clearButtonMode = .whileEditing
@@ -118,12 +118,12 @@ class CreateCardController: UIViewController {
             }
             cell?.textLabel?.text = cardName
         }))
-        
+
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
 
         present(alert, animated: true, completion: nil)
     }
-    
+
     private func getAllTemplateUsers() {
         let ownerUser = realm.objects(User.self)[0]
         let idPairList = realm.objects(IdPair.self).filter("parentUuid == \"\(ownerUser.parentId)\"")
@@ -135,12 +135,14 @@ class CreateCardController: UIViewController {
                     let cardType = CardType(rawValue: data["type"] as? String ?? String())
                     switch cardType {
                     case .personal:
-                        let businessCard = JsonUtils.convertFromDictionary(dictionary: data, type: BusinessCard<UserBoolean>.self)
+                        let businessCard = JsonUtils.convertFromDictionary(dictionary: data,
+                                                                           type: BusinessCard<UserBoolean>.self)
                         self.templateUserList.append(businessCard.data)
                     case .company:
                         break
                     default:
-                        let templateUser = JsonUtils.convertFromDictionary(dictionary: data, type: UserBoolean.self)
+                        let templateUser = JsonUtils.convertFromDictionary(dictionary: data,
+                                                                           type: UserBoolean.self)
                         self.templateUserList.append(templateUser)
                     }
                 case .failure(let error):
@@ -149,40 +151,40 @@ class CreateCardController: UIViewController {
             }
         }
     }
-    
+
     private func savePersonalCard() {
         let ownerUser = realm.objects(User.self)[0]
-        
+
         let newUser = parseDataToUserBoolean(from: selectedItems)
         newUser.parentId = ownerUser.parentId
-        
+
         /*
             Делаем проверку на то, что визитка с выбранными полями уже существует
          */
-        
+
         var userExists = false
-        
+
         for templateUser in templateUserList {
             if newUser.isEqual(templateUser) {
                 newUser.uuid = templateUser.uuid
                 userExists = true
             }
         }
-        
+
         if !userExists {
             let uuid = UUID().uuidString.lowercased()
             newUser.uuid = uuid
-            
+
             let businessCard = BusinessCard<UserBoolean>(type: .personal, data: newUser)
-            
-            let db = FirestoreInstance.getInstance()
-            db.collection(FirestoreInstance.USERS)
+
+            let database = FirestoreInstance.getInstance()
+            database.collection(FirestoreInstance.USERS)
                 .document(newUser.parentId)
                 .collection(FirestoreInstance.CARDS)
                 .document(newUser.uuid)
                 .setData(JsonUtils.convertToDictionary(object: businessCard))
 
-            try! realm.write {
+            try? realm.write {
                 realm.add(IdPair(parentUuid: newUser.parentId, uuid: newUser.uuid))
             }
         }
@@ -192,15 +194,15 @@ class CreateCardController: UIViewController {
         templateCard.color = selectedColor
         templateCard.title = cardTitle
         templateCard.cardUuid = newUser.uuid
-        
-        try! realm.write {
+
+        try? realm.write {
             realm.add(templateCard)
         }
     }
 }
 
 extension CreateCardController: UITableViewDataSource {
-    
+
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if section == 0 {
             return "СВОЙСТВА ВИЗИТКИ"
@@ -209,13 +211,17 @@ extension CreateCardController: UITableViewDataSource {
         }
         return nil
     }
-    
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if indexPath.section == 0 {
             return setCardParametersCell(for: indexPath)
         }
-        var cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as! DataCell
-        
+
+        guard var cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier,
+                                                       for: indexPath) as? DataCell else {
+            return .init(style: .default, reuseIdentifier: "")
+        }
+
         cell = cell.update(with: data[indexPath.row])
 
         let view = UIView()
@@ -224,10 +230,10 @@ extension CreateCardController: UITableViewDataSource {
 
         return cell
     }
-    
+
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath) else { return }
-        
+
         if indexPath.section == 0 {
             tableView.deselectRow(at: indexPath, animated: false)
             if indexPath.row == 1 {
@@ -238,26 +244,26 @@ extension CreateCardController: UITableViewDataSource {
             showEnterCardNameAlert()
             return
         }
-    
+
         let dataCell = data[indexPath.row]
-    
+
         cell.tintColor = UIColor(named: "Primary")
-        
+
         selectedItems.append(DataItem(title: dataCell.title, data: dataCell.data))
     }
-    
+
     func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
         let dataCell = data[indexPath.row]
         selectedItems.removeAll(where: { $0.title == dataCell.title })
     }
-    
+
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         if indexPath.section == 1 {
             return true
         }
         return false
     }
-    
+
     private func setCardParametersCell(for indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "CardParametersCell", for: indexPath)
         cell.textLabel?.text = cardTitle
@@ -280,11 +286,11 @@ extension CreateCardController: UITableViewDataSource {
 }
 
 extension CreateCardController: UITableViewDelegate {
-    
+
     func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if section == 0 {
             return cardParameters.count

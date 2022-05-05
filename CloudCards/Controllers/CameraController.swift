@@ -7,16 +7,16 @@ class CameraController: UIViewController {
     @IBOutlet var qrAreaView: UIView!
     private var captureSession: AVCaptureSession!
     private var previewLayer: AVCaptureVideoPreviewLayer!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         navigationController?.setNavigationBarHidden(true, animated: true)
-        
+
         qrAreaView.layer.cornerRadius = 15
         qrAreaView.layer.borderWidth = 2
         qrAreaView.layer.borderColor = UIColor.white.cgColor
-        
+
         captureSession = AVCaptureSession()
 
         guard let videoCaptureDevice = AVCaptureDevice.default(for: .video) else { return }
@@ -28,7 +28,7 @@ class CameraController: UIViewController {
             return
         }
 
-        if (captureSession.canAddInput(videoInput)) {
+        if captureSession.canAddInput(videoInput) {
             captureSession.addInput(videoInput)
         } else {
             failed()
@@ -37,7 +37,7 @@ class CameraController: UIViewController {
 
         let metadataOutput = AVCaptureMetadataOutput()
 
-        if (captureSession.canAddOutput(metadataOutput)) {
+        if captureSession.canAddOutput(metadataOutput) {
             captureSession.addOutput(metadataOutput)
 
             metadataOutput.setMetadataObjectsDelegate(self, queue: DispatchQueue.main)
@@ -54,11 +54,11 @@ class CameraController: UIViewController {
 
         captureSession.startRunning()
     }
-    
+
     override func viewDidAppear(_ animated: Bool) {
         captureSession.startRunning()
     }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         navigationController?.setNavigationBarHidden(false, animated: true)
     }
@@ -82,19 +82,21 @@ class CameraController: UIViewController {
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return .portrait
     }
-    
+
     @IBAction func closeButtonClicked(_ sender: Any) {
         self.navigationController?.popViewController(animated: true)
     }
-    
+
     override var prefersStatusBarHidden: Bool {
         return true
     }
 }
 
 extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
-    
-    func metadataOutput(_ output: AVCaptureMetadataOutput, didOutput metadataObjects: [AVMetadataObject], from connection: AVCaptureConnection) {
+
+    func metadataOutput(_ output: AVCaptureMetadataOutput,
+                        didOutput metadataObjects: [AVMetadataObject],
+                        from connection: AVCaptureConnection) {
         captureSession.stopRunning()
 
         if let metadataObject = metadataObjects.first {
@@ -104,7 +106,7 @@ extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
             saveUserIfDataIsCorrect(data: stringValue)
         }
     }
-    
+
     // Проверка данных, полученных с QR. Если есть "&", то сохраняем, иначе данные некорректны
     private func saveUserIfDataIsCorrect(data: String) {
         if data.contains(CLOUDCARDS_WEBSITE) && data.contains(ID_SEPARATOR) {
@@ -114,10 +116,10 @@ extension CameraController: AVCaptureMetadataOutputObjectsDelegate {
         }
         showUnableToReadQRAlert()
     }
-    
+
     private func showUnableToReadQRAlert() {
         captureSession.stopRunning()
-        
+
         let alert = UIAlertController(title: "Ошибка", message: "QR код невозможно считать!", preferredStyle: .alert)
         alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel, handler: { (_) in
             self.navigationController?.popViewController(animated: true)

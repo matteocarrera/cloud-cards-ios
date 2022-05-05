@@ -6,6 +6,7 @@ import Contacts
     Выполнение определенного действия, зависящего от предоставленных параметров
  */
 
+// swiftlint:disable cyclomatic_complexity
 public func performActionWithField(title: String, description: String, controller: UIViewController) {
     switch title {
     case MOBILE,
@@ -50,30 +51,33 @@ public func performActionWithField(title: String, description: String, controlle
 
 public func exportToContacts(user: User, photo: UIImage?, controller: UIViewController) {
     var contactExists = false
-    
+
     let contactStore = CNContactStore()
     var contacts = [CNContact]()
     let keys = [CNContactFormatter.descriptorForRequiredKeys(for: .fullName),
                 CNContactPhoneNumbersKey,
                 CNContactEmailAddressesKey] as [Any]
-    let request = CNContactFetchRequest(keysToFetch: keys as! [CNKeyDescriptor])
-    
+    guard let keys = keys as? [CNKeyDescriptor] else {
+        return
+    }
+    let request = CNContactFetchRequest(keysToFetch: keys)
+
     do {
-        try contactStore.enumerateContacts(with: request) { (contact, stop) in contacts.append(contact)
+        try contactStore.enumerateContacts(with: request) { (contact, _) in contacts.append(contact)
             for phoneNumber in contact.phoneNumbers {
                 if let number = phoneNumber.value as? CNPhoneNumber {
                     if cleanPhoneNumber(user.mobile) == cleanPhoneNumber(number.stringValue) ||
                         cleanPhoneNumber(user.mobileSecond) == cleanPhoneNumber(number.stringValue) {
                         contactExists = true
                     }
-                    //print(cleanPhoneNumber(number: number.stringValue))
+                    // print(cleanPhoneNumber(number: number.stringValue))
                 }
             }
         }
     } catch {
         print("Невозможно получить список контактов")
     }
-    
+
     if contactExists {
         showSimpleAlert(
             withTitle: "Контакт существует!",
@@ -82,7 +86,7 @@ public func exportToContacts(user: User, photo: UIImage?, controller: UIViewCont
         )
         return
     }
-    
+
     let contact = CNMutableContact()
 
     if photo != nil {
@@ -92,41 +96,41 @@ public func exportToContacts(user: User, photo: UIImage?, controller: UIViewCont
     if user.name != "" {
         contact.givenName = user.name
     }
-    
+
     if user.surname != "" {
         contact.familyName = user.surname
     }
-    
+
     if user.patronymic != "" {
         contact.middleName = user.patronymic
     }
-    
+
     if user.company != "" {
         contact.organizationName = user.company
     }
-    
+
     if user.jobTitle != "" {
         contact.jobTitle = user.jobTitle
     }
-    
+
     if user.mobile != "" {
         contact.phoneNumbers.append(CNLabeledValue(
         label: CNLabelPhoneNumberMain,
         value: CNPhoneNumber(stringValue: user.mobile)))
     }
-    
+
     if user.mobileSecond != "" {
         contact.phoneNumbers.append(CNLabeledValue(
         label: CNLabelPhoneNumberMobile,
         value: CNPhoneNumber(stringValue: user.mobileSecond)))
     }
-    
+
     if user.email != "" {
         contact.emailAddresses.append(CNLabeledValue(
         label: CNLabelWork,
         value: user.email as NSString))
     }
-    
+
     if user.emailSecond != "" {
         contact.emailAddresses.append(CNLabeledValue(
         label: CNLabelOther,
@@ -136,39 +140,49 @@ public func exportToContacts(user: User, photo: UIImage?, controller: UIViewCont
     if user.address != "" {
         let address = CNMutablePostalAddress()
         address.street = user.address
-        
+
         contact.postalAddresses.append(CNLabeledValue(
         label: CNLabelWork,
         value: address))
     }
-    
+
     if user.addressSecond != "" {
         let addressSecond = CNMutablePostalAddress()
         addressSecond.street = user.addressSecond
-        
+
         contact.postalAddresses.append(CNLabeledValue(
         label: CNLabelOther,
         value: addressSecond))
     }
-    
+
     // Пропущены номера карт
-    
+
     if user.website != "" {
         contact.urlAddresses.append(CNLabeledValue(
         label: CNLabelWork,
         value: user.website as NSString))
     }
-    
+
     // Пропущен вк
-    
+
     if user.facebook != "" {
-        contact.socialProfiles.append(CNLabeledValue(label: "Facebook", value: CNSocialProfile(urlString: "https://www.facebook.com/" + user.facebook, username: user.facebook, userIdentifier: user.facebook, service: CNSocialProfileServiceFacebook)))
+        contact.socialProfiles
+            .append(CNLabeledValue(label: "Facebook",
+                                   value: CNSocialProfile(urlString: "https://www.facebook.com/" + user.facebook,
+                                                          username: user.facebook,
+                                                          userIdentifier: user.facebook,
+                                                          service: CNSocialProfileServiceFacebook)))
     }
-    
+
     if user.twitter != "" {
-        contact.socialProfiles.append(CNLabeledValue(label: "Twitter", value: CNSocialProfile(urlString: "https://www.twitter.com/" + user.twitter, username: user.twitter, userIdentifier: user.twitter, service: CNSocialProfileServiceTwitter)))
+        contact.socialProfiles
+            .append(CNLabeledValue(label: "Twitter",
+                                   value: CNSocialProfile(urlString: "https://www.twitter.com/" + user.twitter,
+                                                          username: user.twitter,
+                                                          userIdentifier: user.twitter,
+                                                          service: CNSocialProfileServiceTwitter)))
     }
-    
+
     // Пропущен инстаграм и телеграм
 
     let store = CNContactStore()
@@ -177,11 +191,13 @@ public func exportToContacts(user: User, photo: UIImage?, controller: UIViewCont
 
     do {
         try store.execute(saveRequest)
-        
-        let alert = UIAlertController(title: "Успешно", message: "Контакт успешно экспортирован!", preferredStyle: .alert)
+
+        let alert = UIAlertController(title: "Успешно",
+                                      message: "Контакт успешно экспортирован!",
+                                      preferredStyle: .alert)
         alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel))
         controller.present(alert, animated: true, completion: nil)
-        
+
     } catch {
         print("Ошибка сохранения контакта, ошибка: \(error)")
     }
@@ -209,15 +225,15 @@ private func openApp(site: String, userLink: String) {
 
 private func openMaps(address: String) {
     let geocoder = CLGeocoder()
-    geocoder.geocodeAddressString(address) { (placemarksOptional, error) -> Void in
-      
+    geocoder.geocodeAddressString(address) { (placemarksOptional, _) -> Void in
+
         if let placemarks = placemarksOptional {
             print("placemark| \(String(describing: placemarks.first))")
-        
+
             if let location = placemarks.first?.location {
                 let query = "?ll=\(location.coordinate.latitude),\(location.coordinate.longitude)"
                 let path = "http://maps.apple.com/" + query
-                
+
                 if let url = NSURL(string: path) {
                     UIApplication.shared.open(url as URL, options: .init(), completionHandler: nil)
                 } else {
@@ -237,7 +253,7 @@ private func openMaps(address: String) {
  */
 
 private func getHooksAndUrl(site: String) -> [String] {
-    var data: Array<String> = Array(repeating: "", count: 2)
+    var data: [String] = Array(repeating: "", count: 2)
     if site == "instagram" {
         data[0] = "instagram://user?username="
         data[1] = "http://instagram.com/"
