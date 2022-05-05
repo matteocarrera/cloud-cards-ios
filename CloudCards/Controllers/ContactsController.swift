@@ -66,7 +66,10 @@ class ContactsController: UIViewController {
      */
 
     @objc func onShareContactsButtonTap(_ sender: Any) {
-        shareMultipleBusinessCards(from: self, sectionIndex: selectedSectionIndex, users: selectedUsers, companies: selectedCompanies)
+        shareMultipleBusinessCards(from: self,
+                                   sectionIndex: selectedSectionIndex,
+                                   users: selectedUsers,
+                                   companies: selectedCompanies)
         cancelMultipleSelection()
     }
 
@@ -166,15 +169,31 @@ class ContactsController: UIViewController {
             setToolbar(for: self)
         }
 
-        let scanBusinessCardAction = UIAction(title: "Сканировать\nвизитку", image: UIImage(systemName: "camera")) { (_) in
-            guard let cameraController = self.storyboard?.instantiateViewController(withIdentifier: "CameraController") as? CameraController else {
+        let scanBusinessCardAction = UIAction(title: "Сканировать\nвизитку",
+                                              image: UIImage(systemName: "camera")) { (_) in
+            guard let cameraController =
+                    self.storyboard?.instantiateViewController(withIdentifier: "CameraController")
+                    as? CameraController else {
                 return
             }
             self.navigationController?.show(cameraController, sender: self)
         }
 
-        let actionsSubmenu = UIMenu(title: String(), options: .displayInline, children: [selectMultipleContacts, scanBusinessCardAction])
-        let sortSubmenu = UIMenu(title: String(), options: .displayInline, children: [sortByNameAction, sortBySurnameAction, sortByCompanyAction, sortByJobTitleAction])
+        let actionsSubmenu = UIMenu(title: String(),
+                                    options: .displayInline,
+                                    children: [
+                                        selectMultipleContacts,
+                                        scanBusinessCardAction
+                                    ])
+
+        let sortSubmenu = UIMenu(title: String(),
+                                 options: .displayInline,
+                                 children: [
+                                    sortByNameAction,
+                                    sortBySurnameAction,
+                                    sortByCompanyAction,
+                                    sortByJobTitleAction
+                                 ])
 
         let menu = UIMenu(title: String(), children: [actionsSubmenu, sortSubmenu])
 
@@ -221,7 +240,6 @@ class ContactsController: UIViewController {
                     DispatchQueue.main.async {
                         self.contactsTable.reloadData()
                     }
-                    break
                 case .failure(let error):
                     print(error)
                 }
@@ -256,7 +274,8 @@ extension ContactsController: UITableViewDataSource {
     // Проверка сначала на выбранный тип визиток, потом на активированную строку поиска
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if selectedSectionIndex == 0 {
-            guard let cell = contactsTable.dequeueReusableCell(withIdentifier: ContactCell.reuseIdentifier, for: indexPath) as? ContactCell else {
+            guard let cell = contactsTable.dequeueReusableCell(withIdentifier: ContactCell.reuseIdentifier,
+                                                               for: indexPath) as? ContactCell else {
                 return .init(style: .default, reuseIdentifier: "")
             }
 
@@ -272,7 +291,8 @@ extension ContactsController: UITableViewDataSource {
             return cell
         }
 
-        guard let cell = contactsTable.dequeueReusableCell(withIdentifier: CompanyCell.reuseIdentifier, for: indexPath) as? CompanyCell else {
+        guard let cell = contactsTable.dequeueReusableCell(withIdentifier: CompanyCell.reuseIdentifier,
+                                                           for: indexPath) as? CompanyCell else {
             return .init(style: .default, reuseIdentifier: "")
         }
         if searchIsActivated() {
@@ -313,7 +333,9 @@ extension ContactsController: UITableViewDelegate {
 
             cell.tintColor = UIColor(named: "Primary")
         } else {
-            guard let cardViewController = storyboard?.instantiateViewController(withIdentifier: "CardViewController") as? CardViewController else {
+            guard let cardViewController =
+                    storyboard?.instantiateViewController(withIdentifier: "CardViewController")
+                    as? CardViewController else {
                 return
             }
 
@@ -339,11 +361,12 @@ extension ContactsController: UITableViewDelegate {
         }
     }
 
-    func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let qr = showQRAction(at: indexPath)
-        let share = shareAction(at: indexPath)
-        let delete = deleteAction(at: indexPath)
-        return UISwipeActionsConfiguration(actions: [delete, share, qr])
+    func tableView(_ tableView: UITableView,
+                   trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        let qrAction = showQRAction(at: indexPath)
+        let shareAction = shareAction(at: indexPath)
+        let deleteAction = deleteAction(at: indexPath)
+        return UISwipeActionsConfiguration(actions: [deleteAction, shareAction, qrAction])
     }
 
     private func getContactFromRow(_ indexPath: IndexPath) -> User {
@@ -482,7 +505,8 @@ extension ContactsController: UISearchBarDelegate {
         updateSearchResults(with: searchBar, searchText: searchText)
     }
 
-    // Если в разделе с контактами людей, то у нас есть доп. условие, по которому ищем, в компаниях ищем только по наименованию
+    // Если в разделе с контактами людей, то у нас есть доп. условие, по которому ищем,
+    // в компаниях ищем только по наименованию
     func updateSearchResults(with searchBar: UISearchBar, searchText: String) {
         if selectedSectionIndex == 0 {
             var allUsers = [User]()
@@ -518,6 +542,7 @@ extension ContactsController: UISearchBarDelegate {
     }
 
     func searchIsActivated() -> Bool {
-        return self.navigationItem.searchController!.isActive && self.navigationItem.searchController?.searchBar.text != ""
+        return self.navigationItem.searchController!.isActive
+                && self.navigationItem.searchController?.searchBar.text != ""
     }
 }

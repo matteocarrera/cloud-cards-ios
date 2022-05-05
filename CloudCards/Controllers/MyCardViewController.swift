@@ -22,10 +22,12 @@ class MyCardViewController: UITableViewController {
                 let cardType = CardType(rawValue: data["type"] as? String ?? String())
                 switch cardType {
                 case .company:
-                    let businessCard = JsonUtils.convertFromDictionary(dictionary: data, type: BusinessCard<Company>.self)
+                    let businessCard = JsonUtils.convertFromDictionary(dictionary: data,
+                                                                       type: BusinessCard<Company>.self)
                     self.data = setCompanyDataToList(from: businessCard.data)
                 case .personal:
-                    let businessCard = JsonUtils.convertFromDictionary(dictionary: data, type: BusinessCard<UserBoolean>.self)
+                    let businessCard = JsonUtils.convertFromDictionary(dictionary: data,
+                                                                       type: BusinessCard<UserBoolean>.self)
                     let currentUser = getUserFromTemplate(user: ownerUser, userBoolean: businessCard.data)
                     self.data = setDataToList(from: currentUser)
                 default:
@@ -71,7 +73,8 @@ class MyCardViewController: UITableViewController {
             return cell
         }
 
-        guard var cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as? DataCell else {
+        guard var cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier,
+                                                       for: indexPath) as? DataCell else {
             return .init(style: .default, reuseIdentifier: "")
         }
         cell = cell.update(with: data[indexPath.row])
@@ -191,7 +194,9 @@ class MyCardViewController: UITableViewController {
     }
 
     private func editBusinessCard() {
-        guard let createCardCompanyController = storyboard?.instantiateViewController(withIdentifier: "CreateCardCompanyController") as? CreateCardCompanyController else {
+        guard let createCardCompanyController =
+                storyboard?.instantiateViewController(withIdentifier: "CreateCardCompanyController")
+                as? CreateCardCompanyController else {
             return
         }
         createCardCompanyController.templateCard = currentCard
@@ -200,7 +205,9 @@ class MyCardViewController: UITableViewController {
     }
 
     private func deleteCard() {
-        let alert = UIAlertController(title: "Удаление визитки", message: "Вы действительно хотите удалить визитку?", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Удаление визитки",
+                                      message: "Вы действительно хотите удалить визитку?",
+                                      preferredStyle: .alert)
 
         alert.addAction(UIAlertAction(title: "Удалить", style: .destructive, handler: { (_) in
             try? self.realm.write {

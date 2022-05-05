@@ -146,13 +146,13 @@ class EditProfileController: UITableViewController {
                 guard let photo: UIImage = profileImage.image else { return }
                 guard let photoData: Data = photo.jpegData(compressionQuality: 0.5) else { return }
 
-                let md = StorageMetadata()
-                md.contentType = "image/png"
+                let metadata = StorageMetadata()
+                metadata.contentType = "image/png"
 
                 photoUuid = UUID().uuidString.lowercased()
                 storageRef = Storage.storage().reference().child(photoUuid!)
 
-                storageRef.putData(photoData, metadata: md) { (_, error) in
+                storageRef.putData(photoData, metadata: metadata) { (_, error) in
                     if let error = error {
                         print("Ошибка добавления фотографии в хранилище")
                         print(error)
@@ -304,7 +304,8 @@ class EditProfileController: UITableViewController {
  */
 
 extension EditProfileController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    public func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+    public func imagePickerController(_ picker: UIImagePickerController,
+                                      didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
         guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
             return imagePickerControllerDidCancel(picker)
         }

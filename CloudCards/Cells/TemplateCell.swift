@@ -86,7 +86,10 @@ class TemplateCell: UICollectionViewCell {
     }
 
     private func openCard() {
-        guard let myCardViewController = controller.storyboard?.instantiateViewController(withIdentifier: "MyCardViewController") as? MyCardViewController else {
+        guard let myCardViewController =
+                controller
+                    .storyboard?
+                    .instantiateViewController(withIdentifier: "MyCardViewController") as? MyCardViewController else {
             return
         }
         myCardViewController.currentCard = templateCard
@@ -96,7 +99,10 @@ class TemplateCell: UICollectionViewCell {
 
     private func shareCard() {
         let idPair = IdPair(parentUuid: parentUser.uuid, uuid: templateCard.cardUuid)
-        guard let url = generateSiteLink(with: idPair, isPersonal: templateCard.type == CardType.personal.rawValue) else { return }
+        guard let url = generateSiteLink(with: idPair,
+                                         isPersonal: templateCard.type == CardType.personal.rawValue) else {
+            return
+        }
         shareBusinessCard(with: url, in: controller)
     }
 

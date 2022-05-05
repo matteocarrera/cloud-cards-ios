@@ -31,7 +31,8 @@ class CreateCardCompanyController: UITableViewController {
             FirebaseClientInstance.getInstance().getUser(idPair: idPair) { result in
                 switch result {
                 case .success(let data):
-                    let businessCard = JsonUtils.convertFromDictionary(dictionary: data, type: BusinessCard<Company>.self)
+                    let businessCard = JsonUtils.convertFromDictionary(dictionary: data,
+                                                                       type: BusinessCard<Company>.self)
                     let company = businessCard.data
                     self.cardNameField.text = self.templateCard?.title
                     self.companyNameField.text = company.name
@@ -60,7 +61,9 @@ class CreateCardCompanyController: UITableViewController {
         let cardTitle = cardNameField.text
 
         if cardTitle == String() {
-            showSimpleAlert(withTitle: "Название не указано", withMessage: "Введите название визитки!", inController: self)
+            showSimpleAlert(withTitle: "Название не указано",
+                            withMessage: "Введите название визитки!",
+                            inController: self)
             return
         }
 

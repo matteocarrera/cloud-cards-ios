@@ -6,6 +6,7 @@ import Contacts
     Выполнение определенного действия, зависящего от предоставленных параметров
  */
 
+// swiftlint:disable cyclomatic_complexity
 public func performActionWithField(title: String, description: String, controller: UIViewController) {
     switch title {
     case MOBILE,
@@ -48,7 +49,6 @@ public func performActionWithField(title: String, description: String, controlle
     Экспорт контакта в контактную книжку телефона пользователя
  */
 
-// swiftlint:disable:next cyclomatic_complexity
 public func exportToContacts(user: User, photo: UIImage?, controller: UIViewController) {
     var contactExists = false
 
@@ -166,19 +166,21 @@ public func exportToContacts(user: User, photo: UIImage?, controller: UIViewCont
     // Пропущен вк
 
     if user.facebook != "" {
-        contact.socialProfiles.append(CNLabeledValue(label: "Facebook",
-                                                     value: CNSocialProfile(urlString: "https://www.facebook.com/" + user.facebook,
-                                                                            username: user.facebook,
-                                                                            userIdentifier: user.facebook,
-                                                                            service: CNSocialProfileServiceFacebook)))
+        contact.socialProfiles
+            .append(CNLabeledValue(label: "Facebook",
+                                   value: CNSocialProfile(urlString: "https://www.facebook.com/" + user.facebook,
+                                                          username: user.facebook,
+                                                          userIdentifier: user.facebook,
+                                                          service: CNSocialProfileServiceFacebook)))
     }
 
     if user.twitter != "" {
-        contact.socialProfiles.append(CNLabeledValue(label: "Twitter",
-                                                     value: CNSocialProfile(urlString: "https://www.twitter.com/" + user.twitter,
-                                                                            username: user.twitter,
-                                                                            userIdentifier: user.twitter,
-                                                                            service: CNSocialProfileServiceTwitter)))
+        contact.socialProfiles
+            .append(CNLabeledValue(label: "Twitter",
+                                   value: CNSocialProfile(urlString: "https://www.twitter.com/" + user.twitter,
+                                                          username: user.twitter,
+                                                          userIdentifier: user.twitter,
+                                                          service: CNSocialProfileServiceTwitter)))
     }
 
     // Пропущен инстаграм и телеграм
@@ -190,7 +192,9 @@ public func exportToContacts(user: User, photo: UIImage?, controller: UIViewCont
     do {
         try store.execute(saveRequest)
 
-        let alert = UIAlertController(title: "Успешно", message: "Контакт успешно экспортирован!", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Успешно",
+                                      message: "Контакт успешно экспортирован!",
+                                      preferredStyle: .alert)
         alert.addAction(UIAlertAction.init(title: "ОК", style: .cancel))
         controller.present(alert, animated: true, completion: nil)
 

@@ -17,7 +17,10 @@ class CardViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        let backButton = UIBarButtonItem(title: "Назад", style: .plain, target: self, action: #selector(closeWindow(_:)))
+        let backButton = UIBarButtonItem(title: "Назад",
+                                         style: .plain,
+                                         target: self,
+                                         action: #selector(closeWindow(_:)))
         backButton.tintColor = UIColor(named: "Primary")
         navigationItem.leftBarButtonItem = backButton
 
@@ -67,7 +70,10 @@ class CardViewController: UIViewController {
         }
         data = setCompanyDataToList(from: currentCompany)
         cardPhoto.isHidden = false
-        cardDataTable.heightAnchor.constraint(equalTo: view.heightAnchor, constant: -navigationController!.navigationBar.frame.size.height).isActive = true
+        cardDataTable.heightAnchor
+            .constraint(equalTo: view.heightAnchor,
+                        constant: -navigationController!.navigationBar.frame.size.height)
+            .isActive = true
         cardDataTable.reloadData()
     }
 
@@ -80,7 +86,8 @@ class CardViewController: UIViewController {
             return
         }
         data = setDataToList(from: currentUser)
-        userInitialsLabel.text = String(currentUser.name.character(at: 0)!) + String(currentUser.surname.character(at: 0)!)
+        userInitialsLabel.text = String(currentUser.name.character(at: 0)!)
+            + String(currentUser.surname.character(at: 0)!)
         userInitialsLabel.isHidden = false
 
         firebaseClient.getPhoto(setImageTo: cardPhoto, with: currentUser.photo) { result in
@@ -112,7 +119,8 @@ class CardViewController: UIViewController {
 extension CardViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let cell = cardDataTable.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as? DataCell else {
+        guard let cell = cardDataTable.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier,
+                                                           for: indexPath) as? DataCell else {
             return .init(style: .default, reuseIdentifier: "")
         }
 

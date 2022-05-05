@@ -1,5 +1,6 @@
 import UIKit
 
+// swiftlint:disable cyclomatic_complexity
 public func setDataToList(from user: User) -> [DataItem] {
     var data = [DataItem]()
     if user.surname != "" { data.append(DataItem(title: SURNAME, data: user.surname)) }
@@ -25,8 +26,12 @@ public func setDataToList(from user: User) -> [DataItem] {
 public func setCompanyDataToList(from company: Company) -> [DataItem] {
     var data = [DataItem]()
     if company.name != "" { data.append(DataItem(title: COMPANY_NAME, data: company.name)) }
-    if company.responsibleFullName != "" { data.append(DataItem(title: COMPANY_RESPONSIBLE, data: company.responsibleFullName)) }
-    if company.responsibleJobTitle != "" { data.append(DataItem(title: COMPANY_RESPONSIBLE_JOB_TITLE, data: company.responsibleJobTitle)) }
+    if company.responsibleFullName != "" {
+        data.append(DataItem(title: COMPANY_RESPONSIBLE, data: company.responsibleFullName))
+    }
+    if company.responsibleJobTitle != "" {
+        data.append(DataItem(title: COMPANY_RESPONSIBLE_JOB_TITLE, data: company.responsibleJobTitle))
+    }
     if company.address != "" { data.append(DataItem(title: COMPANY_ADDRESS, data: company.address)) }
     if company.phone != "" { data.append(DataItem(title: COMPANY_PHONE, data: company.phone)) }
     if company.email != "" { data.append(DataItem(title: EMAIL, data: company.email)) }
@@ -113,7 +118,8 @@ public func sortUsers(in viewController: UIViewController, with contactsOptional
     }
     var contacts = [User]()
 
-    // Если в аргументы не передали список контактов, то словарь изначально имеет в себе значения, иначе значения только загружались из Firebase
+    // Если в аргументы не передали список контактов, то словарь изначально имеет в себе значения,
+    // иначе значения только загружались из Firebase
     if contactsOptional == nil {
         controller.contactsDictionary.values.forEach { users in
             contacts.append(contentsOf: users)

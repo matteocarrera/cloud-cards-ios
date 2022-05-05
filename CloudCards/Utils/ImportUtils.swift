@@ -72,7 +72,11 @@ class ImportUtils {
         Метод, проверящий наличие такой пары ID в БД телефона
      */
 
-    private class func importContact(_ parentId: String, _ uuid: String, _ idPairList: Results<IdPair>, _ controller: UIViewController, _ realm: Realm) {
+    private class func importContact(_ parentId: String,
+                                     _ uuid: String,
+                                     _ idPairList: Results<IdPair>,
+                                     _ controller: UIViewController,
+                                     _ realm: Realm) {
         let currentIdPair = IdPair(parentUuid: parentId, uuid: uuid)
         if !idPairList.contains(currentIdPair) {
             let alert = UIAlertController(title: "Успешно", message: "Визитка успешно считана!", preferredStyle: .alert)

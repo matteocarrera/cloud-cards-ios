@@ -9,9 +9,9 @@ public func showSimpleAlert(
     withMessage message: String,
     inController controller: UIViewController
 ) {
-    let ac = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    ac.addAction(UIAlertAction(title: "OK", style: .default))
-    controller.present(ac, animated: true)
+    let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
+    alertController.addAction(UIAlertAction(title: "OK", style: .default))
+    controller.present(alertController, animated: true)
 }
 
 /*

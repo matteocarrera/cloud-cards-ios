@@ -8,15 +8,21 @@ enum FirebaseError: Error {
 }
 
 protocol FirebaseClient {
-    func getUser(idPair: IdPair, pathToData: Bool, completion: @escaping (Result<[String: Any], Error>) -> Void)
-    func getPhoto(setImageTo imageView: UIImageView, with photoId: String, completion: @escaping (Result<Void, Error>) -> Void)
+    func getUser(idPair: IdPair,
+                 pathToData: Bool,
+                 completion: @escaping (Result<[String: Any], Error>) -> Void)
+    func getPhoto(setImageTo imageView: UIImageView,
+                  with photoId: String,
+                  completion: @escaping (Result<Void, Error>) -> Void)
 }
 
 class FirebaseClientImpl: FirebaseClient {
-    func getUser(idPair: IdPair, pathToData: Bool = false, completion: @escaping (Result<[String: Any], Error>) -> Void) {
+    func getUser(idPair: IdPair,
+                 pathToData: Bool = false,
+                 completion: @escaping (Result<[String: Any], Error>) -> Void) {
         let secondKey = pathToData == true ? FirestoreInstance.DATA : FirestoreInstance.CARDS
-        let db = FirestoreInstance.getInstance()
-        db.collection(FirestoreInstance.USERS)
+        let database = FirestoreInstance.getInstance()
+        database.collection(FirestoreInstance.USERS)
             .document(idPair.parentUuid)
             .collection(secondKey)
             .document(idPair.uuid)
@@ -35,7 +41,9 @@ class FirebaseClientImpl: FirebaseClient {
             }
     }
 
-    func getPhoto(setImageTo imageView: UIImageView, with photoId: String, completion: @escaping (Result<Void, Error>) -> Void) {
+    func getPhoto(setImageTo imageView: UIImageView,
+                  with photoId: String,
+                  completion: @escaping (Result<Void, Error>) -> Void) {
         if photoId.isEmpty {
             completion(.failure(FirebaseError.invalidUrl))
             return

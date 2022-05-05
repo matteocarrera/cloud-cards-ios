@@ -64,14 +64,18 @@ class SettingsController: UIViewController {
     }
 
     @IBAction func openEditProfileWindow(_ sender: Any) {
-        guard let viewController = storyboard?.instantiateViewController(withIdentifier: "EditProfileController") as? EditProfileController else {
+        guard let viewController =
+                storyboard?.instantiateViewController(withIdentifier: "EditProfileController")
+                as? EditProfileController else {
             return
         }
         navigationController?.pushViewController(viewController, animated: true)
     }
 
     @objc func profileViewTapped() {
-        guard let viewController = storyboard?.instantiateViewController(withIdentifier: "ProfileController") as? ProfileController else {
+        guard let viewController =
+                storyboard?.instantiateViewController(withIdentifier: "ProfileController")
+                as? ProfileController else {
             return
         }
         navigationController?.pushViewController(viewController, animated: true)
@@ -92,7 +96,6 @@ extension SettingsController: UITableViewDataSource {
         let viewControllerName = settingsRows[indexPath.row][1]
         let viewController = storyboard?.instantiateViewController(withIdentifier: viewControllerName)
 
-        #warning("Временная заглушка")
         if indexPath.row == 3 {
             navigationController?.pushViewController(viewController!, animated: true)
         } else {

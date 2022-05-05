@@ -27,7 +27,9 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
     }
 
     func openCreateTemplateWindow() {
-        guard let viewController = storyboard?.instantiateViewController(withIdentifier: "CreateCardController") as? CreateCardController else {
+        guard let viewController =
+                storyboard?.instantiateViewController(withIdentifier: "CreateCardController")
+                as? CreateCardController else {
             return
         }
         let nav = UINavigationController(rootViewController: viewController)
@@ -136,7 +138,10 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             return
         }
         let idPair = IdPair(parentUuid: cell.parentUser.uuid, uuid: cell.templateCard.cardUuid)
-        guard let url = generateSiteLink(with: idPair, isPersonal: cell.templateCard.type == CardType.personal.rawValue) else { return }
+        guard let url = generateSiteLink(with: idPair,
+                                         isPersonal: cell.templateCard.type == CardType.personal.rawValue) else {
+            return
+        }
 
         showShareController(with: url, in: self)
     }
@@ -154,19 +159,25 @@ extension TemplatesController {
         return templates.count + 1
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 16, left: 20, bottom: 16, right: 20)
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+                        layout collectionViewLayout: UICollectionViewLayout,
+                        sizeForItemAt indexPath: IndexPath) -> CGSize {
         let padding: CGFloat =  50
         let collectionViewSize = collectionView.frame.size.width - padding
 
         return CGSize(width: collectionViewSize/2, height: collectionViewSize/3)
     }
 
-    override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as? TemplateCell else {
+    override func collectionView(_ collectionView: UICollectionView,
+                                 cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier,
+                                                            for: indexPath) as? TemplateCell else {
             return .init(frame: .init(x: 0, y: 0, width: 0, height: 0))
         }
 

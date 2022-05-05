@@ -135,12 +135,14 @@ class CreateCardController: UIViewController {
                     let cardType = CardType(rawValue: data["type"] as? String ?? String())
                     switch cardType {
                     case .personal:
-                        let businessCard = JsonUtils.convertFromDictionary(dictionary: data, type: BusinessCard<UserBoolean>.self)
+                        let businessCard = JsonUtils.convertFromDictionary(dictionary: data,
+                                                                           type: BusinessCard<UserBoolean>.self)
                         self.templateUserList.append(businessCard.data)
                     case .company:
                         break
                     default:
-                        let templateUser = JsonUtils.convertFromDictionary(dictionary: data, type: UserBoolean.self)
+                        let templateUser = JsonUtils.convertFromDictionary(dictionary: data,
+                                                                           type: UserBoolean.self)
                         self.templateUserList.append(templateUser)
                     }
                 case .failure(let error):
@@ -175,8 +177,8 @@ class CreateCardController: UIViewController {
 
             let businessCard = BusinessCard<UserBoolean>(type: .personal, data: newUser)
 
-            let db = FirestoreInstance.getInstance()
-            db.collection(FirestoreInstance.USERS)
+            let database = FirestoreInstance.getInstance()
+            database.collection(FirestoreInstance.USERS)
                 .document(newUser.parentId)
                 .collection(FirestoreInstance.CARDS)
                 .document(newUser.uuid)
@@ -215,7 +217,8 @@ extension CreateCardController: UITableViewDataSource {
             return setCardParametersCell(for: indexPath)
         }
 
-        guard var cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as? DataCell else {
+        guard var cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier,
+                                                       for: indexPath) as? DataCell else {
             return .init(style: .default, reuseIdentifier: "")
         }
 

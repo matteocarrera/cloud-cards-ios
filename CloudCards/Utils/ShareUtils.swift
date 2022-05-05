@@ -55,7 +55,9 @@ public func generateQR(with url: URL) -> UIImage? {
     let scaledQrImage = qrImage.transformed(by: transform)
 
     let colorParameters = [
-        "inputColor0": CIColor(color: UITraitCollection.current.userInterfaceStyle == .dark ? UIColor.white : UIColor.black), // Foreground
+        "inputColor0": CIColor(color: UITraitCollection.current.userInterfaceStyle == .dark
+                                        ? UIColor.white
+                                        : UIColor.black), // Foreground
         "inputColor1": CIColor(color: UIColor.clear) // Background
     ]
     let coloredQrImage = scaledQrImage.applyingFilter("CIFalseColor", parameters: colorParameters)

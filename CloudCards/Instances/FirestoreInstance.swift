@@ -5,16 +5,17 @@ class FirestoreInstance {
     public static let DATA = "data"
     public static let CARDS = "cards"
 
-    private static var db: Firestore?
+    private static var database: Firestore?
 
     static func getInstance() -> Firestore {
-        if db == nil {
-            db = Firestore.firestore()
+        if database == nil {
+            database = Firestore.firestore()
         }
-        return db!
+        return database!
     }
 
-    static func getBusinessCards(_ idPairList: [IdPair], completion: @escaping (Result<([User], [Company]), Error>) -> Void) {
+    static func getBusinessCards(_ idPairList: [IdPair],
+                                 completion: @escaping (Result<([User], [Company]), Error>) -> Void) {
         var users = [User]()
         var companies = [Company]()
         // Получение визитки с выбранными полями для каждой пары ID
@@ -28,10 +29,12 @@ class FirestoreInstance {
 
                     switch cardType {
                     case .personal:
-                        let businessCard = JsonUtils.convertFromDictionary(dictionary: data, type: BusinessCard<UserBoolean>.self)
+                        let businessCard = JsonUtils.convertFromDictionary(dictionary: data,
+                                                                           type: BusinessCard<UserBoolean>.self)
                         userBoolean = businessCard.data
                     case .company:
-                        let businessCard = JsonUtils.convertFromDictionary(dictionary: data, type: BusinessCard<Company>.self)
+                        let businessCard = JsonUtils.convertFromDictionary(dictionary: data,
+                                                                           type: BusinessCard<Company>.self)
                         companies.append(businessCard.data)
                         if users.count + companies.count == idPairList.count {
                             completion(.success((users, companies)))
