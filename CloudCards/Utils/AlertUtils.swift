@@ -28,7 +28,7 @@ public func showTimeAlert(
     controller.present(alert, animated: true, completion: nil)
 
     let when = DispatchTime.now() + seconds
-    DispatchQueue.main.asyncAfter(deadline: when){
+    DispatchQueue.main.asyncAfter(deadline: when) {
       alert.dismiss(animated: true, completion: nil)
     }
 }

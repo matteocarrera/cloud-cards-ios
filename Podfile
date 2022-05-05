@@ -9,6 +9,10 @@ target 'CloudCards' do
   pod 'Firebase/Firestore', '9.0.0'
   pod 'FirebaseFirestoreSwift', '9.0.0'
   pod 'Kingfisher', '7.2.1'
+  pod 'TableKit'
+  pod 'SnapKit'
+  pod 'PanModal'
+  pod 'SwiftLint'
 end
 
 min_supported_deployment_target = Version.new(14.0)

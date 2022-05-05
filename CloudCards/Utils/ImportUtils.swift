@@ -2,7 +2,7 @@ import UIKit
 import RealmSwift
 
 class ImportUtils {
-    
+
     /*
         Метод, отвечающий за импорт контакта в приложение
      */
@@ -14,7 +14,7 @@ class ImportUtils {
         let uuid = String(linkBody[1])
         let type = linkBody.count == 3 ? String(linkBody[2]) : CardType.personal.rawValue
         let realm = RealmInstance.getInstance()
-        
+
         let idPairList = realm.objects(IdPair.self)
         let userList = realm.objects(User.self)
         let ownerUser = userList.count != 0 ? userList[0] : nil
@@ -28,10 +28,10 @@ class ImportUtils {
             )
             return
         }
-        
+
         // Если у пользователя уже есть визитки данного контакта, то мы берем все на проверку
         let currentParentIdCards = idPairList.filter({ $0.parentUuid == parentId })
-        
+
         /*
             Если тип импортируемой визитки Персональная и количество визиток не 0, то проверяем
             все существующие визитки от данного контакта на наличие персональной визитки.
@@ -83,14 +83,14 @@ class ImportUtils {
                 }
             }))
             controller.present(alert, animated: true, completion: nil)
-            
+
             try! realm.write {
                 realm.add(currentIdPair)
             }
-            
+
             return
         }
-        
+
         showSimpleAlert(
             withTitle: "Ошибка",
             withMessage: "Такая визитка уже существует!",

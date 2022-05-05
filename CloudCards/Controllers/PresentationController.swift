@@ -8,7 +8,7 @@ class PresentationController: UIPresentationController {
 
   let blurEffectView: UIVisualEffectView!
   var tapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer()
-  
+
   override init(presentedViewController: UIViewController, presenting presentingViewController: UIViewController?) {
       let blurEffect = UIBlurEffect(style: .dark)
       blurEffectView = UIVisualEffectView(effect: blurEffect)
@@ -18,7 +18,7 @@ class PresentationController: UIPresentationController {
       self.blurEffectView.isUserInteractionEnabled = true
       self.blurEffectView.addGestureRecognizer(tapGestureRecognizer)
   }
-  
+
   override var frameOfPresentedViewInContainerView: CGRect {
       CGRect(origin: CGPoint(x: 0, y: containerView!.frame.height * 0.4),
              size: CGSize(width: containerView!.frame.width, height: containerView!.frame.height *
@@ -28,19 +28,19 @@ class PresentationController: UIPresentationController {
   override func presentationTransitionWillBegin() {
       blurEffectView.alpha = 0
       containerView?.addSubview(blurEffectView)
-      presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (UIViewControllerTransitionCoordinatorContext) in
+      presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (_) in
           self.blurEffectView.alpha = 0.7
-      }, completion: { (UIViewControllerTransitionCoordinatorContext) in })
+      }, completion: { (_) in })
   }
-  
+
   override func dismissalTransitionWillBegin() {
-      presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (UIViewControllerTransitionCoordinatorContext) in
+      presentedViewController.transitionCoordinator?.animate(alongsideTransition: { (_) in
           self.blurEffectView.alpha = 0
-      }, completion: { (UIViewControllerTransitionCoordinatorContext) in
+      }, completion: { (_) in
           self.blurEffectView.removeFromSuperview()
       })
   }
-  
+
   override func containerViewWillLayoutSubviews() {
       super.containerViewWillLayoutSubviews()
     presentedView!.roundCorners([.topLeft, .topRight], radius: 22)
@@ -52,7 +52,7 @@ class PresentationController: UIPresentationController {
       blurEffectView.frame = containerView!.bounds
   }
 
-  @objc func dismissController(){
+  @objc func dismissController() {
       presentedViewController.dismiss(animated: true, completion: nil)
   }
 }

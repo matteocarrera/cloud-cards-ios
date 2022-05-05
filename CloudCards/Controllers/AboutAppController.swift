@@ -3,10 +3,10 @@ import UIKit
 class AboutAppController: UITableViewController {
 
     @IBOutlet var appVersionLabel: UILabel!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as! String
         appVersionLabel.text = appVersion
     }
@@ -18,7 +18,7 @@ class AboutAppController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (section == 0) ? 4 : 1
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectSelectedRows(animated: true)
         if indexPath.section == 0 && indexPath.row == 2 {
@@ -36,7 +36,7 @@ class AboutAppController: UITableViewController {
             }
         }
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 0 {
             return CGFloat.leastNonzeroMagnitude

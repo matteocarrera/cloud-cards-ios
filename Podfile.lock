@@ -724,19 +724,27 @@ PODS:
     - nanopb/encode (= 2.30908.0)
   - nanopb/decode (2.30908.0)
   - nanopb/encode (2.30908.0)
+  - PanModal (1.2.7)
   - PromisesObjC (2.1.0)
   - Realm (10.25.2):
     - Realm/Headers (= 10.25.2)
   - Realm/Headers (10.25.2)
   - RealmSwift (10.25.2):
     - Realm (= 10.25.2)
+  - SnapKit (5.6.0)
+  - SwiftLint (0.47.1)
+  - TableKit (2.11.0)
 
 DEPENDENCIES:
   - Firebase/Firestore (= 9.0.0)
   - Firebase/Storage (= 9.0.0)
   - FirebaseFirestoreSwift (= 9.0.0)
   - Kingfisher (= 7.2.1)
+  - PanModal
   - RealmSwift (= 10.25.2)
+  - SnapKit
+  - SwiftLint
+  - TableKit
 
 SPEC REPOS:
   trunk:
@@ -762,9 +770,13 @@ SPEC REPOS:
     - leveldb-library
     - Libuv-gRPC
     - nanopb
+    - PanModal
     - PromisesObjC
     - Realm
     - RealmSwift
+    - SnapKit
+    - SwiftLint
+    - TableKit
 
 SPEC CHECKSUMS:
   abseil: ebe5b5529fb05d93a8bdb7951607be08b7fa71bc
@@ -789,10 +801,14 @@ SPEC CHECKSUMS:
   leveldb-library: 50c7b45cbd7bf543c81a468fe557a16ae3db8729
   Libuv-gRPC: 55e51798e14ef436ad9bc45d12d43b77b49df378
   nanopb: a0ba3315591a9ae0a16a309ee504766e90db0c96
+  PanModal: 3e16ead1a907fb06f4df3f13492fd00149fa4974
   PromisesObjC: 99b6f43f9e1044bd87a95a60beff28c2c44ddb72
   Realm: 978303663d0509166498f423d112e5ee97d4c91b
   RealmSwift: a0c30c1efc49e928a0a6f8fb141bb2629616d79b
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+  SwiftLint: f80f1be7fa96d30e0aa68e58d45d4ea1ccaac519
+  TableKit: 8a1a267d841a2da638ea09bdb0db33aedb459fa8
 
-PODFILE CHECKSUM: df4a65b5581a849ebf71e3f12721c9f9604d5c3a
+PODFILE CHECKSUM: b58cd0461145a8b2a83b2ec93cba8cf700f52e3b
 
 COCOAPODS: 1.11.2

@@ -3,9 +3,9 @@ import UIKit
 private let reuseIdentifier = "TemplateCell"
 
 class TemplatesController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
+
     @IBOutlet var addTemplateButton: UIBarButtonItem!
-    
+
     // Массив шаблонных карточек основного пользователя приложения
     public var templates = [Card]()
     private let realm = RealmInstance.getInstance()
@@ -16,28 +16,28 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
         setAddTemplateButton()
         migrateContactsToIdPairs()
     }
-    
+
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+
         templates.removeAll()
         templates = Array(realm.objects(Card.self))
 
         collectionView.reloadData()
     }
-    
+
     func openCreateTemplateWindow() {
         let viewController = storyboard?.instantiateViewController(withIdentifier: "CreateCardController") as! CreateCardController
         let nav = UINavigationController(rootViewController: viewController)
         navigationController?.showDetailViewController(nav, sender: nil)
     }
-    
+
     func openCreateCompanyCardWindow() {
         let viewController = storyboard?.instantiateViewController(withIdentifier: "CreateCardCompanyController")
         let nav = UINavigationController(rootViewController: viewController!)
         navigationController?.showDetailViewController(nav, sender: nil)
     }
-    
+
     /*
         Миграция контактов в пары ID, доступно с версии 1.4
      */
@@ -54,7 +54,7 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             }
         }
     }
-    
+
     private func setAddTemplateButton() {
         let createPersonalCardAction = UIAction(
             title: "Личная визитка",
@@ -70,7 +70,7 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             }
             self.openCreateTemplateWindow()
         }
-        
+
         let createCompanyCardAction = UIAction(
             title: "Визитка компании",
             image: UIImage(systemName: "building.2")
@@ -85,9 +85,9 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             }
             self.openCreateCompanyCardWindow()
         }
-        
+
         let menu = UIMenu(title: String(), children: [createPersonalCardAction, createCompanyCardAction])
-        
+
         let addTemplate: UIBarButtonItem = UIBarButtonItem(
             image: addTemplateButton.image,
             menu: menu
@@ -95,10 +95,10 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
         addTemplate.tintColor = UIColor(named: "Primary")
         navigationItem.leftBarButtonItem = addTemplate
     }
-    
+
     private func openCreateCardSelectionMenu() {
         let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
-        
+
         let createPersonalCardAction = UIAlertAction.init(title: "Личная визитка", style: .default, handler: { (_) in
             self.openCreateTemplateWindow()
         })
@@ -108,14 +108,14 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             self.openCreateCompanyCardWindow()
         })
         createCompanyCardAction.setValue(UIImage(systemName: "building.2"), forKey: "image")
-        
+
         alert.addAction(createPersonalCardAction)
         alert.addAction(createCompanyCardAction)
         alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
-            
+
         present(alert, animated: true)
     }
-    
+
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if indexPath.row == templates.count {
             if realm.objects(User.self).count == 0 {
@@ -129,11 +129,11 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
             openCreateCardSelectionMenu()
             return
         }
-        
+
         let cell = collectionView.cellForItem(at: indexPath) as! TemplateCell
         let idPair = IdPair(parentUuid: cell.parentUser.uuid, uuid: cell.templateCard.cardUuid)
         guard let url = generateSiteLink(with: idPair, isPersonal: cell.templateCard.type == CardType.personal.rawValue) else { return }
-        
+
         showShareController(with: url, in: self)
     }
 }
@@ -149,11 +149,11 @@ extension TemplatesController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return templates.count + 1
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         return UIEdgeInsets(top: 16, left: 20, bottom: 16, right: 20)
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let padding: CGFloat =  50
         let collectionViewSize = collectionView.frame.size.width - padding
@@ -163,14 +163,14 @@ extension TemplatesController {
 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! TemplateCell
-        
+
         if indexPath.row == templates.count {
             cell.update(with: nil, in: self)
             return cell
         }
-        
+
         cell.update(with: templates[indexPath.row], in: self)
-        
+
         return cell
     }
 }

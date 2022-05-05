@@ -1,11 +1,11 @@
 import UIKit
 
 class MyCardViewController: UITableViewController {
-    
+
     @IBOutlet var cardDataTable: UITableView!
-    
+
     public var currentCard = Card()
-    
+
     private let realm = RealmInstance.getInstance()
     private var data = [DataItem]()
 
@@ -39,13 +39,13 @@ class MyCardViewController: UITableViewController {
             }
         }
     }
-    
+
     @IBAction func onReadyButtonTap(_ sender: Any) {
         // Получение TemplatesController (Nav -> Tab -> Nav -> Cards)
         navigationController?.presentingViewController?.children.first?.children.first?.viewWillAppear(true)
         navigationController?.dismiss(animated: true, completion: nil)
     }
-    
+
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 2
     }
@@ -53,7 +53,7 @@ class MyCardViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return (section == 0) ? 1 : data.count
     }
-    
+
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return (indexPath.section == 0) ? CGFloat(75) : CGFloat(55)
     }
@@ -70,30 +70,30 @@ class MyCardViewController: UITableViewController {
             cell.accessoryType = .disclosureIndicator
             return cell
         }
-        
+
         var cell = tableView.dequeueReusableCell(withIdentifier: DataCell.reuseIdentifier, for: indexPath) as! DataCell
         cell = cell.update(with: data[indexPath.row])
         cell.selectionStyle = .none
 
         return cell
     }
-    
+
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if indexPath.section == 0 {
             showCardMenu()
             tableView.deselectSelectedRows(animated: true)
         }
     }
-    
+
     private func showCardMenu() {
         let alert = UIAlertController.init(title: nil, message: nil, preferredStyle: .actionSheet)
-        
+
         if currentCard.type == CardType.personal.rawValue {
             let rename = UIAlertAction.init(title: "Переименовать", style: .default, handler: { (_) in
                 self.showEnterCardNameAlert()
             })
             alert.addAction(rename)
-            
+
             let changeColor = UIAlertAction.init(title: "Изменить цвет", style: .default, handler: { (_) in
                 self.changeCardColor()
             })
@@ -104,7 +104,7 @@ class MyCardViewController: UITableViewController {
             })
             alert.addAction(edit)
         }
-        
+
         let delete = UIAlertAction.init(title: "Удалить визитку", style: .destructive, handler: { (_) in
             if self.currentCard.type == CardType.company.rawValue {
                 let alert = UIAlertController(
@@ -121,16 +121,16 @@ class MyCardViewController: UITableViewController {
             self.deleteCard()
         })
         alert.addAction(delete)
-        
+
         alert.addAction(UIAlertAction.init(title: "Отмена", style: .cancel))
-            
+
         present(alert, animated: true)
     }
-    
+
     private func showEnterCardNameAlert() {
         let alert = UIAlertController(title: "Имя визитки", message: "Введите имя визитки", preferredStyle: .alert)
         let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
-        
+
         alert.addTextField { (textField) in
             textField.autocapitalizationType = .sentences
             textField.clearButtonMode = .whileEditing
@@ -157,44 +157,44 @@ class MyCardViewController: UITableViewController {
                 )
                 return
             }
-            
+
             cell?.textLabel?.text = cardName
-            
+
             try! self.realm.write {
                 self.currentCard.title = cardName
-                
+
                 self.realm.add(self.currentCard, update: .all)
             }
         }))
-        
+
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
 
         present(alert, animated: true, completion: nil)
     }
-    
+
     private func changeCardColor() {
         var color = currentCard.color
         while color == currentCard.color {
             color = COLORS[Int.random(in: 0..<COLORS.count)]
         }
-        
+
         let cell = tableView.cellForRow(at: IndexPath(row: 0, section: 0))
         cell?.imageView?.image = cell?.imageView?.image?.withTintColor(UIColor.init(hexString: color))
-        
+
         try! realm.write {
             currentCard.color = color
-            
+
             realm.add(currentCard, update: .all)
         }
     }
-    
+
     private func editBusinessCard() {
         let createCardCompanyController = storyboard?.instantiateViewController(withIdentifier: "CreateCardCompanyController") as! CreateCardCompanyController
         createCardCompanyController.templateCard = currentCard
         let nav = UINavigationController(rootViewController: createCardCompanyController)
         navigationController?.showDetailViewController(nav, sender: nil)
     }
-    
+
     private func deleteCard() {
         let alert = UIAlertController(title: "Удаление визитки", message: "Вы действительно хотите удалить визитку?", preferredStyle: .alert)
 
@@ -204,7 +204,7 @@ class MyCardViewController: UITableViewController {
             }
             self.onReadyButtonTap(self)
         }))
-        
+
         alert.addAction(UIAlertAction(title: "Отмена", style: .cancel))
 
         present(alert, animated: true, completion: nil)

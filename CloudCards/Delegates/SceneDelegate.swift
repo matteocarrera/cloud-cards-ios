@@ -45,7 +45,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-    
+
     func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
         if let url = URLContexts.first?.url {
             guard let controller = window?.rootViewController else { return }
@@ -56,7 +56,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     /*
         Получение импортированных визиток в приложение и их обработка и сохранение
      */
-    
+
     private func getImportedCard() {
         let defaults = UserDefaults(suiteName: "group.com.mksdevelopmentgroup.cloudcards")
         let link = String((defaults?.string(forKey: "link") ?? ""))
@@ -69,4 +69,3 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         defaults?.removeObject(forKey: "link")
     }
 }
-
