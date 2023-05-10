@@ -197,10 +197,9 @@ class ContactsController: UIViewController {
 
         let menu = UIMenu(title: String(), children: [actionsSubmenu, sortSubmenu])
 
-        navigationItem.rightBarButtonItem = UIBarButtonItem(
-            image: UIImage(systemName: "ellipsis.circle"),
-            menu: menu
-        )
+        if #available(iOS 14.0, *) {
+            navigationItem.rightBarButtonItem = .init(title: nil, image: UIImage(systemName: "ellipsis.circle"), primaryAction: nil, menu: menu)
+        }
     }
 
     /*

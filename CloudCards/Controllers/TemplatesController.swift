@@ -92,12 +92,11 @@ class TemplatesController: UICollectionViewController, UICollectionViewDelegateF
 
         let menu = UIMenu(title: String(), children: [createPersonalCardAction, createCompanyCardAction])
 
-        let addTemplate: UIBarButtonItem = UIBarButtonItem(
-            image: addTemplateButton.image,
-            menu: menu
-        )
-        addTemplate.tintColor = UIColor(named: "Primary")
-        navigationItem.leftBarButtonItem = addTemplate
+        if #available(iOS 14.0, *) {
+            let addTemplate = UIBarButtonItem(title: nil, image: addTemplateButton.image, primaryAction: nil, menu: menu)
+            addTemplate.tintColor = UIColor(named: "Primary")
+            navigationItem.leftBarButtonItem = addTemplate
+        }
     }
 
     private func openCreateCardSelectionMenu() {
